@@ -27,6 +27,7 @@ class PantallaMenu extends Pantalla
     private Texture aboutButton;
     private Texture logo;
     private Texture grass;
+    private Texture settingsButton;
 
     private Texture bgMenu;
 
@@ -82,7 +83,27 @@ class PantallaMenu extends Pantalla
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 Gdx.app.log("clicked","*********** TOUCH **********");
-                juego.setScreen(new PantallaAyuda(juego));
+                juego.setScreen(new PantallaADe(juego));
+            }
+        } );
+
+        drawGraphics();
+
+        //Boton Settings (Parte gráfica)
+        TextureRegionDrawable trdSettings = new
+                TextureRegionDrawable(new TextureRegion(settingsButton));
+        ImageButton btnSettings = new ImageButton(trdSettings);
+        btnAyuda.setPosition(728,749);
+        escenaMenu.addActor(btnSettings);
+
+        //Parte funcional (listener)
+
+        btnSettings.addListener( new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                Gdx.app.log("clicked","*********** TOUCH **********");
+                juego.setScreen(new PantallaADe(juego));
             }
         } );
 
@@ -122,6 +143,7 @@ class PantallaMenu extends Pantalla
         playButton = new Texture("playButton.png");
         aboutButton = new Texture("aboutButton.png");
         grass = new Texture("grassMenu.png");
+        settingsButton = new Texture("settingsButton.png");
 
     }
 

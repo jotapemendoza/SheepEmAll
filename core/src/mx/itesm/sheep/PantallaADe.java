@@ -14,14 +14,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
  * Created by josepablo on 9/9/17.
  */
 
-class PantallaAyuda extends Pantalla {
+class PantallaADe extends Pantalla {
 
     private final Juego juego;
     private Texture bgMenu;
     private Texture backButton;
     private Stage escenaAyuda;
 
-    public PantallaAyuda(Juego juego) {
+    public PantallaADe(Juego juego) {
         this.juego = juego;
     }
 
@@ -56,7 +56,7 @@ class PantallaAyuda extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                Gdx.app.log("clicked","*********** TOUCH **********");
+
                 juego.setScreen(new PantallaMenu(juego));
             }
         } );
