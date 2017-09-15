@@ -44,11 +44,11 @@ class PantallaADe extends Pantalla {
         bg.setPosition(0,0);
         escenaAyuda.addActor(bg);
 
-        // Botón jugar
+        // Botón regresar
         TextureRegionDrawable trdBack = new
                 TextureRegionDrawable(new TextureRegion(backButton));
         ImageButton btnBack = new ImageButton(trdBack);
-        btnBack.setPosition(464,874);
+        btnBack.setPosition(461,120);
         escenaAyuda.addActor(btnBack);
 
         //Listener botón
@@ -63,7 +63,7 @@ class PantallaADe extends Pantalla {
     }
 
     private void cargarTexturas() {
-        bgMenu = new Texture("menuBg.png");
+        bgMenu = new Texture("aSBg.png");
         backButton = new Texture("backButton.png");
 
     }

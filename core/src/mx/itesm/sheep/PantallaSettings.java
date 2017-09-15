@@ -5,6 +5,12 @@ package mx.itesm.sheep;
  */
 
 public class PantallaSettings extends Pantalla {
+
+    private final Juego juego;
+
+    public PantallaSettings(Juego juego){
+        this.juego = juego;
+    }
     @Override
     public void show() {
 

@@ -48,7 +48,7 @@ class PantallaMenu extends Pantalla
 
         //Método privado que crea el background y el movimiento de las nubes
         bgandcloudGenerator();
-
+        drawGraphics();
 
         // Botón jugar
         TextureRegionDrawable trdPlay = new
@@ -73,7 +73,7 @@ class PantallaMenu extends Pantalla
         TextureRegionDrawable trdAyuda = new
                 TextureRegionDrawable(new TextureRegion(aboutButton));
         ImageButton btnAyuda = new ImageButton(trdAyuda);
-        btnAyuda.setPosition(230,680);
+        btnAyuda.setPosition(195, 749);
         escenaMenu.addActor(btnAyuda);
 
         //Parte funcional (listener)
@@ -82,18 +82,17 @@ class PantallaMenu extends Pantalla
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                Gdx.app.log("clicked","*********** TOUCH **********");
                 juego.setScreen(new PantallaADe(juego));
             }
         } );
 
-        drawGraphics();
+
 
         //Boton Settings (Parte gráfica)
         TextureRegionDrawable trdSettings = new
                 TextureRegionDrawable(new TextureRegion(settingsButton));
         ImageButton btnSettings = new ImageButton(trdSettings);
-        btnAyuda.setPosition(728,749);
+        btnSettings.setPosition(728,749);
         escenaMenu.addActor(btnSettings);
 
         //Parte funcional (listener)
@@ -102,12 +101,11 @@ class PantallaMenu extends Pantalla
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                Gdx.app.log("clicked","*********** TOUCH **********");
                 juego.setScreen(new PantallaADe(juego));
             }
         } );
 
-        drawGraphics();
+
 
 
     }
