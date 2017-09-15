@@ -39,7 +39,7 @@ public class PantallaSettings extends Pantalla {
         bg = new Texture("sBg.png");
         musicButton = new Texture("music.png");
         fxButton  =  new Texture("fx.png");
-        backButton = new Texture("backButton.png");
+        backButton = new Texture("backButtonr.png");
     }
 
     private void crearEscenaSettings(){

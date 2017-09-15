@@ -42,7 +42,7 @@ class PantallaCargando extends Pantalla
         batch.end();
         // Actualiza
         tiempo += Gdx.graphics.getDeltaTime();  // Acumula tiempo
-        if (tiempo>=6) {
+        if (tiempo>=1) {
             juego.setScreen(new PantallaMenu(juego));
         }
     }

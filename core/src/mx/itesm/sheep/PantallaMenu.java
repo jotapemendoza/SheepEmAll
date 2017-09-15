@@ -63,7 +63,7 @@ class PantallaMenu extends Pantalla
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 Gdx.app.log("clicked","*********** TOUCH **********");
-
+                juego.setScreen(new PantallaJuego(juego));
             }
         } );
 
