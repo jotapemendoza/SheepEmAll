@@ -47,7 +47,7 @@ class PantallaADe extends Pantalla {
         // Botón regresar
         TextureRegionDrawable trdBack = new
                 TextureRegionDrawable(new TextureRegion(backButton));
-        ImageButton btnBack = new ImageButton(trdBack);
+        final ImageButton btnBack = new ImageButton(trdBack);
         btnBack.setPosition(461,120);
         escenaAyuda.addActor(btnBack);
 

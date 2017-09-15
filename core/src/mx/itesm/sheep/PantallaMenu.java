@@ -54,7 +54,7 @@ class PantallaMenu extends Pantalla
         TextureRegionDrawable trdPlay = new
                 TextureRegionDrawable(new TextureRegion(playButton));
         ImageButton btnPlay = new ImageButton(trdPlay);
-        btnPlay.setPosition(376,845);
+        btnPlay.setPosition(376,681);
         escenaMenu.addActor(btnPlay);
 
         //Listener botón
@@ -101,7 +101,7 @@ class PantallaMenu extends Pantalla
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                juego.setScreen(new PantallaADe(juego));
+                juego.setScreen(new PantallaSettings(juego));
             }
         } );
 
