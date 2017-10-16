@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
  * Created by josepablo on 9/14/17.
  */
 
-public class PantallaJuego extends Pantalla {
+public class GameScreen extends Screen {
 
     private final Juego juego;
     private Texture pauseButton;
@@ -23,7 +23,7 @@ public class PantallaJuego extends Pantalla {
     private Texture score;
     private Stage escenaJuego;
 
-    public PantallaJuego(Juego juego){
+    public GameScreen(Juego juego){
         this.juego = juego;
     }
 
@@ -75,7 +75,7 @@ public class PantallaJuego extends Pantalla {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                juego.setScreen(new PantallaMenu(juego));
+                juego.setScreen(new MenuScreen(juego));
             }
         } );
 

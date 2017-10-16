@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
  * El menú principal del juego.
  */
 
-class PantallaMenu extends Pantalla
+class MenuScreen extends Screen
 {
     private Juego juego;
 
@@ -31,7 +31,7 @@ class PantallaMenu extends Pantalla
 
     private Texture bgMenu;
 
-    public PantallaMenu(Juego juego) {
+    public MenuScreen(Juego juego) {
         this.juego = juego;
     }
 
@@ -63,7 +63,7 @@ class PantallaMenu extends Pantalla
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 Gdx.app.log("clicked","*********** TOUCH **********");
-                juego.setScreen(new PantallaJuego(juego));
+                juego.setScreen(new GameScreen(juego));
             }
         } );
 
@@ -82,7 +82,7 @@ class PantallaMenu extends Pantalla
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                juego.setScreen(new PantallaADe(juego));
+                juego.setScreen(new aboutScreen(juego));
             }
         } );
 
@@ -101,7 +101,7 @@ class PantallaMenu extends Pantalla
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                juego.setScreen(new PantallaSettings(juego));
+                juego.setScreen(new SettingsScreen(juego));
             }
         } );
 

@@ -2,25 +2,21 @@ package mx.itesm.sheep;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
  * Muestra una pantalla inicial durante cierto tiempo.
  */
 
-class PantallaCargando extends Pantalla
+class LoadingScreen extends Screen
 {
     private Juego juego;
     private float tiempo;   // Tiempo transcurrido
     private Texture texturaReloj;   // Imagen que se muestra
-
-
     private Texture bgMenu;
 
 
 
-    public PantallaCargando(Juego juego) {
+    public LoadingScreen(Juego juego) {
         this.juego = juego;
     }
 // Se ejecuta cuando esta pantalla es la principal del juego
@@ -43,7 +39,7 @@ class PantallaCargando extends Pantalla
         // Actualiza
         tiempo += Gdx.graphics.getDeltaTime();  // Acumula tiempo
         if (tiempo>=1) {
-            juego.setScreen(new PantallaMenu(juego));
+            juego.setScreen(new MenuScreen(juego));
         }
     }
 
