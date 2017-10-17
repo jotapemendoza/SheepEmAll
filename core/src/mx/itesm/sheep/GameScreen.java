@@ -3,6 +3,7 @@ package mx.itesm.sheep;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -13,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
  * Created by josepablo on 9/14/17.
  */
 
-public class GameScreen extends Screen {
+public class GameScreen extends MainScreen {
 
     private final Juego juego;
     private Texture pauseButton;
@@ -22,6 +23,16 @@ public class GameScreen extends Screen {
     private Texture time;
     private Texture score;
     private Stage escenaJuego;
+
+    private Oveja ovejaPru1;
+    private Oveja ovejaPru2;
+    private Oveja ovejaPru3;
+    private Oveja ovejaPru4;
+    private OrthogonalTiledMapRenderer render;
+    private Texture oveArr;
+    private Texture oveIzq;
+    private Texture oveAb;
+    private Texture oveDer;
 
     public GameScreen(Juego juego){
         this.juego = juego;
@@ -52,6 +63,14 @@ public class GameScreen extends Screen {
         Image imSheep = new Image(trdSheep);
         imSheep.setPosition(452,829);
         escenaJuego.addActor(imSheep);
+
+        //modificación
+        ovejaPru1 = new Oveja(oveArr, Oveja.Estado.ARRIBA);
+        ovejaPru2 = new Oveja(oveIzq, Oveja.Estado.IZQUIERDA);
+        ovejaPru3 = new Oveja(oveAb, Oveja.Estado.ABAJO);
+        ovejaPru4 = new Oveja(oveDer, Oveja.Estado.DERECHA);
+
+
 
         TextureRegionDrawable trdTime = new
                 TextureRegionDrawable(new TextureRegion(time));
@@ -89,8 +108,10 @@ public class GameScreen extends Screen {
         pauseButton = new Texture("pauseButton.png");
         sheep = new Texture("sheep.png");
 
-
-
+        oveArr = new Texture("ovejaSprite.png");
+        oveIzq = new Texture("ovejaSprite2.png");
+        oveAb = new Texture("ovejaSprite3.png");
+        oveDer = new Texture("ovejaSprite4.png");
     }
 
     @Override
@@ -98,6 +119,13 @@ public class GameScreen extends Screen {
         borrarPantalla(0,0,0);
         batch.setProjectionMatrix(camara.combined);
         escenaJuego.draw();
+
+        batch.begin();
+        ovejaPru1.render(batch);
+        ovejaPru2.render(batch);
+        ovejaPru3.render(batch);
+        ovejaPru4.render(batch);
+        batch.end();
     }
 
     @Override

@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
  * Define las características de una pantalla genérica
  */
 
-public abstract class Screen implements com.badlogic.gdx.Screen
+public abstract class MainScreen implements com.badlogic.gdx.Screen
 {
     // Atributos disponibles en todas las clases del proyecto
     public static final float ANCHO = 1080;
@@ -25,7 +25,7 @@ public abstract class Screen implements com.badlogic.gdx.Screen
     // Todas las pantallas dibujan
     protected SpriteBatch batch;
 
-    public Screen() {
+    public MainScreen() {
         camara = new OrthographicCamera(ANCHO, ALTO);
         camara.position.set(ANCHO / 2, ALTO / 2, 0);
         camara.update();

@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
  * Muestra una pantalla inicial durante cierto tiempo.
  */
 
-class LoadingScreen extends Screen
+class LoadingScreen extends MainScreen
 {
     private Juego juego;
     private float tiempo;   // Tiempo transcurrido

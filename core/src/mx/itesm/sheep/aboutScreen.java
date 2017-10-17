@@ -9,13 +9,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 
 /**
  * Created by josepablo on 9/9/17.
  */
 
-class aboutScreen extends Screen {
+class aboutScreen extends MainScreen {
 
     private final Juego juego;
     private Texture bgMenu;

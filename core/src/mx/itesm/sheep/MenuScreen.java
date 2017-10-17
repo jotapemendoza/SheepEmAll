@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
  * El menú principal del juego.
  */
 
-class MenuScreen extends Screen
+class MenuScreen extends MainScreen
 {
     private Juego juego;
 
@@ -30,6 +30,14 @@ class MenuScreen extends Screen
     private Texture settingsButton;
 
     private Texture bgMenu;
+
+    private Texture cloud;
+
+    // nubes
+    private Image cloudP; // pequeña
+    private Image cloudP2;
+    private Image cloudM; // mediana
+    private Image cloudG; // grande
 
     public MenuScreen(Juego juego) {
         this.juego = juego;
@@ -116,6 +124,37 @@ class MenuScreen extends Screen
         Image bg = new Image(trdBg);
         bg.setPosition(0,0);
         escenaMenu.addActor(bg);
+
+
+        // nubes
+        TextureRegionDrawable cloud1 = new
+                TextureRegionDrawable(new TextureRegion(cloud));
+        // nube pequeña
+        Image cloud2 = new Image(cloud1);
+        cloud2.setPosition(1081,950);
+        cloud2.setSize(220,100);
+        cloudP = cloud2;
+        escenaMenu.addActor(cloud2);
+        // nube pequeña 2
+        Image cloud5 = new Image(cloud1);
+        cloud5.setPosition(-200,1150);
+        cloud5.setSize(220,100);
+        cloudP2 = cloud5;
+        escenaMenu.addActor(cloud5);
+        // nube mediana
+        Image cloud3 = new Image(cloud1);
+        cloud3.setPosition(1300,1500);
+        cloud3.setSize(340,140);
+        cloudM = cloud3;
+        escenaMenu.addActor(cloud3);
+        // nube grande
+        Image cloud4 = new Image(cloud1);
+        cloud4.setPosition(-450,1750);
+        cloud4.setSize(380,160);
+        cloudG = cloud4;
+        escenaMenu.addActor(cloud4);
+
+
     }
 
     private void drawGraphics() {
@@ -142,6 +181,7 @@ class MenuScreen extends Screen
         aboutButton = new Texture("aboutButton.png");
         grass = new Texture("grassMenu.png");
         settingsButton = new Texture("settingsButton.png");
+        cloud = new Texture("cloud.png");
 
     }
 
@@ -151,6 +191,31 @@ class MenuScreen extends Screen
         borrarPantalla(1,1,1);
         batch.setProjectionMatrix(camara.combined);
         escenaMenu.draw();
+
+
+        cloudP.setX(cloudP.getX()-24*delta);
+        if (cloudP.getX() <= -100){
+            cloudP.setX(ANCHO+1);
+        }
+        cloudP.setColor(1,1,1,0.4f);
+
+        cloudP2.setX(cloudP2.getX()+26*delta);
+        if (cloudP2.getX() <= -ANCHO){
+            cloudP2.setX(ANCHO+1);
+        }
+        cloudP2.setColor(1,1,1,0.5f);
+
+        cloudM.setX(cloudM.getX()-28*delta);
+        if (cloudM.getX() <= -100){
+            cloudM.setX(ANCHO+1);
+        }
+        cloudM.setColor(1,1,1,0.6f);
+
+        cloudG.setX(cloudG.getX()+22*delta);
+        if (cloudG.getX() <= -ANCHO){
+            cloudG.setX(ANCHO+1);
+        }
+        cloudG.setColor(1,1,1,0.7f);
 
     }
 

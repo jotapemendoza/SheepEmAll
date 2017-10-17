@@ -16,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
  * Created by josepablo on 9/14/17.
  */
 
-public class SettingsScreen extends Screen {
+public class SettingsScreen extends MainScreen {
 
     private final Juego juego;
     private Stage escenaSettings;
