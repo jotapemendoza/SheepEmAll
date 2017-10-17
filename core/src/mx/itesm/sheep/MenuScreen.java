@@ -131,8 +131,8 @@ class MenuScreen extends MainScreen
                 TextureRegionDrawable(new TextureRegion(cloud));
         // nube pequeña
         Image cloud2 = new Image(cloud1);
-        cloud2.setPosition(1081,950);
-        cloud2.setSize(220,100);
+        cloud2.setPosition(1081,750);
+        cloud2.setSize(110,50);
         cloudP = cloud2;
         escenaMenu.addActor(cloud2);
         // nube pequeña 2
@@ -193,27 +193,27 @@ class MenuScreen extends MainScreen
         escenaMenu.draw();
 
 
-        cloudP.setX(cloudP.getX()-24*delta);
-        if (cloudP.getX() <= -100){
-            cloudP.setX(ANCHO+1);
+        cloudP.setX(cloudP.getX()-30*delta);
+        if (cloudP.getX() <= -cloudP.getWidth()){
+            cloudP.setX(ANCHO+cloudP.getWidth());
         }
         cloudP.setColor(1,1,1,0.4f);
 
-        cloudP2.setX(cloudP2.getX()+26*delta);
-        if (cloudP2.getX() <= -ANCHO){
-            cloudP2.setX(ANCHO+1);
+        cloudP2.setX(cloudP2.getX()+50*delta);
+        if (cloudP2.getX() >= ANCHO){
+            cloudP2.setX(-cloudP2.getWidth());
         }
         cloudP2.setColor(1,1,1,0.5f);
 
-        cloudM.setX(cloudM.getX()-28*delta);
-        if (cloudM.getX() <= -100){
-            cloudM.setX(ANCHO+1);
+        cloudM.setX(cloudM.getX()-70*delta);
+        if (cloudM.getX() <= -cloudM.getWidth()){
+            cloudM.setX(ANCHO+cloudM.getWidth());
         }
         cloudM.setColor(1,1,1,0.6f);
 
-        cloudG.setX(cloudG.getX()+22*delta);
-        if (cloudG.getX() <= -ANCHO){
-            cloudG.setX(ANCHO+1);
+        cloudG.setX(cloudG.getX()+100*delta);
+        if (cloudG.getX() >= ANCHO){
+            cloudG.setX(-cloudG.getWidth());
         }
         cloudG.setColor(1,1,1,0.7f);
 
