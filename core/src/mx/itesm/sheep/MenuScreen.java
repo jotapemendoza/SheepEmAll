@@ -28,6 +28,7 @@ class MenuScreen extends MainScreen
     private Texture logo;
     private Texture grass;
     private Texture settingsButton;
+    private Texture sheep;
 
     private Texture bgMenu;
 
@@ -171,6 +172,12 @@ class MenuScreen extends MainScreen
         Image gr = new Image(trdGrass);
         gr.setPosition(0,0);
         escenaMenu.addActor(gr);
+
+        TextureRegionDrawable trdSheep = new
+                TextureRegionDrawable(new TextureRegion(sheep));
+        Image sh = new Image(trdSheep);
+        sh.setPosition(74,145);
+        escenaMenu.addActor(sh);
     }
 
     private void cargarTexturas() {
@@ -182,6 +189,7 @@ class MenuScreen extends MainScreen
         grass = new Texture("grassMenu.png");
         settingsButton = new Texture("settingsButton.png");
         cloud = new Texture("cloud.png");
+        sheep = new Texture("sheepMenu.png");
 
     }
 
