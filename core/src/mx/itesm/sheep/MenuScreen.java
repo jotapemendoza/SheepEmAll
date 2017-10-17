@@ -137,20 +137,20 @@ class MenuScreen extends MainScreen
         escenaMenu.addActor(cloud2);
         // nube pequeña 2
         Image cloud5 = new Image(cloud1);
-        cloud5.setPosition(-200,1150);
+        cloud5.setPosition(-200,1050);
         cloud5.setSize(220,100);
         cloudP2 = cloud5;
         escenaMenu.addActor(cloud5);
         // nube mediana
         Image cloud3 = new Image(cloud1);
-        cloud3.setPosition(1300,1500);
+        cloud3.setPosition(1300,1200);
         cloud3.setSize(340,140);
         cloudM = cloud3;
         escenaMenu.addActor(cloud3);
         // nube grande
         Image cloud4 = new Image(cloud1);
-        cloud4.setPosition(-450,1750);
-        cloud4.setSize(380,160);
+        cloud4.setPosition(-450,1700);
+        cloud4.setSize(570,240);
         cloudG = cloud4;
         escenaMenu.addActor(cloud4);
 
