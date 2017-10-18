@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
+
 /**
  * El menú principal del juego.
  */
@@ -21,24 +22,32 @@ class MenuScreen extends MainScreen
     // Contenedor de los botones
     private Stage escenaMenu;
 
-    // Texturas de los botones
+    // Button textures --------------------------------------------------
 
     private Texture playButton;
     private Texture aboutButton;
+    private Texture pressedPlayButton;
+    private Texture pressedAboutButton;
+    private Texture settingsButton;
+    private Texture pressedSettingsButton;
+
+    // ------------------------------------------------------------------
+
     private Texture logo;
     private Texture grass;
-    private Texture settingsButton;
     private Texture sheep;
-
     private Texture bgMenu;
-
     private Texture cloud;
 
-    // nubes
-    private Image cloudP; // pequeña
-    private Image cloudP2;
-    private Image cloudM; // mediana
-    private Image cloudG; // grande
+
+
+    private Image cloud_1;
+    private Image cloud_2;
+    private Image cloud_3;
+    private Image cloud_4;
+
+
+
 
     public MenuScreen(Juego juego) {
         this.juego = juego;
@@ -55,37 +64,37 @@ class MenuScreen extends MainScreen
 
         escenaMenu = new Stage(vista);
 
-        //Método privado que crea el background y el movimiento de las nubes
         bgandcloudGenerator();
         drawGraphics();
 
-        // Botón jugar
+        // Play button ----------------------------------------------------
         TextureRegionDrawable trdPlay = new
                 TextureRegionDrawable(new TextureRegion(playButton));
-        ImageButton btnPlay = new ImageButton(trdPlay);
+        TextureRegionDrawable trdprPlay = new
+                TextureRegionDrawable(new TextureRegion(pressedPlayButton));
+        ImageButton btnPlay = new ImageButton(trdPlay, trdprPlay);
         btnPlay.setPosition(376,681);
         escenaMenu.addActor(btnPlay);
 
-        //Listener botón
+
         btnPlay.addListener( new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                Gdx.app.log("clicked","*********** TOUCH **********");
                 juego.setScreen(new GameScreen(juego));
             }
         } );
+        //-----------------------------------------------------------------
 
 
-
-        //Botón About (Parte gráfica)
+        // About button ---------------------------------------------------
         TextureRegionDrawable trdAyuda = new
                 TextureRegionDrawable(new TextureRegion(aboutButton));
-        ImageButton btnAyuda = new ImageButton(trdAyuda);
+        TextureRegionDrawable trdprAyuda = new
+                TextureRegionDrawable(new TextureRegion(pressedAboutButton));
+        ImageButton btnAyuda = new ImageButton(trdAyuda, trdprAyuda);
         btnAyuda.setPosition(195, 749);
         escenaMenu.addActor(btnAyuda);
-
-        //Parte funcional (listener)
 
         btnAyuda.addListener( new ClickListener() {
             @Override
@@ -94,17 +103,17 @@ class MenuScreen extends MainScreen
                 juego.setScreen(new aboutScreen(juego));
             }
         } );
+        //-----------------------------------------------------------------
 
 
-
-        //Boton Settings (Parte gráfica)
+        // Settings button ------------------------------------------------
         TextureRegionDrawable trdSettings = new
                 TextureRegionDrawable(new TextureRegion(settingsButton));
-        ImageButton btnSettings = new ImageButton(trdSettings);
+        TextureRegionDrawable trdprSettings = new
+                TextureRegionDrawable(new TextureRegion(pressedSettingsButton));
+        ImageButton btnSettings = new ImageButton(trdSettings, trdprSettings);
         btnSettings.setPosition(728,749);
         escenaMenu.addActor(btnSettings);
-
-        //Parte funcional (listener)
 
         btnSettings.addListener( new ClickListener() {
             @Override
@@ -113,7 +122,7 @@ class MenuScreen extends MainScreen
                 juego.setScreen(new SettingsScreen(juego));
             }
         } );
-
+        //-----------------------------------------------------------------
 
 
 
@@ -127,69 +136,78 @@ class MenuScreen extends MainScreen
         escenaMenu.addActor(bg);
 
 
-        // nubes
-        TextureRegionDrawable cloud1 = new
-                TextureRegionDrawable(new TextureRegion(cloud));
-        // nube pequeña
-        Image cloud2 = new Image(cloud1);
-        cloud2.setPosition(1081,750);
-        cloud2.setSize(110,50);
-        cloudP = cloud2;
-        escenaMenu.addActor(cloud2);
-        // nube pequeña 2
-        Image cloud5 = new Image(cloud1);
-        cloud5.setPosition(-200,1050);
-        cloud5.setSize(220,100);
-        cloudP2 = cloud5;
-        escenaMenu.addActor(cloud5);
-        // nube mediana
-        Image cloud3 = new Image(cloud1);
-        cloud3.setPosition(1300,1200);
-        cloud3.setSize(340,140);
-        cloudM = cloud3;
-        escenaMenu.addActor(cloud3);
-        // nube grande
-        Image cloud4 = new Image(cloud1);
-        cloud4.setPosition(-450,1700);
-        cloud4.setSize(570,240);
-        cloudG = cloud4;
-        escenaMenu.addActor(cloud4);
 
+        TextureRegionDrawable cloud = new
+                TextureRegionDrawable(new TextureRegion(this.cloud));
+
+        // Moving clouds (from top to bottom) -----------------------------
+        cloud_1 = new Image(cloud);
+        cloud_1.setPosition(-450,1700);
+        cloud_1.setSize(570,240);
+        escenaMenu.addActor(cloud_1);
+
+        cloud_2 = new Image(cloud);
+        cloud_2.setPosition(1300,1200);
+        cloud_2.setSize(340,140);
+        escenaMenu.addActor(cloud_2);
+
+        cloud_3 = new Image(cloud);
+        cloud_3.setPosition(-200,1050);
+        cloud_3.setSize(220,100);
+        escenaMenu.addActor(cloud_3);
+
+        cloud_4 = new Image(cloud);
+        cloud_4.setPosition(1081,750);
+        cloud_4.setSize(110,50);
+        escenaMenu.addActor(cloud_4);
+        //-----------------------------------------------------------------
 
     }
 
     private void drawGraphics() {
+
+        //Logo ------------------------------------------------------------
         TextureRegionDrawable trdLogo =  new
                 TextureRegionDrawable(new TextureRegion(logo));
         Image lg = new Image(trdLogo);
         lg.setPosition(151,965);
         escenaMenu.addActor(lg);
+        //-----------------------------------------------------------------
 
-        //Grass
-
+        // Grass ----------------------------------------------------------
         TextureRegionDrawable trdGrass = new
                 TextureRegionDrawable(new TextureRegion(grass));
         Image gr = new Image(trdGrass);
         gr.setPosition(0,0);
         escenaMenu.addActor(gr);
+        // ----------------------------------------------------------------
 
         TextureRegionDrawable trdSheep = new
                 TextureRegionDrawable(new TextureRegion(sheep));
         Image sh = new Image(trdSheep);
         sh.setPosition(74,145);
         escenaMenu.addActor(sh);
+
     }
 
     private void cargarTexturas() {
 
-        bgMenu = new Texture("menuBg.png");
+        // Graphic texures ------------------------------------------------
         logo =  new Texture("logo.png");
+        cloud = new Texture("cloud.png");
+        bgMenu = new Texture("menuBg.png");
+        grass = new Texture("grassMenu.png");
+        sheep = new Texture("sheepMenu.png");
+        //-----------------------------------------------------------------
+
+        // Button textures ------------------------------------------------
         playButton = new Texture("playButton.png");
         aboutButton = new Texture("aboutButton.png");
-        grass = new Texture("grassMenu.png");
         settingsButton = new Texture("settingsButton.png");
-        cloud = new Texture("cloud.png");
-        sheep = new Texture("sheepMenu.png");
+        pressedPlayButton = new Texture("pressedPlayButton.png");
+        pressedAboutButton = new Texture("pressedAboutButton.png");
+        pressedSettingsButton = new Texture("pressedSettingsButton.png");
+        //-----------------------------------------------------------------
 
     }
 
@@ -200,46 +218,42 @@ class MenuScreen extends MainScreen
         batch.setProjectionMatrix(camara.combined);
         escenaMenu.draw();
 
-
-        cloudP.setX(cloudP.getX()-30*delta);
-        if (cloudP.getX() <= -cloudP.getWidth()){
-            cloudP.setX(ANCHO+cloudP.getWidth());
+        cloud_1.setX(cloud_1.getX()+100*delta);
+        if (cloud_1.getX() >= ANCHO){
+            cloud_1.setX(-cloud_1.getWidth());
         }
-        cloudP.setColor(1,1,1,0.4f);
+        cloud_1.setColor(1,1,1,0.7f);
 
-        cloudP2.setX(cloudP2.getX()+50*delta);
-        if (cloudP2.getX() >= ANCHO){
-            cloudP2.setX(-cloudP2.getWidth());
+        cloud_2.setX(cloud_2.getX()+70*delta);
+        if (cloud_2.getX() >= ANCHO){
+            cloud_2.setX(-cloud_2.getWidth());
         }
-        cloudP2.setColor(1,1,1,0.5f);
+        cloud_2.setColor(1,1,1,0.6f);
 
-        cloudM.setX(cloudM.getX()-70*delta);
-        if (cloudM.getX() <= -cloudM.getWidth()){
-            cloudM.setX(ANCHO+cloudM.getWidth());
+        cloud_3.setX(cloud_3.getX()+50*delta);
+        if (cloud_3.getX() >= ANCHO){
+            cloud_3.setX(-cloud_3.getWidth());
         }
-        cloudM.setColor(1,1,1,0.6f);
+        cloud_3.setColor(1,1,1,0.5f);
 
-        cloudG.setX(cloudG.getX()+100*delta);
-        if (cloudG.getX() >= ANCHO){
-            cloudG.setX(-cloudG.getWidth());
+        cloud_4.setX(cloud_4.getX()+30*delta);
+        if (cloud_4.getX() >= ANCHO){
+            cloud_4.setX(-cloud_4.getWidth());
         }
-        cloudG.setColor(1,1,1,0.7f);
+        cloud_4.setColor(1,1,1,0.4f);
 
     }
 
     @Override
     public void pause() {
-
     }
 
     @Override
     public void resume() {
-
     }
 
     // Liberar los recursos asignados
     @Override
     public void dispose() {
-
     }
 }
