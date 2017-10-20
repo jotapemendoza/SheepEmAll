@@ -24,10 +24,10 @@ public class GameScreen extends MainScreen {
     private Texture score;
     private Stage escenaJuego;
 
-    private Oveja ovejaPru1;
-    private Oveja ovejaPru2;
-    private Oveja ovejaPru3;
-    private Oveja ovejaPru4;
+    private Sheep ovejaPru1;
+    private Sheep ovejaPru2;
+    private Sheep ovejaPru3;
+    private Sheep ovejaPru4;
     private OrthogonalTiledMapRenderer render;
     private Texture oveArr;
     private Texture oveIzq;
@@ -65,10 +65,10 @@ public class GameScreen extends MainScreen {
         escenaJuego.addActor(imSheep);
 
         //modificación
-        ovejaPru1 = new Oveja(oveArr, Oveja.Estado.ARRIBA);
-        ovejaPru2 = new Oveja(oveIzq, Oveja.Estado.IZQUIERDA);
-        ovejaPru3 = new Oveja(oveAb, Oveja.Estado.ABAJO);
-        ovejaPru4 = new Oveja(oveDer, Oveja.Estado.DERECHA);
+        ovejaPru1 = new Sheep(oveArr, Sheep.Estado.ARRIBA);
+        ovejaPru2 = new Sheep(oveIzq, Sheep.Estado.IZQUIERDA);
+        ovejaPru3 = new Sheep(oveAb, Sheep.Estado.ABAJO);
+        ovejaPru4 = new Sheep(oveDer, Sheep.Estado.DERECHA);
 
 
 

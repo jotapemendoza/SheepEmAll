@@ -67,7 +67,7 @@ class MenuScreen extends MainScreen
         bgandcloudGenerator();
         drawGraphics();
 
-        // Play button ----------------------------------------------------
+    // Play button ----------------------------------------------------
         TextureRegionDrawable trdPlay = new
                 TextureRegionDrawable(new TextureRegion(playButton));
         TextureRegionDrawable trdprPlay = new
@@ -84,7 +84,7 @@ class MenuScreen extends MainScreen
                 juego.setScreen(new GameScreen(juego));
             }
         } );
-        //-----------------------------------------------------------------
+    //-----------------------------------------------------------------
 
 
         // About button ---------------------------------------------------
@@ -103,10 +103,10 @@ class MenuScreen extends MainScreen
                 juego.setScreen(new aboutScreen(juego));
             }
         } );
-        //-----------------------------------------------------------------
+    //-----------------------------------------------------------------
 
 
-        // Settings button ------------------------------------------------
+    // Settings button ------------------------------------------------
         TextureRegionDrawable trdSettings = new
                 TextureRegionDrawable(new TextureRegion(settingsButton));
         TextureRegionDrawable trdprSettings = new
@@ -122,7 +122,7 @@ class MenuScreen extends MainScreen
                 juego.setScreen(new SettingsScreen(juego));
             }
         } );
-        //-----------------------------------------------------------------
+    //-----------------------------------------------------------------
 
 
 
@@ -140,7 +140,7 @@ class MenuScreen extends MainScreen
         TextureRegionDrawable cloud = new
                 TextureRegionDrawable(new TextureRegion(this.cloud));
 
-        // Moving clouds (from top to bottom) -----------------------------
+    // Moving clouds (from top to bottom) -----------------------------
         cloud_1 = new Image(cloud);
         cloud_1.setPosition(-450,1700);
         cloud_1.setSize(570,240);
@@ -160,27 +160,27 @@ class MenuScreen extends MainScreen
         cloud_4.setPosition(1081,750);
         cloud_4.setSize(110,50);
         escenaMenu.addActor(cloud_4);
-        //-----------------------------------------------------------------
+    //-----------------------------------------------------------------
 
     }
 
     private void drawGraphics() {
 
-        //Logo ------------------------------------------------------------
+    //Logo ------------------------------------------------------------
         TextureRegionDrawable trdLogo =  new
                 TextureRegionDrawable(new TextureRegion(logo));
         Image lg = new Image(trdLogo);
         lg.setPosition(151,965);
         escenaMenu.addActor(lg);
-        //-----------------------------------------------------------------
+    //-----------------------------------------------------------------
 
-        // Grass ----------------------------------------------------------
+    // Grass ----------------------------------------------------------
         TextureRegionDrawable trdGrass = new
                 TextureRegionDrawable(new TextureRegion(grass));
         Image gr = new Image(trdGrass);
         gr.setPosition(0,0);
         escenaMenu.addActor(gr);
-        // ----------------------------------------------------------------
+    // ----------------------------------------------------------------
 
         TextureRegionDrawable trdSheep = new
                 TextureRegionDrawable(new TextureRegion(sheep));
@@ -192,22 +192,22 @@ class MenuScreen extends MainScreen
 
     private void cargarTexturas() {
 
-        // Graphic texures ------------------------------------------------
+    // Graphic texures ------------------------------------------------
         logo =  new Texture("logo.png");
         cloud = new Texture("cloud.png");
         bgMenu = new Texture("menuBg.png");
         grass = new Texture("grassMenu.png");
         sheep = new Texture("sheepMenu.png");
-        //-----------------------------------------------------------------
+    //-----------------------------------------------------------------
 
-        // Button textures ------------------------------------------------
+    // Button textures ------------------------------------------------
         playButton = new Texture("playButton.png");
         aboutButton = new Texture("aboutButton.png");
         settingsButton = new Texture("settingsButton.png");
         pressedPlayButton = new Texture("pressedPlayButton.png");
         pressedAboutButton = new Texture("pressedAboutButton.png");
         pressedSettingsButton = new Texture("pressedSettingsButton.png");
-        //-----------------------------------------------------------------
+    //-----------------------------------------------------------------
 
     }
 

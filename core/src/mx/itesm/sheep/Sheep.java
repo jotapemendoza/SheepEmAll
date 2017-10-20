@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  * Created by Andreu on 15/10/17.
  */
 
-public class Oveja {
+public class Sheep {
 
     // Posición oveja Arriba
     private float xA = 550;
@@ -37,7 +37,7 @@ public class Oveja {
     private float timerEstado = 0;
 
 
-    public Oveja(Texture textura, Estado estado) {
+    public Sheep(Texture textura, Estado estado) {
         TextureRegion region = new TextureRegion(textura);
         TextureRegion[][] frames;
 
