@@ -20,7 +20,7 @@ class aboutScreen extends MainScreen {
     private Texture bgMenu;
     private Texture backButton;
     private Stage escenaAyuda;
-    private Texture n;
+    private Texture pressedBackButton;
 
     public aboutScreen(Juego juego) {
         this.juego = juego;
@@ -48,11 +48,13 @@ class aboutScreen extends MainScreen {
         // Botón regresar
         TextureRegionDrawable trdBack = new
                 TextureRegionDrawable(new TextureRegion(backButton));
-        final ImageButton btnBack = new ImageButton(trdBack);
+        TextureRegionDrawable trdBackpr = new
+                TextureRegionDrawable(new TextureRegion(pressedBackButton));
+        final ImageButton btnBack = new ImageButton(trdBack, trdBackpr);
         btnBack.setPosition(461,120);
         escenaAyuda.addActor(btnBack);
 
-        //Listener botón
+
         btnBack.addListener( new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -65,8 +67,8 @@ class aboutScreen extends MainScreen {
 
     private void cargarTexturas() {
         bgMenu = new Texture("aSBg.png");
-        backButton = new Texture("backButtonr.png");
-
+        backButton = new Texture("backButton.png");
+        pressedBackButton = new Texture("pressedBackButton.png");
     }
 
     @Override
