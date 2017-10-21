@@ -29,6 +29,7 @@ public class SettingsScreen extends MainScreen {
     private Texture pressedBackButton;
     private Preferences prefs;
     private Texture noMusicButton;
+    private Texture pressedNoMusicButton;
 
 
     public SettingsScreen(Juego juego){
@@ -49,6 +50,7 @@ public class SettingsScreen extends MainScreen {
         pressedMusicButton = new Texture("pressedMusicButton.png");
         pressedBackButton = new Texture("pressedBackButton.png");
         noMusicButton = new Texture("noMusicButton.png");
+        pressedNoMusicButton = new Texture("pressedNoMusicButton.png");
     }
 
     private void crearEscenaSettings(){
@@ -69,22 +71,47 @@ public class SettingsScreen extends MainScreen {
 
 
     // Music button ---------------------------------------------------
+
+
         TextureRegionDrawable trdMusic = new
                 TextureRegionDrawable(new TextureRegion(musicButton));
         TextureRegionDrawable trdMusicpr = new
                 TextureRegionDrawable(new TextureRegion(pressedMusicButton));
-        final ImageButton btnMusic = new ImageButton(trdMusic, trdMusicpr);
-        btnMusic.setPosition(374,631);
-        escenaSettings.addActor(btnMusic);
-        final TextureRegionDrawable trdNoMusic = new
+
+
+
+        TextureRegionDrawable trdNoMusic = new
                 TextureRegionDrawable(new TextureRegion(noMusicButton));
+        TextureRegionDrawable trdNoMusicpr = new
+                TextureRegionDrawable(new TextureRegion(pressedNoMusicButton));
+
+
+        ImageButton btnNoMusic = new ImageButton(trdNoMusic,trdNoMusicpr);
+        btnNoMusic.setPosition(374,631);
+        ImageButton btnMusic =  new ImageButton(trdMusic, trdMusicpr);
+        btnMusic.setPosition(374,631);
+
+        if(prefs.getBoolean("musicOn")){
+            escenaSettings.addActor(btnMusic);
+        }else{
+            escenaSettings.addActor(btnNoMusic);
+        }
+
 
         btnMusic.addListener( new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                prefs.putBoolean("musicOn",true);
-                Boolean name = prefs.getBoolean("musicOn");
+                prefs.putBoolean("musicOn",!prefs.getBoolean("musicOn"));
+
+            }
+        } );
+
+        btnNoMusic.addListener( new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                prefs.putBoolean("musicOn",!prefs.getBoolean("musicOn"));
             }
         } );
 

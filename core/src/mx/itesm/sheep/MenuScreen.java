@@ -45,8 +45,7 @@ class MenuScreen extends MainScreen
     private Image cloud_2;
     private Image cloud_3;
     private Image cloud_4;
-
-
+    private Image cloud_5;
 
 
     public MenuScreen(Juego juego) {
@@ -160,6 +159,13 @@ class MenuScreen extends MainScreen
         cloud_4.setPosition(1081,750);
         cloud_4.setSize(110,50);
         escenaMenu.addActor(cloud_4);
+
+        cloud_5 = new Image(cloud);
+        cloud_5.setPosition(1081,550);
+        cloud_5.setSize(140,80);
+        escenaMenu.addActor(cloud_5);
+
+
     //-----------------------------------------------------------------
 
     }
@@ -241,6 +247,14 @@ class MenuScreen extends MainScreen
             cloud_4.setX(-cloud_4.getWidth());
         }
         cloud_4.setColor(1,1,1,0.4f);
+
+        cloud_5.setX(cloud_5.getX()+15*delta);
+        if (cloud_5.getX() >= ANCHO){
+            cloud_5.setX(-cloud_5.getWidth());
+        }
+        cloud_5.setColor(1,1,1,0.3f);
+
+
 
     }
 
