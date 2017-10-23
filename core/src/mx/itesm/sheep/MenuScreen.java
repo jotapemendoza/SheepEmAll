@@ -1,6 +1,7 @@
 package mx.itesm.sheep;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -39,6 +40,8 @@ class MenuScreen extends MainScreen
     private Texture bgMenu;
     private Texture cloud;
 
+    private Music music;
+
 
 
     private Image cloud_1;
@@ -56,13 +59,15 @@ class MenuScreen extends MainScreen
     public void show() {
         cargarTexturas();   // Carga imágenes
         crearEscenaMenu();  // Crea la escena
+        music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
+
         Gdx.input.setInputProcessor(escenaMenu);
     }
 
     private void crearEscenaMenu() {
 
-        escenaMenu = new Stage(vista);
 
+        escenaMenu = new Stage(vista);
         bgandcloudGenerator();
         drawGraphics();
 
@@ -166,6 +171,8 @@ class MenuScreen extends MainScreen
         escenaMenu.addActor(cloud_5);
 
 
+
+
     //-----------------------------------------------------------------
 
     }
@@ -255,6 +262,13 @@ class MenuScreen extends MainScreen
         cloud_5.setColor(1,1,1,0.3f);
 
 
+        if(pref.getBoolean("musicOn")){
+            music.setLooping(true);
+            music.play();
+        }
+        if(!pref.getBoolean("musicOn")&&music.isPlaying()){
+            music.stop();
+        }
 
     }
 
@@ -269,5 +283,6 @@ class MenuScreen extends MainScreen
     // Liberar los recursos asignados
     @Override
     public void dispose() {
+        music.dispose();
     }
 }

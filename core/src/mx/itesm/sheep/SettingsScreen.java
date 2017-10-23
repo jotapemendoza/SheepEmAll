@@ -2,6 +2,7 @@ package mx.itesm.sheep;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -27,9 +28,9 @@ public class SettingsScreen extends MainScreen {
     private Texture backButton;
     private Texture pressedMusicButton;
     private Texture pressedBackButton;
-    private Preferences prefs;
     private Texture noMusicButton;
     private Texture pressedNoMusicButton;
+    private Music music;
 
 
     public SettingsScreen(Juego juego){
@@ -56,10 +57,6 @@ public class SettingsScreen extends MainScreen {
     private void crearEscenaSettings(){
 
         escenaSettings = new Stage(vista);
-
-        prefs = Gdx.app.getPreferences("My Preferences");
-
-
 
 
         TextureRegionDrawable trdBg =  new
@@ -91,18 +88,19 @@ public class SettingsScreen extends MainScreen {
         ImageButton btnMusic =  new ImageButton(trdMusic, trdMusicpr);
         btnMusic.setPosition(374,631);
 
-        if(prefs.getBoolean("musicOn")){
+        if(pref.getBoolean("musicOn")){
             escenaSettings.addActor(btnMusic);
         }else{
             escenaSettings.addActor(btnNoMusic);
         }
 
 
+
         btnMusic.addListener( new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                prefs.putBoolean("musicOn",!prefs.getBoolean("musicOn"));
+                pref.putBoolean("musicOn",!pref.getBoolean("musicOn"));
 
             }
         } );
@@ -111,7 +109,7 @@ public class SettingsScreen extends MainScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                prefs.putBoolean("musicOn",!prefs.getBoolean("musicOn"));
+                pref.putBoolean("musicOn",!pref.getBoolean("musicOn"));
             }
         } );
 
