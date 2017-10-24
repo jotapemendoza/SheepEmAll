@@ -30,6 +30,9 @@ public class SettingsScreen extends MainScreen {
     private Texture pressedBackButton;
     private Texture noMusicButton;
     private Texture pressedNoMusicButton;
+    private ImageButton btnMusic;
+    private ImageButton btnNoMusic;
+
     private Music music;
 
 
@@ -41,6 +44,7 @@ public class SettingsScreen extends MainScreen {
         cargarTexturas();
         crearEscenaSettings();
         Gdx.input.setInputProcessor(escenaSettings);
+
     }
 
     private void cargarTexturas() {
@@ -83,16 +87,13 @@ public class SettingsScreen extends MainScreen {
                 TextureRegionDrawable(new TextureRegion(pressedNoMusicButton));
 
 
-        ImageButton btnNoMusic = new ImageButton(trdNoMusic,trdNoMusicpr);
+
+        btnNoMusic = new ImageButton(trdNoMusic,trdNoMusicpr);
         btnNoMusic.setPosition(374,631);
-        ImageButton btnMusic =  new ImageButton(trdMusic, trdMusicpr);
+        btnMusic =  new ImageButton(trdMusic, trdMusicpr);
         btnMusic.setPosition(374,631);
 
-        if(pref.getBoolean("musicOn")){
-            escenaSettings.addActor(btnMusic);
-        }else{
-            escenaSettings.addActor(btnNoMusic);
-        }
+
 
 
 
@@ -100,7 +101,7 @@ public class SettingsScreen extends MainScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                pref.putBoolean("musicOn",!pref.getBoolean("musicOn"));
+                pref.putBoolean("musicOn",false);
 
             }
         } );
@@ -109,7 +110,7 @@ public class SettingsScreen extends MainScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                pref.putBoolean("musicOn",!pref.getBoolean("musicOn"));
+                pref.putBoolean("musicOn",true);
             }
         } );
 
@@ -153,7 +154,27 @@ public class SettingsScreen extends MainScreen {
     public void render(float delta) {
         borrarPantalla(0,0,0);
         batch.setProjectionMatrix(camara.combined);
+
         escenaSettings.draw();
+
+        if(pref.getBoolean("musicOn")){
+            btnMusic.setPosition(374,631);
+            escenaSettings.addActor(btnMusic);
+            btnNoMusic.remove();
+            System.out.println("true");
+
+
+        }
+        if(!pref.getBoolean("musicOn")){
+            btnMusic.setPosition(374,631);
+            escenaSettings.addActor(btnNoMusic);
+            btnMusic.remove();
+            System.out.println("false");
+        }
+
+        pref.flush();
+
+
     }
 
     @Override

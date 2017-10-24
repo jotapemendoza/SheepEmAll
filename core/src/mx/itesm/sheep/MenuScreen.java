@@ -59,6 +59,7 @@ class MenuScreen extends MainScreen
     public void show() {
         cargarTexturas();   // Carga imágenes
         crearEscenaMenu();  // Crea la escena
+
         music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
 
         Gdx.input.setInputProcessor(escenaMenu);
@@ -262,12 +263,16 @@ class MenuScreen extends MainScreen
         cloud_5.setColor(1,1,1,0.3f);
 
 
+
+
         if(pref.getBoolean("musicOn")){
             music.setLooping(true);
             music.play();
         }
-        if(!pref.getBoolean("musicOn")&&music.isPlaying()){
-            music.stop();
+        if(!pref.getBoolean("musicOn")){
+            music.setLooping(false);
+            music.pause();
+            music.dispose();
         }
 
     }
@@ -283,6 +288,6 @@ class MenuScreen extends MainScreen
     // Liberar los recursos asignados
     @Override
     public void dispose() {
-        music.dispose();
+        //music.dispose();
     }
 }
