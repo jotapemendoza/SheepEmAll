@@ -87,6 +87,7 @@ class MenuScreen extends MainScreen
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 juego.setScreen(new GameScreen(juego));
+                juego.pauseMusic();
             }
         } );
     //-----------------------------------------------------------------
@@ -266,13 +267,10 @@ class MenuScreen extends MainScreen
 
 
         if(pref.getBoolean("musicOn")){
-            music.setLooping(true);
-            music.play();
+            juego.startMusic();
         }
         if(!pref.getBoolean("musicOn")){
-            music.setLooping(false);
-            music.pause();
-            music.dispose();
+            juego.pauseMusic();
         }
 
     }

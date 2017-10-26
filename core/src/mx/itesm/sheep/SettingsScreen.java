@@ -174,6 +174,13 @@ public class SettingsScreen extends MainScreen {
 
         pref.flush();
 
+        if(pref.getBoolean("musicOn")){
+            juego.startMusic();
+        }
+        if(!pref.getBoolean("musicOn")){
+            juego.pauseMusic();
+        }
+
 
     }
 

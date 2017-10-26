@@ -12,21 +12,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Oveja {
 
-    // Posición oveja Arriba
-    private float xA;
-    private float yA;
-
-    // Posición oveja Abajo
-    private float xAB;
-    private float yAB;
-
-    // Posición oveja Derecha
-    private float xD;
-    private float yD;
-
-    // Posición oveja Izquierda
-    private float xI;
-    private float yI;
+    // Posición oveja
+    private float x;
+    private float y;
 
     // Animar oveja
     private Animation animacion;
@@ -47,8 +35,8 @@ public class Oveja {
                 animacion = new Animation(0.20f, frames[0][0], frames[0][1], frames[0][2]);
                 animacion.setPlayMode(Animation.PlayMode.LOOP);
                 timer = 0;
-                xA = 500 + ((int) (Math.random()*100)+1);
-                yA = 1900 + ((int) (Math.random()*4000));
+                x = 500 + ((int) (Math.random()*100)+1);
+                y = 1900+ ((int) (Math.random()*4000));
                 this.estado = estado;
                 break;
             case ABAJO:
@@ -56,8 +44,8 @@ public class Oveja {
                 animacion = new Animation(0.20f, frames[0][0], frames[0][1], frames[0][2]);
                 animacion.setPlayMode(Animation.PlayMode.LOOP);
                 timer = 0;
-                xAB = 500 + ((int) (Math.random()*100)+1);
-                yAB = 1 + ((int) (Math.random()*-4000));
+                x = 500 + ((int) (Math.random()*100)+1);
+                y = ((int) (Math.random()*-4000));
                 this.estado = estado;
                 break;
             case IZQUIERDA:
@@ -65,17 +53,17 @@ public class Oveja {
                 animacion = new Animation(0.20f, frames[0][0], frames[0][1], frames[0][2]);
                 animacion.setPlayMode(Animation.PlayMode.LOOP);
                 timer = 0;
-                xI = 1 + ((int) (Math.random()*-4000));
-                yI = 800 + ((int) (Math.random()*100)+1);
+                x = ((int) (Math.random()*-4000));
+                y = 800 + ((int) (Math.random()*100)+1);
                 this.estado = estado;
                 break;
             case DERECHA:
-                frames = region.split(42,64);
+                frames = region.split(140,116);
                 animacion = new Animation(0.20f, frames[0][0], frames[0][1], frames[0][2]);
                 animacion.setPlayMode(Animation.PlayMode.LOOP);
                 timer = 0;
-                xD = 1080 + ((int) (Math.random()*4000));
-                yD = 800 + ((int) (Math.random()*100)+1);
+                x = 1080 + ((int) (Math.random()*4000));
+                y = 800 + ((int) (Math.random()*100)+1);
                 this.estado = estado;
                 break;
         }
@@ -86,41 +74,43 @@ public class Oveja {
         TextureRegion region = (TextureRegion) animacion.getKeyFrame(timer);
         switch (estado){
             case ARRIBA:
-                if(yA > 0){
-                    batch.draw(region, xA, yA);
-                    yA--;
+                if(y > 0){
+                    batch.draw(region, x, y);
+                    y--;
                 }else{
                     /*yAB = 0;
                     estado = Estado.ABAJO;*/
                 }
                 break;
             case ABAJO:
-                if(yAB <= 1900){
-                    batch.draw(region, xAB, yAB);
-                    yAB++;
+                if(y <= 1900){
+                    batch.draw(region, x, y);
+                    y++;
                 }else{
                     /*yA = 1900;
                     estado = Estado.ARRIBA;*/
                 }
                 break;
             case IZQUIERDA:
-                if (xI < 1080){
-                    batch.draw(region, xI, yI);
-                    xI++;
+                if (x < 1080){
+                    batch.draw(region, x, y);
+                    x++;
                 }else{
                     /*xD = 1080;
                     estado = Estado.DERECHA;*/
                 }
                 break;
             case DERECHA:
-                if (xD > 0){
-                    batch.draw(region, xD, yD);
-                    xD--;
+                if (x > 0){
+                    batch.draw(region, x, y);
+                    x--;
                 }else{
                    /* xI = 0;
                     estado = Estado.IZQUIERDA;*/
                 }
                 break;
+            case MOVIENDO:
+                batch.draw(region, x, y);
         }
     }
 
@@ -128,26 +118,32 @@ public class Oveja {
         ARRIBA,
         ABAJO,
         IZQUIERDA,
-        DERECHA
+        DERECHA,
+        MOVIENDO
     }
 
-    public float getyA() {
-        return yA;
+    public float getx() {
+        return x;
     }
 
-    public float getyAB() {
-        return yAB;
+    public void setX(float x) {
+        this.x = x;
     }
 
-    public float getxD() {
-        return xD;
+    public float gety() {
+        return y;
     }
 
-    public float getxI() {
-        return xI;
+    public void setY(float y) {
+        this.y = y;
     }
 
     public Estado getEstado() {
         return estado;
     }
+
+    public void setEstado(Estado estado){
+        this.estado = estado;
+    }
+
 }
