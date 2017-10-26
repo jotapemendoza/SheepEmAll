@@ -286,6 +286,6 @@ class MenuScreen extends MainScreen
     // Liberar los recursos asignados
     @Override
     public void dispose() {
-        //music.dispose();
+        escenaMenu.dispose();
     }
 }

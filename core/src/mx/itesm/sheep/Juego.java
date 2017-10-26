@@ -12,7 +12,7 @@ public class Juego extends Game
 	@Override
 	public void create() {
 		setScreen(new LoadingScreen(this));  // Splash MainScreen
-		music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
+		music = Gdx.audio.newMusic(Gdx.files.internal("mainMenu_song.mp3"));
 	}
 
 	public void startMusic(){
@@ -21,7 +21,7 @@ public class Juego extends Game
 	}
 
 	public void pauseMusic(){
-		music.stop();
+		music.pause();
 	}
 }
 

@@ -28,10 +28,7 @@ public class GameScreen extends MainScreen {
     private final Juego juego;
     private Texture homeButton;
     private Texture pauseButton;
-    private Texture sheep;
     private Texture bg;
-    private Texture time;
-    private Texture score;
     private Stage escenaJuego;
 
     // Arreglo de ovejas
@@ -52,6 +49,7 @@ public class GameScreen extends MainScreen {
 
     private EstadoJuego estado;
 
+    // Escena "pop-up" cuándo se presiona el botón de pausa
     private EscenaPausa escenaPausa;
 
     public GameScreen(Juego juego){
@@ -71,13 +69,15 @@ public class GameScreen extends MainScreen {
 
         escenaJuego = new Stage(vista);
 
+        // Background ------------------------------------------------------------------------------
 
         TextureRegionDrawable trdBg =  new
                 TextureRegionDrawable(new TextureRegion(bg));
         Image bg = new Image(trdBg);
         bg.setPosition(0,0);
-        escenaJuego.addActor(bg);
+        //escenaJuego.addActor(bg);
 
+        // Botón de pausa --------------------------------------------------------------------------
 
         TextureRegionDrawable trdPause = new
                 TextureRegionDrawable(new TextureRegion(pauseButton));
@@ -90,41 +90,49 @@ public class GameScreen extends MainScreen {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 estado = EstadoJuego.PAUSADO;
+                escenaPausa = new EscenaPausa(vista,batch);
                 Gdx.input.setInputProcessor(escenaPausa);
             }
         } );
+
+        // Tomar y arrastrar ovejas ----------------------------------------------------------------
 
         escenaJuego.addListener(new DragListener(){
             @Override
             public void dragStart(InputEvent event, float x, float y, int pointer) {
                 super.dragStart(event, x, y, pointer);
-                Vector3 v = new Vector3(x,y,0);
-                camara.unproject(v);
-                ovejaMoviendo = arrOvejas.get(0);
-                Gdx.app.log("dragStart", "Inicia movimeinto");
+                for (Oveja oveja: arrOvejas){
+                    if (oveja.comparar(x,y)){
+                        ovejaMoviendo = oveja;
+                        Gdx.app.log("dragStart", "Inicia movimeinto");
+                        break;
+                    }
+                }
             }
 
             @Override
             public void drag(InputEvent event, float x, float y, int pointer) {
                 super.drag(event, x, y, pointer);
-                Vector3 v = new Vector3(x,y,0);
-                camara.unproject(v);
+                if (ovejaMoviendo == null){ return; }
+                //(cursor) x-ANCHO/2,y-ALTO/2 segun proporción dela imagen final
+                ovejaMoviendo.setX(x - ovejaMoviendo.getAncho()/2);
+                ovejaMoviendo.setY(y - ovejaMoviendo.getAlto()/2);
                 ovejaMoviendo.setEstado(Oveja.Estado.MOVIENDO);
-                //(cursor) x+ANCHO/2,y+ALTO/2 segun proporción dela imagen final
-                ovejaMoviendo.setX(x-16); // no se porque tiene que estar en negativo
-                ovejaMoviendo.setY(y-32); // no se porque tiene que estar en negativo
-                Gdx.app.log("drag", "x = " + v.x + ", y = " + v.y);
+                Gdx.app.log("drag", "x = " +x + ", y = " +y);
             }
 
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer) {
                 super.dragStop(event, x, y, pointer);
                 // verificar si está en el corral
+                ovejaMoviendo = null;
             }
 
         });
+
     }
 
+    // Método que carga las ovejas en el juego -----------------------------------------------------
     private void cargarOvejas(){
         //Llenar arreglo Ovejas
         arrOvejas = new Array<Oveja>(cantOve);
@@ -149,6 +157,7 @@ public class GameScreen extends MainScreen {
         }
     }
 
+    // Método que elimina las ovejas en el juego ---------------------------------------------------
     private void eliminarOveja(){
         for (int i = 0; i < arrOvejas.size; i++){
             if (arrOvejas.get(i).getEstado().equals(Oveja.Estado.ARRIBA)){
@@ -182,55 +191,62 @@ public class GameScreen extends MainScreen {
         }
     }
 
+    // Método que carga todas las texturas del juego
     private void cargarTexturas() {
-
         bg = new Texture("gBg.png");
-        score = new Texture("score.png");
-        time = new Texture("time.png");
         pauseButton = new Texture("pauseButton.png");
-        sheep = new Texture("sheep.png");
-
         oveArr = new Texture("ovejaSprite.png");
         oveIzq = new Texture("ovejaSprite2.png");
         oveAb = new Texture("ovejaSprite3.png");
-        oveDer = new Texture("sheep_left.png");
+        oveDer = new Texture("ovejaSprite4.png");
     }
 
     @Override
     public void render(float delta) {
 
 
-        borrarPantalla(0,0,0);
+        borrarPantalla(0, 0, 0);
         batch.setProjectionMatrix(camara.combined);
+
+
+        //----------------------------------------------------------------------------------------------
+
+        //----------------------------------------------------------------------------------------------
+
+        if (estado == EstadoJuego.JUGANDO) {
+            salida += Gdx.graphics.getDeltaTime();
+            tiempo += Gdx.graphics.getDeltaTime();
+        }
+
+            batch.begin();
+            batch.draw(bg, 0, 0);
+
+            for (int i = 0; i < arrOvejas.size; i++) {
+                if (tiempo <= 60.0) {
+                    if (salida <= 5) {
+                        arrOvejas.get(i).render(batch);
+                    } else {
+                        salida = 0;
+                    }
+                }
+                else{
+                    arrOvejas.get(i).render(batch);
+                    }
+
+            }
+
+            batch.end();
+
+
+
         escenaJuego.draw();
 
 
-    //----------------------------------------------------------------------------------------------
-        if (estado==EstadoJuego.PAUSADO) {
-            System.out.println("hola");
+        if (estado == EstadoJuego.PAUSADO) {
             escenaPausa.draw();
         }
-    //----------------------------------------------------------------------------------------------
 
-        salida += Gdx.graphics.getDeltaTime();
-        tiempo += Gdx.graphics.getDeltaTime();
-        eliminarOveja();
-
-        batch.begin();
-        for (int i = 0; i < arrOvejas.size; i++){
-            if (tiempo <= 60.0){
-                if (salida <= 5){
-                    arrOvejas.get(i).render(batch);
-                }else {
-                    salida = 0;
-                }
-            }else {
-                arrOvejas.get(i).render(batch);
-            }
-        }
-        batch.end();
-
-
+            eliminarOveja();
     }
 
 
@@ -260,6 +276,45 @@ public class GameScreen extends MainScreen {
         public EscenaPausa(Viewport vista, SpriteBatch batch) {
             super(vista,batch);
 
+
+            Texture opaque = new Texture("opaque.png");
+            TextureRegionDrawable trdOpaq = new TextureRegionDrawable(
+                    new TextureRegion(opaque));
+            Image op = new Image(trdOpaq);
+            op.setPosition(0,0);
+            this.addActor(op);
+
+
+            Texture pauseRectangle = new Texture("pauseRectangle.png");
+            TextureRegionDrawable trdRect = new TextureRegionDrawable(
+                    new TextureRegion(pauseRectangle));
+            Image rectangle = new Image(trdRect);
+            rectangle.setPosition(175,769);
+            this.addActor(rectangle);
+
+            Texture pauseText = new Texture("pauseText.png");
+            TextureRegionDrawable trdPText = new TextureRegionDrawable(
+                    new TextureRegion(pauseText));
+            Image pauseT = new Image(trdPText);
+            pauseT.setPosition(338,1319);
+            this.addActor(pauseT);
+
+            Texture continueText = new Texture("continueText.png");
+            TextureRegionDrawable trdCText = new TextureRegionDrawable(
+                    new TextureRegion(continueText)
+            );
+            Image continueT = new Image(trdCText);
+            continueT.setPosition(327,879);
+            this.addActor(continueT);
+
+            Texture homeText = new Texture("homeText.png");
+            TextureRegionDrawable trdHText = new TextureRegionDrawable(
+                    new TextureRegion(homeText)
+            );
+            Image continueH = new Image(trdHText);
+            continueH.setPosition(590,879);
+            this.addActor(continueH);
+
             continueButton = new Texture("continueButton.png");
             TextureRegionDrawable trdContinue = new TextureRegionDrawable(
                     new TextureRegion(continueButton));
@@ -288,6 +343,7 @@ public class GameScreen extends MainScreen {
                 }
             });
             this.addActor(homeBtn);
+
 
         }
     }
