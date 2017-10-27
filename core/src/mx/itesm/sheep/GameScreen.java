@@ -251,11 +251,11 @@ public class GameScreen extends MainScreen {
 
             batch.begin();
             batch.draw(bg, 0, 0);
-            batch.draw(time,818,1814);
+            batch.draw(time,748,1814);
             if(seconds>=10){
-                font.draw(batch,Integer.toString(minutes)+ ":"+ Integer.toString(seconds),893,1888);
+                font.draw(batch,Integer.toString(minutes)+ ":"+ Integer.toString(seconds),823,1888);
             }else{
-                font.draw(batch,Integer.toString(minutes)+ ":0"+ Integer.toString(seconds),893,1888);
+                font.draw(batch,Integer.toString(minutes)+ ":0"+ Integer.toString(seconds),823,1888);
             }
 
 

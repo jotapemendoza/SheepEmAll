@@ -53,6 +53,7 @@ class MenuScreen extends MainScreen
 
     public MenuScreen(Juego juego) {
         this.juego = juego;
+        pref.putBoolean("played", pref.getBoolean("played"));
     }
 
     @Override
@@ -86,7 +87,16 @@ class MenuScreen extends MainScreen
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                juego.setScreen(new GameScreen(juego));
+                juego.setScreen(new InstructionsScreen(juego));
+
+                if(pref.getBoolean("played")){
+                    juego.setScreen(new GameScreen(juego));
+                }
+                else{
+                    juego.setScreen(new InstructionsScreen(juego));
+                }
+                pref.putBoolean("played",true);
+                System.out.println(pref.getBoolean("played"));
                 juego.pauseMenuMusic();
             }
         } );

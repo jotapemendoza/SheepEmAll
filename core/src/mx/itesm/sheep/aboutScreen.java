@@ -56,10 +56,8 @@ class aboutScreen extends MainScreen {
         escenaAyuda.addActor(bg);
 
         // Botón regresar
-        TextureRegionDrawable trdBack = new
-                TextureRegionDrawable(new TextureRegion(backButton));
-        TextureRegionDrawable trdBackpr = new
-                TextureRegionDrawable(new TextureRegion(pressedBackButton));
+        TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(backButton));
+        TextureRegionDrawable trdBackpr = new TextureRegionDrawable(new TextureRegion(pressedBackButton));
         final ImageButton btnBack = new ImageButton(trdBack, trdBackpr);
         btnBack.setPosition(461,120);
         escenaAyuda.addActor(btnBack);

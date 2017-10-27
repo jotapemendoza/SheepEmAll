@@ -33,6 +33,7 @@ public class SettingsScreen extends MainScreen {
     private ImageButton btnNoMusic;
 
     private Music music;
+    private Texture fxButtonPr;
 
 
     public SettingsScreen(Juego juego){
@@ -50,6 +51,7 @@ public class SettingsScreen extends MainScreen {
         bg = new Texture("sBg.png");
         musicButton = new Texture("buttons/unpressed/music.png");
         fxButton  =  new Texture("fx.png");
+        fxButtonPr  =  new Texture("pressedFx.png");
         backButton = new Texture("buttons/unpressed/backButton.png");
         pressedMusicButton = new Texture("buttons/pressed/pressedMusicButton.png");
         pressedBackButton = new Texture("buttons/pressed/pressedBackButton.png");
@@ -118,14 +120,19 @@ public class SettingsScreen extends MainScreen {
 
     // FX button ------------------------------------------------------
 
-        TextureRegionDrawable trdFx = new
-                TextureRegionDrawable(new TextureRegion(fxButton));
-        final ImageButton btnFx = new ImageButton(trdFx);
-        btnFx.setPosition(374,1167);
-        escenaSettings.addActor(btnFx);
+        TextureRegionDrawable trdFx = new TextureRegionDrawable(new TextureRegion(fxButton));
+        TextureRegionDrawable trdFxpr = new TextureRegionDrawable(new TextureRegion(fxButtonPr));
+        final ImageButton btnres = new ImageButton(trdFx,trdFxpr);
+        btnres.setPosition(374,1167);
+        escenaSettings.addActor(btnres);
+        btnres.addListener( new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                pref.putBoolean("played", false);
+            }
+        } );
     //-----------------------------------------------------------------
-
-
 
         TextureRegionDrawable trdBack = new
                 TextureRegionDrawable(new TextureRegion(backButton));

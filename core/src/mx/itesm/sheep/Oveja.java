@@ -109,7 +109,6 @@ public class Oveja {
                         y--;
                     }
                 }else {
-                    timer = 0;
                     batch.draw(region, x, y);
                 }
                 break;
@@ -120,7 +119,6 @@ public class Oveja {
                         y++;
                     }
                 }else {
-                    timer = 0;
                     batch.draw(region, x, y);
                 }
                 break;
@@ -131,7 +129,6 @@ public class Oveja {
                         x++;
                     }
                 }else {
-                    timer = 0;
                     batch.draw(region, x, y);
                 }
                 break;
@@ -142,7 +139,6 @@ public class Oveja {
                         x--;
                     }
                 }else {
-                    timer = 0;
                     batch.draw(region, x, y);
                 }
                 break;
@@ -156,6 +152,7 @@ public class Oveja {
                 break;
             case CONTINUAR:
                 this.estado = estadoOriginal;
+                break;
         }
     }
 
