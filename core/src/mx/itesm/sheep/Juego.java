@@ -7,21 +7,39 @@ import com.badlogic.gdx.audio.Music;
 public class Juego extends Game
 {
 
-	private Music music;
+	private Music menuMusic;
+	private Music gameMusic;
 
 	@Override
 	public void create() {
 		setScreen(new LoadingScreen(this));  // Splash MainScreen
-		music = Gdx.audio.newMusic(Gdx.files.internal("mainMenu_song.mp3"));
+		menuMusic = Gdx.audio.newMusic(Gdx.files.internal("music/menuMusic.mp3"));
+		gameMusic = Gdx.audio.newMusic(Gdx.files.internal("music/gameMusic.mp3"));
 	}
 
-	public void startMusic(){
-		music.play();
-		music.setLooping(true);
+	public void startMenuMusic(){
+		menuMusic.play();
+		menuMusic.setLooping(true);
 	}
 
-	public void pauseMusic(){
-		music.pause();
+	public void pauseMenuMusic(){
+		menuMusic.pause();
+		gameMusic.setLooping(false);
+	}
+
+	public void playGameMusic() {
+		gameMusic.play();
+		gameMusic.setLooping(true);
+	}
+
+	public void pauseGameMusic(){
+		gameMusic.pause();
+		gameMusic.setLooping(false);
+	}
+
+	public void stopGameMusic(){
+		gameMusic.stop();
+		gameMusic.dispose();
 	}
 }
 

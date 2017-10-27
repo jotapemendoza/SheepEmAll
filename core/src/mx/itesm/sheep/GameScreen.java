@@ -3,6 +3,7 @@ package mx.itesm.sheep;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
@@ -92,6 +93,7 @@ public class GameScreen extends MainScreen {
                 estado = EstadoJuego.PAUSADO;
                 escenaPausa = new EscenaPausa(vista,batch);
                 Gdx.input.setInputProcessor(escenaPausa);
+
             }
         } );
 
@@ -194,7 +196,7 @@ public class GameScreen extends MainScreen {
     // Método que carga todas las texturas del juego
     private void cargarTexturas() {
         bg = new Texture("gBg.png");
-        pauseButton = new Texture("pauseButton.png");
+        pauseButton = new Texture("buttons/unpressed/pauseButton.png");
         oveArr = new Texture("ovejaSprite.png");
         oveIzq = new Texture("ovejaSprite2.png");
         oveAb = new Texture("ovejaSprite3.png");
@@ -203,7 +205,6 @@ public class GameScreen extends MainScreen {
 
     @Override
     public void render(float delta) {
-
 
         borrarPantalla(0, 0, 0);
         batch.setProjectionMatrix(camara.combined);
@@ -235,6 +236,7 @@ public class GameScreen extends MainScreen {
 
             }
 
+
             batch.end();
 
 
@@ -246,6 +248,17 @@ public class GameScreen extends MainScreen {
             escenaPausa.draw();
         }
 
+        if(pref.getBoolean("musicOn")){
+            if(estado == EstadoJuego.JUGANDO){
+                juego.playGameMusic();
+            }else{
+                juego.pauseGameMusic();
+            }
+
+        }
+        if(!pref.getBoolean("musicOn")){
+            juego.pauseGameMusic();
+        }
             eliminarOveja();
     }
 
@@ -263,6 +276,7 @@ public class GameScreen extends MainScreen {
 
     @Override
     public void dispose() {
+        escenaJuego.dispose();
     }
 
     enum EstadoJuego {
@@ -315,7 +329,7 @@ public class GameScreen extends MainScreen {
             continueH.setPosition(590,879);
             this.addActor(continueH);
 
-            continueButton = new Texture("continueButton.png");
+            continueButton = new Texture("buttons/unpressed/continueButton.png");
             TextureRegionDrawable trdContinue = new TextureRegionDrawable(
                     new TextureRegion(continueButton));
             ImageButton btnContinue = new ImageButton(trdContinue);
@@ -325,12 +339,13 @@ public class GameScreen extends MainScreen {
                 public void clicked(InputEvent event, float x, float y) {
                     //Cambio el estado de juego a JUGANDO y regreso el poder a la escenaJuego
                     estado = EstadoJuego.JUGANDO;
+                    juego.playGameMusic();
                     Gdx.input.setInputProcessor(escenaJuego);
                 }
             });
             this.addActor(btnContinue);
 
-            homeButton = new Texture("homeButton.png");
+            homeButton = new Texture("buttons/unpressed/homeButton.png");
             TextureRegionDrawable trdHome = new TextureRegionDrawable(
                     new TextureRegion(homeButton));
             ImageButton homeBtn = new ImageButton(trdHome);
@@ -340,6 +355,7 @@ public class GameScreen extends MainScreen {
                 public void clicked(InputEvent event, float x, float y) {
                     // Regresa al menú
                     juego.setScreen(new MenuScreen(juego));
+                    juego.stopGameMusic();
                 }
             });
             this.addActor(homeBtn);

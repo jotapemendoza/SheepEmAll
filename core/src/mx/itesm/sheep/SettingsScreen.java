@@ -1,7 +1,6 @@
 package mx.itesm.sheep;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -49,13 +48,13 @@ public class SettingsScreen extends MainScreen {
 
     private void cargarTexturas() {
         bg = new Texture("sBg.png");
-        musicButton = new Texture("music.png");
+        musicButton = new Texture("buttons/unpressed/music.png");
         fxButton  =  new Texture("fx.png");
-        backButton = new Texture("backButton.png");
-        pressedMusicButton = new Texture("pressedMusicButton.png");
-        pressedBackButton = new Texture("pressedBackButton.png");
-        noMusicButton = new Texture("noMusicButton.png");
-        pressedNoMusicButton = new Texture("pressedNoMusicButton.png");
+        backButton = new Texture("buttons/unpressed/backButton.png");
+        pressedMusicButton = new Texture("buttons/pressed/pressedMusicButton.png");
+        pressedBackButton = new Texture("buttons/pressed/pressedBackButton.png");
+        noMusicButton = new Texture("buttons/unpressed/noMusicButton.png");
+        pressedNoMusicButton = new Texture("buttons/pressed/pressedNoMusicButton.png");
     }
 
     private void crearEscenaSettings(){
@@ -175,10 +174,10 @@ public class SettingsScreen extends MainScreen {
         pref.flush();
 
         if(pref.getBoolean("musicOn")){
-            juego.startMusic();
+            juego.startMenuMusic();
         }
         if(!pref.getBoolean("musicOn")){
-            juego.pauseMusic();
+            juego.pauseMenuMusic();
         }
 
 

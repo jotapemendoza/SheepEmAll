@@ -60,7 +60,7 @@ class MenuScreen extends MainScreen
         cargarTexturas();   // Carga imágenes
         crearEscenaMenu();  // Crea la escena
 
-        music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
+
 
         Gdx.input.setInputProcessor(escenaMenu);
     }
@@ -87,7 +87,7 @@ class MenuScreen extends MainScreen
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 juego.setScreen(new GameScreen(juego));
-                juego.pauseMusic();
+                juego.pauseMenuMusic();
             }
         } );
     //-----------------------------------------------------------------
@@ -216,12 +216,12 @@ class MenuScreen extends MainScreen
     //-----------------------------------------------------------------
 
     // Button textures ------------------------------------------------
-        playButton = new Texture("playButton.png");
-        aboutButton = new Texture("aboutButton.png");
-        settingsButton = new Texture("settingsButton.png");
-        pressedPlayButton = new Texture("pressedPlayButton.png");
-        pressedAboutButton = new Texture("pressedAboutButton.png");
-        pressedSettingsButton = new Texture("pressedSettingsButton.png");
+        playButton = new Texture("buttons/unpressed/playButton.png");
+        aboutButton = new Texture("buttons/unpressed/aboutButton.png");
+        settingsButton = new Texture("buttons/unpressed/settingsButton.png");
+        pressedPlayButton = new Texture("buttons/pressed/pressedPlayButton.png");
+        pressedAboutButton = new Texture("buttons/pressed/pressedAboutButton.png");
+        pressedSettingsButton = new Texture("buttons/pressed/pressedSettingsButton.png");
     //-----------------------------------------------------------------
 
     }
@@ -267,10 +267,10 @@ class MenuScreen extends MainScreen
 
 
         if(pref.getBoolean("musicOn")){
-            juego.startMusic();
+            juego.startMenuMusic();
         }
         if(!pref.getBoolean("musicOn")){
-            juego.pauseMusic();
+            juego.pauseMenuMusic();
         }
 
     }

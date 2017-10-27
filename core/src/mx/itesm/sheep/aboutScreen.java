@@ -67,8 +67,8 @@ class aboutScreen extends MainScreen {
 
     private void cargarTexturas() {
         bgMenu = new Texture("aSBg.png");
-        backButton = new Texture("backButton.png");
-        pressedBackButton = new Texture("pressedBackButton.png");
+        backButton = new Texture("buttons/unpressed/backButton.png");
+        pressedBackButton = new Texture("buttons/pressed/pressedBackButton.png");
     }
 
     @Override
