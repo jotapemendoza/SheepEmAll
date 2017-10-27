@@ -329,10 +329,13 @@ public class GameScreen extends MainScreen {
             continueH.setPosition(590,879);
             this.addActor(continueH);
 
+            Texture pressedContinueButton = new Texture("buttons/pressed/pressedContinueButton.png");
+            TextureRegionDrawable trdContinuepr = new TextureRegionDrawable(
+                    new TextureRegion(pressedContinueButton));
             continueButton = new Texture("buttons/unpressed/continueButton.png");
             TextureRegionDrawable trdContinue = new TextureRegionDrawable(
                     new TextureRegion(continueButton));
-            ImageButton btnContinue = new ImageButton(trdContinue);
+            ImageButton btnContinue = new ImageButton(trdContinue,trdContinuepr);
             btnContinue.setPosition(294,963);
             btnContinue.addListener(new ClickListener(){
                 @Override
@@ -345,10 +348,14 @@ public class GameScreen extends MainScreen {
             });
             this.addActor(btnContinue);
 
+
+            Texture pressedHomeButton = new Texture("buttons/pressed/pressedHomeButton.png");
+            TextureRegionDrawable trdHomepr = new TextureRegionDrawable(new
+                    TextureRegion(pressedHomeButton));
             homeButton = new Texture("buttons/unpressed/homeButton.png");
             TextureRegionDrawable trdHome = new TextureRegionDrawable(
                     new TextureRegion(homeButton));
-            ImageButton homeBtn = new ImageButton(trdHome);
+            ImageButton homeBtn = new ImageButton(trdHome, trdHomepr);
             homeBtn.setPosition(583,963);
             homeBtn.addListener(new ClickListener(){
                 @Override
