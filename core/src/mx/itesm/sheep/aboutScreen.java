@@ -22,6 +22,16 @@ class aboutScreen extends MainScreen {
     private Stage escenaAyuda;
     private Texture pressedBackButton;
 
+    // About me
+
+    private Texture bioandy;
+    private Texture bioedgar;
+    private Texture biojose;
+    private Texture biopablo;
+    private Texture monito;
+
+
+
     public aboutScreen(Juego juego) {
         this.juego = juego;
     }
@@ -63,12 +73,109 @@ class aboutScreen extends MainScreen {
                 juego.setScreen(new MenuScreen(juego));
             }
         } );
+
+        // Botones about me
+        TextureRegionDrawable moniyo = new TextureRegionDrawable(new TextureRegion(monito));
+        // ANDY
+        final ImageButton btnmonandy = new ImageButton(moniyo);
+        btnmonandy.setPosition(615,1107);
+        escenaAyuda.addActor(btnmonandy);
+        btnmonandy.addListener( new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                TextureRegionDrawable botandy = new TextureRegionDrawable(new TextureRegion(bioandy));
+                final ImageButton btnandy = new ImageButton(botandy);
+                btnandy.setPosition(80,350);
+                escenaAyuda.addActor(btnandy);
+                btnandy.addListener( new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        super.clicked(event, x, y);
+                        juego.setScreen(new aboutScreen(juego));
+                    }
+                } );
+            }
+        } );
+
+        // EDGAR
+        final ImageButton btnmonedgar = new ImageButton(moniyo);
+        btnmonedgar.setPosition(131,1107);
+        escenaAyuda.addActor(btnmonedgar);
+        btnmonedgar.addListener( new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                TextureRegionDrawable botedgar = new TextureRegionDrawable(new TextureRegion(bioedgar));
+                final ImageButton btnedgar = new ImageButton(botedgar);
+                btnedgar.setPosition(70,350);
+                escenaAyuda.addActor(btnedgar);
+                btnedgar.addListener( new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        super.clicked(event, x, y);
+                        juego.setScreen(new aboutScreen(juego));
+                    }
+                } );
+            }
+        } );
+
+        // JPABLO
+        final ImageButton btnmonpablo = new ImageButton(moniyo);
+        btnmonpablo.setPosition(615,550);
+        escenaAyuda.addActor(btnmonpablo);
+        btnmonpablo.addListener( new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                TextureRegionDrawable botpablo = new TextureRegionDrawable(new TextureRegion(biopablo));
+                final ImageButton btnpablo = new ImageButton(botpablo);
+                btnpablo.setPosition(70,350);
+                escenaAyuda.addActor(btnpablo);
+                btnpablo.addListener( new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        super.clicked(event, x, y);
+                        juego.setScreen(new aboutScreen(juego));
+                    }
+                } );
+            }
+        } );
+
+        // JOSE
+        final ImageButton btnmonjose = new ImageButton(moniyo);
+        btnmonjose.setPosition(131,550);
+        escenaAyuda.addActor(btnmonjose);
+        btnmonjose.addListener( new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                TextureRegionDrawable botjose = new TextureRegionDrawable(new TextureRegion(biojose));
+                final ImageButton btnjose = new ImageButton(botjose);
+                btnjose.setPosition(70,350);
+                escenaAyuda.addActor(btnjose);
+                btnjose.addListener( new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        super.clicked(event, x, y);
+                        juego.setScreen(new aboutScreen(juego));
+                    }
+                } );
+            }
+        } );
+
+
     }
 
     private void cargarTexturas() {
         bgMenu = new Texture("aSBg.png");
         backButton = new Texture("buttons/unpressed/backButton.png");
         pressedBackButton = new Texture("buttons/pressed/pressedBackButton.png");
+        bioandy = new Texture("bioandy.png");
+        bioedgar = new Texture("bioedgar.png");
+        biopablo = new Texture("biopablo.png");
+        biojose = new Texture("biojose.png");
+        monito = new Texture("monito.png");
     }
 
     @Override

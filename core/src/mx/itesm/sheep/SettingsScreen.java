@@ -160,15 +160,12 @@ public class SettingsScreen extends MainScreen {
             btnMusic.setPosition(374,631);
             escenaSettings.addActor(btnMusic);
             btnNoMusic.remove();
-            System.out.println("true");
-
 
         }
         if(!pref.getBoolean("musicOn")){
             btnMusic.setPosition(374,631);
             escenaSettings.addActor(btnNoMusic);
             btnMusic.remove();
-            System.out.println("false");
         }
 
         pref.flush();

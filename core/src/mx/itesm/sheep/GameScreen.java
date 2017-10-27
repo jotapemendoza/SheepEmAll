@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
@@ -41,6 +42,9 @@ public class GameScreen extends MainScreen {
     private float tiempo;
     private float salida;
 
+
+    float totalTime = 1 * 60;
+
     private Texture continueButton;
 
     private Texture oveArr;
@@ -48,10 +52,13 @@ public class GameScreen extends MainScreen {
     private Texture oveAb;
     private Texture oveDer;
 
+    private BitmapFont font;
+
     private EstadoJuego estado;
 
     // Escena "pop-up" cuándo se presiona el botón de pausa
     private EscenaPausa escenaPausa;
+    private Texture time;
 
     public GameScreen(Juego juego){
         this.juego = juego;
@@ -64,26 +71,22 @@ public class GameScreen extends MainScreen {
         crearEscenaJuego();
         Gdx.input.setInputProcessor(escenaJuego);
         estado = EstadoJuego.JUGANDO;
+        font = new BitmapFont(Gdx.files.internal("Intro.fnt"));
     }
 
     private void crearEscenaJuego() {
 
         escenaJuego = new Stage(vista);
 
-        // Background ------------------------------------------------------------------------------
-
-        TextureRegionDrawable trdBg =  new
-                TextureRegionDrawable(new TextureRegion(bg));
-        Image bg = new Image(trdBg);
-        bg.setPosition(0,0);
-        //escenaJuego.addActor(bg);
-
         // Botón de pausa --------------------------------------------------------------------------
+
+        Texture pressedPauseButton = new Texture("buttons/pressed/pressedPauseButton.png");
+        TextureRegionDrawable trdPausepr = new TextureRegionDrawable(new TextureRegion(pressedPauseButton));
 
         TextureRegionDrawable trdPause = new
                 TextureRegionDrawable(new TextureRegion(pauseButton));
-        ImageButton imPause = new ImageButton(trdPause);
-        imPause.setPosition(425, 1685);
+        ImageButton imPause = new ImageButton(trdPause, trdPausepr);
+        imPause.setPosition(461, 1734);
         escenaJuego.addActor(imPause);
 
         imPause.addListener( new ClickListener() {
@@ -92,6 +95,7 @@ public class GameScreen extends MainScreen {
                 super.clicked(event, x, y);
                 estado = EstadoJuego.PAUSADO;
                 escenaPausa = new EscenaPausa(vista,batch);
+                detenerOveja(true);
                 Gdx.input.setInputProcessor(escenaPausa);
 
             }
@@ -106,6 +110,7 @@ public class GameScreen extends MainScreen {
                 for (Oveja oveja: arrOvejas){
                     if (oveja.comparar(x,y)){
                         ovejaMoviendo = oveja;
+                        ovejaMoviendo.setEstado(Oveja.Estado.MOVIENDO);
                         Gdx.app.log("dragStart", "Inicia movimeinto");
                         break;
                     }
@@ -119,19 +124,34 @@ public class GameScreen extends MainScreen {
                 //(cursor) x-ANCHO/2,y-ALTO/2 segun proporción dela imagen final
                 ovejaMoviendo.setX(x - ovejaMoviendo.getAncho()/2);
                 ovejaMoviendo.setY(y - ovejaMoviendo.getAlto()/2);
-                ovejaMoviendo.setEstado(Oveja.Estado.MOVIENDO);
                 Gdx.app.log("drag", "x = " +x + ", y = " +y);
             }
 
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer) {
                 super.dragStop(event, x, y, pointer);
+                if(ovejaMoviendo==null){
+                    return;
+                }
                 // verificar si está en el corral
+                ovejaMoviendo.setEstado(ovejaMoviendo.getEstadoOriginal());
                 ovejaMoviendo = null;
             }
 
         });
 
+    }
+
+    private void detenerOveja(boolean stop) {
+        if (stop){
+            for (Oveja oveja: arrOvejas){
+                oveja.setEstado(Oveja.Estado.STOP);
+            }
+        }else{
+            for (Oveja oveja: arrOvejas){
+                oveja.setEstado(Oveja.Estado.CONTINUAR);
+            }
+        }
     }
 
     // Método que carga las ovejas en el juego -----------------------------------------------------
@@ -197,10 +217,11 @@ public class GameScreen extends MainScreen {
     private void cargarTexturas() {
         bg = new Texture("gBg.png");
         pauseButton = new Texture("buttons/unpressed/pauseButton.png");
-        oveArr = new Texture("ovejaSprite.png");
-        oveIzq = new Texture("ovejaSprite2.png");
-        oveAb = new Texture("ovejaSprite3.png");
-        oveDer = new Texture("ovejaSprite4.png");
+        oveArr = new Texture("sheep_down.png");
+        oveIzq = new Texture("sheep_right.png");
+        oveAb = new Texture("sheep_up.png");
+        oveDer = new Texture("sheep_left.png");
+        time = new Texture("time.png");
     }
 
     @Override
@@ -210,6 +231,15 @@ public class GameScreen extends MainScreen {
         batch.setProjectionMatrix(camara.combined);
 
 
+        float deltaTime = Gdx.graphics.getDeltaTime(); //You might prefer getRawDeltaTime()
+
+        if(estado == EstadoJuego.JUGANDO){
+            if(totalTime>=1) totalTime -= deltaTime;
+        }
+
+
+        int minutes = ((int)totalTime) / 60;
+        int seconds = ((int)totalTime) % 60;
         //----------------------------------------------------------------------------------------------
 
         //----------------------------------------------------------------------------------------------
@@ -221,6 +251,13 @@ public class GameScreen extends MainScreen {
 
             batch.begin();
             batch.draw(bg, 0, 0);
+            batch.draw(time,818,1814);
+            if(seconds>=10){
+                font.draw(batch,Integer.toString(minutes)+ ":"+ Integer.toString(seconds),893,1888);
+            }else{
+                font.draw(batch,Integer.toString(minutes)+ ":0"+ Integer.toString(seconds),893,1888);
+            }
+
 
             for (int i = 0; i < arrOvejas.size; i++) {
                 if (tiempo <= 60.0) {
@@ -342,6 +379,7 @@ public class GameScreen extends MainScreen {
                 public void clicked(InputEvent event, float x, float y) {
                     //Cambio el estado de juego a JUGANDO y regreso el poder a la escenaJuego
                     estado = EstadoJuego.JUGANDO;
+                    detenerOveja(false);
                     juego.playGameMusic();
                     Gdx.input.setInputProcessor(escenaJuego);
                 }
