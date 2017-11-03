@@ -15,7 +15,6 @@ public class Juego extends Game
 	public void create() {
 		setScreen(new LoadingScreen(this));  // Splash MainScreen
 		menuMusic = Gdx.audio.newMusic(Gdx.files.internal("music/menuMusic.mp3"));
-		bee = Gdx.audio.newMusic(Gdx.files.internal("music/beee.mp3"));
 		gameMusic = Gdx.audio.newMusic(Gdx.files.internal("music/gameMusic.mp3"));
 
 	}

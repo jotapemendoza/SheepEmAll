@@ -230,7 +230,6 @@ public class GameScreen extends MainScreen {
         borrarPantalla(0, 0, 0);
         batch.setProjectionMatrix(camara.combined);
 
-
         float deltaTime = Gdx.graphics.getDeltaTime(); //You might prefer getRawDeltaTime()
 
         if(estado == EstadoJuego.JUGANDO){
@@ -240,9 +239,7 @@ public class GameScreen extends MainScreen {
 
         int minutes = ((int)totalTime) / 60;
         int seconds = ((int)totalTime) % 60;
-        //----------------------------------------------------------------------------------------------
 
-        //----------------------------------------------------------------------------------------------
 
         if (estado == EstadoJuego.JUGANDO) {
             salida += Gdx.graphics.getDeltaTime();
@@ -251,14 +248,13 @@ public class GameScreen extends MainScreen {
 
             batch.begin();
             batch.draw(bg, 0, 0);
-            batch.draw(time,748,1814);
+
+            batch.draw(time,680,1814);
             if(seconds>=10){
-                font.draw(batch,Integer.toString(minutes)+ ":"+ Integer.toString(seconds),823,1888);
+                font.draw(batch,Integer.toString(minutes)+ ":"+ Integer.toString(seconds),755,1888);
             }else{
-                font.draw(batch,Integer.toString(minutes)+ ":0"+ Integer.toString(seconds),823,1888);
+                font.draw(batch,Integer.toString(minutes)+ ":0"+ Integer.toString(seconds),755,1888);
             }
-
-
             for (int i = 0; i < arrOvejas.size; i++) {
                 if (tiempo <= 60.0) {
                     if (salida <= 5) {
@@ -272,10 +268,7 @@ public class GameScreen extends MainScreen {
                     }
 
             }
-
-
             batch.end();
-
 
 
         escenaJuego.draw();
@@ -318,7 +311,9 @@ public class GameScreen extends MainScreen {
 
     enum EstadoJuego {
         JUGANDO,
-        PAUSADO
+        PAUSADO,
+        PERDIDO,
+        GANADO
     }
     // Escena pausa --------------------------------------------------------------------------------
 
@@ -347,7 +342,7 @@ public class GameScreen extends MainScreen {
             TextureRegionDrawable trdPText = new TextureRegionDrawable(
                     new TextureRegion(pauseText));
             Image pauseT = new Image(trdPText);
-            pauseT.setPosition(338,1319);
+            pauseT.setPosition(341,1219);
             this.addActor(pauseT);
 
             Texture continueText = new Texture("continueText.png");

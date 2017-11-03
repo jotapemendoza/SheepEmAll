@@ -116,7 +116,7 @@ class MenuScreen extends MainScreen
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                juego.setScreen(new aboutScreen(juego));
+                juego.setScreen(new AboutScreen(juego));
             }
         } );
     //-----------------------------------------------------------------

@@ -18,6 +18,8 @@ public class Oveja {
     private float x;
     private float y;
 
+    private String color;
+
     private int ancho, alto;
 
     // Animar oveja

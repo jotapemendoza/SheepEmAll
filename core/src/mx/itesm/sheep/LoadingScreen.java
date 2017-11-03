@@ -11,9 +11,6 @@ class LoadingScreen extends MainScreen
 {
     private Juego juego;
     private float tiempo;   // Tiempo transcurrido
-    private Texture texturaReloj;   // Imagen que se muestra
-    private Texture bgMenu;
-
 
 
     public LoadingScreen(Juego juego) {
@@ -23,8 +20,6 @@ class LoadingScreen extends MainScreen
     @Override
     public void show() {
         tiempo = 0;
-        texturaReloj = new Texture("reloj.png");
-        bgMenu = new Texture("menuBg.png");
     }
 
     @Override
