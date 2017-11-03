@@ -39,7 +39,7 @@ public class Oveja {
 
         texturaMov = new Texture("sheep_moving.png");
         TextureRegion region2 = new TextureRegion(texturaMov);
-        TextureRegion[][] frames2 = region2.split(64,71);
+        TextureRegion[][] frames2 = region2.split(114,127);
         animacionMov = new Animation(0.20f, frames2[0][0], frames2[0][1]);
         animacionMov.setPlayMode(Animation.PlayMode.LOOP);
         timer = 0;
@@ -47,8 +47,8 @@ public class Oveja {
 
         switch (estado){
             case ARRIBA:
-                ancho = 64;
-                alto = 75;
+                ancho = 85;
+                alto = 100;
                 frames = region.split(ancho,alto);
                 animacion = new Animation(0.20f, frames[0][0], frames[0][1]);
                 animacion.setPlayMode(Animation.PlayMode.LOOP);
