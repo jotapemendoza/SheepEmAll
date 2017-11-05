@@ -160,8 +160,13 @@ public class Oveja {
                 seMovio = true;
                 break;
             case STOP:
-                timer = 0;
-                batch.draw(region, x, y);
+                if (!enLlamas){
+                    timer = 0;
+                    batch.draw(region, x, y);
+                }else{
+                    timer = 0;
+                    batch.draw(region3, x, y);
+                }
                 break;
             case CONTINUAR:
                 if (!enLlamas){
