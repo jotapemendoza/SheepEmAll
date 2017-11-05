@@ -417,6 +417,8 @@ public class GameScreen extends MainScreen {
                 public void clicked(InputEvent event, float x, float y) {
                     // Regresa al menú
                     juego.setScreen(new GameScreen(juego));
+                    juego.stopGameMusic();
+                    juego.playGameMusic();
                 }
             });
             this.addActor(restartBtn);
