@@ -335,31 +335,16 @@ public class GameScreen extends MainScreen {
             TextureRegionDrawable trdRect = new TextureRegionDrawable(
                     new TextureRegion(pauseRectangle));
             Image rectangle = new Image(trdRect);
-            rectangle.setPosition(175,769);
+            rectangle.setPosition(47,489);
             this.addActor(rectangle);
 
             Texture pauseText = new Texture("pauseText.png");
             TextureRegionDrawable trdPText = new TextureRegionDrawable(
                     new TextureRegion(pauseText));
             Image pauseT = new Image(trdPText);
-            pauseT.setPosition(341,1219);
+            pauseT.setPosition(270,1399);
             this.addActor(pauseT);
 
-            Texture continueText = new Texture("continueText.png");
-            TextureRegionDrawable trdCText = new TextureRegionDrawable(
-                    new TextureRegion(continueText)
-            );
-            Image continueT = new Image(trdCText);
-            continueT.setPosition(327,879);
-            this.addActor(continueT);
-
-            Texture homeText = new Texture("homeText.png");
-            TextureRegionDrawable trdHText = new TextureRegionDrawable(
-                    new TextureRegion(homeText)
-            );
-            Image continueH = new Image(trdHText);
-            continueH.setPosition(590,879);
-            this.addActor(continueH);
 
             Texture pressedContinueButton = new Texture("buttons/pressed/pressedContinueButton.png");
             TextureRegionDrawable trdContinuepr = new TextureRegionDrawable(
@@ -368,7 +353,7 @@ public class GameScreen extends MainScreen {
             TextureRegionDrawable trdContinue = new TextureRegionDrawable(
                     new TextureRegion(continueButton));
             ImageButton btnContinue = new ImageButton(trdContinue,trdContinuepr);
-            btnContinue.setPosition(294,963);
+            btnContinue.setPosition(383,968);
             btnContinue.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -382,14 +367,14 @@ public class GameScreen extends MainScreen {
             this.addActor(btnContinue);
 
 
-            Texture pressedHomeButton = new Texture("buttons/pressed/pressedHomeButton.png");
+            Texture pressedHomeButton = new Texture("buttons/pressed/pressedLevelsButton.png");
             TextureRegionDrawable trdHomepr = new TextureRegionDrawable(new
                     TextureRegion(pressedHomeButton));
-            homeButton = new Texture("buttons/unpressed/homeButton.png");
+            homeButton = new Texture("buttons/unpressed/levelsButton.png");
             TextureRegionDrawable trdHome = new TextureRegionDrawable(
                     new TextureRegion(homeButton));
             ImageButton homeBtn = new ImageButton(trdHome, trdHomepr);
-            homeBtn.setPosition(583,963);
+            homeBtn.setPosition(285,695);
             homeBtn.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -399,6 +384,23 @@ public class GameScreen extends MainScreen {
                 }
             });
             this.addActor(homeBtn);
+
+            Texture pressedRestartButton = new Texture("buttons/pressed/pressedRestartButton.png");
+            TextureRegionDrawable trdRestartpr =  new TextureRegionDrawable(new
+                    TextureRegion(pressedRestartButton));
+            Texture restartButton = new Texture("buttons/unpressed/restartButton.png");
+            TextureRegionDrawable trdRestart = new TextureRegionDrawable(new
+                    TextureRegion(restartButton));
+            ImageButton restartBtn = new ImageButton(trdRestart, trdRestartpr);
+            restartBtn.setPosition(586,695);
+            restartBtn.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    // Regresa al menú
+                    juego.setScreen(new GameScreen(juego));
+                }
+            });
+            this.addActor(restartBtn);
 
 
         }
