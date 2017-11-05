@@ -27,15 +27,19 @@ public class Oveja {
     private float timer;
     private Texture texturaMov;
     private Animation animacionMov;
+    private Texture texturafuego;
+    private Animation fuego;
 
     // Estados para movimiento
     private Estado estado;     // abajo, arriba, izquierda, derecha, stop
     private Estado estadoOriginal;
     private float timerEstado = 0;
     private boolean seMovio = false;
+    private boolean enLlamas = false;
 
 
-    public Oveja(Texture textura, Estado estado) {
+    public Oveja(Texture textura, Estado estado, String color) {
+        this.color = color;
         TextureRegion region = new TextureRegion(textura);
         TextureRegion[][] frames;
 
@@ -44,6 +48,12 @@ public class Oveja {
         TextureRegion[][] frames2 = region2.split(114,127);
         animacionMov = new Animation(0.20f, frames2[0][0], frames2[0][1]);
         animacionMov.setPlayMode(Animation.PlayMode.LOOP);
+
+        texturafuego = new Texture("fire.png");
+        TextureRegion region3 = new TextureRegion(texturafuego);
+        TextureRegion[][] frames3= region3.split(58,70);
+        fuego = new Animation(0.20f, frames3[0][0], frames3[0][1], frames3[0][2]);
+        fuego.setPlayMode(Animation.PlayMode.LOOP);
         timer = 0;
 
 
@@ -103,6 +113,7 @@ public class Oveja {
         timer += Gdx.graphics.getDeltaTime();
         TextureRegion region = (TextureRegion) animacion.getKeyFrame(timer);
         TextureRegion region2 = (TextureRegion) animacionMov.getKeyFrame(timer);
+        TextureRegion region3 = (TextureRegion) fuego.getKeyFrame(timer);
         switch (estado){
             case ARRIBA:
                 if (!seMovio){
@@ -153,7 +164,15 @@ public class Oveja {
                 batch.draw(region, x, y);
                 break;
             case CONTINUAR:
-                this.estado = estadoOriginal;
+                if (!enLlamas){
+                    this.estado = estadoOriginal;
+                }else{
+                    batch.draw(region3, x, y);
+                }
+                break;
+            case BOOM:
+                batch.draw(region3, x, y);
+                enLlamas = true;
                 break;
         }
     }
@@ -165,6 +184,7 @@ public class Oveja {
         return false;
     }
 
+
     public enum Estado{
         ARRIBA,
         ABAJO,
@@ -172,7 +192,8 @@ public class Oveja {
         DERECHA,
         MOVIENDO,
         STOP,
-        CONTINUAR
+        CONTINUAR,
+        BOOM
     }
 
     public float getx() {
@@ -205,4 +226,7 @@ public class Oveja {
 
     public int getAlto() { return alto; }
 
+    public String getColor() { return color; }
+
+    public boolean isEnLlamas() { return enLlamas; }
 }

@@ -108,11 +108,13 @@ public class GameScreen extends MainScreen {
             public void dragStart(InputEvent event, float x, float y, int pointer) {
                 super.dragStart(event, x, y, pointer);
                 for (Oveja oveja: arrOvejas){
-                    if (oveja.comparar(x,y)){
-                        ovejaMoviendo = oveja;
-                        ovejaMoviendo.setEstado(Oveja.Estado.MOVIENDO);
-                        Gdx.app.log("dragStart", "Inicia movimeinto");
-                        break;
+                    if (!cordenadasCorral(x,y,oveja.getColor()) && !oveja.isEnLlamas()){
+                        if (oveja.comparar(x,y)){
+                            ovejaMoviendo = oveja;
+                            ovejaMoviendo.setEstado(Oveja.Estado.MOVIENDO);
+                            Gdx.app.log("dragStart", "Inicia movimeinto");
+                            break;
+                        }
                     }
                 }
             }
@@ -130,16 +132,33 @@ public class GameScreen extends MainScreen {
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer) {
                 super.dragStop(event, x, y, pointer);
-                if(ovejaMoviendo==null){
+                if(ovejaMoviendo == null){
                     return;
+                }else{
+                    // verificar si está en el corral
+                    if(cordenadasCorral(x,y,ovejaMoviendo.getColor())){
+                        ovejaMoviendo.setEstado(ovejaMoviendo.getEstadoOriginal());
+                        ovejaMoviendo = null;
+                    }else{
+                        Gdx.app.log("corral", "Corral incorrecto");
+                        ovejaMoviendo.setEstado(Oveja.Estado.BOOM);
+                        ovejaMoviendo = null;
+                    }
                 }
-                // verificar si está en el corral
-                ovejaMoviendo.setEstado(ovejaMoviendo.getEstadoOriginal());
-                ovejaMoviendo = null;
             }
 
         });
 
+    }
+
+    public boolean cordenadasCorral(float xP, float yP, String color) {
+        if ((xP >= 0 && xP <= 410 && yP >= 110 && yP <= 730 && color.equals("ROJO")) ||
+                (xP >= 670 && xP <= 1080 && yP >= 110 && yP <= 730 && color.equals("AZUL")) ||
+                (xP >= 0 && xP <= 410 && yP >= 1104 && yP <= 1730 && color.equals("MORADO")) ||
+                (xP >= 670 && xP <= 1080 && yP >= 1104 && yP <= 1730 && color.equals("AMARILLO"))){
+            return true;
+        }
+        return false;
     }
 
     private void detenerOveja(boolean stop) {
@@ -164,16 +183,16 @@ public class GameScreen extends MainScreen {
             int random = (int) (Math.random()*4)+1;
 
             if (random == 1){
-                ove = new Oveja(oveArr, Oveja.Estado.ARRIBA);
+                ove = new Oveja(oveArr, Oveja.Estado.ARRIBA, "ROJO");
                 arrOvejas.add(ove);
             }else if (random == 2){
-                ove = new Oveja(oveAb, Oveja.Estado.ABAJO);
+                ove = new Oveja(oveAb, Oveja.Estado.ABAJO, "AZUL");
                 arrOvejas.add(ove);
             }else if (random == 3){
-                ove = new Oveja(oveIzq, Oveja.Estado.IZQUIERDA);
+                ove = new Oveja(oveIzq, Oveja.Estado.IZQUIERDA, "MORADO");
                 arrOvejas.add(ove);
             }else{
-                ove = new Oveja(oveDer, Oveja.Estado.DERECHA);
+                ove = new Oveja(oveDer, Oveja.Estado.DERECHA, "AMARILLO");
                 arrOvejas.add(ove);
             }
         }
