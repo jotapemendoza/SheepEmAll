@@ -42,6 +42,8 @@ public class GameScreen extends MainScreen {
     private float tiempo;
     private float salida;
 
+    private int lifes;
+
 
     float totalTime = 1 * 60;
 
@@ -56,9 +58,14 @@ public class GameScreen extends MainScreen {
 
     private EstadoJuego estado;
 
+    private EscenaGanar escenaGanar;
+    private EscenaPerder escenaPerder;
+
     // Escena "pop-up" cuándo se presiona el botón de pausa
     private EscenaPausa escenaPausa;
     private Texture time;
+    private Texture life;
+    private Texture life_lost;
 
     public GameScreen(Juego juego){
         this.juego = juego;
@@ -69,9 +76,11 @@ public class GameScreen extends MainScreen {
         cargarTexturas();
         cargarOvejas();
         crearEscenaJuego();
+        escenaPerder = new EscenaPerder(vista,batch);
         Gdx.input.setInputProcessor(escenaJuego);
         estado = EstadoJuego.JUGANDO;
         font = new BitmapFont(Gdx.files.internal("Intro.fnt"));
+        lifes = 3;
     }
 
     private void crearEscenaJuego() {
@@ -205,6 +214,7 @@ public class GameScreen extends MainScreen {
                 if (arrOvejas.get(i).gety() <= 0){
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
+                    lifes--;
                     break;
                 }
             }
@@ -212,6 +222,7 @@ public class GameScreen extends MainScreen {
                 if (arrOvejas.get(i).gety() >= 1900){
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
+                    lifes--;
                     break;
                 }
             }
@@ -219,6 +230,7 @@ public class GameScreen extends MainScreen {
                 if (arrOvejas.get(i).getx() >= 1080){
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
+                    lifes--;
                     break;
                 }
             }
@@ -226,6 +238,7 @@ public class GameScreen extends MainScreen {
                 if (arrOvejas.get(i).getx() <= 0){
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
+                    lifes--;
                     break;
                 }
             }
@@ -241,6 +254,8 @@ public class GameScreen extends MainScreen {
         oveAb = new Texture("sheep_up.png");
         oveDer = new Texture("sheep_left.png");
         time = new Texture("time.png");
+        life = new Texture("life.png");
+        life_lost = new Texture("life_lost.png");
     }
 
     @Override
@@ -267,6 +282,28 @@ public class GameScreen extends MainScreen {
 
             batch.begin();
             batch.draw(bg, 0, 0);
+
+            if(lifes==3) {
+                batch.draw(life, 277, 1796);
+                batch.draw(life, 177, 1796);
+                batch.draw(life,77,1796);
+            }
+            if(lifes==2){
+                batch.draw(life, 177, 1796);
+                batch.draw(life,77,1796);
+            }
+            if(lifes==1){
+                batch.draw(life,77,1796);
+            }
+
+            if(lifes<=0){
+                estado = EstadoJuego.PERDIDO;
+            }
+
+
+            batch.draw(life_lost, 277,1796);
+            batch.draw(life_lost, 177,1796);
+            batch.draw(life_lost, 77,1796);
 
             batch.draw(time,680,1814);
             if(seconds>=10){
@@ -297,6 +334,12 @@ public class GameScreen extends MainScreen {
             escenaPausa.draw();
         }
 
+        if (estado == EstadoJuego.PERDIDO){
+            detenerOveja(false);
+            Gdx.input.setInputProcessor(escenaPerder);
+            escenaPerder.draw();
+        }
+
         if(pref.getBoolean("musicOn")){
             if(estado == EstadoJuego.JUGANDO){
                 juego.playGameMusic();
@@ -308,7 +351,8 @@ public class GameScreen extends MainScreen {
         if(!pref.getBoolean("musicOn")){
             juego.pauseGameMusic();
         }
-            eliminarOveja();
+
+        eliminarOveja();
     }
 
 
@@ -422,6 +466,99 @@ public class GameScreen extends MainScreen {
                 }
             });
             this.addActor(restartBtn);
+
+
+        }
+    }
+
+    private class EscenaGanar extends Stage{
+        public EscenaGanar(Viewport vista, SpriteBatch batch){
+            super(vista,batch);
+
+        }
+    }
+
+    private class EscenaPerder extends Stage{
+        public EscenaPerder(Viewport vista, SpriteBatch batch){
+            super(vista,batch);
+
+            Texture opaque = new Texture("opaque.png");
+            TextureRegionDrawable trdOpaq = new TextureRegionDrawable(
+                    new TextureRegion(opaque));
+            Image op = new Image(trdOpaq);
+            op.setPosition(0,0);
+            this.addActor(op);
+
+            Texture lostRectangle = new Texture("lostRectangle.png");
+            TextureRegionDrawable trdRect = new TextureRegionDrawable(
+                    new TextureRegion(lostRectangle));
+            Image rect = new Image(trdRect);
+            rect.setPosition(47,300);
+            this.addActor(rect);
+
+            Texture gameText = new Texture("gameOver.png");
+            TextureRegionDrawable trdGame = new TextureRegionDrawable(
+                    new TextureRegion(gameText));
+            Image gameOver = new Image(trdGame);
+            gameOver.setPosition(321,1415);
+            this.addActor(gameOver);
+
+            Texture deadSheep = new Texture("deadSheep.png");
+            TextureRegionDrawable trdSheep =  new TextureRegionDrawable(
+                    new TextureRegion(deadSheep));
+            Image sheep = new Image(trdSheep);
+            sheep.setPosition(269,274);
+            this.addActor(sheep);
+
+            Texture homeButtonLost = new Texture("buttons/unpressed/homeButtonLost.png");
+            TextureRegionDrawable trdHome = new TextureRegionDrawable(
+                    new TextureRegion(homeButtonLost));
+            TextureRegionDrawable trdHomePr = new TextureRegionDrawable(
+                    new TextureRegion(new Texture("buttons/pressed/PressedHomeButtonLost.png")));
+            ImageButton homeButton = new ImageButton(trdHome, trdHomePr);
+            homeButton.setPosition(586,700);
+            homeButton.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    juego.stopGameMusic();
+                    juego.setScreen(new MenuScreen(juego));
+
+                }
+            });
+            this.addActor(homeButton);
+
+            Texture tryAgainButton = new Texture("buttons/unpressed/tryAgainButton.png");
+            TextureRegionDrawable trdAgain = new TextureRegionDrawable(
+                    new TextureRegion(tryAgainButton));
+            TextureRegionDrawable trdAgainpr = new TextureRegionDrawable(
+                    new TextureRegion(new Texture("buttons/pressed/PressedTryAgainButton.png")));
+            ImageButton tryAgain = new ImageButton(trdAgain, trdAgainpr);
+            tryAgain.setPosition(383,972);
+            tryAgain.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    juego.stopGameMusic();
+                    juego.setScreen(new GameScreen(juego));
+                }
+            });
+            this.addActor(tryAgain);
+
+            Texture levelsButton = new Texture("buttons/unpressed/levelsButtonLost.png");
+            Texture levelsButtonpr = new Texture("buttons/pressed/PressedLevelsButtonLost.png");
+            TextureRegionDrawable trdLevels = new TextureRegionDrawable(new TextureRegion(levelsButton));
+            TextureRegionDrawable trdLevelspr = new TextureRegionDrawable(new TextureRegion(levelsButtonpr));
+            ImageButton lvsButton = new ImageButton(trdLevels,trdLevelspr);
+            lvsButton.setPosition(285,700);
+            lvsButton.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    juego.stopGameMusic();
+                    juego.setScreen(new MenuScreen(juego));
+                }
+            });
+            this.addActor(lvsButton);
+
+
 
 
         }
