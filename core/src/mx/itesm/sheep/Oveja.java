@@ -16,7 +16,7 @@ public class Oveja {
     private float x;
     private float y;
     // Multiplicador de Velocidad
-    private int velocidad = 1;
+    private float velocidad = 1;
 
     private String color;
 
@@ -235,7 +235,7 @@ public class Oveja {
 
     public boolean isEnLlamas() { return enLlamas; }
 
-    public void setVelocidad(int velocidad) { this.velocidad = velocidad; }
+    public void setVelocidad(float velocidad) { this.velocidad = velocidad; }
 
     public void setSeMovio(boolean seMovio) { this.seMovio = seMovio; }
 }
