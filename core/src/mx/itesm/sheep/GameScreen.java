@@ -434,7 +434,7 @@ public class GameScreen extends MainScreen {
             this.addActor(btnContinue);
 
 
-            Texture pressedHomeButton = new Texture("buttons/pressed/pressedLevelsButton.png");
+            Texture pressedHomeButton = new Texture("buttons/pressed/PressedLevelsButton.png");
             TextureRegionDrawable trdHomepr = new TextureRegionDrawable(new
                     TextureRegion(pressedHomeButton));
             homeButton = new Texture("buttons/unpressed/levelsButton.png");

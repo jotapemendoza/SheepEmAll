@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
  * Created by josepablo on 9/9/17.
  */
 
-class AboutScreen extends MainScreen {
+class AboutUsScreen extends MainScreen {
 
     private final Juego juego;
     private Texture bgMenu;
@@ -32,7 +32,7 @@ class AboutScreen extends MainScreen {
 
 
 
-    public AboutScreen(Juego juego) {
+    public AboutUsScreen(Juego juego) {
         this.juego = juego;
     }
 
@@ -90,7 +90,7 @@ class AboutScreen extends MainScreen {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         super.clicked(event, x, y);
-                        juego.setScreen(new AboutScreen(juego));
+                        juego.setScreen(new aboutScreen(juego));
                     }
                 } );
             }
@@ -112,7 +112,7 @@ class AboutScreen extends MainScreen {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         super.clicked(event, x, y);
-                        juego.setScreen(new AboutScreen(juego));
+                        juego.setScreen(new aboutScreen(juego));
                     }
                 } );
             }
@@ -134,7 +134,7 @@ class AboutScreen extends MainScreen {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         super.clicked(event, x, y);
-                        juego.setScreen(new AboutScreen(juego));
+                        juego.setScreen(new aboutScreen(juego));
                     }
                 } );
             }
@@ -156,7 +156,7 @@ class AboutScreen extends MainScreen {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         super.clicked(event, x, y);
-                        juego.setScreen(new AboutScreen(juego));
+                        juego.setScreen(new aboutScreen(juego));
                     }
                 } );
             }
