@@ -499,6 +499,7 @@ public class GameScreen extends MainScreen {
             this.addActor(restartBtn);
 
 
+
         }
     }
 
