@@ -33,6 +33,8 @@ public class GameScreen extends MainScreen {
     private Texture bg;
     private Stage escenaJuego;
 
+    private Boolean played = false;
+
     // Arreglo de ovejas
     private Array<Oveja> arrOvejas;
     private Oveja ovejaMoviendo = null;
@@ -338,6 +340,8 @@ public class GameScreen extends MainScreen {
             detenerOveja(false);
             Gdx.input.setInputProcessor(escenaPerder);
             escenaPerder.draw();
+            if(played==false) juego.playLost();
+            played = true;
         }
 
         if(pref.getBoolean("musicOn")){
@@ -474,12 +478,12 @@ public class GameScreen extends MainScreen {
     private class EscenaGanar extends Stage{
         public EscenaGanar(Viewport vista, SpriteBatch batch){
             super(vista,batch);
-
         }
     }
 
     private class EscenaPerder extends Stage{
         public EscenaPerder(Viewport vista, SpriteBatch batch){
+
             super(vista,batch);
 
             Texture opaque = new Texture("opaque.png");

@@ -9,13 +9,14 @@ public class Juego extends Game
 
 	private Music menuMusic;
 	private Music gameMusic;
-	private Music bee;
+	private Music lost;
 
 	@Override
 	public void create() {
 		setScreen(new LoadingScreen(this));  // Splash MainScreen
 		menuMusic = Gdx.audio.newMusic(Gdx.files.internal("music/menuMusic.mp3"));
 		gameMusic = Gdx.audio.newMusic(Gdx.files.internal("music/gameMusic.mp3"));
+		lost = Gdx.audio.newMusic(Gdx.files.internal("music/lost.mp3"));
 
 	}
 
@@ -44,9 +45,8 @@ public class Juego extends Game
 		gameMusic.dispose();
 	}
 
-	public void playBee(){
-		bee.setVolume(1);
-		bee.play();
+	public void playLost(){
+		lost.play();
 	}
 }
 
