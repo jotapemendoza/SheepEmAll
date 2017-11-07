@@ -71,13 +71,14 @@ public class GameScreen extends MainScreen {
 
     @Override
     public void show() {
+        font = new BitmapFont(Gdx.files.internal("Intro.fnt"));
+        escenaPerder = new EscenaPerder(vista,batch);
+        escenaGanar = new EscenaGanar(vista,batch);
+        estado = EstadoJuego.JUGANDO;
+        Gdx.input.setInputProcessor(escenaJuego);
         cargarTexturas();
         cargarOvejas();
         crearEscenaJuego();
-        escenaPerder = new EscenaPerder(vista,batch);
-        Gdx.input.setInputProcessor(escenaJuego);
-        estado = EstadoJuego.JUGANDO;
-        font = new BitmapFont(Gdx.files.internal("Intro.fnt"));
         lifes = 3;
     }
 
@@ -365,6 +366,11 @@ public class GameScreen extends MainScreen {
             played = true;
         }
 
+        if(estado ==  EstadoJuego.GANADO){
+            Gdx.input.setInputProcessor(escenaGanar);
+            escenaGanar.draw();
+        }
+
         if(pref.getBoolean("musicOn")){
             if(estado == EstadoJuego.JUGANDO){
                 juego.playGameMusic();
@@ -499,7 +505,75 @@ public class GameScreen extends MainScreen {
     private class EscenaGanar extends Stage{
         public EscenaGanar(Viewport vista, SpriteBatch batch){
             super(vista,batch);
+
+            Texture winText = new Texture("winText.png");
+            TextureRegionDrawable winTrd = new TextureRegionDrawable(new TextureRegion(winText));
+            Image winIm = new Image(winTrd);
+            winIm.setPosition(126,962);
+            this.addActor(winIm);
+
+            Texture winRectangle = new Texture("winRectangle.png");
+            TextureRegionDrawable winRectTrd = new TextureRegionDrawable(new TextureRegion(winRectangle));
+            Image winRect = new Image(winRectTrd);
+            winRect.setPosition(40,292);
+            this.addActor(winRect);
+
+            Texture winSheep = new Texture("winSheep.png");
+            TextureRegionDrawable winSheepTrd = new TextureRegionDrawable(new TextureRegion(winSheep));
+            Image winSheepImg = new Image(winSheepTrd);
+            winSheepImg.setPosition(326,281);
+            this.addActor(winSheepImg);
+
+            Texture nextLevel = new Texture("buttons/unpressed/NextLevelButton.png");
+            Texture nextLevelPr = new Texture("buttons/pressed/PressedNextLevelButton.png");
+            TextureRegionDrawable nextLevelTrd = new TextureRegionDrawable(new TextureRegion(nextLevel));
+            TextureRegionDrawable nextLevelPrTrd = new TextureRegionDrawable(new TextureRegion(nextLevelPr));
+
+            ImageButton nextLevelButton = new ImageButton(nextLevelTrd,nextLevelPrTrd);
+            nextLevelButton.setPosition(383,972);
+            nextLevelButton.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    juego.setScreen(new MenuScreen(juego));
+                }
+            });
+            this.addActor(nextLevelButton);
+
+            Texture retryLevel = new Texture("buttons/unpressed/RetryLevelButton.png");
+            Texture retryLevelPr = new Texture("buttons/pressed/PressedRetryLevelButton.png");
+            TextureRegionDrawable retryLevelTrd = new TextureRegionDrawable(new TextureRegion(retryLevel));
+            TextureRegionDrawable retryLevelPrTrd = new TextureRegionDrawable(new TextureRegion(retryLevelPr));
+
+            ImageButton retryLevelButton = new ImageButton(retryLevelTrd, retryLevelPrTrd);
+            retryLevelButton.setPosition(586,699);
+            retryLevelButton.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    juego.setScreen(new GameScreen(juego));
+                }
+            });
+            this.addActor(retryLevelButton);
+
+
+            Texture levelsMenu = new Texture("buttons/unpressed/LevelsMenuButton.png");
+            Texture levelsMenuPr = new Texture("buttons/pressed/PressedLevelsMenuButton.png");
+            TextureRegionDrawable levelsMenuTrd = new TextureRegionDrawable(new TextureRegion(levelsMenu));
+            TextureRegionDrawable levelsMenuPrTrd = new TextureRegionDrawable(new TextureRegion(levelsMenuPr));
+
+            ImageButton levelsButton = new ImageButton(levelsMenuTrd,levelsMenuPrTrd);
+            levelsButton.setPosition(285,699);
+            levelsButton.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    juego.setScreen(new GameScreen(juego));
+                }
+            });
+            this.addActor(levelsButton);
+
+
         }
+
+
     }
 
     private class EscenaPerder extends Stage{
@@ -508,15 +582,13 @@ public class GameScreen extends MainScreen {
             super(vista,batch);
 
             Texture opaque = new Texture("opaque.png");
-            TextureRegionDrawable trdOpaq = new TextureRegionDrawable(
-                    new TextureRegion(opaque));
+            TextureRegionDrawable trdOpaq = new TextureRegionDrawable(new TextureRegion(opaque));
             Image op = new Image(trdOpaq);
             op.setPosition(0,0);
             this.addActor(op);
 
             Texture lostRectangle = new Texture("lostRectangle.png");
-            TextureRegionDrawable trdRect = new TextureRegionDrawable(
-                    new TextureRegion(lostRectangle));
+            TextureRegionDrawable trdRect = new TextureRegionDrawable(new TextureRegion(lostRectangle));
             Image rect = new Image(trdRect);
             rect.setPosition(47,300);
             this.addActor(rect);
@@ -582,8 +654,6 @@ public class GameScreen extends MainScreen {
                 }
             });
             this.addActor(lvsButton);
-
-
 
 
         }
