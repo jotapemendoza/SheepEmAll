@@ -6,8 +6,6 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import java.util.Timer;
-
 /**
  * Created by Andreu on 15/10/17.
  */
@@ -17,6 +15,8 @@ public class Oveja {
     // Posición oveja
     private float x;
     private float y;
+    // Multiplicador de Velocidad
+    private int velocidad = 1;
 
     private String color;
 
@@ -119,7 +119,7 @@ public class Oveja {
                 if (!seMovio){
                     if(y > 0){
                         batch.draw(region, x, y);
-                        y--;
+                        y = y - velocidad;
                     }
                 }else {
                     batch.draw(region, x, y);
@@ -129,7 +129,7 @@ public class Oveja {
                 if (!seMovio){
                     if(y <= 1900){
                         batch.draw(region, x, y);
-                        y++;
+                        y = y + velocidad;
                     }
                 }else {
                     batch.draw(region, x, y);
@@ -139,7 +139,7 @@ public class Oveja {
                 if (!seMovio){
                     if (x < 1080){
                         batch.draw(region, x, y);
-                        x++;
+                        x = x + velocidad;
                     }
                 }else {
                     batch.draw(region, x, y);
@@ -149,7 +149,7 @@ public class Oveja {
                 if (!seMovio){
                     if (x > 0){
                         batch.draw(region, x, y);
-                        x--;
+                        x = x - velocidad;
                     }
                 }else {
                     batch.draw(region, x, y);
@@ -234,4 +234,8 @@ public class Oveja {
     public String getColor() { return color; }
 
     public boolean isEnLlamas() { return enLlamas; }
+
+    public void setVelocidad(int velocidad) { this.velocidad = velocidad; }
+
+    public void setSeMovio(boolean seMovio) { this.seMovio = seMovio; }
 }

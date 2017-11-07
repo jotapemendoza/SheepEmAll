@@ -1,13 +1,10 @@
 package mx.itesm.sheep;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -17,9 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
-
-import java.sql.Time;
-import java.util.ArrayList;
 
 /**
  * Created by josepablo on 9/14/17.
@@ -38,6 +32,8 @@ public class GameScreen extends MainScreen {
     // Arreglo de ovejas
     private Array<Oveja> arrOvejas;
     private Oveja ovejaMoviendo = null;
+    private int ovejaMovX;
+    private int ovejaMovY;
     private final int cantOve = 30;
 
     // Tiempo de salida y de partida del juego
@@ -122,6 +118,8 @@ public class GameScreen extends MainScreen {
                     if (!cordenadasCorral(x,y,oveja.getColor()) && !oveja.isEnLlamas()){
                         if (oveja.comparar(x,y)){
                             ovejaMoviendo = oveja;
+                            ovejaMovX = (int) x;
+                            ovejaMovY = (int) y;
                             ovejaMoviendo.setEstado(Oveja.Estado.MOVIENDO);
                             Gdx.app.log("dragStart", "Inicia movimeinto");
                             break;
@@ -143,9 +141,7 @@ public class GameScreen extends MainScreen {
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer) {
                 super.dragStop(event, x, y, pointer);
-                if(ovejaMoviendo == null){
-                    return;
-                }else{
+                if(ovejaMoviendo != null){
                     // verificar si está en el corral
                     if(cordenadasCorral(x,y,ovejaMoviendo.getColor())){
                         ovejaMoviendo.setEstado(ovejaMoviendo.getEstadoOriginal());
@@ -153,6 +149,7 @@ public class GameScreen extends MainScreen {
                     }else{
                         Gdx.app.log("corral", "Corral incorrecto");
                         ovejaMoviendo.setEstado(Oveja.Estado.BOOM);
+                        lifes--;
                         ovejaMoviendo = null;
                     }
                 }
@@ -167,6 +164,16 @@ public class GameScreen extends MainScreen {
                 (xP >= 670 && xP <= 1080 && yP >= 110 && yP <= 730 && color.equals("AZUL")) ||
                 (xP >= 0 && xP <= 410 && yP >= 1104 && yP <= 1730 && color.equals("MORADO")) ||
                 (xP >= 670 && xP <= 1080 && yP >= 1104 && yP <= 1730 && color.equals("AMARILLO"))){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean cordenadasLineales(float xP, float yP, Oveja.Estado estado){
+        if ((xP >= 410 && xP <= 670 && yP >= 0 && yP <= 1920 && estado == Oveja.Estado.ARRIBA) ||
+                (xP >= 410 && xP <= 670 && yP >= 0 && yP <= 1920 && estado == Oveja.Estado.ABAJO) ||
+                (xP >= 0 && xP <= 1080 && yP >= 730 && yP <= 1104 && estado == Oveja.Estado.DERECHA) ||
+                (xP >= 0 && xP <= 1080 && yP >= 730 && yP <= 1104 && estado == Oveja.Estado.IZQUIERDA)){
             return true;
         }
         return false;
@@ -282,51 +289,53 @@ public class GameScreen extends MainScreen {
             tiempo += Gdx.graphics.getDeltaTime();
         }
 
-            batch.begin();
-            batch.draw(bg, 0, 0);
+        batch.begin();
+        batch.draw(bg, 0, 0);
 
-            if(lifes==3) {
-                batch.draw(life, 277, 1796);
-                batch.draw(life, 177, 1796);
-                batch.draw(life,77,1796);
-            }
-            if(lifes==2){
-                batch.draw(life, 177, 1796);
-                batch.draw(life,77,1796);
-            }
-            if(lifes==1){
-                batch.draw(life,77,1796);
-            }
+        if(lifes==3) {
+            batch.draw(life, 277, 1796);
+            batch.draw(life, 177, 1796);
+            batch.draw(life,77,1796);
+        }
+        if(lifes==2){
+            batch.draw(life, 177, 1796);
+            batch.draw(life,77,1796);
+        }
+        if(lifes==1){
+            batch.draw(life,77,1796);
+        }
 
-            if(lifes<=0){
-                estado = EstadoJuego.PERDIDO;
-            }
+        if(lifes<=0){
+            estado = EstadoJuego.PERDIDO;
+        }
 
 
-            batch.draw(life_lost, 277,1796);
-            batch.draw(life_lost, 177,1796);
-            batch.draw(life_lost, 77,1796);
+        batch.draw(life_lost, 277,1796);
+        batch.draw(life_lost, 177,1796);
+        batch.draw(life_lost, 77,1796);
 
-            batch.draw(time,680,1814);
-            if(seconds>=10){
-                font.draw(batch,Integer.toString(minutes)+ ":"+ Integer.toString(seconds),755,1888);
-            }else{
-                font.draw(batch,Integer.toString(minutes)+ ":0"+ Integer.toString(seconds),755,1888);
-            }
-            for (int i = 0; i < arrOvejas.size; i++) {
-                if (tiempo <= 60.0) {
-                    if (salida <= 5) {
-                        arrOvejas.get(i).render(batch);
-                    } else {
-                        salida = 0;
-                    }
-                }
-                else{
+        batch.draw(time,680,1814);
+
+        if(seconds>=10){
+            font.draw(batch,Integer.toString(minutes)+ ":"+ Integer.toString(seconds),755,1888);
+        }else{
+            font.draw(batch,Integer.toString(minutes)+ ":0"+ Integer.toString(seconds),755,1888);
+        }
+        for (int i = 0; i < arrOvejas.size; i++) {
+            if (tiempo <= 30.0) {
+                if (salida <= 5) {
                     arrOvejas.get(i).render(batch);
-                    }
-
+                } else {
+                    salida = 0;
+                }
             }
-            batch.end();
+            else{
+                arrOvejas.get(i).setVelocidad(3);
+                arrOvejas.get(i).render(batch);
+            }
+
+        }
+        batch.end();
 
 
         escenaJuego.draw();
@@ -340,7 +349,7 @@ public class GameScreen extends MainScreen {
             detenerOveja(false);
             Gdx.input.setInputProcessor(escenaPerder);
             escenaPerder.draw();
-            if(played==false) juego.playLost();
+            if(!played) juego.playLost();
             played = true;
         }
 
