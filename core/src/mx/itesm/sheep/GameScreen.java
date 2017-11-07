@@ -71,14 +71,15 @@ public class GameScreen extends MainScreen {
 
     @Override
     public void show() {
-        font = new BitmapFont(Gdx.files.internal("Intro.fnt"));
-        escenaPerder = new EscenaPerder(vista,batch);
-        escenaGanar = new EscenaGanar(vista,batch);
-        estado = EstadoJuego.JUGANDO;
-        Gdx.input.setInputProcessor(escenaJuego);
         cargarTexturas();
         cargarOvejas();
         crearEscenaJuego();
+        font = new BitmapFont(Gdx.files.internal("Intro.fnt"));
+        escenaPerder = new EscenaPerder(vista,batch);
+        //escenaGanar = new EscenaGanar(vista,batch);
+        estado = EstadoJuego.JUGANDO;
+        Gdx.input.setInputProcessor(escenaJuego);
+
         lifes = 3;
     }
 
@@ -366,10 +367,12 @@ public class GameScreen extends MainScreen {
             played = true;
         }
 
+        /*
         if(estado ==  EstadoJuego.GANADO){
             Gdx.input.setInputProcessor(escenaGanar);
             escenaGanar.draw();
         }
+       */
 
         if(pref.getBoolean("musicOn")){
             if(estado == EstadoJuego.JUGANDO){
