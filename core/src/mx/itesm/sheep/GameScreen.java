@@ -342,7 +342,7 @@ public class GameScreen extends MainScreen {
                 }
             }
             else{
-                arrOvejas.get(i).setVelocidad(3);
+                arrOvejas.get(i).setVelocidad(2.5f);
                 arrOvejas.get(i).render(batch);
             }
 
