@@ -147,10 +147,18 @@ public class GameScreen extends MainScreen {
                         ovejaMoviendo.setEstado(ovejaMoviendo.getEstadoOriginal());
                         ovejaMoviendo = null;
                     }else{
-                        Gdx.app.log("corral", "Corral incorrecto");
-                        ovejaMoviendo.setEstado(Oveja.Estado.BOOM);
-                        lifes--;
-                        ovejaMoviendo = null;
+                        if(!cordenadasLineales(x,y,ovejaMoviendo.getEstadoOriginal())){
+                            Gdx.app.log("corral", "Corral incorrecto");
+                            ovejaMoviendo.setEstado(Oveja.Estado.BOOM);
+                            lifes--;
+                            ovejaMoviendo = null;
+                        }else{
+                            ovejaMoviendo.setSeMovio(false);
+                            ovejaMoviendo.setEstado(ovejaMoviendo.getEstadoOriginal());
+                            ovejaMoviendo.setX(ovejaMovX);
+                            ovejaMoviendo.setY(ovejaMovY);
+                            ovejaMoviendo = null;
+                        }
                     }
                 }
             }
@@ -172,8 +180,12 @@ public class GameScreen extends MainScreen {
     public boolean cordenadasLineales(float xP, float yP, Oveja.Estado estado){
         if ((xP >= 410 && xP <= 670 && yP >= 0 && yP <= 1920 && estado == Oveja.Estado.ARRIBA) ||
                 (xP >= 410 && xP <= 670 && yP >= 0 && yP <= 1920 && estado == Oveja.Estado.ABAJO) ||
-                (xP >= 0 && xP <= 1080 && yP >= 730 && yP <= 1104 && estado == Oveja.Estado.DERECHA) ||
-                (xP >= 0 && xP <= 1080 && yP >= 730 && yP <= 1104 && estado == Oveja.Estado.IZQUIERDA)){
+                (xP >= 410 && xP <= 670 && yP >= 0 && yP <= 1920 && estado == Oveja.Estado.IZQUIERDA) ||
+                (xP >= 410 && xP <= 670 && yP >= 0 && yP <= 1920 && estado == Oveja.Estado.DERECHA) ||
+                (xP >= 0 && xP <= 1080 && yP >= 730 && yP <= 1104 && estado == Oveja.Estado.ARRIBA) ||
+                (xP >= 0 && xP <= 1080 && yP >= 730 && yP <= 1104 && estado == Oveja.Estado.ABAJO) ||
+                (xP >= 0 && xP <= 1080 && yP >= 730 && yP <= 1104 && estado == Oveja.Estado.IZQUIERDA) ||
+                (xP >= 0 && xP <= 1080 && yP >= 730 && yP <= 1104 && estado == Oveja.Estado.DERECHA)){
             return true;
         }
         return false;
