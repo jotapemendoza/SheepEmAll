@@ -36,6 +36,8 @@ public class GameScreen extends MainScreen {
     private int ovejaMovY;
     private final int cantOve = 30;
 
+    private int contOvejas = 0;
+
     // Tiempo de salida y de partida del juego
     private float tiempo;
     private float salida;
@@ -147,6 +149,8 @@ public class GameScreen extends MainScreen {
                     // verificar si está en el corral
                     if(cordenadasCorral(x,y,ovejaMoviendo.getColor())){
                         ovejaMoviendo.setEstado(ovejaMoviendo.getEstadoOriginal());
+                        contOvejas++;
+                        Gdx.app.log("oveja","en corral: " + contOvejas);
                         ovejaMoviendo = null;
                     }else{
                         if(!cordenadasLineales(x,y,ovejaMoviendo.getEstadoOriginal())){
@@ -323,6 +327,11 @@ public class GameScreen extends MainScreen {
             estado = EstadoJuego.PERDIDO;
         }
 
+        if(contOvejas >= cantOve && lifes >= 1){
+            estado = EstadoJuego.GANADO;
+        }
+
+
 
         batch.draw(life_lost, 277,1796);
         batch.draw(life_lost, 177,1796);
@@ -344,7 +353,7 @@ public class GameScreen extends MainScreen {
                 }
             }
             else{
-                arrOvejas.get(i).setVelocidad(2.5f);
+                //arrOvejas.get(i).setVelocidad(2.5f);
                 arrOvejas.get(i).render(batch);
             }
 
@@ -370,6 +379,7 @@ public class GameScreen extends MainScreen {
 
 
         if(estado ==  EstadoJuego.GANADO){
+            detenerOveja(false);
             Gdx.input.setInputProcessor(escenaGanar);
             escenaGanar.draw();
         }
