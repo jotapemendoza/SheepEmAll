@@ -380,11 +380,11 @@ public class GameScreen extends MainScreen {
         }
 
 
-       /* if(estado ==  EstadoJuego.GANADO){
+       /*if(estado ==  EstadoJuego.GANADO){
             detenerOveja(false);
             Gdx.input.setInputProcessor(escenaGanar);
             escenaGanar.draw(); // aquí muere el juego
-        }*/
+       }*/
 
 
         if(pref.getBoolean("musicOn")){
