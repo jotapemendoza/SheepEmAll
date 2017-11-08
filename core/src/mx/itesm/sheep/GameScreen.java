@@ -653,6 +653,7 @@ public class GameScreen extends MainScreen {
                 public void clicked(InputEvent event, float x, float y) {
                     juego.stopGameMusic();
                     juego.setScreen(new GameScreen(juego));
+                    juego.playGameMusic();
                 }
             });
             this.addActor(tryAgain);
@@ -675,6 +676,5 @@ public class GameScreen extends MainScreen {
 
         }
     }
-
     //----------------------------------------------------------------------------------------------
 }
