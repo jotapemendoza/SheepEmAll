@@ -25,7 +25,6 @@ public class Oveja {
     // Animar oveja
     private Animation animacion;
     private float timer;
-    private Texture texturaMov;
     private Animation animacionMov;
     private Texture texturafuego;
     private Animation fuego;
@@ -38,16 +37,13 @@ public class Oveja {
     private boolean enLlamas = false;
 
 
-    public Oveja(Texture textura, Estado estado, String color) {
+    public Oveja(Texture textura, Texture textura2, Estado estado, String color) {
         this.color = color;
         TextureRegion region = new TextureRegion(textura);
         TextureRegion[][] frames;
 
-        texturaMov = new Texture("sheep_moving.png");
-        TextureRegion region2 = new TextureRegion(texturaMov);
-        TextureRegion[][] frames2 = region2.split(114,127);
-        animacionMov = new Animation(0.20f, frames2[0][0], frames2[0][1]);
-        animacionMov.setPlayMode(Animation.PlayMode.LOOP);
+        TextureRegion region2 = new TextureRegion(textura2);
+        TextureRegion[][] frames2;
 
         texturafuego = new Texture("fire.png");
         TextureRegion region3 = new TextureRegion(texturafuego);
@@ -64,6 +60,11 @@ public class Oveja {
                 frames = region.split(ancho,alto);
                 animacion = new Animation(0.20f, frames[0][0], frames[0][1]);
                 animacion.setPlayMode(Animation.PlayMode.LOOP);
+
+                frames2 = region2.split(114,127);
+                animacionMov = new Animation(0.20f, frames2[0][0], frames2[0][1]);
+                animacionMov.setPlayMode(Animation.PlayMode.LOOP);
+
                 timer = 0;
                 x = 500 + ((int) (Math.random()*100)+1);
                 y = 1900+ ((int) (Math.random()*4000));
@@ -76,6 +77,11 @@ public class Oveja {
                 frames = region.split(ancho,alto);
                 animacion = new Animation(0.20f, frames[0][0], frames[0][1]);
                 animacion.setPlayMode(Animation.PlayMode.LOOP);
+
+                frames2 = region2.split(114,127);
+                animacionMov = new Animation(0.20f, frames2[0][0], frames2[0][1]);
+                animacionMov.setPlayMode(Animation.PlayMode.LOOP);
+
                 timer = 0;
                 x = 500 + ((int) (Math.random()*100)+1);
                 y = ((int) (Math.random()*-4000));
@@ -88,6 +94,11 @@ public class Oveja {
                 frames = region.split(ancho,alto);
                 animacion = new Animation(0.20f, frames[0][0], frames[0][1], frames[0][2]);
                 animacion.setPlayMode(Animation.PlayMode.LOOP);
+
+                frames2 = region2.split(127,114);
+                animacionMov = new Animation(0.20f, frames2[0][0], frames2[1][0]);
+                animacionMov.setPlayMode(Animation.PlayMode.LOOP);
+
                 timer = 0;
                 x = ((int) (Math.random()*-4000));
                 y = 800 + ((int) (Math.random()*100)+1);
@@ -100,6 +111,11 @@ public class Oveja {
                 frames = region.split(ancho,alto);
                 animacion = new Animation(0.20f, frames[0][0], frames[0][1], frames[0][2]);
                 animacion.setPlayMode(Animation.PlayMode.LOOP);
+
+                frames2 = region2.split(127,114);
+                animacionMov = new Animation(0.20f, frames2[0][0], frames2[1][0]);
+                animacionMov.setPlayMode(Animation.PlayMode.LOOP);
+
                 timer = 0;
                 x = 1080 + ((int) (Math.random()*4000));
                 y = 800 + ((int) (Math.random()*100)+1);

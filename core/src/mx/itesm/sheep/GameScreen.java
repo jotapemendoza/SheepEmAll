@@ -66,6 +66,11 @@ public class GameScreen extends MainScreen {
     private Texture life;
     private Texture life_lost;
 
+    private Texture oveMovArr;
+    private Texture oveMovAb;
+    private Texture oveMovIzq;
+    private Texture oveMovDer;
+
     public GameScreen(Juego juego){
         this.juego = juego;
     }
@@ -218,16 +223,16 @@ public class GameScreen extends MainScreen {
             int random = (int) (Math.random()*4)+1;
 
             if (random == 1){
-                ove = new Oveja(oveArr, Oveja.Estado.ARRIBA, "ROJO");
+                ove = new Oveja(oveArr, oveMovArr, Oveja.Estado.ARRIBA, "ROJO");
                 arrOvejas.add(ove);
             }else if (random == 2){
-                ove = new Oveja(oveAb, Oveja.Estado.ABAJO, "AZUL");
+                ove = new Oveja(oveAb, oveMovAb, Oveja.Estado.ABAJO, "AZUL");
                 arrOvejas.add(ove);
             }else if (random == 3){
-                ove = new Oveja(oveIzq, Oveja.Estado.IZQUIERDA, "MORADO");
+                ove = new Oveja(oveIzq, oveMovIzq, Oveja.Estado.IZQUIERDA, "MORADO");
                 arrOvejas.add(ove);
             }else{
-                ove = new Oveja(oveDer, Oveja.Estado.DERECHA, "AMARILLO");
+                ove = new Oveja(oveDer, oveMovDer, Oveja.Estado.DERECHA, "AMARILLO");
                 arrOvejas.add(ove);
             }
         }
@@ -282,6 +287,10 @@ public class GameScreen extends MainScreen {
         time = new Texture("time.png");
         life = new Texture("life.png");
         life_lost = new Texture("life_lost.png");
+        oveMovArr = new Texture("sheep_moving1.png");
+        oveMovAb = new Texture("sheep_moving.png");
+        oveMovIzq = new Texture("sheep_moving3.png");
+        oveMovDer = new Texture("sheep_moving2.png");
     }
 
     @Override
