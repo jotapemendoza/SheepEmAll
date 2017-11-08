@@ -336,7 +336,6 @@ public class GameScreen extends MainScreen {
             estado = EstadoJuego.GANADO;
         }
 
-
         batch.draw(life_lost, 277,1796);
         batch.draw(life_lost, 177,1796);
         batch.draw(life_lost, 77,1796);
