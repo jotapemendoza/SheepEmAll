@@ -210,7 +210,7 @@ class MenuScreen extends MainScreen
         TextureRegionDrawable trdSheep = new
                 TextureRegionDrawable(new TextureRegion(sheep));
         Image sh = new Image(trdSheep);
-        sh.setPosition(74,145);
+        sh.setPosition(120,145);
         escenaMenu.addActor(sh);
 
     }

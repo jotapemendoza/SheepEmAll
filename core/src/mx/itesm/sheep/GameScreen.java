@@ -35,7 +35,6 @@ public class GameScreen extends MainScreen {
     private int ovejaMovX;
     private int ovejaMovY;
     private final int cantOve = 30;
-    private int contOvejas = 0;
 
     // Tiempo de salida y de partida del juego
     private float tiempo;
@@ -77,7 +76,7 @@ public class GameScreen extends MainScreen {
         crearEscenaJuego();
         font = new BitmapFont(Gdx.files.internal("Intro.fnt"));
         escenaPerder = new EscenaPerder(vista,batch);
-        //escenaGanar = new EscenaGanar(vista,batch);
+        escenaGanar = new EscenaGanar(vista,batch);
         estado = EstadoJuego.JUGANDO;
         Gdx.input.setInputProcessor(escenaJuego);
 
@@ -148,8 +147,6 @@ public class GameScreen extends MainScreen {
                     // verificar si está en el corral
                     if(cordenadasCorral(x,y,ovejaMoviendo.getColor())){
                         ovejaMoviendo.setEstado(ovejaMoviendo.getEstadoOriginal());
-                        contOvejas++;
-                        Gdx.app.log("oveja","en corral: " + contOvejas);
                         ovejaMoviendo = null;
                     }else{
                         if(!cordenadasLineales(x,y,ovejaMoviendo.getEstadoOriginal())){
@@ -326,15 +323,6 @@ public class GameScreen extends MainScreen {
             estado = EstadoJuego.PERDIDO;
         }
 
-        if(contOvejas >= cantOve && lifes == 3){
-            estado = EstadoJuego.GANADO;
-        }
-        if(contOvejas >= (cantOve-1) && lifes == 2){
-            estado = EstadoJuego.GANADO;
-        }
-        if(contOvejas >= (cantOve-2) && lifes == 1){
-            estado = EstadoJuego.GANADO;
-        }
 
         batch.draw(life_lost, 277,1796);
         batch.draw(life_lost, 177,1796);
@@ -356,7 +344,7 @@ public class GameScreen extends MainScreen {
                 }
             }
             else{
-                //arrOvejas.get(i).setVelocidad(2.5f);
+                arrOvejas.get(i).setVelocidad(2.5f);
                 arrOvejas.get(i).render(batch);
             }
 
@@ -380,11 +368,11 @@ public class GameScreen extends MainScreen {
         }
 
 
-       /*if(estado ==  EstadoJuego.GANADO){
-            detenerOveja(false);
+
+        if(estado ==  EstadoJuego.GANADO){
             Gdx.input.setInputProcessor(escenaGanar);
-            escenaGanar.draw(); // aquí muere el juego
-       }*/
+            escenaGanar.draw();
+        }
 
 
         if(pref.getBoolean("musicOn")){
@@ -523,10 +511,17 @@ public class GameScreen extends MainScreen {
         public EscenaGanar(Viewport vista, SpriteBatch batch){
             super(vista,batch);
 
+            Texture opaque = new Texture("opaque.png");
+            TextureRegionDrawable trdOpaq = new TextureRegionDrawable(new TextureRegion(opaque));
+            Image op = new Image(trdOpaq);
+            op.setPosition(0,0);
+            this.addActor(op);
+
+
             Texture winText = new Texture("winText.png");
             TextureRegionDrawable winTrd = new TextureRegionDrawable(new TextureRegion(winText));
             Image winIm = new Image(winTrd);
-            winIm.setPosition(126,962);
+            winIm.setPosition(126,1240);
             this.addActor(winIm);
 
             Texture winRectangle = new Texture("winRectangle.png");
@@ -611,24 +606,20 @@ public class GameScreen extends MainScreen {
             this.addActor(rect);
 
             Texture gameText = new Texture("gameOver.png");
-            TextureRegionDrawable trdGame = new TextureRegionDrawable(
-                    new TextureRegion(gameText));
+            TextureRegionDrawable trdGame = new TextureRegionDrawable(new TextureRegion(gameText));
             Image gameOver = new Image(trdGame);
             gameOver.setPosition(321,1415);
             this.addActor(gameOver);
 
             Texture deadSheep = new Texture("deadSheep.png");
-            TextureRegionDrawable trdSheep =  new TextureRegionDrawable(
-                    new TextureRegion(deadSheep));
+            TextureRegionDrawable trdSheep =  new TextureRegionDrawable(new TextureRegion(deadSheep));
             Image sheep = new Image(trdSheep);
             sheep.setPosition(269,274);
             this.addActor(sheep);
 
             Texture homeButtonLost = new Texture("buttons/unpressed/homeButtonLost.png");
-            TextureRegionDrawable trdHome = new TextureRegionDrawable(
-                    new TextureRegion(homeButtonLost));
-            TextureRegionDrawable trdHomePr = new TextureRegionDrawable(
-                    new TextureRegion(new Texture("buttons/pressed/PressedHomeButtonLost.png")));
+            TextureRegionDrawable trdHome = new TextureRegionDrawable(new TextureRegion(homeButtonLost));
+            TextureRegionDrawable trdHomePr = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/pressed/PressedHomeButtonLost.png")));
             ImageButton homeButton = new ImageButton(trdHome, trdHomePr);
             homeButton.setPosition(586,700);
             homeButton.addListener(new ClickListener(){
@@ -642,10 +633,8 @@ public class GameScreen extends MainScreen {
             this.addActor(homeButton);
 
             Texture tryAgainButton = new Texture("buttons/unpressed/tryAgainButton.png");
-            TextureRegionDrawable trdAgain = new TextureRegionDrawable(
-                    new TextureRegion(tryAgainButton));
-            TextureRegionDrawable trdAgainpr = new TextureRegionDrawable(
-                    new TextureRegion(new Texture("buttons/pressed/PressedTryAgainButton.png")));
+            TextureRegionDrawable trdAgain = new TextureRegionDrawable(new TextureRegion(tryAgainButton));
+            TextureRegionDrawable trdAgainpr = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/pressed/PressedTryAgainButton.png")));
             ImageButton tryAgain = new ImageButton(trdAgain, trdAgainpr);
             tryAgain.setPosition(383,972);
             tryAgain.addListener(new ClickListener(){
