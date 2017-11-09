@@ -157,7 +157,7 @@ public class GameScreen extends MainScreen {
                         Gdx.app.log("oveja","en corral: " + contOvejas);
                         ovejaMoviendo = null;
                     }else{
-                        if(!cordenadasLineales(x,y,ovejaMoviendo.getEstadoOriginal())){
+                        if(!cordenadasLineales(x,y)){
                             Gdx.app.log("corral", "Corral incorrecto");
                             ovejaMoviendo.setEstado(Oveja.Estado.BOOM);
                             lifes--;
@@ -177,6 +177,7 @@ public class GameScreen extends MainScreen {
 
     }
 
+    // validar corral correcto ---------------------------------------------------------------------
     public boolean cordenadasCorral(float xP, float yP, String color) {
         if ((xP >= 0 && xP <= 410 && yP >= 110 && yP <= 730 && color.equals("ROJO")) ||
                 (xP >= 670 && xP <= 1080 && yP >= 110 && yP <= 730 && color.equals("AZUL")) ||
@@ -187,20 +188,25 @@ public class GameScreen extends MainScreen {
         return false;
     }
 
-    public boolean cordenadasLineales(float xP, float yP, Oveja.Estado estado){
-        if ((xP >= 410 && xP <= 670 && yP >= 0 && yP <= 1920 && estado == Oveja.Estado.ARRIBA) ||
-                (xP >= 410 && xP <= 670 && yP >= 0 && yP <= 1920 && estado == Oveja.Estado.ABAJO) ||
-                (xP >= 410 && xP <= 670 && yP >= 0 && yP <= 1920 && estado == Oveja.Estado.IZQUIERDA) ||
-                (xP >= 410 && xP <= 670 && yP >= 0 && yP <= 1920 && estado == Oveja.Estado.DERECHA) ||
-                (xP >= 0 && xP <= 1080 && yP >= 730 && yP <= 1104 && estado == Oveja.Estado.ARRIBA) ||
-                (xP >= 0 && xP <= 1080 && yP >= 730 && yP <= 1104 && estado == Oveja.Estado.ABAJO) ||
-                (xP >= 0 && xP <= 1080 && yP >= 730 && yP <= 1104 && estado == Oveja.Estado.IZQUIERDA) ||
-                (xP >= 0 && xP <= 1080 && yP >= 730 && yP <= 1104 && estado == Oveja.Estado.DERECHA)){
+    // validar camino de ovejas --------------------------------------------------------------------
+    public boolean cordenadasLineales(float xP, float yP){
+        if ( (xP >= 410 && xP <= 670 && yP >= 0 && yP <= 1920) ||
+                (xP >= 0 && xP <= 1080 && yP >= 730 && yP <= 1104) ){
             return true;
         }
         return false;
     }
 
+    /*private boolean colisionOveja(Oveja oveja1, Oveja oveja2){
+       if (oveja1.comparar(oveja2.getx(),oveja2.gety())){
+           oveja1.setX(oveja2.getx()+8f);
+           oveja1.setY(oveja2.gety()+8f);
+           return true;
+       }
+       return false;
+    }*/
+
+    // detener ovejas en el juego ------------------------------------------------------------------
     private void detenerOveja(boolean stop) {
         if (stop){
             for (Oveja oveja: arrOvejas){
@@ -276,7 +282,7 @@ public class GameScreen extends MainScreen {
         }
     }
 
-    // Método que carga todas las texturas del juego
+    // Método que carga todas las texturas del juego -----------------------------------------------
     private void cargarTexturas() {
         bg = new Texture("gBg.png");
         pauseButton = new Texture("buttons/unpressed/pauseButton.png");
@@ -356,6 +362,7 @@ public class GameScreen extends MainScreen {
         }else{
             font.draw(batch,Integer.toString(minutes)+ ":0"+ Integer.toString(seconds),755,1888);
         }
+
         for (int i = 0; i < arrOvejas.size; i++) {
             if (salida <= 10) {
                 arrOvejas.get(i).setVelocidad(velocidadOve);
