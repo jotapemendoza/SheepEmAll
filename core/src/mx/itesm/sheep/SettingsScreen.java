@@ -32,7 +32,6 @@ public class SettingsScreen extends MainScreen {
     private ImageButton btnMusic;
     private ImageButton btnNoMusic;
 
-    private Music music;
     private Texture fxButtonPr;
 
 
