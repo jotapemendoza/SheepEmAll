@@ -42,11 +42,14 @@ public class Juego extends Game
 
 	public void stopGameMusic(){
 		gameMusic.stop();
-		gameMusic.dispose();
 	}
 
 	public void playLost(){
 		lost.play();
+	}
+
+	public void stopLost(){
+		lost.stop();
 	}
 }
 

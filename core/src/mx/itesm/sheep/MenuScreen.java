@@ -58,8 +58,8 @@ class MenuScreen extends MainScreen
 
     @Override
     public void show() {
-        cargarTexturas();   // Carga imágenes
-        crearEscenaMenu();  // Crea la escena
+        cargarTexturas();
+        crearEscenaMenu();
 
 
 
@@ -96,6 +96,7 @@ class MenuScreen extends MainScreen
                     juego.setScreen(new InstructionsScreen(juego));
                 }
                 pref.putBoolean("played",true);
+                pref.flush();
                 System.out.println(pref.getBoolean("played"));
                 juego.pauseMenuMusic();
             }

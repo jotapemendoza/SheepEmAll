@@ -521,7 +521,6 @@ public class GameScreen extends MainScreen {
                 public void clicked(InputEvent event, float x, float y) {
                     // Regresa al menú
                     juego.setScreen(new GameScreen(juego));
-                    juego.stopGameMusic();
                     juego.playGameMusic();
                 }
             });
@@ -652,6 +651,7 @@ public class GameScreen extends MainScreen {
                 public void clicked(InputEvent event, float x, float y) {
                     juego.stopGameMusic();
                     juego.setScreen(new MenuScreen(juego));
+                    juego.stopLost();
 
                 }
             });
@@ -668,6 +668,7 @@ public class GameScreen extends MainScreen {
                     juego.stopGameMusic();
                     juego.setScreen(new GameScreen(juego));
                     juego.playGameMusic();
+                    juego.stopLost();
                 }
             });
             this.addActor(tryAgain);
@@ -683,6 +684,7 @@ public class GameScreen extends MainScreen {
                 public void clicked(InputEvent event, float x, float y) {
                     juego.stopGameMusic();
                     juego.setScreen(new MenuScreen(juego));
+                    juego.stopLost();
                 }
             });
             this.addActor(lvsButton);
