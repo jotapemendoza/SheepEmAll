@@ -22,54 +22,51 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public class GameScreen extends MainScreen {
 
     private final Juego juego;
-    private Texture homeButton;
+    
+    // Texturas/Parte Gráfica ----------------------------------------------------------------------
+    private Texture continueButton;
     private Texture pauseButton;
-    private Texture bg;
+    private Texture homeButton;
+    private Texture background;
     private Stage escenaJuego;
+    private Texture oveArr;
+    private Texture oveIzq;
+    private Texture oveDer;
+    private Texture oveAb;
+    private Texture time;
+    private Texture life;
+    private Texture life_lost;
+    private Texture oveMovAb;
+    private Texture oveMovArr;
+    private Texture oveMovIzq;
+    private Texture oveMovDer;
+    private BitmapFont font;
 
     private Boolean played = false;
 
-    // Arreglo de ovejas
+    // Arreglo de ovejas ---------------------------------------------------------------------------
     private Array<Oveja> arrOvejas;
     private Oveja ovejaMoviendo = null;
     private int ovejaMovX;
     private int ovejaMovY;
     private final int cantOve = 30;
     private int contOvejas = 0;
+    
 
-    // Tiempo de salida y de partida del juego
-    private float tiempo;
     private float salida;
     private float velocidadOve = 1.0f;
     private int lifes;
 
-
     float totalTime = 1 * 60;
 
-    private Texture continueButton;
-
-    private Texture oveArr;
-    private Texture oveIzq;
-    private Texture oveAb;
-    private Texture oveDer;
-
-    private BitmapFont font;
-
     private EstadoJuego estado;
-
-    private EscenaGanar escenaGanar;
+    
+    // Escenas -------------------------------------------------------------------------------------
     private EscenaPerder escenaPerder;
-
-    // Escena "pop-up" cuándo se presiona el botón de pausa
+    private EscenaGanar escenaGanar;
     private EscenaPausa escenaPausa;
-    private Texture time;
-    private Texture life;
-    private Texture life_lost;
+    private float tiempo;
 
-    private Texture oveMovArr;
-    private Texture oveMovAb;
-    private Texture oveMovIzq;
-    private Texture oveMovDer;
 
     public GameScreen(Juego juego){
         this.juego = juego;
@@ -97,9 +94,7 @@ public class GameScreen extends MainScreen {
 
         Texture pressedPauseButton = new Texture("buttons/pressed/pressedPauseButton.png");
         TextureRegionDrawable trdPausepr = new TextureRegionDrawable(new TextureRegion(pressedPauseButton));
-
-        TextureRegionDrawable trdPause = new
-                TextureRegionDrawable(new TextureRegion(pauseButton));
+        TextureRegionDrawable trdPause = new TextureRegionDrawable(new TextureRegion(pauseButton));
         ImageButton imPause = new ImageButton(trdPause, trdPausepr);
         imPause.setPosition(461, 1734);
         escenaJuego.addActor(imPause);
@@ -112,7 +107,6 @@ public class GameScreen extends MainScreen {
                 escenaPausa = new EscenaPausa(vista,batch);
                 detenerOveja(true);
                 Gdx.input.setInputProcessor(escenaPausa);
-
             }
         } );
 
@@ -140,7 +134,6 @@ public class GameScreen extends MainScreen {
             public void drag(InputEvent event, float x, float y, int pointer) {
                 super.drag(event, x, y, pointer);
                 if (ovejaMoviendo == null){ return; }
-                //(cursor) x-ANCHO/2,y-ALTO/2 segun proporción dela imagen final
                 ovejaMoviendo.setX(x - ovejaMoviendo.getAncho()/2);
                 ovejaMoviendo.setY(y - ovejaMoviendo.getAlto()/2);
                 Gdx.app.log("drag", "x = " +x + ", y = " +y);
@@ -177,7 +170,7 @@ public class GameScreen extends MainScreen {
 
     }
 
-    // validar corral correcto ---------------------------------------------------------------------
+    // Validar corral correcto ---------------------------------------------------------------------
     public boolean cordenadasCorral(float xP, float yP, String color) {
         if ((xP >= 0 && xP <= 410 && yP >= 110 && yP <= 730 && color.equals("ROJO")) ||
                 (xP >= 670 && xP <= 1080 && yP >= 110 && yP <= 730 && color.equals("AZUL")) ||
@@ -188,7 +181,7 @@ public class GameScreen extends MainScreen {
         return false;
     }
 
-    // validar camino de ovejas --------------------------------------------------------------------
+    // Validar camino de ovejas --------------------------------------------------------------------
     public boolean cordenadasLineales(float xP, float yP){
         if ( (xP >= 410 && xP <= 670 && yP >= 0 && yP <= 1920) ||
                 (xP >= 0 && xP <= 1080 && yP >= 730 && yP <= 1104) ){
@@ -196,17 +189,8 @@ public class GameScreen extends MainScreen {
         }
         return false;
     }
-
-    /*private boolean colisionOveja(Oveja oveja1, Oveja oveja2){
-       if (oveja1.comparar(oveja2.getx(),oveja2.gety())){
-           oveja1.setX(oveja2.getx()+8f);
-           oveja1.setY(oveja2.gety()+8f);
-           return true;
-       }
-       return false;
-    }*/
-
-    // detener ovejas en el juego ------------------------------------------------------------------
+    
+    // Detener ovejas en el juego ------------------------------------------------------------------
     private void detenerOveja(boolean stop) {
         if (stop){
             for (Oveja oveja: arrOvejas){
@@ -284,7 +268,7 @@ public class GameScreen extends MainScreen {
 
     // Método que carga todas las texturas del juego -----------------------------------------------
     private void cargarTexturas() {
-        bg = new Texture("gBg.png");
+        background = new Texture("gBg.png");
         pauseButton = new Texture("buttons/unpressed/pauseButton.png");
         oveArr = new Texture("sheep_down.png");
         oveIzq = new Texture("sheep_right.png");
@@ -322,7 +306,9 @@ public class GameScreen extends MainScreen {
         }
 
         batch.begin();
-        batch.draw(bg, 0, 0);
+        batch.draw(background, 0, 0);
+        
+        // Dibujar el asset de vidas dependiendo al número de vidas --------------------------------
 
         if(lifes==3) {
             batch.draw(life, 277, 1796);
@@ -336,6 +322,8 @@ public class GameScreen extends MainScreen {
         if(lifes==1){
             batch.draw(life,77,1796);
         }
+        
+        // -----------------------------------------------------------------------------------------
 
         if(lifes<=0){
             estado = EstadoJuego.PERDIDO;
@@ -357,11 +345,15 @@ public class GameScreen extends MainScreen {
 
         batch.draw(time,680,1814);
 
+        // Se dibuja el tiempo restante que tiene el usuario ---------------------------------------
+
         if(seconds>=10){
             font.draw(batch,Integer.toString(minutes)+ ":"+ Integer.toString(seconds),755,1888);
         }else{
             font.draw(batch,Integer.toString(minutes)+ ":0"+ Integer.toString(seconds),755,1888);
         }
+        // -----------------------------------------------------------------------------------------
+
 
         for (int i = 0; i < arrOvejas.size; i++) {
             if (salida <= 10) {
@@ -376,9 +368,7 @@ public class GameScreen extends MainScreen {
         }
         batch.end();
 
-
         escenaJuego.draw();
-
 
         if (estado == EstadoJuego.PAUSADO) {
             escenaPausa.draw();
@@ -392,13 +382,10 @@ public class GameScreen extends MainScreen {
             played = true;
         }
 
-
-
         if(estado ==  EstadoJuego.GANADO){
             Gdx.input.setInputProcessor(escenaGanar);
             escenaGanar.draw();
         }
-
 
         if(pref.getBoolean("musicOn")){
             if(estado == EstadoJuego.JUGANDO){
@@ -411,11 +398,8 @@ public class GameScreen extends MainScreen {
         if(!pref.getBoolean("musicOn")){
             juego.pauseGameMusic();
         }
-
         eliminarOveja();
     }
-
-
 
     @Override
     public void pause() {
@@ -438,10 +422,9 @@ public class GameScreen extends MainScreen {
         PERDIDO,
         GANADO
     }
-    // Escena pausa --------------------------------------------------------------------------------
+    // Escena para el menú de pausa ----------------------------------------------------------------
 
-    private class EscenaPausa extends Stage
-    {
+    private class EscenaPausa extends Stage {
         public EscenaPausa(Viewport vista, SpriteBatch batch) {
             super(vista,batch);
 
@@ -531,6 +514,8 @@ public class GameScreen extends MainScreen {
         }
     }
 
+    // Escena para la pantalla de Ganar ------------------------------------------------------------
+
     private class EscenaGanar extends Stage{
         public EscenaGanar(Viewport vista, SpriteBatch batch){
             super(vista,batch);
@@ -611,6 +596,8 @@ public class GameScreen extends MainScreen {
 
 
     }
+    // Escena para la pantalla de Perder -----------------------------------------------------------
+
 
     private class EscenaPerder extends Stage{
         public EscenaPerder(Viewport vista, SpriteBatch batch){
@@ -692,5 +679,5 @@ public class GameScreen extends MainScreen {
 
         }
     }
-    //----------------------------------------------------------------------------------------------
+    
 }
