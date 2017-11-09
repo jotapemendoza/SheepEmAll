@@ -40,7 +40,7 @@ public class GameScreen extends MainScreen {
     // Tiempo de salida y de partida del juego
     private float tiempo;
     private float salida;
-
+    private float velocidadOve = 1.0f;
     private int lifes;
 
 
@@ -357,16 +357,13 @@ public class GameScreen extends MainScreen {
             font.draw(batch,Integer.toString(minutes)+ ":0"+ Integer.toString(seconds),755,1888);
         }
         for (int i = 0; i < arrOvejas.size; i++) {
-            if (tiempo <= 30.0) {
-                if (salida <= 5) {
-                    arrOvejas.get(i).render(batch);
-                } else {
-                    salida = 0;
-                }
+            if (salida <= 10) {
+                arrOvejas.get(i).setVelocidad(velocidadOve);
+                arrOvejas.get(i).render(batch);
             }
             else{
-                //arrOvejas.get(i).setVelocidad(2.5f);
-                arrOvejas.get(i).render(batch);
+                velocidadOve += 0.5f;
+                salida = 0;
             }
 
         }
