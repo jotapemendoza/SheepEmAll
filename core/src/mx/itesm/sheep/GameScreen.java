@@ -1,12 +1,15 @@
 package mx.itesm.sheep;
 
+import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -19,7 +22,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
  * Created by josepablo on 9/14/17.
  */
 
-public class GameScreen extends MainScreen {
+public class GameScreen extends MainScreen{
 
     private final Juego juego;
     
@@ -49,7 +52,7 @@ public class GameScreen extends MainScreen {
     private Oveja ovejaMoviendo = null;
     private int ovejaMovX;
     private int ovejaMovY;
-    private final int cantOve = 30;
+    private final int cantOve = 20;
     private int contOvejas = 0;
     
 
@@ -283,8 +286,13 @@ public class GameScreen extends MainScreen {
         oveMovDer = new Texture("sheep_moving2.png");
     }
 
+
+
     @Override
     public void render(float delta) {
+
+        Gdx.input.setCatchBackKey(true);
+
 
         borrarPantalla(0, 0, 0);
         batch.setProjectionMatrix(camara.combined);
@@ -378,6 +386,7 @@ public class GameScreen extends MainScreen {
             detenerOveja(false);
             Gdx.input.setInputProcessor(escenaPerder);
             escenaPerder.draw();
+            escenaPerder.addAction(Actions.fadeIn(10));
             if(!played) juego.playLost();
             played = true;
         }
@@ -413,7 +422,6 @@ public class GameScreen extends MainScreen {
 
     @Override
     public void dispose() {
-        escenaJuego.dispose();
     }
 
     enum EstadoJuego {
@@ -430,34 +438,29 @@ public class GameScreen extends MainScreen {
 
 
             Texture opaque = new Texture("opaque.png");
-            TextureRegionDrawable trdOpaq = new TextureRegionDrawable(
-                    new TextureRegion(opaque));
+            TextureRegionDrawable trdOpaq = new TextureRegionDrawable(new TextureRegion(opaque));
             Image op = new Image(trdOpaq);
             op.setPosition(0,0);
             this.addActor(op);
 
 
             Texture pauseRectangle = new Texture("pauseRectangle.png");
-            TextureRegionDrawable trdRect = new TextureRegionDrawable(
-                    new TextureRegion(pauseRectangle));
+            TextureRegionDrawable trdRect = new TextureRegionDrawable(new TextureRegion(pauseRectangle));
             Image rectangle = new Image(trdRect);
             rectangle.setPosition(47,489);
             this.addActor(rectangle);
 
             Texture pauseText = new Texture("pauseText.png");
-            TextureRegionDrawable trdPText = new TextureRegionDrawable(
-                    new TextureRegion(pauseText));
+            TextureRegionDrawable trdPText = new TextureRegionDrawable(new TextureRegion(pauseText));
             Image pauseT = new Image(trdPText);
             pauseT.setPosition(270,1399);
             this.addActor(pauseT);
 
 
             Texture pressedContinueButton = new Texture("buttons/pressed/pressedContinueButton.png");
-            TextureRegionDrawable trdContinuepr = new TextureRegionDrawable(
-                    new TextureRegion(pressedContinueButton));
+            TextureRegionDrawable trdContinuepr = new TextureRegionDrawable(new TextureRegion(pressedContinueButton));
             continueButton = new Texture("buttons/unpressed/continueButton.png");
-            TextureRegionDrawable trdContinue = new TextureRegionDrawable(
-                    new TextureRegion(continueButton));
+            TextureRegionDrawable trdContinue = new TextureRegionDrawable(new TextureRegion(continueButton));
             ImageButton btnContinue = new ImageButton(trdContinue,trdContinuepr);
             btnContinue.setPosition(383,968);
             btnContinue.addListener(new ClickListener(){
@@ -503,6 +506,7 @@ public class GameScreen extends MainScreen {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     // Regresa al menú
+                    juego.stopGameMusic();
                     juego.setScreen(new GameScreen(juego));
                     juego.playGameMusic();
                 }
@@ -526,24 +530,26 @@ public class GameScreen extends MainScreen {
             op.setPosition(0,0);
             this.addActor(op);
 
-
-            Texture winText = new Texture("winText.png");
-            TextureRegionDrawable winTrd = new TextureRegionDrawable(new TextureRegion(winText));
-            Image winIm = new Image(winTrd);
-            winIm.setPosition(126,1240);
-            this.addActor(winIm);
-
             Texture winRectangle = new Texture("winRectangle.png");
             TextureRegionDrawable winRectTrd = new TextureRegionDrawable(new TextureRegion(winRectangle));
             Image winRect = new Image(winRectTrd);
             winRect.setPosition(40,292);
             this.addActor(winRect);
 
+            /*
+            Texture winText = new Texture("winText.png");
+            TextureRegionDrawable winTrd = new TextureRegionDrawable(new TextureRegion(winText));
+            Image winIm = new Image(winTrd);
+            winIm.setPosition(126,1240);
+            this.addActor(winIm);
+
             Texture winSheep = new Texture("winSheep.png");
             TextureRegionDrawable winSheepTrd = new TextureRegionDrawable(new TextureRegion(winSheep));
             Image winSheepImg = new Image(winSheepTrd);
             winSheepImg.setPosition(326,281);
             this.addActor(winSheepImg);
+            */
+
 
             Texture nextLevel = new Texture("buttons/unpressed/NextLevelButton.png");
             Texture nextLevelPr = new Texture("buttons/pressed/PressedNextLevelButton.png");

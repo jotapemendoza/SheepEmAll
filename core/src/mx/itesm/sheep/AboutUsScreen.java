@@ -205,6 +205,6 @@ class AboutUsScreen extends MainScreen {
 
     @Override
     public void dispose() {
-
+        escenaAyuda.dispose();
     }
 }

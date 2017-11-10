@@ -34,7 +34,7 @@ public abstract class MainScreen implements com.badlogic.gdx.Screen
         camara = new OrthographicCamera(ANCHO, ALTO);
         camara.position.set(ANCHO / 2, ALTO / 2, 0);
         camara.update();
-        vista = new StretchViewport(ANCHO, ALTO, camara);
+        vista = new FitViewport(ANCHO, ALTO, camara);
         batch = new SpriteBatch();
     }
 
