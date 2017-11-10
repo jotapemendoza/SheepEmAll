@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -68,6 +69,8 @@ public class GameScreen extends MainScreen{
     private EscenaPerder escenaPerder;
     private EscenaGanar escenaGanar;
     private EscenaPausa escenaPausa;
+
+
     private float tiempo;
 
 
@@ -92,6 +95,16 @@ public class GameScreen extends MainScreen{
     private void crearEscenaJuego() {
 
         escenaJuego = new Stage(vista);
+
+        escenaJuego.addListener(new InputListener(){
+            @Override
+            public boolean keyDown(InputEvent event, int keycode) {
+                if (keycode==Input.Keys.BACK){
+                    //setScreen
+                }
+                return true;
+            }
+        });
 
         // Botón de pausa --------------------------------------------------------------------------
 
@@ -386,7 +399,6 @@ public class GameScreen extends MainScreen{
             detenerOveja(false);
             Gdx.input.setInputProcessor(escenaPerder);
             escenaPerder.draw();
-            escenaPerder.addAction(Actions.fadeIn(10));
             if(!played) juego.playLost();
             played = true;
         }
@@ -431,7 +443,6 @@ public class GameScreen extends MainScreen{
         GANADO
     }
     // Escena para el menú de pausa ----------------------------------------------------------------
-
     private class EscenaPausa extends Stage {
         public EscenaPausa(Viewport vista, SpriteBatch batch) {
             super(vista,batch);
@@ -518,8 +529,7 @@ public class GameScreen extends MainScreen{
         }
     }
 
-    // Escena para la pantalla de Ganar ------------------------------------------------------------
-
+    // Escena para la pantalla de ganar ------------------------------------------------------------
     private class EscenaGanar extends Stage{
         public EscenaGanar(Viewport vista, SpriteBatch batch){
             super(vista,batch);
@@ -602,9 +612,8 @@ public class GameScreen extends MainScreen{
 
 
     }
-    // Escena para la pantalla de Perder -----------------------------------------------------------
 
-
+    // Escena para la pantalla de perder -----------------------------------------------------------
     private class EscenaPerder extends Stage{
         public EscenaPerder(Viewport vista, SpriteBatch batch){
 
