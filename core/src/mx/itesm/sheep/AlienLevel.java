@@ -27,7 +27,6 @@ public class AlienLevel extends MainScreen {
     private Texture sheep;
     private Boolean played = false;
 
-    private GameScreen.EstadoJuego estado;
     private EscenaGanar escenaGanar;
     private EscenaPerder escenaPerder;
     private Stage escenaJuego;
@@ -44,14 +43,14 @@ public class AlienLevel extends MainScreen {
         crearEscenaNave();
         escenaPerder = new EscenaPerder(vista,batch);
         escenaGanar = new EscenaGanar(vista,batch);
-        estado = GameScreen.EstadoJuego.JUGANDO;
+        //estado = GameScreen.EstadoJuego.JUGANDO;
         Gdx.input.setInputProcessor(escenaAlien);
 
         hpAlien = 10;
     }
 
     private void crearEscenaNave() {
-        escenaJuego = new Stage(vista);
+        escenaAlien = new Stage(vista);
 
         // Background
         TextureRegionDrawable trdBg =  new TextureRegionDrawable(new TextureRegion(background));
@@ -90,12 +89,12 @@ public class AlienLevel extends MainScreen {
     public void render(float delta) {
         borrarPantalla(0,0,0);
         batch.setProjectionMatrix(camara.combined);
-        escenaAlien.draw();
         batch.begin();
-        if (hpAlien==0){
+        escenaAlien.draw();
+        /*if (hpAlien==0){
             estado = GameScreen.EstadoJuego.GANADO;
         }
-        batch.end();
+
         if (estado == GameScreen.EstadoJuego.PERDIDO){
             Gdx.input.setInputProcessor(escenaPerder);
             escenaPerder.draw();
@@ -105,7 +104,8 @@ public class AlienLevel extends MainScreen {
         if(estado ==  GameScreen.EstadoJuego.GANADO){
             Gdx.input.setInputProcessor(escenaGanar);
             escenaGanar.draw();
-        }
+        }*/
+        batch.end();
     }
 
     @Override

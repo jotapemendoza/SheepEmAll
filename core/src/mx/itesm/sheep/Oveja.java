@@ -15,11 +15,14 @@ public class Oveja {
     // Posición oveja
     private float x;
     private float y;
+
     // Multiplicador de Velocidad
     private float velocidad = 1;
 
+    // Color de la oveja
     private String color;
 
+    // Tamaño del sprite
     private int ancho, alto;
 
     // Animar oveja
@@ -32,7 +35,6 @@ public class Oveja {
     // Estados para movimiento
     private Estado estado;     // abajo, arriba, izquierda, derecha, stop
     private Estado estadoOriginal;
-    private float timerEstado = 0;
     private boolean seMovio = false;
     private boolean enLlamas = false;
 
@@ -143,7 +145,7 @@ public class Oveja {
                 break;
             case ABAJO:
                 if (!seMovio){
-                    if(y <= 1900){
+                    if(y <= 1920){
                         batch.draw(region, x, y);
                         y = y + velocidad;
                     }

@@ -243,7 +243,7 @@ public class GameScreen extends MainScreen{
                 }
             }
             if (arrOvejas.get(i).getEstado().equals(Oveja.Estado.ABAJO)){
-                if (arrOvejas.get(i).gety() >= 1900){
+                if (arrOvejas.get(i).gety() >= 1920){
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
                     lifes--;
