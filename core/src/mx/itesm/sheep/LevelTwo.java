@@ -446,6 +446,7 @@ public class LevelTwo extends MainScreen{
 
     @Override
     public void dispose() {
+
     }
 
     enum EstadoJuego {
