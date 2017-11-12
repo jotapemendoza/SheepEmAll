@@ -617,17 +617,6 @@ public class GameScreen extends MainScreen{
             rect.setPosition(47,300);
             this.addActor(rect);
 
-            Texture gameText = new Texture("gameOver.png");
-            TextureRegionDrawable trdGame = new TextureRegionDrawable(new TextureRegion(gameText));
-            Image gameOver = new Image(trdGame);
-            gameOver.setPosition(321,1415);
-            this.addActor(gameOver);
-
-            Texture deadSheep = new Texture("deadSheep.png");
-            TextureRegionDrawable trdSheep =  new TextureRegionDrawable(new TextureRegion(deadSheep));
-            Image sheep = new Image(trdSheep);
-            sheep.setPosition(269,274);
-            this.addActor(sheep);
 
             Texture homeButtonLost = new Texture("buttons/unpressed/homeButtonLost.png");
             TextureRegionDrawable trdHome = new TextureRegionDrawable(new TextureRegion(homeButtonLost));

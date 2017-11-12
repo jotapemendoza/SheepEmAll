@@ -558,20 +558,6 @@ public class LevelTwo extends MainScreen{
             winRect.setPosition(40,292);
             this.addActor(winRect);
 
-            /*
-            Texture winText = new Texture("winText.png");
-            TextureRegionDrawable winTrd = new TextureRegionDrawable(new TextureRegion(winText));
-            Image winIm = new Image(winTrd);
-            winIm.setPosition(126,1240);
-            this.addActor(winIm);
-
-            Texture winSheep = new Texture("winSheep.png");
-            TextureRegionDrawable winSheepTrd = new TextureRegionDrawable(new TextureRegion(winSheep));
-            Image winSheepImg = new Image(winSheepTrd);
-            winSheepImg.setPosition(326,281);
-            this.addActor(winSheepImg);
-            */
-
 
             Texture nextLevel = new Texture("buttons/unpressed/NextLevelButton.png");
             Texture nextLevelPr = new Texture("buttons/pressed/PressedNextLevelButton.png");
@@ -643,17 +629,6 @@ public class LevelTwo extends MainScreen{
             rect.setPosition(47,300);
             this.addActor(rect);
 
-            Texture gameText = new Texture("gameOver.png");
-            TextureRegionDrawable trdGame = new TextureRegionDrawable(new TextureRegion(gameText));
-            Image gameOver = new Image(trdGame);
-            gameOver.setPosition(321,1415);
-            this.addActor(gameOver);
-
-            Texture deadSheep = new Texture("deadSheep.png");
-            TextureRegionDrawable trdSheep =  new TextureRegionDrawable(new TextureRegion(deadSheep));
-            Image sheep = new Image(trdSheep);
-            sheep.setPosition(269,274);
-            this.addActor(sheep);
 
             Texture homeButtonLost = new Texture("buttons/unpressed/homeButtonLost.png");
             TextureRegionDrawable trdHome = new TextureRegionDrawable(new TextureRegion(homeButtonLost));
