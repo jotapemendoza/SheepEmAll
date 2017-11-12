@@ -546,20 +546,6 @@ public class GameScreen extends MainScreen{
             winRect.setPosition(40,292);
             this.addActor(winRect);
 
-            /*
-            Texture winText = new Texture("winText.png");
-            TextureRegionDrawable winTrd = new TextureRegionDrawable(new TextureRegion(winText));
-            Image winIm = new Image(winTrd);
-            winIm.setPosition(126,1240);
-            this.addActor(winIm);
-
-            Texture winSheep = new Texture("winSheep.png");
-            TextureRegionDrawable winSheepTrd = new TextureRegionDrawable(new TextureRegion(winSheep));
-            Image winSheepImg = new Image(winSheepTrd);
-            winSheepImg.setPosition(326,281);
-            this.addActor(winSheepImg);
-            */
-
 
             Texture nextLevel = new Texture("buttons/unpressed/NextLevelButton.png");
             Texture nextLevelPr = new Texture("buttons/pressed/PressedNextLevelButton.png");
