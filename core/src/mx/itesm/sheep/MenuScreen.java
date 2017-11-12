@@ -90,7 +90,7 @@ class MenuScreen extends MainScreen
                 juego.setScreen(new InstructionsScreen(juego));
 
                 if(pref.getBoolean("played")){
-                    juego.setScreen(new AlienLevel(juego));
+                    juego.setScreen(new LevelTwo(juego));
                 }
                 else{
                     juego.setScreen(new InstructionsScreen(juego));
