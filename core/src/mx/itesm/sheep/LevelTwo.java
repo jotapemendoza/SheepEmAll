@@ -414,12 +414,20 @@ public class LevelTwo extends MainScreen{
 
        }
 
+       // Movimiento de la nave en la pantalla
         if (tiempo >= 10.0){
             if (moverX0 >= 10 && moverY0 >= 10){
-                aS.spaceShipMove(moverX,moverY);
-                aS.render(batch);
-                moverX -= 0.1f;
-                moverY -= 0.1f;
+                if (aS.getDireccionX() <= 0 && aS.getDireccionY() <= 0){
+                    aS.spaceShipMove(moverX,moverY);
+                    aS.render(batch);
+                    moverX += 0.1f;
+                    moverY += 0.1f;
+                }else {
+                    aS.spaceShipMove(moverX,moverY);
+                    aS.render(batch);
+                    moverX -= 0.1f;
+                    moverY -= 0.1f;
+                }
             }else {
                 aS.spaceShipMove(moverX,moverY);
                 aS.setEstado(AlienShip.Estado.MOVIENDO);
