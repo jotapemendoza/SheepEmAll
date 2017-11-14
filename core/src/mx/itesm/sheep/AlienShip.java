@@ -13,8 +13,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class AlienShip {
 
     // Mover direcciones
-    private float direccionX = 0;
-    private float direccionY = 0;
+    private float posicionX = 0;
+    private float posicionY = 0;
+    private float direccionX = 1;
+    private float direccionY = 1;
 
     // Tamaño
     private int alto = 424;
@@ -41,19 +43,23 @@ public class AlienShip {
         TextureRegion region = (TextureRegion) animacion.getKeyFrame(timer);
         switch (estado){
             case MOVIENDO:
-                batch.draw(region,direccionX,direccionY);
+                batch.draw(region, posicionX, posicionY);
                 break;
             case PAUSADO:
                 break;
-            case SALIENDO:
+            case SALIENDOX:
+                batch.draw(region, posicionX, posicionY);
+                break;
+            case SALIENDOY:
+                batch.draw(region, posicionX, posicionY);
                 break;
         }
     }
 
     // mueve la nave
     public void spaceShipMove(float xM, float yM){
-        direccionX = direccionX + xM;
-        direccionY = direccionY + yM;
+        posicionX = xM;
+        posicionY = yM;
     }
 
     // invierte la dirección en x
@@ -66,26 +72,51 @@ public class AlienShip {
         direccionY *= -1;
     }
 
-    public enum Estado{
-        MOVIENDO,
-        PAUSADO,
-        SALIENDO
+    public Estado saliendoPor() {
+        if (this.posicionX >= 1080 ){
+            this.setEstado(Estado.SALIENDOX);
+            this.posicionX = 1080;
+            return this.getEstado();
+        }
+        if (this.posicionY >1920 || this.posicionY <0){
+            this.setEstado(Estado.SALIENDOY);
+            this.posicionY = 1920;
+            return this.getEstado();
+        }
+        else {
+            return Estado.PAUSADO;
+        }
     }
 
     public float getDireccionX() {
         return direccionX;
     }
 
-    public void setDireccionX(float direccionX) {
-        this.direccionX = direccionX;
-    }
-
     public float getDireccionY() {
         return direccionY;
     }
 
-    public void setDireccionY(float direccionY) {
-        this.direccionY = direccionY;
+    public enum Estado{
+        MOVIENDO,
+        PAUSADO,
+        SALIENDOX,
+        SALIENDOY
+    }
+
+    public float getPosicionX() {
+        return posicionX;
+    }
+
+    public void setPosicionX(float posicionX) {
+        this.posicionX = posicionX;
+    }
+
+    public float getPosicionY() {
+        return posicionY;
+    }
+
+    public void setPosicionY(float posicionY) {
+        this.posicionY = posicionY;
     }
 
     public Estado getEstado() {

@@ -72,8 +72,6 @@ public class LevelTwo extends MainScreen{
     private AlienShip aS;
     private float moverX = 0;
     private float moverY = 0;
-    private float moverX0 = 0;
-    private float moverY0 = 0;
 
     // Escenas -------------------------------------------------------------------------------------
     private LevelTwo.EscenaPerder escenaPerder;
@@ -415,9 +413,9 @@ public class LevelTwo extends MainScreen{
        }
 
        // Movimiento de la nave en la pantalla
-        if (tiempo >= 10.0){
-            if (moverX0 >= 10 && moverY0 >= 10){
-                if (aS.getDireccionX() <= 0 && aS.getDireccionY() <= 0){
+        /*if (tiempo >= 10.0){
+            if (moverX >= 10 && moverY >= 10){
+                if (aS.getPosicionX() <= 0 && aS.getPosicionY() <= 0){
                     aS.spaceShipMove(moverX,moverY);
                     aS.render(batch);
                     moverX += 0.1f;
@@ -427,17 +425,39 @@ public class LevelTwo extends MainScreen{
                     aS.render(batch);
                     moverX -= 0.1f;
                     moverY -= 0.1f;
-                }
+                }/*
             }else {
                 aS.spaceShipMove(moverX,moverY);
                 aS.setEstado(AlienShip.Estado.MOVIENDO);
                 aS.render(batch);
                 moverX += 0.1f;
                 moverY += 0.1f;
-                moverX0 += 0.1f;
+                *//*moverX0 += 0.1f;
                 moverY0 += 0.1f;
             }
+            if (aS.saliendoPor()== AlienShip.Estado.SALIENDOX){
+                aS.cambiarDireccionX();
+            } else if(aS.saliendoPor()== AlienShip.Estado.SALIENDOY) {
+                aS.cambiarDireccionY();
+            }
+        }*/
+        if (tiempo >= 5){
+            moverX += 1f* aS.getDireccionX();
+            moverY += 1f * aS.getDireccionY();
+            aS.spaceShipMove(moverX,moverY);
+            aS.setEstado(AlienShip.Estado.MOVIENDO);
+            //Gdx.app.log("Prueba","MoverX =   " + moverX);
+            if(aS.saliendoPor() == AlienShip.Estado.SALIENDOX){
+                aS.cambiarDireccionX();
+                moverX = 1080;
+            }
+            if (aS.saliendoPor() == AlienShip.Estado.SALIENDOY){
+                aS.cambiarDireccionY();
+                moverY = 1920;
+            }
+
         }
+        aS.render(batch);
         batch.end();
 
         escenaJuego.draw();
