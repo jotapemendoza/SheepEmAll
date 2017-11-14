@@ -46,6 +46,7 @@ public class LevelTwo extends MainScreen{
     private Texture oveMovDer;
     private Texture oveAlienArr;
     private Texture oveAlienArrMov;
+    private Texture alienShip;
     private BitmapFont font;
 
     private Boolean played = false;
@@ -66,6 +67,13 @@ public class LevelTwo extends MainScreen{
     float totalTime = 1 * 60;
 
     private EstadoJuego estado;
+
+    // AlienShip -----------------------------------------------------------------------------------
+    private AlienShip aS;
+    private float moverX = 0;
+    private float moverY = 0;
+    private float moverX0 = 0;
+    private float moverY0 = 0;
 
     // Escenas -------------------------------------------------------------------------------------
     private LevelTwo.EscenaPerder escenaPerder;
@@ -97,6 +105,9 @@ public class LevelTwo extends MainScreen{
     private void crearEscenaJuego() {
 
         escenaJuego = new Stage(vista);
+
+        // Crear nave
+        aS = new AlienShip(alienShip, AlienShip.Estado.PAUSADO);
 
         escenaJuego.addListener(new InputListener(){
             @Override
@@ -305,6 +316,7 @@ public class LevelTwo extends MainScreen{
         oveMovDer = new Texture("sheep_moving2.png");
         oveAlienArr = new Texture("Alien_sheep_down.png");
         oveAlienArrMov = new Texture("Alien_sheep_moving_down.png");
+        alienShip = new Texture("alienShip.png");
     }
 
 
@@ -383,21 +395,40 @@ public class LevelTwo extends MainScreen{
         }
         // -----------------------------------------------------------------------------------------
 
+        Gdx.app.log("tiempo", "T: " + tiempo);
+        Gdx.app.log("distancia", "X: " + moverX + ", Y: " + moverY);
        for (int i = 0; i < arrOvejas.size; i++) {
-           if (tiempo <= 10.0){ // a los 10 seg sale la oveja alien arriba
+           if (tiempo <= 10.0){ // a los 10 seg sale la oveja alien arriba y la nave
                arrOvejas.get(0).setY(1920);
                arrOvejas.get(0).setVelocidad(velocidadOve);
                arrOvejas.get(0).render(batch);
            }
+
            if (salida <= 10) {
                 arrOvejas.get(i).setVelocidad(velocidadOve);
                 arrOvejas.get(i).render(batch);
-            }
-            else{
+           }else{
                 velocidadOve += 0.5f;
                 salida = 0;
-            }
+           }
 
+       }
+
+        if (tiempo >= 10.0){
+            if (moverX0 >= 10 && moverY0 >= 10){
+                aS.spaceShipMove(moverX,moverY);
+                aS.render(batch);
+                moverX -= 0.1f;
+                moverY -= 0.1f;
+            }else {
+                aS.spaceShipMove(moverX,moverY);
+                aS.setEstado(AlienShip.Estado.MOVIENDO);
+                aS.render(batch);
+                moverX += 0.1f;
+                moverY += 0.1f;
+                moverX0 += 0.1f;
+                moverY0 += 0.1f;
+            }
         }
         batch.end();
 
