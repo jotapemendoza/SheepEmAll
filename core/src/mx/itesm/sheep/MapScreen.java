@@ -149,12 +149,18 @@ public class MapScreen extends MainScreen {
     public void render(float delta) {
 
         /*-----------------------------ESTAS LÍNEAS SOLAMENTE SON PARA PRUEBAS----------------------------------------------*/
-        //pref.putBoolean("lv1",false);
-        //pref.putBoolean("levelTwo",false);
-        /*------------------------------------------------------------------------------------------------------------------*/
 
-        Boolean levelOneWon = pref.getBoolean("lv1");
-        Boolean levelTwoWon = pref.getBoolean("levelTwo");
+        // NO GANADOS
+
+        //pref.putBoolean("wonLevelOne",false);
+        //pref.putBoolean("wonLevelTwo",false);
+
+        // GANADOS
+
+        //pref.putBoolean("wonLevelOne",true);
+        //pref.putBoolean("wonLevelTwo",true);
+
+        /*-----------------------------------------------------------------------------------------------------------------*/
 
 
         borrarPantalla(0,0,0);
@@ -166,14 +172,14 @@ public class MapScreen extends MainScreen {
         batch.begin();
         batch.draw(grass,0,0);
 
-        if(!pref.getBoolean("lv1")){
+        if(!pref.getBoolean("wonLevelOne")){
             batch.draw(levelOne,78,116);
         }
-        if(levelOneWon){
+        if(pref.getBoolean("wonLevelOne")){
             batch.draw(levelTwo,78,116);
             escenaLevels.addActor(levelTwoBtn);
         }
-        if(levelTwoWon){
+        if(pref.getBoolean("wonLevelTwo")){
             batch.draw(levelThree,78,116);
             escenaLevels.addActor(levelThreeBtn);
         }

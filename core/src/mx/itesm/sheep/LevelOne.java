@@ -401,7 +401,7 @@ public class LevelOne extends MainScreen{
 
         if(estado ==  EstadoJuego.GANADO){
             Gdx.input.setInputProcessor(escenaGanar);
-            pref.putBoolean("lvl1",true);
+            pref.putBoolean("wonLevelOne",true);
             escenaGanar.draw();
         }
 
