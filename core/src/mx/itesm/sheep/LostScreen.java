@@ -72,7 +72,7 @@ public class LostScreen extends Stage {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 juego.stopGameMusic();
-                juego.setScreen(new GameScreen(juego));
+                juego.setScreen(new LevelOne(juego));
                 juego.playGameMusic();
                 juego.stopLost();
             }

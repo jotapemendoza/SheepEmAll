@@ -1,6 +1,5 @@
 package mx.itesm.sheep;
 
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -593,7 +591,7 @@ public class LevelTwo extends MainScreen{
                 public void clicked(InputEvent event, float x, float y) {
                     // Regresa al menú
                     juego.stopGameMusic();
-                    juego.setScreen(new GameScreen(juego));
+                    juego.setScreen(new LevelOne(juego));
                     juego.playGameMusic();
                 }
             });
@@ -647,7 +645,7 @@ public class LevelTwo extends MainScreen{
             retryLevelButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    juego.setScreen(new GameScreen(juego));
+                    juego.setScreen(new LevelOne(juego));
                 }
             });
             this.addActor(retryLevelButton);
@@ -663,7 +661,7 @@ public class LevelTwo extends MainScreen{
             levelsButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    juego.setScreen(new GameScreen(juego));
+                    juego.setScreen(new LevelOne(juego));
                 }
             });
             this.addActor(levelsButton);
@@ -718,7 +716,7 @@ public class LevelTwo extends MainScreen{
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     juego.stopGameMusic();
-                    juego.setScreen(new GameScreen(juego));
+                    juego.setScreen(new LevelOne(juego));
                     juego.playGameMusic();
                     juego.stopLost();
                 }

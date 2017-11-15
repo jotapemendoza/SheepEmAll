@@ -72,7 +72,7 @@ public class MapScreen extends MainScreen {
         levelOneBtn.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                juego.setScreen(new GameScreen(juego));
+                juego.setScreen(new LevelOne(juego));
                 juego.pauseMenuMusic();
             }
         });
@@ -226,12 +226,10 @@ public class MapScreen extends MainScreen {
 
     @Override
     public void pause() {
-
     }
 
     @Override
     public void resume() {
-
     }
 
     @Override

@@ -199,6 +199,5 @@ public class SettingsScreen extends MainScreen {
 
     @Override
     public void dispose() {
-
     }
 }

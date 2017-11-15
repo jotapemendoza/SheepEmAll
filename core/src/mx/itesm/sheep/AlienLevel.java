@@ -1,9 +1,7 @@
 package mx.itesm.sheep;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -43,7 +41,7 @@ public class AlienLevel extends MainScreen {
         crearEscenaNave();
         escenaPerder = new EscenaPerder(vista,batch);
         escenaGanar = new EscenaGanar(vista,batch);
-        //estado = GameScreen.EstadoJuego.JUGANDO;
+        //estado = LevelOne.EstadoJuego.JUGANDO;
         Gdx.input.setInputProcessor(escenaAlien);
 
         hpAlien = 10;
@@ -92,16 +90,16 @@ public class AlienLevel extends MainScreen {
         batch.begin();
         escenaAlien.draw();
         /*if (hpAlien==0){
-            estado = GameScreen.EstadoJuego.GANADO;
+            estado = LevelOne.EstadoJuego.GANADO;
         }
 
-        if (estado == GameScreen.EstadoJuego.PERDIDO){
+        if (estado == LevelOne.EstadoJuego.PERDIDO){
             Gdx.input.setInputProcessor(escenaPerder);
             escenaPerder.draw();
             if(!played) juego.playLost();
             played = true;
         }
-        if(estado ==  GameScreen.EstadoJuego.GANADO){
+        if(estado ==  LevelOne.EstadoJuego.GANADO){
             Gdx.input.setInputProcessor(escenaGanar);
             escenaGanar.draw();
         }*/
@@ -178,7 +176,7 @@ public class AlienLevel extends MainScreen {
             retryLevelButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    juego.setScreen(new GameScreen(juego));
+                    juego.setScreen(new LevelOne(juego));
                 }
             });
             this.addActor(retryLevelButton);
@@ -194,7 +192,7 @@ public class AlienLevel extends MainScreen {
             levelsButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    juego.setScreen(new GameScreen(juego));
+                    juego.setScreen(new LevelOne(juego));
                 }
             });
             this.addActor(levelsButton);
@@ -261,7 +259,7 @@ public class AlienLevel extends MainScreen {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     juego.stopGameMusic();
-                    juego.setScreen(new GameScreen(juego));
+                    juego.setScreen(new LevelOne(juego));
                     juego.playGameMusic();
                     juego.stopLost();
                 }

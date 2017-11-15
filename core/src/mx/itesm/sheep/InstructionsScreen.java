@@ -40,7 +40,7 @@ public class InstructionsScreen extends MainScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                juego.setScreen(new GameScreen(juego));
+                juego.setScreen(new LevelOne(juego));
             }
         } );
     }
