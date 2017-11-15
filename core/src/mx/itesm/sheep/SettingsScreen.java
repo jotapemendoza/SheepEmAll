@@ -128,7 +128,8 @@ public class SettingsScreen extends MainScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                pref.putBoolean("played", false);
+                pref.putBoolean("lv1", false);
+                pref.putBoolean("lv2",false);
                 pref.flush();
             }
         } );

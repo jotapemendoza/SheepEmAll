@@ -102,7 +102,7 @@ public class MapScreen extends MainScreen {
         levelThreeBtn.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                juego.setScreen(new LevelTwo(juego));
+                juego.setScreen(new AlienLevel(juego));
                 juego.pauseMenuMusic();
 
             }
@@ -149,7 +149,7 @@ public class MapScreen extends MainScreen {
     public void render(float delta) {
 
         /*-----------------------------ESTAS LÍNEAS SOLAMENTE SON PARA PRUEBAS----------------------------------------------*/
-        //pref.putBoolean("lv1",true);
+        //pref.putBoolean("lv1",false);
         //pref.putBoolean("levelTwo",false);
         /*------------------------------------------------------------------------------------------------------------------*/
 
