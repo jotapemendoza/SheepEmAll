@@ -60,9 +60,6 @@ class MenuScreen extends MainScreen
     public void show() {
         cargarTexturas();
         crearEscenaMenu();
-
-
-
         Gdx.input.setInputProcessor(escenaMenu);
     }
 
@@ -90,8 +87,6 @@ class MenuScreen extends MainScreen
 
                 juego.setScreen(new MapScreen(juego));
 
-
-                pref.putBoolean("played",true);
                 pref.flush();
                 System.out.println(pref.getBoolean("played"));
                 juego.pauseMenuMusic();

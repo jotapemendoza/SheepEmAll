@@ -15,11 +15,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
  */
 
 public class MapScreen extends MainScreen {
+
     private final Juego juego;
     private Stage escenaLevels;
-    private Texture bg;
+    private Texture topBG;
+    private Texture BG;
     private Texture lv1;
-    private Texture lv1button;
+    private Texture lvlBtn;
     private Texture lv2;
     private Texture lv3;
     private Texture cloud;
@@ -29,6 +31,10 @@ public class MapScreen extends MainScreen {
     private Image cloud_3;
     private Image cloud_4;
     private Image cloud_5;
+
+
+    private ImageButton levelTwoBtn, levelThreeBtn;
+
 
     public MapScreen(Juego juego){
         this.juego = juego;
@@ -42,29 +48,68 @@ public class MapScreen extends MainScreen {
     }
 
     private void cargarTexturas() {
-        bg = new Texture("mapsBG.png");
+        BG = new Texture("menuBg.png");
+        topBG = new Texture("mapsBG.png");
         lv1 = new Texture("levelsScreen/level1.png");
         lv2 = new Texture("levelsScreen/level2.png");
         lv3 = new Texture("levelsScreen/level3.png");
-        lv1button = new Texture("levelsScreen/btn.png");
+        lvlBtn = new Texture("levelsScreen/btn.png");
         cloud = new Texture("cloud.png");
     }
 
     private void crearEscenaSettings(){
         escenaLevels = new Stage(vista);
 
-        drawClouds();
 
-        TextureRegionDrawable trdBoton = new TextureRegionDrawable(new TextureRegion(lv1button));
-        ImageButton btn = new ImageButton(trdBoton);
-        btn.setPosition(693,140);
-        btn.addListener(new ClickListener(){
+        TextureRegionDrawable trdBg = new TextureRegionDrawable(new TextureRegion(BG));
+        Image bg =  new Image(trdBg);
+        bg.setPosition(0,0);
+        escenaLevels.addActor(bg);
+
+        TextureRegionDrawable levelOneTrd = new TextureRegionDrawable(new TextureRegion(lvlBtn));
+        ImageButton levelOneBtn = new ImageButton(levelOneTrd);
+        levelOneBtn.setPosition(693,140);
+        levelOneBtn.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                juego.setScreen(new MenuScreen(juego));
+                juego.setScreen(new GameScreen(juego));
+                juego.pauseMenuMusic();
             }
         });
-        escenaLevels.addActor(btn);
+        escenaLevels.addActor(levelOneBtn);
+
+
+
+
+        TextureRegionDrawable levelTwoTrd = new TextureRegionDrawable(new TextureRegion(lvlBtn));
+        levelTwoBtn = new ImageButton(levelTwoTrd);
+        levelTwoBtn.setPosition(130,431);
+        levelTwoBtn.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                juego.setScreen(new LevelTwo(juego));
+                juego.pauseMenuMusic();
+
+            }
+        });
+
+
+
+        TextureRegionDrawable levelThreeTrd = new TextureRegionDrawable(new TextureRegion(lvlBtn));
+        levelThreeBtn = new ImageButton(levelThreeTrd);
+        levelThreeBtn.setPosition(546,706);
+        levelThreeBtn.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                juego.setScreen(new LevelTwo(juego));
+                juego.pauseMenuMusic();
+
+            }
+        });
+
+
+        drawClouds();
+
     }
 
     private void drawClouds() {
@@ -79,12 +124,12 @@ public class MapScreen extends MainScreen {
         escenaLevels.addActor(cloud_1);
 
         cloud_2 = new Image(cloud);
-        cloud_2.setPosition(1300,1200);
+        cloud_2.setPosition(1300,1500);
         cloud_2.setSize(340,140);
         escenaLevels.addActor(cloud_2);
 
         cloud_3 = new Image(cloud);
-        cloud_3.setPosition(-200,1050);
+        cloud_3.setPosition(-200,1350);
         cloud_3.setSize(220,100);
         escenaLevels.addActor(cloud_3);
 
@@ -102,15 +147,33 @@ public class MapScreen extends MainScreen {
     @Override
     public void render(float delta) {
 
+        pref.putBoolean("lv1",false);
+
+        Boolean levelOneWon = pref.getBoolean("lv1")&&!pref.getBoolean("lv2");
+        Boolean levelTwoWon = pref.getBoolean("lv1")&&pref.getBoolean("lv2");
+
+
         borrarPantalla(0,0,0);
         batch.setProjectionMatrix(camara.combined);
-        escenaLevels.draw();
 
+
+        escenaLevels.draw();
         moveClouds(delta);
 
         batch.begin();
-        batch.draw(bg,0,0);
-        batch.draw(lv1,78,116);
+        batch.draw(topBG,0,0);
+
+        if(!pref.getBoolean("lv1")){
+            batch.draw(lv1,78,116);
+        }
+        if(levelOneWon){
+            batch.draw(lv2,78,116);
+            escenaLevels.addActor(levelTwoBtn);
+        }
+        if(levelTwoWon){
+            batch.draw(lv3,78,116);
+            escenaLevels.addActor(levelThreeBtn);
+        }
 
         batch.end();
 
@@ -124,26 +187,27 @@ public class MapScreen extends MainScreen {
         }
 
 
+
     }
 
     private void moveClouds(float delta) {
-        cloud_1.setX(cloud_1.getX()+100*delta);
+        cloud_1.setX(cloud_1.getX()+120*delta);
         if (cloud_1.getX() >= ANCHO){
             cloud_1.setX(-cloud_1.getWidth());
         }
         cloud_1.setColor(1,1,1,0.7f);
 
-        cloud_2.setX(cloud_2.getX()+70*delta);
+        cloud_2.setX(cloud_2.getX()+60*delta);
         if (cloud_2.getX() >= ANCHO){
             cloud_2.setX(-cloud_2.getWidth());
         }
         cloud_2.setColor(1,1,1,0.6f);
 
-        cloud_3.setX(cloud_3.getX()+50*delta);
+        cloud_3.setX(cloud_3.getX()+40*delta);
         if (cloud_3.getX() >= ANCHO){
             cloud_3.setX(-cloud_3.getWidth());
         }
-        cloud_3.setColor(1,1,1,0.5f);
+        cloud_3.setColor(1,1,1,0.3f);
 
         cloud_4.setX(cloud_4.getX()+30*delta);
         if (cloud_4.getX() >= ANCHO){

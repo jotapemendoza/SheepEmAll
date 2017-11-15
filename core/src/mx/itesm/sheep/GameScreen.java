@@ -88,7 +88,7 @@ public class GameScreen extends MainScreen{
         escenaGanar = new EscenaGanar(vista,batch);
         estado = EstadoJuego.JUGANDO;
         Gdx.input.setInputProcessor(escenaJuego);
-
+        Gdx.input.setCatchBackKey(true);
         lifes = 3;
     }
 
@@ -304,8 +304,6 @@ public class GameScreen extends MainScreen{
     @Override
     public void render(float delta) {
 
-        Gdx.input.setCatchBackKey(true);
-
 
         borrarPantalla(0, 0, 0);
         batch.setProjectionMatrix(camara.combined);
@@ -405,6 +403,7 @@ public class GameScreen extends MainScreen{
 
         if(estado ==  EstadoJuego.GANADO){
             Gdx.input.setInputProcessor(escenaGanar);
+            pref.putBoolean("lvl1",true);
             escenaGanar.draw();
         }
 
