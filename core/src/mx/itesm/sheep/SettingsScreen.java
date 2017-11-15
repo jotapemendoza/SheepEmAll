@@ -1,7 +1,6 @@
 package mx.itesm.sheep;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -21,36 +20,35 @@ public class SettingsScreen extends MainScreen {
 
     private final Juego juego;
     private Stage escenaSettings;
-    private Texture musicButton;
-    private Texture fxButton;
-    private Texture bg;
-    private Texture backButton;
-    private Texture pressedMusicButton;
-    private Texture pressedBackButton;
-    private Texture noMusicButton;
-    private Texture pressedNoMusicButton;
-    private ImageButton btnMusic;
-    private ImageButton btnNoMusic;
+    private Texture musicButton,
+            backButton,
+            noMusicButton,
+            restartButton,
+            pressedRestart,
+            pressedMusicButton,
+            pressedBackButton,
+            pressedNoMusicButton,
+            background;
 
-    private Texture fxButtonPr;
-
+    private ImageButton btnMusic,
+            btnNoMusic;
 
     public SettingsScreen(Juego juego){
         this.juego = juego;
     }
+
     @Override
     public void show() {
         cargarTexturas();
         crearEscenaSettings();
         Gdx.input.setInputProcessor(escenaSettings);
-
     }
 
     private void cargarTexturas() {
-        bg = new Texture("sBg.png");
+        background = new Texture("sBg.png");
         musicButton = new Texture("Buttons/unpressed/music.png");
-        fxButton  =  new Texture("fx.png");
-        fxButtonPr  =  new Texture("pressedFx.png");
+        restartButton =  new Texture("fx.png");
+        pressedRestart =  new Texture("pressedFx.png");
         backButton = new Texture("Buttons/unpressed/backButton.png");
         pressedMusicButton = new Texture("Buttons/pressed/pressedMusicButton.png");
         pressedBackButton = new Texture("Buttons/pressed/pressedBackButton.png");
@@ -62,40 +60,23 @@ public class SettingsScreen extends MainScreen {
 
         escenaSettings = new Stage(vista);
 
-
-        TextureRegionDrawable trdBg =  new
-                TextureRegionDrawable(new TextureRegion(bg));
+        TextureRegionDrawable trdBg =  new TextureRegionDrawable(new TextureRegion(background));
         Image bg = new Image(trdBg);
         bg.setPosition(0,0);
         escenaSettings.addActor(bg);
 
+        /*------------------------MUSIC BUTTON---------------------*/
 
+        TextureRegionDrawable trdMusic = new TextureRegionDrawable(new TextureRegion(musicButton));
+        TextureRegionDrawable trdMusicpr = new TextureRegionDrawable(new TextureRegion(pressedMusicButton));
 
-    // Music button ---------------------------------------------------
-
-
-        TextureRegionDrawable trdMusic = new
-                TextureRegionDrawable(new TextureRegion(musicButton));
-        TextureRegionDrawable trdMusicpr = new
-                TextureRegionDrawable(new TextureRegion(pressedMusicButton));
-
-
-
-        TextureRegionDrawable trdNoMusic = new
-                TextureRegionDrawable(new TextureRegion(noMusicButton));
-        TextureRegionDrawable trdNoMusicpr = new
-                TextureRegionDrawable(new TextureRegion(pressedNoMusicButton));
-
-
+        TextureRegionDrawable trdNoMusic = new TextureRegionDrawable(new TextureRegion(noMusicButton));
+        TextureRegionDrawable trdNoMusicpr = new TextureRegionDrawable(new TextureRegion(pressedNoMusicButton));
 
         btnNoMusic = new ImageButton(trdNoMusic,trdNoMusicpr);
         btnNoMusic.setPosition(374,631);
         btnMusic =  new ImageButton(trdMusic, trdMusicpr);
         btnMusic.setPosition(374,631);
-
-
-
-
 
         btnMusic.addListener( new ClickListener() {
             @Override
@@ -115,16 +96,14 @@ public class SettingsScreen extends MainScreen {
         } );
 
 
-    //-----------------------------------------------------------------
+        /*------------------------RESTART BUTTON---------------------*/
 
-    // FX button ------------------------------------------------------
-
-        TextureRegionDrawable trdFx = new TextureRegionDrawable(new TextureRegion(fxButton));
-        TextureRegionDrawable trdFxpr = new TextureRegionDrawable(new TextureRegion(fxButtonPr));
-        final ImageButton btnres = new ImageButton(trdFx,trdFxpr);
-        btnres.setPosition(374,1167);
-        escenaSettings.addActor(btnres);
-        btnres.addListener( new ClickListener() {
+        TextureRegionDrawable trdRefresh = new TextureRegionDrawable(new TextureRegion(restartButton));
+        TextureRegionDrawable trdRefreshPr = new TextureRegionDrawable(new TextureRegion(pressedRestart));
+        final ImageButton refreshButton = new ImageButton(trdRefresh,trdRefreshPr);
+        refreshButton.setPosition(374,1167);
+        escenaSettings.addActor(refreshButton);
+        refreshButton.addListener( new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
@@ -133,18 +112,13 @@ public class SettingsScreen extends MainScreen {
                 pref.flush();
             }
         } );
-    //-----------------------------------------------------------------
 
-        TextureRegionDrawable trdBack = new
-                TextureRegionDrawable(new TextureRegion(backButton));
-        TextureRegionDrawable trdBackpr = new
-                TextureRegionDrawable(new TextureRegion(pressedBackButton));
+        /*--------------------------BACK BUTTON---------------------*/
+
+        TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(backButton));
+        TextureRegionDrawable trdBackpr = new TextureRegionDrawable(new TextureRegion(pressedBackButton));
         final ImageButton btnBack = new ImageButton(trdBack, trdBackpr);
         btnBack.setPosition(461,120);
-        escenaSettings.addActor(btnBack);
-
-        //Listener botón
-
         btnBack.addListener( new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -153,7 +127,7 @@ public class SettingsScreen extends MainScreen {
                 juego.setScreen(new MenuScreen(juego));
             }
         } );
-
+        escenaSettings.addActor(btnBack);
 
     }
 
@@ -176,8 +150,6 @@ public class SettingsScreen extends MainScreen {
             btnMusic.remove();
         }
 
-        pref.flush();
-
         if(pref.getBoolean("musicOn")){
             juego.startMenuMusic();
         }
@@ -185,7 +157,7 @@ public class SettingsScreen extends MainScreen {
             juego.pauseMenuMusic();
         }
 
-
+        pref.flush();
     }
 
     @Override

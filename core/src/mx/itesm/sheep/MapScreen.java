@@ -43,9 +43,8 @@ public class MapScreen extends MainScreen {
     @Override
     public void show() {
         cargarTexturas();
-        crearEscenaSettings();
+        crearEscenaMapa();
         Gdx.input.setInputProcessor(escenaLevels);
-
     }
 
     private void cargarTexturas() {
@@ -58,9 +57,9 @@ public class MapScreen extends MainScreen {
         cloud = new Texture("cloud.png");
     }
 
-    private void crearEscenaSettings(){
-        escenaLevels = new Stage(vista);
+    private void crearEscenaMapa(){
 
+        escenaLevels = new Stage(vista);
 
         TextureRegionDrawable trdBg = new TextureRegionDrawable(new TextureRegion(background));
         Image bg =  new Image(trdBg);
@@ -79,9 +78,6 @@ public class MapScreen extends MainScreen {
         });
         escenaLevels.addActor(levelOneBtn);
 
-
-
-
         TextureRegionDrawable levelTwoTrd = new TextureRegionDrawable(new TextureRegion(lvlBtn));
         levelTwoBtn = new ImageButton(levelTwoTrd);
         levelTwoBtn.setPosition(130,431);
@@ -94,8 +90,6 @@ public class MapScreen extends MainScreen {
             }
         });
 
-
-
         TextureRegionDrawable levelThreeTrd = new TextureRegionDrawable(new TextureRegion(lvlBtn));
         levelThreeBtn = new ImageButton(levelThreeTrd);
         levelThreeBtn.setPosition(546,706);
@@ -107,7 +101,6 @@ public class MapScreen extends MainScreen {
 
             }
         });
-
 
         drawClouds();
 
@@ -162,14 +155,15 @@ public class MapScreen extends MainScreen {
 
         /*-----------------------------------------------------------------------------------------------------------------*/
 
-
         borrarPantalla(0,0,0);
         batch.setProjectionMatrix(camara.combined);
 
         escenaLevels.draw();
         moveClouds(delta);
 
+        /*------------------------BATCH---------------------*/
         batch.begin();
+
         batch.draw(grass,0,0);
 
         if(!pref.getBoolean("wonLevelOne")){
@@ -186,8 +180,7 @@ public class MapScreen extends MainScreen {
 
         batch.end();
 
-        pref.flush();
-
+        /*-----------------------MUSIC----------------------*/
         if(pref.getBoolean("musicOn")){
             juego.startMenuMusic();
         }
@@ -195,8 +188,7 @@ public class MapScreen extends MainScreen {
             juego.pauseMenuMusic();
         }
 
-
-
+        pref.flush();
     }
 
     private void moveClouds(float delta) {
