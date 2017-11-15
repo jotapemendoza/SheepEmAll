@@ -218,12 +218,12 @@ class MenuScreen extends MainScreen
     //-----------------------------------------------------------------
 
     // Button textures ------------------------------------------------
-        playButton = new Texture("buttons/unpressed/playButton.png");
-        aboutButton = new Texture("buttons/unpressed/aboutButton.png");
-        settingsButton = new Texture("buttons/unpressed/settingsButton.png");
-        pressedPlayButton = new Texture("buttons/pressed/pressedPlayButton.png");
-        pressedAboutButton = new Texture("buttons/pressed/pressedAboutButton.png");
-        pressedSettingsButton = new Texture("buttons/pressed/pressedSettingsButton.png");
+        playButton = new Texture("Buttons/unpressed/playButton.png");
+        aboutButton = new Texture("Buttons/unpressed/aboutButton.png");
+        settingsButton = new Texture("Buttons/unpressed/settingsButton.png");
+        pressedPlayButton = new Texture("Buttons/pressed/pressedPlayButton.png");
+        pressedAboutButton = new Texture("Buttons/pressed/pressedAboutButton.png");
+        pressedSettingsButton = new Texture("Buttons/pressed/pressedSettingsButton.png");
     //-----------------------------------------------------------------
 
     }

@@ -167,12 +167,12 @@ class AboutUsScreen extends MainScreen {
 
     private void cargarTexturas() {
         bgMenu = new Texture("aSBg.png");
-        backButton = new Texture("buttons/unpressed/backButton.png");
-        pressedBackButton = new Texture("buttons/pressed/pressedBackButton.png");
-        bioandy = new Texture("bioandy.png");
-        bioedgar = new Texture("bioedgar.png");
-        biopablo = new Texture("biopablo.png");
-        biojose = new Texture("biojose.png");
+        backButton = new Texture("Buttons/unpressed/backButton.png");
+        pressedBackButton = new Texture("Buttons/pressed/pressedBackButton.png");
+        bioandy = new Texture("Stills/bioandy.png");
+        bioedgar = new Texture("Stills/bioedgar.png");
+        biopablo = new Texture("Stills/biopablo.png");
+        biojose = new Texture("Stills/biojose.png");
         monito = new Texture("monito.png");
     }
 
@@ -183,10 +183,6 @@ class AboutUsScreen extends MainScreen {
         escenaAyuda.draw();
     }
 
-    @Override
-    public void resize(int width, int height) {
-
-    }
 
     @Override
     public void pause() {

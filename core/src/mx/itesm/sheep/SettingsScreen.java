@@ -48,14 +48,14 @@ public class SettingsScreen extends MainScreen {
 
     private void cargarTexturas() {
         bg = new Texture("sBg.png");
-        musicButton = new Texture("buttons/unpressed/music.png");
+        musicButton = new Texture("Buttons/unpressed/music.png");
         fxButton  =  new Texture("fx.png");
         fxButtonPr  =  new Texture("pressedFx.png");
-        backButton = new Texture("buttons/unpressed/backButton.png");
-        pressedMusicButton = new Texture("buttons/pressed/pressedMusicButton.png");
-        pressedBackButton = new Texture("buttons/pressed/pressedBackButton.png");
-        noMusicButton = new Texture("buttons/unpressed/noMusicButton.png");
-        pressedNoMusicButton = new Texture("buttons/pressed/pressedNoMusicButton.png");
+        backButton = new Texture("Buttons/unpressed/backButton.png");
+        pressedMusicButton = new Texture("Buttons/pressed/pressedMusicButton.png");
+        pressedBackButton = new Texture("Buttons/pressed/pressedBackButton.png");
+        noMusicButton = new Texture("Buttons/unpressed/noMusicButton.png");
+        pressedNoMusicButton = new Texture("Buttons/pressed/pressedNoMusicButton.png");
     }
 
     private void crearEscenaSettings(){

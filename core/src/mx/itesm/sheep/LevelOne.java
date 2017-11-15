@@ -106,7 +106,7 @@ public class LevelOne extends MainScreen{
 
         // Botón de pausa --------------------------------------------------------------------------
 
-        Texture pressedPauseButton = new Texture("buttons/pressed/pressedPauseButton.png");
+        Texture pressedPauseButton = new Texture("Buttons/pressed/pressedPauseButton.png");
         TextureRegionDrawable trdPausepr = new TextureRegionDrawable(new TextureRegion(pressedPauseButton));
         TextureRegionDrawable trdPause = new TextureRegionDrawable(new TextureRegion(pauseButton));
         ImageButton imPause = new ImageButton(trdPause, trdPausepr);
@@ -283,7 +283,7 @@ public class LevelOne extends MainScreen{
     // Método que carga todas las texturas del juego -----------------------------------------------
     private void cargarTexturas() {
         background = new Texture("gBg.png");
-        pauseButton = new Texture("buttons/unpressed/pauseButton.png");
+        pauseButton = new Texture("Buttons/unpressed/pauseButton.png");
         oveArr = new Texture("sheep_down.png");
         oveIzq = new Texture("sheep_right.png");
         oveAb = new Texture("sheep_up.png");
@@ -467,9 +467,9 @@ public class LevelOne extends MainScreen{
             this.addActor(pauseT);
 
 
-            Texture pressedContinueButton = new Texture("buttons/pressed/pressedContinueButton.png");
+            Texture pressedContinueButton = new Texture("Buttons/pressed/pressedContinueButton.png");
             TextureRegionDrawable trdContinuepr = new TextureRegionDrawable(new TextureRegion(pressedContinueButton));
-            continueButton = new Texture("buttons/unpressed/continueButton.png");
+            continueButton = new Texture("Buttons/unpressed/continueButton.png");
             TextureRegionDrawable trdContinue = new TextureRegionDrawable(new TextureRegion(continueButton));
             ImageButton btnContinue = new ImageButton(trdContinue,trdContinuepr);
             btnContinue.setPosition(383,968);
@@ -486,10 +486,10 @@ public class LevelOne extends MainScreen{
             this.addActor(btnContinue);
 
 
-            Texture pressedHomeButton = new Texture("buttons/pressed/PressedLevelsButton.png");
+            Texture pressedHomeButton = new Texture("Buttons/pressed/PressedLevelsButton.png");
             TextureRegionDrawable trdHomepr = new TextureRegionDrawable(new
                     TextureRegion(pressedHomeButton));
-            homeButton = new Texture("buttons/unpressed/levelsButton.png");
+            homeButton = new Texture("Buttons/unpressed/levelsButton.png");
             TextureRegionDrawable trdHome = new TextureRegionDrawable(
                     new TextureRegion(homeButton));
             ImageButton homeBtn = new ImageButton(trdHome, trdHomepr);
@@ -504,10 +504,10 @@ public class LevelOne extends MainScreen{
             });
             this.addActor(homeBtn);
 
-            Texture pressedRestartButton = new Texture("buttons/pressed/pressedRestartButton.png");
+            Texture pressedRestartButton = new Texture("Buttons/pressed/pressedRestartButton.png");
             TextureRegionDrawable trdRestartpr =  new TextureRegionDrawable(new
                     TextureRegion(pressedRestartButton));
-            Texture restartButton = new Texture("buttons/unpressed/restartButton.png");
+            Texture restartButton = new Texture("Buttons/unpressed/restartButton.png");
             TextureRegionDrawable trdRestart = new TextureRegionDrawable(new
                     TextureRegion(restartButton));
             ImageButton restartBtn = new ImageButton(trdRestart, trdRestartpr);
@@ -546,8 +546,8 @@ public class LevelOne extends MainScreen{
             this.addActor(winRect);
 
 
-            Texture nextLevel = new Texture("buttons/unpressed/NextLevelButton.png");
-            Texture nextLevelPr = new Texture("buttons/pressed/PressedNextLevelButton.png");
+            Texture nextLevel = new Texture("Buttons/unpressed/NextLevelButton.png");
+            Texture nextLevelPr = new Texture("Buttons/pressed/PressedNextLevelButton.png");
             TextureRegionDrawable nextLevelTrd = new TextureRegionDrawable(new TextureRegion(nextLevel));
             TextureRegionDrawable nextLevelPrTrd = new TextureRegionDrawable(new TextureRegion(nextLevelPr));
 
@@ -561,8 +561,8 @@ public class LevelOne extends MainScreen{
             });
             this.addActor(nextLevelButton);
 
-            Texture retryLevel = new Texture("buttons/unpressed/RetryLevelButton.png");
-            Texture retryLevelPr = new Texture("buttons/pressed/PressedRetryLevelButton.png");
+            Texture retryLevel = new Texture("Buttons/unpressed/RetryLevelButton.png");
+            Texture retryLevelPr = new Texture("Buttons/pressed/PressedRetryLevelButton.png");
             TextureRegionDrawable retryLevelTrd = new TextureRegionDrawable(new TextureRegion(retryLevel));
             TextureRegionDrawable retryLevelPrTrd = new TextureRegionDrawable(new TextureRegion(retryLevelPr));
 
@@ -577,8 +577,8 @@ public class LevelOne extends MainScreen{
             this.addActor(retryLevelButton);
 
 
-            Texture levelsMenu = new Texture("buttons/unpressed/LevelsMenuButton.png");
-            Texture levelsMenuPr = new Texture("buttons/pressed/PressedLevelsMenuButton.png");
+            Texture levelsMenu = new Texture("Buttons/unpressed/LevelsMenuButton.png");
+            Texture levelsMenuPr = new Texture("Buttons/pressed/PressedLevelsMenuButton.png");
             TextureRegionDrawable levelsMenuTrd = new TextureRegionDrawable(new TextureRegion(levelsMenu));
             TextureRegionDrawable levelsMenuPrTrd = new TextureRegionDrawable(new TextureRegion(levelsMenuPr));
 
@@ -617,9 +617,9 @@ public class LevelOne extends MainScreen{
             this.addActor(rect);
 
 
-            Texture homeButtonLost = new Texture("buttons/unpressed/homeButtonLost.png");
+            Texture homeButtonLost = new Texture("Buttons/unpressed/homeButtonLost.png");
             TextureRegionDrawable trdHome = new TextureRegionDrawable(new TextureRegion(homeButtonLost));
-            TextureRegionDrawable trdHomePr = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/pressed/PressedHomeButtonLost.png")));
+            TextureRegionDrawable trdHomePr = new TextureRegionDrawable(new TextureRegion(new Texture("Buttons/pressed/PressedHomeButtonLost.png")));
             ImageButton homeButton = new ImageButton(trdHome, trdHomePr);
             homeButton.setPosition(586,700);
             homeButton.addListener(new ClickListener(){
@@ -633,9 +633,9 @@ public class LevelOne extends MainScreen{
             });
             this.addActor(homeButton);
 
-            Texture tryAgainButton = new Texture("buttons/unpressed/tryAgainButton.png");
+            Texture tryAgainButton = new Texture("Buttons/unpressed/tryAgainButton.png");
             TextureRegionDrawable trdAgain = new TextureRegionDrawable(new TextureRegion(tryAgainButton));
-            TextureRegionDrawable trdAgainpr = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/pressed/PressedTryAgainButton.png")));
+            TextureRegionDrawable trdAgainpr = new TextureRegionDrawable(new TextureRegion(new Texture("Buttons/pressed/PressedTryAgainButton.png")));
             ImageButton tryAgain = new ImageButton(trdAgain, trdAgainpr);
             tryAgain.setPosition(383,972);
             tryAgain.addListener(new ClickListener(){
@@ -649,8 +649,8 @@ public class LevelOne extends MainScreen{
             });
             this.addActor(tryAgain);
 
-            Texture levelsButton = new Texture("buttons/unpressed/levelsButtonLost.png");
-            Texture levelsButtonpr = new Texture("buttons/pressed/PressedLevelsButtonLost.png");
+            Texture levelsButton = new Texture("Buttons/unpressed/levelsButtonLost.png");
+            Texture levelsButtonpr = new Texture("Buttons/pressed/PressedLevelsButtonLost.png");
             TextureRegionDrawable trdLevels = new TextureRegionDrawable(new TextureRegion(levelsButton));
             TextureRegionDrawable trdLevelspr = new TextureRegionDrawable(new TextureRegion(levelsButtonpr));
             ImageButton lvsButton = new ImageButton(trdLevels,trdLevelspr);
