@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 
-public abstract class MainScreen implements com.badlogic.gdx.Screen {
+public abstract class ScreenTemplate implements com.badlogic.gdx.Screen {
 
     public static final float ANCHO = 1080;
     public static final float ALTO = 1920;
@@ -22,7 +22,7 @@ public abstract class MainScreen implements com.badlogic.gdx.Screen {
     protected Preferences pref;
     protected SpriteBatch batch;
 
-    public MainScreen() {
+    public ScreenTemplate() {
         pref = Gdx.app.getPreferences("My Preferences");
         camara = new OrthographicCamera(ANCHO, ALTO);
         camara.position.set(ANCHO / 2, ALTO / 2, 0);

@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
  * Created by josekotasek on 27/10/17.
  */
 
-public class InstructionsScreen extends MainScreen {
+public class InstructionsScreen extends ScreenTemplate {
 
     private final Juego juego;
 

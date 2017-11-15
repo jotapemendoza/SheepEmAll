@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
  * Created by jekot on 09/11/2017.
  */
 
-public class AlienLevel extends MainScreen {
+public class AlienLevel extends ScreenTemplate {
 
     private final Juego juego;
     private Stage escenaAlien;

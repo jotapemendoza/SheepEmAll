@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
  * Created by josepablo on 9/9/17.
  */
 
-class AboutUsScreen extends MainScreen {
+class AboutUsScreen extends ScreenTemplate {
 
     private final Juego juego;
     private Texture bgMenu;

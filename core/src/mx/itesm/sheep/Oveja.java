@@ -84,6 +84,7 @@ public class Oveja {
                 animacionMov = new Animation(0.20f, frames2[0][0], frames2[0][1]);
                 animacionMov.setPlayMode(Animation.PlayMode.LOOP);
 
+
                 timer = 0;
                 x = 500 + ((int) (Math.random()*100)+1);
                 y = ((int) (Math.random()*-4000));

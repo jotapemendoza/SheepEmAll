@@ -16,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
  * El menú principal del juego.
  */
 
-class MenuScreen extends MainScreen
+class MenuScreen extends ScreenTemplate
 {
     private Juego juego;
 

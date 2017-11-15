@@ -21,7 +21,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
  * Created by josepablo on 9/14/17.
  */
 
-public class LevelOne extends MainScreen{
+public class LevelOne extends ScreenTemplate {
 
     private final Juego juego;
     

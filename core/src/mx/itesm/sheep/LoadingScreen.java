@@ -1,13 +1,12 @@
 package mx.itesm.sheep;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 
 /**
  * Muestra una pantalla inicial durante cierto tiempo.
  */
 
-class LoadingScreen extends MainScreen
+class LoadingScreen extends ScreenTemplate
 {
     private Juego juego;
     private float tiempo;   // Tiempo transcurrido

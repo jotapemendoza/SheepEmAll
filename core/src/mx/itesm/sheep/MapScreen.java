@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
  * Created by josepablo on 11/4/17.
  */
 
-public class MapScreen extends MainScreen {
+public class MapScreen extends ScreenTemplate {
 
     private final Juego juego;
     private Stage escenaLevels;
