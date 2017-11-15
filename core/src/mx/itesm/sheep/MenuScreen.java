@@ -87,14 +87,10 @@ class MenuScreen extends MainScreen
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                juego.setScreen(new InstructionsScreen(juego));
 
-                if(pref.getBoolean("played")){
-                    juego.setScreen(new LevelTwo(juego));
-                }
-                else{
-                    juego.setScreen(new InstructionsScreen(juego));
-                }
+                juego.setScreen(new MapScreen(juego));
+
+
                 pref.putBoolean("played",true);
                 pref.flush();
                 System.out.println(pref.getBoolean("played"));
