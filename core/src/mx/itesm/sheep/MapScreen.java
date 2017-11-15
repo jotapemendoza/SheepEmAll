@@ -18,22 +18,23 @@ public class MapScreen extends MainScreen {
 
     private final Juego juego;
     private Stage escenaLevels;
-    private Texture grass;
-    private Texture background;
-    private Texture lv1;
-    private Texture lvlBtn;
-    private Texture lv2;
-    private Texture lv3;
-    private Texture cloud;
 
-    private Image cloud_1;
-    private Image cloud_2;
-    private Image cloud_3;
-    private Image cloud_4;
-    private Image cloud_5;
+    private Texture grass,
+            background,
+            levelOne,
+            lvlBtn,
+            levelTwo,
+            levelThree,
+            cloud;
 
+    private Image cloud_1,
+            cloud_2,
+            cloud_3,
+            cloud_4,
+            cloud_5;
 
-    private ImageButton levelTwoBtn, levelThreeBtn;
+    private ImageButton levelTwoBtn,
+            levelThreeBtn;
 
 
     public MapScreen(Juego juego){
@@ -48,12 +49,12 @@ public class MapScreen extends MainScreen {
     }
 
     private void cargarTexturas() {
+        levelThree = new Texture("levelsScreen/level3.png");
+        levelOne = new Texture("levelsScreen/level1.png");
+        levelTwo = new Texture("levelsScreen/level2.png");
+        lvlBtn = new Texture("levelsScreen/btn.png");
         background = new Texture("menuBg.png");
         grass = new Texture("mapsBG.png");
-        lv1 = new Texture("levelsScreen/level1.png");
-        lv2 = new Texture("levelsScreen/level2.png");
-        lv3 = new Texture("levelsScreen/level3.png");
-        lvlBtn = new Texture("levelsScreen/btn.png");
         cloud = new Texture("cloud.png");
     }
 
@@ -149,11 +150,11 @@ public class MapScreen extends MainScreen {
 
         /*-----------------------------ESTAS LÍNEAS SOLAMENTE SON PARA PRUEBAS----------------------------------------------*/
         //pref.putBoolean("lv1",true);
-        //pref.putBoolean("lv2",false);
+        //pref.putBoolean("levelTwo",false);
         /*------------------------------------------------------------------------------------------------------------------*/
 
         Boolean levelOneWon = pref.getBoolean("lv1");
-        Boolean levelTwoWon = pref.getBoolean("lv2");
+        Boolean levelTwoWon = pref.getBoolean("levelTwo");
 
 
         borrarPantalla(0,0,0);
@@ -166,14 +167,14 @@ public class MapScreen extends MainScreen {
         batch.draw(grass,0,0);
 
         if(!pref.getBoolean("lv1")){
-            batch.draw(lv1,78,116);
+            batch.draw(levelOne,78,116);
         }
         if(levelOneWon){
-            batch.draw(lv2,78,116);
+            batch.draw(levelTwo,78,116);
             escenaLevels.addActor(levelTwoBtn);
         }
         if(levelTwoWon){
-            batch.draw(lv3,78,116);
+            batch.draw(levelThree,78,116);
             escenaLevels.addActor(levelThreeBtn);
         }
 
