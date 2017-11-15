@@ -419,6 +419,8 @@ public class GameScreen extends MainScreen{
             juego.pauseGameMusic();
         }
         eliminarOveja();
+
+        pref.flush();
     }
 
     @Override
@@ -659,7 +661,7 @@ public class GameScreen extends MainScreen{
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     juego.stopGameMusic();
-                    juego.setScreen(new MenuScreen(juego));
+                    juego.setScreen(new MapScreen(juego));
                     juego.stopLost();
                 }
             });

@@ -147,15 +147,17 @@ public class MapScreen extends MainScreen {
     @Override
     public void render(float delta) {
 
-        pref.putBoolean("lv1",false);
+        /*-----------------------------ESTAS LÍNEAS SOLAMENTE SON PARA PRUEBAS----------------------------------------------*/
+        //pref.putBoolean("lv1",true);
+        //pref.putBoolean("lv2",false);
+        /*------------------------------------------------------------------------------------------------------------------*/
 
-        Boolean levelOneWon = pref.getBoolean("lv1")&&!pref.getBoolean("lv2");
-        Boolean levelTwoWon = pref.getBoolean("lv1")&&pref.getBoolean("lv2");
+        Boolean levelOneWon = pref.getBoolean("lv1");
+        Boolean levelTwoWon = pref.getBoolean("lv2");
 
 
         borrarPantalla(0,0,0);
         batch.setProjectionMatrix(camara.combined);
-
 
         escenaLevels.draw();
         moveClouds(delta);

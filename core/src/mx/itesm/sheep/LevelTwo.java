@@ -477,6 +477,7 @@ public class LevelTwo extends MainScreen{
         if(estado ==  EstadoJuego.GANADO){
             Gdx.input.setInputProcessor(escenaGanar);
             escenaGanar.draw();
+            pref.putBoolean("lv2",true);
         }
 
         if(pref.getBoolean("musicOn")){
@@ -491,6 +492,8 @@ public class LevelTwo extends MainScreen{
             juego.pauseGameMusic();
         }
         eliminarOveja();
+
+        pref.flush();
     }
 
     @Override
