@@ -47,10 +47,10 @@ public class Oveja {
         TextureRegion region2 = new TextureRegion(textura2);
         TextureRegion[][] frames2;
 
-        texturafuego = new Texture("fire.png");
+        texturafuego = new Texture("sheep_fire.png");
         TextureRegion region3 = new TextureRegion(texturafuego);
-        TextureRegion[][] frames3= region3.split(58,70);
-        fuego = new Animation(0.20f, frames3[0][0], frames3[0][1], frames3[0][2]);
+        TextureRegion[][] frames3= region3.split(100,170);
+        fuego = new Animation(0.20f, frames3[0][0], frames3[0][1]);
         fuego.setPlayMode(Animation.PlayMode.LOOP);
         timer = 0;
 
