@@ -18,8 +18,8 @@ public class MapScreen extends MainScreen {
 
     private final Juego juego;
     private Stage escenaLevels;
-    private Texture topBG;
-    private Texture BG;
+    private Texture grass;
+    private Texture background;
     private Texture lv1;
     private Texture lvlBtn;
     private Texture lv2;
@@ -48,8 +48,8 @@ public class MapScreen extends MainScreen {
     }
 
     private void cargarTexturas() {
-        BG = new Texture("menuBg.png");
-        topBG = new Texture("mapsBG.png");
+        background = new Texture("menuBg.png");
+        grass = new Texture("mapsBG.png");
         lv1 = new Texture("levelsScreen/level1.png");
         lv2 = new Texture("levelsScreen/level2.png");
         lv3 = new Texture("levelsScreen/level3.png");
@@ -61,7 +61,7 @@ public class MapScreen extends MainScreen {
         escenaLevels = new Stage(vista);
 
 
-        TextureRegionDrawable trdBg = new TextureRegionDrawable(new TextureRegion(BG));
+        TextureRegionDrawable trdBg = new TextureRegionDrawable(new TextureRegion(background));
         Image bg =  new Image(trdBg);
         bg.setPosition(0,0);
         escenaLevels.addActor(bg);
@@ -163,7 +163,7 @@ public class MapScreen extends MainScreen {
         moveClouds(delta);
 
         batch.begin();
-        batch.draw(topBG,0,0);
+        batch.draw(grass,0,0);
 
         if(!pref.getBoolean("lv1")){
             batch.draw(lv1,78,116);
