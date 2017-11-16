@@ -22,8 +22,11 @@ public class Oveja {
     // Color de la oveja
     private String color;
 
-    // Tamaño del sprite
+    // Tamaño del sprite oveja
     private int ancho, alto;
+
+    // Tamaño del sprite oveja levantada
+    private int anchoM, altoM;
 
     // Animar oveja
     private Animation animacion;
@@ -57,8 +60,8 @@ public class Oveja {
 
         switch (estado){
             case ARRIBA:
-                ancho = 85;
-                alto = 100;
+                ancho = 108;
+                alto = 140;
                 frames = region.split(ancho,alto);
                 animacion = new Animation(0.20f, frames[0][0], frames[0][1]);
                 animacion.setPlayMode(Animation.PlayMode.LOOP);
@@ -124,6 +127,14 @@ public class Oveja {
                 y = 800 + ((int) (Math.random()*100)+1);
                 this.estadoOriginal = estado;
                 this.estado = estado;
+                break;
+            case MOVIENDO:
+                break;
+            case STOP:
+                break;
+            case CONTINUAR:
+                break;
+            case BOOM:
                 break;
         }
     }

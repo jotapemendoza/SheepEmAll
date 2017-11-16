@@ -45,6 +45,16 @@ public class LevelOne extends ScreenTemplate {
     private Texture oveMovDer;
     private BitmapFont font;
 
+    //texturas de colores
+    private Texture oveArrBlue;
+    private Texture oveArrRed;
+    private Texture oveArrWhite;
+    private Texture oveArrYellow;
+    private Texture oveArrMovBlue;
+    private Texture oveArrMovRed;
+    private Texture oveArrMovWhite;
+    private Texture oveArrMovYellow;
+
     private Boolean played = false;
 
     private Music sheep;
@@ -56,7 +66,7 @@ public class LevelOne extends ScreenTemplate {
     private int ovejaMovY;
     private final int cantOve = 20;
     private int contOvejas = 0;
-    
+    private String arrColores[] = {"WHITE","BLUE","RED","YELLOW"};
 
     private float salida;
     private float velocidadOve = 1.0f;
@@ -193,10 +203,10 @@ public class LevelOne extends ScreenTemplate {
 
     // Validar corral correcto ---------------------------------------------------------------------
     public boolean cordenadasCorral(float xP, float yP, String color) {
-        if ((xP >= 0 && xP <= 410 && yP >= 110 && yP <= 730 && color.equals("ROJO")) ||
-                (xP >= 670 && xP <= 1080 && yP >= 110 && yP <= 730 && color.equals("AZUL")) ||
-                (xP >= 0 && xP <= 410 && yP >= 1104 && yP <= 1730 && color.equals("MORADO")) ||
-                (xP >= 670 && xP <= 1080 && yP >= 1104 && yP <= 1730 && color.equals("AMARILLO"))){
+        if ((xP >= 0 && xP <= 410 && yP >= 110 && yP <= 730 && color.equals("RED")) ||
+                (xP >= 670 && xP <= 1080 && yP >= 110 && yP <= 730 && color.equals("BLUE")) ||
+                (xP >= 0 && xP <= 410 && yP >= 1104 && yP <= 1730 && color.equals("WHITE")) ||
+                (xP >= 670 && xP <= 1080 && yP >= 1104 && yP <= 1730 && color.equals("YELLOW"))){
             return true;
         }
         return false;
@@ -232,18 +242,35 @@ public class LevelOne extends ScreenTemplate {
 
         for (int i = 0; i < cantOve; i++){
             int random = (int) (Math.random()*4)+1;
+            int randomColor = (int) (Math.random()*4)+1;
 
             if (random == 1){
-                ove = new Oveja(oveArr, oveMovArr, Oveja.Estado.ARRIBA, "ROJO");
-                arrOvejas.add(ove);
+                switch (randomColor){
+                    case 1:
+                        ove = new Oveja(oveArrWhite, oveArrMovWhite, Oveja.Estado.ARRIBA, arrColores[0]);
+                        arrOvejas.add(ove);
+                        break;
+                    case 2:
+                        ove = new Oveja(oveArrBlue, oveArrMovBlue, Oveja.Estado.ARRIBA, arrColores[1]);
+                        arrOvejas.add(ove);
+                        break;
+                    case 3:
+                        ove = new Oveja(oveArrRed, oveArrMovRed, Oveja.Estado.ARRIBA, arrColores[2]);
+                        arrOvejas.add(ove);
+                        break;
+                    case 4:
+                        ove = new Oveja(oveArrYellow, oveArrMovYellow, Oveja.Estado.ARRIBA, arrColores[3]);
+                        arrOvejas.add(ove);
+                        break;
+                }
             }else if (random == 2){
-                ove = new Oveja(oveAb, oveMovAb, Oveja.Estado.ABAJO, "AZUL");
+                ove = new Oveja(oveAb, oveMovAb, Oveja.Estado.ABAJO, "BLUE");
                 arrOvejas.add(ove);
             }else if (random == 3){
-                ove = new Oveja(oveIzq, oveMovIzq, Oveja.Estado.IZQUIERDA, "MORADO");
+                ove = new Oveja(oveIzq, oveMovIzq, Oveja.Estado.IZQUIERDA, "WHITE");
                 arrOvejas.add(ove);
             }else{
-                ove = new Oveja(oveDer, oveMovDer, Oveja.Estado.DERECHA, "AMARILLO");
+                ove = new Oveja(oveDer, oveMovDer, Oveja.Estado.DERECHA, "YELLOW");
                 arrOvejas.add(ove);
             }
         }
@@ -302,6 +329,16 @@ public class LevelOne extends ScreenTemplate {
         oveMovAb = new Texture("sheep_moving.png");
         oveMovIzq = new Texture("sheep_moving3.png");
         oveMovDer = new Texture("sheep_moving2.png");
+
+        //ovejas de colores
+        oveArrBlue = new Texture("Sheep/Blue/sheep_down_blue.png");
+        oveArrMovBlue = new Texture("Sheep/Blue/sheep_moving_down_blue.png");
+        oveArrRed = new Texture("Sheep/Red/sheep_down_red.png");
+        oveArrMovRed = new Texture("Sheep/Red/sheep_moving_down_red.png");
+        oveArrWhite = new Texture("Sheep/White/sheep_down_white.png");
+        oveArrMovWhite = new Texture("Sheep/White/sheep_moving_down_white.png");
+        oveArrYellow = new Texture("Sheep/Yellow/sheep_down_yellow.png");
+        oveArrMovYellow = new Texture("Sheep/Yellow/sheep_moving_down_yellow.png");
     }
 
 
