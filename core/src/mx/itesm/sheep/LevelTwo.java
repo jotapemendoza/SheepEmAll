@@ -407,38 +407,9 @@ public class LevelTwo extends ScreenTemplate {
                 velocidadOve += 0.5f;
                 salida = 0;
            }
-
        }
 
        // Movimiento de la nave en la pantalla
-        /*if (tiempo >= 10.0){
-            if (moverX >= 10 && moverY >= 10){
-                if (aS.getPosicionX() <= 0 && aS.getPosicionY() <= 0){
-                    aS.spaceShipMove(moverX,moverY);
-                    aS.render(batch);
-                    moverX += 0.1f;
-                    moverY += 0.1f;
-                }else {
-                    aS.spaceShipMove(moverX,moverY);
-                    aS.render(batch);
-                    moverX -= 0.1f;
-                    moverY -= 0.1f;
-                }/*
-            }else {
-                aS.spaceShipMove(moverX,moverY);
-                aS.setEstado(AlienShip.Estado.MOVIENDO);
-                aS.render(batch);
-                moverX += 0.1f;
-                moverY += 0.1f;
-                *//*moverX0 += 0.1f;
-                moverY0 += 0.1f;
-            }
-            if (aS.saliendoPor()== AlienShip.Estado.SALIENDOX){
-                aS.cambiarDireccionX();
-            } else if(aS.saliendoPor()== AlienShip.Estado.SALIENDOY) {
-                aS.cambiarDireccionY();
-            }
-        }*/
         if (tiempo >= 5){
             moverX += 1f* aS.getDireccionX();
             moverY += 1f * aS.getDireccionY();
