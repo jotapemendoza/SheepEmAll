@@ -102,7 +102,7 @@ public class LevelOne extends ScreenTemplate {
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
                 if (keycode==Input.Keys.BACK){
-                    //sheepEm.setScreen(new MenuScreen(sheepEm));
+                    sheepEm.setScreen(new MenuScreen(sheepEm));
                 }
                 return true;
             }
@@ -161,6 +161,7 @@ public class LevelOne extends ScreenTemplate {
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer) {
                 super.dragStop(event, x, y, pointer);
+                sheep.stop();
                 if(ovejaMoviendo != null){
                     // verificar si está en el corral
                     if(cordenadasCorral(x,y,ovejaMoviendo.getColor())){
@@ -401,6 +402,7 @@ public class LevelOne extends ScreenTemplate {
             escenaPerder.draw();
             if(!played) sheepEm.playLost();
             played = true;
+            sheep.stop();
         }
 
         if(estado ==  EstadoJuego.GANADO){

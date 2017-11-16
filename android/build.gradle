@@ -19,7 +19,7 @@ android {
     }
     defaultConfig {
         applicationId "mx.itesm.sheep"
-        minSdkVersion 25
+        minSdkVersion 9
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
