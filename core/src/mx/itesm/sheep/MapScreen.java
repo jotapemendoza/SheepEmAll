@@ -150,8 +150,8 @@ public class MapScreen extends ScreenTemplate {
 
         // GANADOS
 
-        //pref.putBoolean("wonLevelOne",true);
-        //pref.putBoolean("wonLevelTwo",true);
+        pref.putBoolean("wonLevelOne",true);
+        pref.putBoolean("wonLevelTwo",true);
 
         /*-----------------------------------------------------------------------------------------------------------------*/
 

@@ -153,7 +153,7 @@ public class LevelOne extends ScreenTemplate {
                             ovejaMovX = (int) x;
                             ovejaMovY = (int) y;
                             ovejaMoviendo.setEstado(Oveja.Estado.MOVIENDO);
-                            Gdx.app.log("dragStart", "Inicia movimeinto");
+
                             break;
                         }
                     }
@@ -167,7 +167,6 @@ public class LevelOne extends ScreenTemplate {
                 sheep.play();
                 ovejaMoviendo.setX(x - ovejaMoviendo.getAncho()/2);
                 ovejaMoviendo.setY(y - ovejaMoviendo.getAlto()/2);
-                Gdx.app.log("drag", "x = " +x + ", y = " +y);
             }
 
             @Override
@@ -179,11 +178,9 @@ public class LevelOne extends ScreenTemplate {
                     if(cordenadasCorral(x,y,ovejaMoviendo.getColor())){
                         ovejaMoviendo.setEstado(ovejaMoviendo.getEstadoOriginal());
                         contOvejas++;
-                        Gdx.app.log("oveja","en corral: " + contOvejas);
                         ovejaMoviendo = null;
                     }else{
                         if(!cordenadasLineales(x,y)){
-                            Gdx.app.log("corral", "Corral incorrecto");
                             ovejaMoviendo.setEstado(Oveja.Estado.BOOM);
                             lifes--;
                             ovejaMoviendo = null;
