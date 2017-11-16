@@ -23,7 +23,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class LevelTwo extends ScreenTemplate {
 
-    private final Juego juego;
+    private final SheepEm sheepEm;
 
     // Texturas/Parte Gráfica ----------------------------------------------------------------------
     private Texture continueButton;
@@ -80,8 +80,8 @@ public class LevelTwo extends ScreenTemplate {
     private float tiempo;
 
 
-    public LevelTwo(Juego juego){
-        this.juego = juego;
+    public LevelTwo(SheepEm sheepEm){
+        this.sheepEm = sheepEm;
     }
 
     @Override
@@ -215,7 +215,7 @@ public class LevelTwo extends ScreenTemplate {
         return false;
     }
 
-    // Detener ovejas en el juego ------------------------------------------------------------------
+    // Detener ovejas en el sheepEm ------------------------------------------------------------------
     private void detenerOveja(boolean stop) {
         if (stop){
             for (Oveja oveja: arrOvejas){
@@ -228,7 +228,7 @@ public class LevelTwo extends ScreenTemplate {
         }
     }
 
-    // Método que carga las ovejas en el juego -----------------------------------------------------
+    // Método que carga las ovejas en el sheepEm -----------------------------------------------------
     private void cargarOvejas(){
         //Llenar arreglo Ovejas
         arrOvejas = new Array<Oveja>(cantOve);
@@ -257,7 +257,7 @@ public class LevelTwo extends ScreenTemplate {
         }
     }
 
-    // Método que elimina las ovejas en el juego ---------------------------------------------------
+    // Método que elimina las ovejas en el sheepEm ---------------------------------------------------
     private void eliminarOveja(){
         for (int i = 0; i < arrOvejas.size; i++){
             if (arrOvejas.get(i).getEstado().equals(Oveja.Estado.ARRIBA)){
@@ -295,7 +295,7 @@ public class LevelTwo extends ScreenTemplate {
         }
     }
 
-    // Método que carga todas las texturas del juego -----------------------------------------------
+    // Método que carga todas las texturas del sheepEm -----------------------------------------------
     private void cargarTexturas() {
         background = new Texture("atardecer.png");
         pauseButton = new Texture("Buttons/unpressed/pauseButton.png");
@@ -468,7 +468,7 @@ public class LevelTwo extends ScreenTemplate {
             detenerOveja(false);
             Gdx.input.setInputProcessor(escenaPerder);
             escenaPerder.draw();
-            if(!played) juego.playLost();
+            if(!played) sheepEm.playLost();
             played = true;
         }
 
@@ -480,14 +480,14 @@ public class LevelTwo extends ScreenTemplate {
 
         if(pref.getBoolean("musicOn")){
             if(estado == EstadoJuego.JUGANDO){
-                juego.playGameMusic();
+                sheepEm.playGameMusic();
             }else{
-                juego.pauseGameMusic();
+                sheepEm.pauseGameMusic();
             }
 
         }
         if(!pref.getBoolean("musicOn")){
-            juego.pauseGameMusic();
+            sheepEm.pauseGameMusic();
         }
         eliminarOveja();
 
@@ -550,10 +550,10 @@ public class LevelTwo extends ScreenTemplate {
             btnContinue.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    //Cambio el estado de juego a JUGANDO y regreso el poder a la escenaJuego
+                    //Cambio el estado de sheepEm a JUGANDO y regreso el poder a la escenaJuego
                     estado = EstadoJuego.JUGANDO;
                     detenerOveja(false);
-                    juego.playGameMusic();
+                    sheepEm.playGameMusic();
                     Gdx.input.setInputProcessor(escenaJuego);
                 }
             });
@@ -572,8 +572,8 @@ public class LevelTwo extends ScreenTemplate {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     // Regresa al menú
-                    juego.setScreen(new MenuScreen(juego));
-                    juego.stopGameMusic();
+                    sheepEm.setScreen(new MenuScreen(sheepEm));
+                    sheepEm.stopGameMusic();
                 }
             });
             this.addActor(homeBtn);
@@ -590,9 +590,9 @@ public class LevelTwo extends ScreenTemplate {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     // Regresa al menú
-                    juego.stopGameMusic();
-                    juego.setScreen(new LevelOne(juego));
-                    juego.playGameMusic();
+                    sheepEm.stopGameMusic();
+                    sheepEm.setScreen(new LevelOne(sheepEm));
+                    sheepEm.playGameMusic();
                 }
             });
             this.addActor(restartBtn);
@@ -630,7 +630,7 @@ public class LevelTwo extends ScreenTemplate {
             nextLevelButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    juego.setScreen(new MenuScreen(juego));
+                    sheepEm.setScreen(new MenuScreen(sheepEm));
                 }
             });
             this.addActor(nextLevelButton);
@@ -645,7 +645,7 @@ public class LevelTwo extends ScreenTemplate {
             retryLevelButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    juego.setScreen(new LevelOne(juego));
+                    sheepEm.setScreen(new LevelOne(sheepEm));
                 }
             });
             this.addActor(retryLevelButton);
@@ -661,7 +661,7 @@ public class LevelTwo extends ScreenTemplate {
             levelsButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    juego.setScreen(new LevelOne(juego));
+                    sheepEm.setScreen(new LevelOne(sheepEm));
                 }
             });
             this.addActor(levelsButton);
@@ -699,9 +699,9 @@ public class LevelTwo extends ScreenTemplate {
             homeButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    juego.stopGameMusic();
-                    juego.setScreen(new MenuScreen(juego));
-                    juego.stopLost();
+                    sheepEm.stopGameMusic();
+                    sheepEm.setScreen(new MenuScreen(sheepEm));
+                    sheepEm.stopLost();
 
                 }
             });
@@ -715,10 +715,10 @@ public class LevelTwo extends ScreenTemplate {
             tryAgain.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    juego.stopGameMusic();
-                    juego.setScreen(new LevelOne(juego));
-                    juego.playGameMusic();
-                    juego.stopLost();
+                    sheepEm.stopGameMusic();
+                    sheepEm.setScreen(new LevelOne(sheepEm));
+                    sheepEm.playGameMusic();
+                    sheepEm.stopLost();
                 }
             });
             this.addActor(tryAgain);
@@ -732,9 +732,9 @@ public class LevelTwo extends ScreenTemplate {
             lvsButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    juego.stopGameMusic();
-                    juego.setScreen(new MenuScreen(juego));
-                    juego.stopLost();
+                    sheepEm.stopGameMusic();
+                    sheepEm.setScreen(new MenuScreen(sheepEm));
+                    sheepEm.stopLost();
                 }
             });
             this.addActor(lvsButton);

@@ -16,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class MapScreen extends ScreenTemplate {
 
-    private final Juego juego;
+    private final SheepEm sheepEm;
     private Stage escenaLevels;
 
     private Texture grass,
@@ -37,8 +37,8 @@ public class MapScreen extends ScreenTemplate {
             levelThreeBtn;
 
 
-    public MapScreen(Juego juego){
-        this.juego = juego;
+    public MapScreen(SheepEm sheepEm){
+        this.sheepEm = sheepEm;
     }
     @Override
     public void show() {
@@ -72,8 +72,8 @@ public class MapScreen extends ScreenTemplate {
         levelOneBtn.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                juego.setScreen(new LevelOne(juego));
-                juego.pauseMenuMusic();
+                sheepEm.setScreen(new LevelOne(sheepEm));
+                sheepEm.pauseMenuMusic();
             }
         });
         escenaLevels.addActor(levelOneBtn);
@@ -84,8 +84,8 @@ public class MapScreen extends ScreenTemplate {
         levelTwoBtn.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                juego.setScreen(new LevelTwo(juego));
-                juego.pauseMenuMusic();
+                sheepEm.setScreen(new LevelTwo(sheepEm));
+                sheepEm.pauseMenuMusic();
 
             }
         });
@@ -96,8 +96,8 @@ public class MapScreen extends ScreenTemplate {
         levelThreeBtn.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                juego.setScreen(new AlienLevel(juego));
-                juego.pauseMenuMusic();
+                sheepEm.setScreen(new AlienLevel(sheepEm));
+                sheepEm.pauseMenuMusic();
 
             }
         });
@@ -182,10 +182,10 @@ public class MapScreen extends ScreenTemplate {
 
         /*-----------------------MUSIC----------------------*/
         if(pref.getBoolean("musicOn")){
-            juego.startMenuMusic();
+            sheepEm.startMenuMusic();
         }
         if(!pref.getBoolean("musicOn")){
-            juego.pauseMenuMusic();
+            sheepEm.pauseMenuMusic();
         }
 
         pref.flush();
@@ -224,15 +224,11 @@ public class MapScreen extends ScreenTemplate {
     }
 
     @Override
-    public void pause() {
-    }
+    public void pause() {}
 
     @Override
-    public void resume() {
-    }
+    public void resume() {}
 
     @Override
-    public void dispose() {
-
-    }
+    public void dispose() {}
 }

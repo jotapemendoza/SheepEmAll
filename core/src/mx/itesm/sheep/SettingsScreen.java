@@ -18,7 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class SettingsScreen extends ScreenTemplate {
 
-    private final Juego juego;
+    private final SheepEm sheepEm;
     private Stage escenaSettings;
     private Texture musicButton,
             backButton,
@@ -33,8 +33,8 @@ public class SettingsScreen extends ScreenTemplate {
     private ImageButton btnMusic,
             btnNoMusic;
 
-    public SettingsScreen(Juego juego){
-        this.juego = juego;
+    public SettingsScreen(SheepEm sheepEm){
+        this.sheepEm = sheepEm;
     }
 
     @Override
@@ -124,7 +124,7 @@ public class SettingsScreen extends ScreenTemplate {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
 
-                juego.setScreen(new MenuScreen(juego));
+                sheepEm.setScreen(new MenuScreen(sheepEm));
             }
         } );
         escenaSettings.addActor(btnBack);
@@ -151,10 +151,10 @@ public class SettingsScreen extends ScreenTemplate {
         }
 
         if(pref.getBoolean("musicOn")){
-            juego.startMenuMusic();
+            sheepEm.startMenuMusic();
         }
         if(!pref.getBoolean("musicOn")){
-            juego.pauseMenuMusic();
+            sheepEm.pauseMenuMusic();
         }
 
         pref.flush();

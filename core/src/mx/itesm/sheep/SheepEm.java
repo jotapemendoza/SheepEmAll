@@ -4,7 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 
-public class Juego extends Game
+public class SheepEm extends Game
 {
 
 	private Music menuMusic;
@@ -21,6 +21,7 @@ public class Juego extends Game
 	}
 
 	public void startMenuMusic(){
+		menuMusic.setVolume(0.8f);
 		menuMusic.play();
 		menuMusic.setLooping(true);
 	}
@@ -31,6 +32,7 @@ public class Juego extends Game
 	}
 
 	public void playGameMusic() {
+		gameMusic.setVolume(0.8f);
 		gameMusic.play();
 		gameMusic.setLooping(true);
 	}

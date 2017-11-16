@@ -15,13 +15,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class InstructionsScreen extends ScreenTemplate {
 
-    private final Juego juego;
+    private final SheepEm sheepEm;
 
     private Texture instrucciones;
     private Stage escenaInstrucciones;
 
-    public InstructionsScreen(Juego juego){
-        this.juego = juego;
+    public InstructionsScreen(SheepEm sheepEm){
+        this.sheepEm = sheepEm;
     }
     @Override
     public void show() {
@@ -40,7 +40,7 @@ public class InstructionsScreen extends ScreenTemplate {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                juego.setScreen(new LevelOne(juego));
+                sheepEm.setScreen(new LevelOne(sheepEm));
             }
         } );
     }

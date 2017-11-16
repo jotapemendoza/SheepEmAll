@@ -18,7 +18,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class AlienLevel extends ScreenTemplate {
 
-    private final Juego juego;
+    private final SheepEm sheepEm;
     private Stage escenaAlien;
     private Texture nave;
     private Texture background;
@@ -31,8 +31,8 @@ public class AlienLevel extends ScreenTemplate {
 
     private int hpAlien;
 
-    public AlienLevel(Juego juego) {
-        this.juego = juego;
+    public AlienLevel(SheepEm sheepEm) {
+        this.sheepEm = sheepEm;
     }
 
     @Override
@@ -96,7 +96,7 @@ public class AlienLevel extends ScreenTemplate {
         if (estado == LevelOne.EstadoJuego.PERDIDO){
             Gdx.input.setInputProcessor(escenaPerder);
             escenaPerder.draw();
-            if(!played) juego.playLost();
+            if(!played) sheepEm.playLost();
             played = true;
         }
         if(estado ==  LevelOne.EstadoJuego.GANADO){
@@ -150,7 +150,7 @@ public class AlienLevel extends ScreenTemplate {
             nextLevelButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    juego.setScreen(new MenuScreen(juego));
+                    sheepEm.setScreen(new MenuScreen(sheepEm));
                 }
             });
             this.addActor(nextLevelButton);
@@ -165,7 +165,7 @@ public class AlienLevel extends ScreenTemplate {
             retryLevelButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    juego.setScreen(new LevelOne(juego));
+                    sheepEm.setScreen(new LevelOne(sheepEm));
                 }
             });
             this.addActor(retryLevelButton);
@@ -181,7 +181,7 @@ public class AlienLevel extends ScreenTemplate {
             levelsButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    juego.setScreen(new LevelOne(juego));
+                    sheepEm.setScreen(new LevelOne(sheepEm));
                 }
             });
             this.addActor(levelsButton);
@@ -220,9 +220,9 @@ public class AlienLevel extends ScreenTemplate {
             homeButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    juego.stopGameMusic();
-                    juego.setScreen(new MenuScreen(juego));
-                    juego.stopLost();
+                    sheepEm.stopGameMusic();
+                    sheepEm.setScreen(new MenuScreen(sheepEm));
+                    sheepEm.stopLost();
 
                 }
             });
@@ -236,10 +236,10 @@ public class AlienLevel extends ScreenTemplate {
             tryAgain.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    juego.stopGameMusic();
-                    juego.setScreen(new LevelOne(juego));
-                    juego.playGameMusic();
-                    juego.stopLost();
+                    sheepEm.stopGameMusic();
+                    sheepEm.setScreen(new LevelOne(sheepEm));
+                    sheepEm.playGameMusic();
+                    sheepEm.stopLost();
                 }
             });
             this.addActor(tryAgain);
@@ -253,9 +253,9 @@ public class AlienLevel extends ScreenTemplate {
             lvsButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    juego.stopGameMusic();
-                    juego.setScreen(new MenuScreen(juego));
-                    juego.stopLost();
+                    sheepEm.stopGameMusic();
+                    sheepEm.setScreen(new MenuScreen(sheepEm));
+                    sheepEm.stopLost();
                 }
             });
             this.addActor(lvsButton);

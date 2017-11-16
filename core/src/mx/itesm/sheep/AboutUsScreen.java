@@ -16,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 class AboutUsScreen extends ScreenTemplate {
 
-    private final Juego juego;
+    private final SheepEm sheepEm;
     private Texture bgMenu;
     private Texture backButton;
     private Stage escenaAyuda;
@@ -32,8 +32,8 @@ class AboutUsScreen extends ScreenTemplate {
 
 
 
-    public AboutUsScreen(Juego juego) {
-        this.juego = juego;
+    public AboutUsScreen(SheepEm sheepEm) {
+        this.sheepEm = sheepEm;
     }
 
     @Override
@@ -68,7 +68,7 @@ class AboutUsScreen extends ScreenTemplate {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
 
-                juego.setScreen(new MenuScreen(juego));
+                sheepEm.setScreen(new MenuScreen(sheepEm));
             }
         } );
 
@@ -90,7 +90,7 @@ class AboutUsScreen extends ScreenTemplate {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         super.clicked(event, x, y);
-                        juego.setScreen(new AboutUsScreen(juego));
+                        sheepEm.setScreen(new AboutUsScreen(sheepEm));
                     }
                 } );
             }
@@ -112,7 +112,7 @@ class AboutUsScreen extends ScreenTemplate {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         super.clicked(event, x, y);
-                        juego.setScreen(new AboutUsScreen(juego));
+                        sheepEm.setScreen(new AboutUsScreen(sheepEm));
                     }
                 } );
             }
@@ -134,7 +134,7 @@ class AboutUsScreen extends ScreenTemplate {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         super.clicked(event, x, y);
-                        juego.setScreen(new AboutUsScreen(juego));
+                        sheepEm.setScreen(new AboutUsScreen(sheepEm));
                     }
                 } );
             }
@@ -156,7 +156,7 @@ class AboutUsScreen extends ScreenTemplate {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         super.clicked(event, x, y);
-                        juego.setScreen(new AboutUsScreen(juego));
+                        sheepEm.setScreen(new AboutUsScreen(sheepEm));
                     }
                 } );
             }

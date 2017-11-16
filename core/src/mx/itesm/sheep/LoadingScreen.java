@@ -8,14 +8,14 @@ import com.badlogic.gdx.Gdx;
 
 class LoadingScreen extends ScreenTemplate
 {
-    private Juego juego;
+    private SheepEm sheepEm;
     private float tiempo;   // Tiempo transcurrido
 
 
-    public LoadingScreen(Juego juego) {
-        this.juego = juego;
+    public LoadingScreen(SheepEm sheepEm) {
+        this.sheepEm = sheepEm;
     }
-// Se ejecuta cuando esta pantalla es la principal del juego
+// Se ejecuta cuando esta pantalla es la principal del sheepEm
     @Override
     public void show() {
         tiempo = 0;
@@ -33,7 +33,7 @@ class LoadingScreen extends ScreenTemplate
         // Actualiza
         tiempo += Gdx.graphics.getDeltaTime();  // Acumula tiempo
         if (tiempo>=1) {
-            juego.setScreen(new MenuScreen(juego));
+            sheepEm.setScreen(new MenuScreen(sheepEm));
         }
     }
 

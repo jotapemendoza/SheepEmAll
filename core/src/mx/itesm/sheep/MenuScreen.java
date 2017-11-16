@@ -13,12 +13,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 
 /**
- * El menú principal del juego.
+ * El menú principal del sheepEm.
  */
 
 class MenuScreen extends ScreenTemplate
 {
-    private Juego juego;
+    private SheepEm sheepEm;
 
     // Contenedor de los botones
     private Stage escenaMenu;
@@ -51,8 +51,8 @@ class MenuScreen extends ScreenTemplate
     private Image cloud_5;
 
 
-    public MenuScreen(Juego juego) {
-        this.juego = juego;
+    public MenuScreen(SheepEm sheepEm) {
+        this.sheepEm = sheepEm;
         pref.putBoolean("played", pref.getBoolean("played"));
     }
 
@@ -85,11 +85,11 @@ class MenuScreen extends ScreenTemplate
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
 
-                juego.setScreen(new MapScreen(juego));
+                sheepEm.setScreen(new MapScreen(sheepEm));
 
                 pref.flush();
                 System.out.println(pref.getBoolean("played"));
-                juego.pauseMenuMusic();
+                sheepEm.pauseMenuMusic();
             }
         } );
     //-----------------------------------------------------------------
@@ -108,7 +108,7 @@ class MenuScreen extends ScreenTemplate
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                juego.setScreen(new AboutUsScreen(juego));
+                sheepEm.setScreen(new AboutUsScreen(sheepEm));
             }
         } );
     //-----------------------------------------------------------------
@@ -127,7 +127,7 @@ class MenuScreen extends ScreenTemplate
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                juego.setScreen(new SettingsScreen(juego));
+                sheepEm.setScreen(new SettingsScreen(sheepEm));
             }
         } );
     //-----------------------------------------------------------------
@@ -269,10 +269,10 @@ class MenuScreen extends ScreenTemplate
 
 
         if(pref.getBoolean("musicOn")){
-            juego.startMenuMusic();
+            sheepEm.startMenuMusic();
         }
         if(!pref.getBoolean("musicOn")){
-            juego.pauseMenuMusic();
+            sheepEm.pauseMenuMusic();
         }
 
     }
@@ -288,6 +288,5 @@ class MenuScreen extends ScreenTemplate
     // Liberar los recursos asignados
     @Override
     public void dispose() {
-        escenaMenu.dispose();
     }
 }
