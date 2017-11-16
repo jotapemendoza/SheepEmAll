@@ -45,7 +45,7 @@ public class LevelOne extends ScreenTemplate {
     private Texture oveMovDer;
     private BitmapFont font;
 
-    //texturas de colores
+    // Texturas de colores
     private Texture oveArrBlue;
     private Texture oveArrRed;
     private Texture oveArrWhite;
@@ -67,6 +67,7 @@ public class LevelOne extends ScreenTemplate {
     private final int cantOve = 20;
     private int contOvejas = 0;
     private String arrColores[] = {"WHITE","BLUE","RED","YELLOW"};
+    private String arrTipos[] = {"NORMAL","ALIEN","RAINBOW"};
 
     private float salida;
     private float velocidadOve = 1.0f;
@@ -247,30 +248,34 @@ public class LevelOne extends ScreenTemplate {
             if (random == 1){
                 switch (randomColor){
                     case 1:
-                        ove = new Oveja(oveArrWhite, oveArrMovWhite, Oveja.Estado.ARRIBA, arrColores[0]);
+                        ove = new Oveja(oveArrWhite, oveArrMovWhite,
+                                Oveja.Estado.ARRIBA, arrColores[0], arrTipos[0]);
                         arrOvejas.add(ove);
                         break;
                     case 2:
-                        ove = new Oveja(oveArrBlue, oveArrMovBlue, Oveja.Estado.ARRIBA, arrColores[1]);
+                        ove = new Oveja(oveArrBlue, oveArrMovBlue,
+                                Oveja.Estado.ARRIBA, arrColores[1], arrTipos[0]);
                         arrOvejas.add(ove);
                         break;
                     case 3:
-                        ove = new Oveja(oveArrRed, oveArrMovRed, Oveja.Estado.ARRIBA, arrColores[2]);
+                        ove = new Oveja(oveArrRed, oveArrMovRed,
+                                Oveja.Estado.ARRIBA, arrColores[2], arrTipos[0]);
                         arrOvejas.add(ove);
                         break;
                     case 4:
-                        ove = new Oveja(oveArrYellow, oveArrMovYellow, Oveja.Estado.ARRIBA, arrColores[3]);
+                        ove = new Oveja(oveArrYellow, oveArrMovYellow,
+                                Oveja.Estado.ARRIBA, arrColores[3], arrTipos[0]);
                         arrOvejas.add(ove);
                         break;
                 }
             }else if (random == 2){
-                ove = new Oveja(oveAb, oveMovAb, Oveja.Estado.ABAJO, "BLUE");
+                ove = new Oveja(oveAb, oveMovAb, Oveja.Estado.ABAJO, "BLUE", arrTipos[0]);
                 arrOvejas.add(ove);
             }else if (random == 3){
-                ove = new Oveja(oveIzq, oveMovIzq, Oveja.Estado.IZQUIERDA, "WHITE");
+                ove = new Oveja(oveIzq, oveMovIzq, Oveja.Estado.IZQUIERDA, "WHITE", arrTipos[0]);
                 arrOvejas.add(ove);
             }else{
-                ove = new Oveja(oveDer, oveMovDer, Oveja.Estado.DERECHA, "YELLOW");
+                ove = new Oveja(oveDer, oveMovDer, Oveja.Estado.DERECHA, "YELLOW", arrTipos[0]);
                 arrOvejas.add(ove);
             }
         }

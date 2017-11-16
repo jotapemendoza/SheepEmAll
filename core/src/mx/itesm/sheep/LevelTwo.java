@@ -47,6 +47,20 @@ public class LevelTwo extends ScreenTemplate {
     private Texture alienShip;
     private BitmapFont font;
 
+    // Texturas de colores
+    private Texture oveArrBlue;
+    private Texture oveArrRed;
+    private Texture oveArrWhite;
+    private Texture oveArrYellow;
+    private Texture oveArrMovBlue;
+    private Texture oveArrMovRed;
+    private Texture oveArrMovWhite;
+    private Texture oveArrMovYellow;
+
+    // Texturas alien colores
+    private Texture oveAlienArrWhite;
+    private Texture oveAlienArrMovWhite;
+
     private Boolean played = false;
 
     // Arreglo de ovejas ---------------------------------------------------------------------------
@@ -57,6 +71,8 @@ public class LevelTwo extends ScreenTemplate {
     private final int cantOve = 21;
     private int contOvejas = 0;
     private Oveja OveAl;
+    private String arrColores[] = {"WHITE","BLUE","RED","YELLOW"};
+    private String arrTipos[] = {"NORMAL","ALIEN","RAINBOW"};
 
     private float salida;
     private float velocidadOve = 1.0f;
@@ -197,10 +213,10 @@ public class LevelTwo extends ScreenTemplate {
 
     // Validar corral correcto ---------------------------------------------------------------------
     public boolean cordenadasCorral(float xP, float yP, String color) {
-        if ((xP >= 0 && xP <= 410 && yP >= 110 && yP <= 730 && color.equals("ROJO")) ||
-                (xP >= 670 && xP <= 1080 && yP >= 110 && yP <= 730 && color.equals("AZUL")) ||
-                (xP >= 0 && xP <= 410 && yP >= 1104 && yP <= 1730 && color.equals("MORADO")) ||
-                (xP >= 670 && xP <= 1080 && yP >= 1104 && yP <= 1730 && color.equals("AMARILLO"))){
+        if ((xP >= 0 && xP <= 410 && yP >= 110 && yP <= 730 && color.equals("RED")) ||
+                (xP >= 670 && xP <= 1080 && yP >= 110 && yP <= 730 && color.equals("BLUE")) ||
+                (xP >= 0 && xP <= 410 && yP >= 1104 && yP <= 1730 && color.equals("WHITE")) ||
+                (xP >= 670 && xP <= 1080 && yP >= 1104 && yP <= 1730 && color.equals("YELLOW"))){
             return true;
         }
         return false;
@@ -235,23 +251,44 @@ public class LevelTwo extends ScreenTemplate {
         Oveja ove;
 
         // Crea oveja alien
-        OveAl = new Oveja(oveAlienArr,oveAlienArrMov, Oveja.Estado.ARRIBA,"ROJO");
+        OveAl = new Oveja(oveAlienArrWhite,oveAlienArrMovWhite, Oveja.Estado.ARRIBA, arrColores[0], arrTipos[1]);
         arrOvejas.add(OveAl);
 
         for (int i = 1; i < cantOve; i++){
             int random = (int) (Math.random()*4)+1;
+            int randomColor = (int) (Math.random()*4)+1;
 
             if (random == 1){
-                ove = new Oveja(oveArr, oveMovArr, Oveja.Estado.ARRIBA, "ROJO");
-                arrOvejas.add(ove);
+                switch (randomColor){
+                    case 1:
+                        ove = new Oveja(oveArrWhite, oveArrMovWhite,
+                                Oveja.Estado.ARRIBA, arrColores[0], arrTipos[0]);
+                        arrOvejas.add(ove);
+                        break;
+                    case 2:
+                        ove = new Oveja(oveArrBlue, oveArrMovBlue,
+                                Oveja.Estado.ARRIBA, arrColores[1], arrTipos[0]);
+                        arrOvejas.add(ove);
+                        break;
+                    case 3:
+                        ove = new Oveja(oveArrRed, oveArrMovRed,
+                                Oveja.Estado.ARRIBA, arrColores[2], arrTipos[0]);
+                        arrOvejas.add(ove);
+                        break;
+                    case 4:
+                        ove = new Oveja(oveArrYellow, oveArrMovYellow,
+                                Oveja.Estado.ARRIBA, arrColores[3], arrTipos[0]);
+                        arrOvejas.add(ove);
+                        break;
+                }
             }else if (random == 2){
-                ove = new Oveja(oveAb, oveMovAb, Oveja.Estado.ABAJO, "AZUL");
+                ove = new Oveja(oveAb, oveMovAb, Oveja.Estado.ABAJO, "BLUE", arrTipos[0]);
                 arrOvejas.add(ove);
             }else if (random == 3){
-                ove = new Oveja(oveIzq, oveMovIzq, Oveja.Estado.IZQUIERDA, "MORADO");
+                ove = new Oveja(oveIzq, oveMovIzq, Oveja.Estado.IZQUIERDA, "WHITE", arrTipos[0]);
                 arrOvejas.add(ove);
             }else{
-                ove = new Oveja(oveDer, oveMovDer, Oveja.Estado.DERECHA, "AMARILLO");
+                ove = new Oveja(oveDer, oveMovDer, Oveja.Estado.DERECHA, "YELLOW", arrTipos[0]);
                 arrOvejas.add(ove);
             }
         }
@@ -313,6 +350,20 @@ public class LevelTwo extends ScreenTemplate {
         oveAlienArr = new Texture("Alien_sheep_down.png");
         oveAlienArrMov = new Texture("Alien_sheep_moving_down.png");
         alienShip = new Texture("alienShip.png");
+
+        //ovejas de colores
+        oveArrBlue = new Texture("Sheep/Blue/sheep_down_blue.png");
+        oveArrMovBlue = new Texture("Sheep/Blue/sheep_moving_down_blue.png");
+        oveArrRed = new Texture("Sheep/Red/sheep_down_red.png");
+        oveArrMovRed = new Texture("Sheep/Red/sheep_moving_down_red.png");
+        oveArrWhite = new Texture("Sheep/White/sheep_down_white.png");
+        oveArrMovWhite = new Texture("Sheep/White/sheep_moving_down_white.png");
+        oveArrYellow = new Texture("Sheep/Yellow/sheep_down_yellow.png");
+        oveArrMovYellow = new Texture("Sheep/Yellow/sheep_moving_down_yellow.png");
+
+        //ovejas alien de colores
+        oveAlienArrWhite = new Texture("Sheep/Alien/White/alien_sheep_down_white.png");
+        oveAlienArrMovWhite = new Texture("Sheep/Alien/White/alien_sheep_moving_down_white.png");
     }
 
 
@@ -393,52 +444,8 @@ public class LevelTwo extends ScreenTemplate {
 
         Gdx.app.log("tiempo", "T: " + tiempo);
         Gdx.app.log("distancia", "X: " + moverX + ", Y: " + moverY);
-       for (int i = 0; i < arrOvejas.size; i++) {
-           if (tiempo <= 10.0){ // a los 10 seg sale la oveja alien arriba y la nave
-               arrOvejas.get(0).setY(1920);
-               arrOvejas.get(0).setVelocidad(velocidadOve);
-               arrOvejas.get(0).render(batch);
-           }
 
-           if (salida <= 10) {
-                arrOvejas.get(i).setVelocidad(velocidadOve);
-                arrOvejas.get(i).render(batch);
-           }else{
-                velocidadOve += 0.5f;
-                salida = 0;
-           }
-
-       }
-
-       // Movimiento de la nave en la pantalla
-        /*if (tiempo >= 10.0){
-            if (moverX >= 10 && moverY >= 10){
-                if (aS.getPosicionX() <= 0 && aS.getPosicionY() <= 0){
-                    aS.spaceShipMove(moverX,moverY);
-                    aS.render(batch);
-                    moverX += 0.1f;
-                    moverY += 0.1f;
-                }else {
-                    aS.spaceShipMove(moverX,moverY);
-                    aS.render(batch);
-                    moverX -= 0.1f;
-                    moverY -= 0.1f;
-                }/*
-            }else {
-                aS.spaceShipMove(moverX,moverY);
-                aS.setEstado(AlienShip.Estado.MOVIENDO);
-                aS.render(batch);
-                moverX += 0.1f;
-                moverY += 0.1f;
-                *//*moverX0 += 0.1f;
-                moverY0 += 0.1f;
-            }
-            if (aS.saliendoPor()== AlienShip.Estado.SALIENDOX){
-                aS.cambiarDireccionX();
-            } else if(aS.saliendoPor()== AlienShip.Estado.SALIENDOY) {
-                aS.cambiarDireccionY();
-            }
-        }*/
+        // Movimiento de la nave en la pantalla
         if (tiempo >= 5){
             moverX += 1f* aS.getDireccionX();
             moverY += 1f * aS.getDireccionY();
@@ -456,6 +463,23 @@ public class LevelTwo extends ScreenTemplate {
 
         }
         aS.render(batch);
+
+       for (int i = 0; i < arrOvejas.size; i++) {
+           if (tiempo <= 10.0){ // a los 10 seg sale la oveja alien arriba y la nave
+               arrOvejas.get(0).setY(1920);
+               arrOvejas.get(0).setVelocidad(velocidadOve);
+               arrOvejas.get(0).render(batch);
+           }
+
+           if (salida <= 10) {
+                arrOvejas.get(i).setVelocidad(velocidadOve);
+                arrOvejas.get(i).render(batch);
+           }else{
+                velocidadOve += 0.5f;
+                salida = 0;
+           }
+
+       }
         batch.end();
 
         escenaJuego.draw();
