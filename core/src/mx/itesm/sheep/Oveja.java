@@ -28,6 +28,9 @@ public class Oveja {
     // Tamaño del sprite oveja levantada
     private int anchoM, altoM;
 
+    // Tipo de oveja
+    private String tipo;
+
     // Animar oveja
     private Animation animacion;
     private float timer;
@@ -42,8 +45,11 @@ public class Oveja {
     private boolean enLlamas = false;
 
 
-    public Oveja(Texture textura, Texture textura2, Estado estado, String color) {
+    public Oveja(Texture textura, Texture textura2, Estado estado, String color, String tipo) {
+
         this.color = color;
+        this.tipo = tipo;
+
         TextureRegion region = new TextureRegion(textura);
         TextureRegion[][] frames;
 
@@ -66,7 +72,9 @@ public class Oveja {
                 animacion = new Animation(0.20f, frames[0][0], frames[0][1]);
                 animacion.setPlayMode(Animation.PlayMode.LOOP);
 
-                frames2 = region2.split(114,127);
+                anchoM = 114;
+                altoM = 127;
+                frames2 = region2.split(anchoM,altoM);
                 animacionMov = new Animation(0.20f, frames2[0][0], frames2[0][1]);
                 animacionMov.setPlayMode(Animation.PlayMode.LOOP);
 
@@ -83,7 +91,9 @@ public class Oveja {
                 animacion = new Animation(0.20f, frames[0][0], frames[0][1]);
                 animacion.setPlayMode(Animation.PlayMode.LOOP);
 
-                frames2 = region2.split(114,127);
+                anchoM = 114;
+                altoM = 127;
+                frames2 = region2.split(anchoM,altoM);
                 animacionMov = new Animation(0.20f, frames2[0][0], frames2[0][1]);
                 animacionMov.setPlayMode(Animation.PlayMode.LOOP);
 
@@ -101,7 +111,9 @@ public class Oveja {
                 animacion = new Animation(0.20f, frames[0][0], frames[0][1], frames[0][2]);
                 animacion.setPlayMode(Animation.PlayMode.LOOP);
 
-                frames2 = region2.split(127,114);
+                anchoM = 127;
+                altoM = 114;
+                frames2 = region2.split(anchoM,altoM);
                 animacionMov = new Animation(0.20f, frames2[0][0], frames2[1][0]);
                 animacionMov.setPlayMode(Animation.PlayMode.LOOP);
 
@@ -118,7 +130,9 @@ public class Oveja {
                 animacion = new Animation(0.20f, frames[0][0], frames[0][1], frames[0][2]);
                 animacion.setPlayMode(Animation.PlayMode.LOOP);
 
-                frames2 = region2.split(127,114);
+                anchoM = 127;
+                altoM = 114;
+                frames2 = region2.split(anchoM,altoM);
                 animacionMov = new Animation(0.20f, frames2[0][0], frames2[1][0]);
                 animacionMov.setPlayMode(Animation.PlayMode.LOOP);
 
@@ -268,4 +282,6 @@ public class Oveja {
     public void setVelocidad(float velocidad) { this.velocidad = velocidad; }
 
     public void setSeMovio(boolean seMovio) { this.seMovio = seMovio; }
+
+    public String getTipo() { return tipo; }
 }
