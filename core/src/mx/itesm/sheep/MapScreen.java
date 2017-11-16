@@ -35,6 +35,7 @@ public class MapScreen extends ScreenTemplate {
 
     private ImageButton levelTwoBtn,
             levelThreeBtn;
+    private Texture text;
 
 
     public MapScreen(SheepEm sheepEm){
@@ -52,9 +53,10 @@ public class MapScreen extends ScreenTemplate {
         levelOne = new Texture("levelsScreen/level1.png");
         levelTwo = new Texture("levelsScreen/level2.png");
         lvlBtn = new Texture("levelsScreen/btn.png");
-        background = new Texture("menuBg.png");
-        grass = new Texture("mapsBG.png");
+        background = new Texture("nightBG.png");
+        grass = new Texture("mapsBGtest.png");
         cloud = new Texture("cloud.png");
+        text = new Texture("chooseText.png");
     }
 
     private void crearEscenaMapa(){
@@ -63,7 +65,7 @@ public class MapScreen extends ScreenTemplate {
 
         TextureRegionDrawable trdBg = new TextureRegionDrawable(new TextureRegion(background));
         Image bg =  new Image(trdBg);
-        bg.setPosition(0,0);
+        bg.setPosition(0,725);
         escenaLevels.addActor(bg);
 
         TextureRegionDrawable levelOneTrd = new TextureRegionDrawable(new TextureRegion(lvlBtn));
@@ -165,6 +167,7 @@ public class MapScreen extends ScreenTemplate {
         batch.begin();
 
         batch.draw(grass,0,0);
+        batch.draw(text,227,1450);
 
         if(!pref.getBoolean("wonLevelOne")){
             batch.draw(levelOne,78,116);
