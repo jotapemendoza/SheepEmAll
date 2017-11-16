@@ -458,7 +458,7 @@ public class LevelTwo extends ScreenTemplate {
             }
             else if (aS.saliendoPor() == AlienShip.Estado.SALIENDOY){
                 aS.cambiarDireccionY();
-                Gdx.app.log("Condición Y","se cumplió *****************");
+                //Gdx.app.log("Condición Y","se cumplió *****************");
                 //moverY = 1920;
             }
 

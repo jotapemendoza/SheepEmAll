@@ -85,7 +85,7 @@ class MenuScreen extends ScreenTemplate
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
 
-                sheepEm.setScreen(new LevelTwo(sheepEm));
+                sheepEm.setScreen(new AlienLevel(sheepEm));
 
                 pref.flush();
                 System.out.println(pref.getBoolean("played"));

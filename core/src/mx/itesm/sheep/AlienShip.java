@@ -19,8 +19,8 @@ public class AlienShip {
     private float direccionY = 1;
 
     // Tamaño
-    private int alto = 212;
-    private int ancho = 345;
+    private int alto = 424;
+    private int ancho = 691;
 
     // Animación
     private Animation animacion;

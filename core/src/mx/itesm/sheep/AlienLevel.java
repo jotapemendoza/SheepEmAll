@@ -20,16 +20,22 @@ public class AlienLevel extends ScreenTemplate {
 
     private final SheepEm sheepEm;
     private Stage escenaAlien;
-    private Texture nave;
+    private Texture alienShip;
     private Texture background;
     private Texture sheep;
     private Boolean played = false;
+
+    // Ship variables
+    private AlienShip aS;
+    private float moverX = 0;
+    private float moverY = 0;
 
     private EscenaGanar escenaGanar;
     private EscenaPerder escenaPerder;
     private Stage escenaJuego;
 
-    private int hpAlien;
+    private float tiempo;
+
 
     public AlienLevel(SheepEm sheepEm) {
         this.sheepEm = sheepEm;
@@ -41,10 +47,15 @@ public class AlienLevel extends ScreenTemplate {
         crearEscenaNave();
         escenaPerder = new EscenaPerder(vista,batch);
         escenaGanar = new EscenaGanar(vista,batch);
-        //estado = LevelOne.EstadoJuego.JUGANDO;
         Gdx.input.setInputProcessor(escenaAlien);
 
-        hpAlien = 10;
+    }
+
+    private EstadoJuego estado;
+
+    enum EstadoJuego{
+        JUGANDO,
+        DERROTA
     }
 
     private void crearEscenaNave() {
@@ -56,13 +67,16 @@ public class AlienLevel extends ScreenTemplate {
         bg.setPosition(0,0);
         escenaAlien.addActor(bg);
 
+        // Crear nave
+        aS = new AlienShip(alienShip, AlienShip.Estado.PAUSADO);
+
         // Sheep
         TextureRegionDrawable trdSheep =  new TextureRegionDrawable(new TextureRegion(sheep));
         Image sheepimg = new Image(trdSheep);
         sheepimg.setPosition(50,500);
         escenaAlien.addActor(sheepimg);
 
-        // Nave
+        /*// Nave
         TextureRegionDrawable trdNave = new TextureRegionDrawable(new TextureRegion(nave));
         final ImageButton btnNave = new ImageButton(trdNave);
         btnNave.setPosition(374,1167);
@@ -71,15 +85,14 @@ public class AlienLevel extends ScreenTemplate {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                System.out.println(hpAlien);
-                hpAlien--;
+                Gdx.app.log("Clicked: ","yes ****************");
             }
-        } );
+        } );*/
     }
 
     private void cargarTexturas() {
         background = new Texture("alienLevelbg.png");
-        nave = new Texture("alienShip.png");
+        alienShip = new Texture("alienShip.png");
         sheep = new Texture("sheepAlienlvl.png");
     }
 
@@ -87,23 +100,28 @@ public class AlienLevel extends ScreenTemplate {
     public void render(float delta) {
         borrarPantalla(0,0,0);
         batch.setProjectionMatrix(camara.combined);
-        batch.begin();
         escenaAlien.draw();
-        /*if (hpAlien==0){
-            estado = LevelOne.EstadoJuego.GANADO;
-        }
 
-        if (estado == LevelOne.EstadoJuego.PERDIDO){
-            Gdx.input.setInputProcessor(escenaPerder);
-            escenaPerder.draw();
-            if(!played) sheepEm.playLost();
-            played = true;
-        }
-        if(estado ==  LevelOne.EstadoJuego.GANADO){
-            Gdx.input.setInputProcessor(escenaGanar);
-            escenaGanar.draw();
-        }*/
+        batch.begin();
+        // Movimiento de la nave en la pantalla
+
+            moverX += 5f* aS.getDireccionX();
+            moverY += 5f * aS.getDireccionY();
+            aS.spaceShipMove(moverX,moverY);
+            aS.setEstado(AlienShip.Estado.MOVIENDO);
+            //Gdx.app.log("Prueba","MoverX =   " + moverX);
+            if(aS.saliendoPor() == AlienShip.Estado.SALIENDOX){
+                aS.cambiarDireccionX();
+                //moverX = 1080;
+            }
+            else if (aS.saliendoPor() == AlienShip.Estado.SALIENDOY){
+                aS.cambiarDireccionY();
+                //Gdx.app.log("Condición Y","se cumplió *****************");
+                //moverY = 1920;
+            }
+        aS.render(batch);
         batch.end();
+
     }
 
     @Override
