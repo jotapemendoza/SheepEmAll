@@ -102,7 +102,8 @@ public class LevelOne extends ScreenTemplate {
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
                 if (keycode==Input.Keys.BACK){
-                    sheepEm.setScreen(new MenuScreen(sheepEm));
+                    sheepEm.setScreen(new MapScreen(sheepEm));
+                    sheepEm.pauseGameMusic();
                 }
                 return true;
             }
