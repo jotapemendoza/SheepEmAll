@@ -19,12 +19,15 @@ public class AlienShip {
     private float direccionY = 1;
 
     // Tamaño
-    private int alto = 424;
-    private int ancho = 691;
+    private int alto = 212;
+    private int ancho = 345;
 
     // Animación
     private Animation animacion;
     private float timer;
+
+    // Vida
+    private int hp=30;
 
     // Estado
     private Estado estado;
@@ -53,6 +56,8 @@ public class AlienShip {
             case SALIENDOY:
                 batch.draw(region, posicionX, posicionY);
                 break;
+            case DERROTA:
+                break;
         }
     }
 
@@ -73,14 +78,24 @@ public class AlienShip {
     }
 
     public Estado saliendoPor() {
-        if (this.posicionX >= 1080 ){
+        if (this.posicionX >= 1080-this.ancho ){
             this.setEstado(Estado.SALIENDOX);
-            this.posicionX = 1080;
+            this.posicionX = 1080-this.ancho;
             return this.getEstado();
         }
-        if (this.posicionY >1920 || this.posicionY <0){
+        if (this.posicionY >=1920-this.alto){
             this.setEstado(Estado.SALIENDOY);
-            this.posicionY = 1920;
+            this.posicionY = 1920-this.alto;
+            return this.getEstado();
+        }
+        if (this.posicionX <= 0 ){
+            this.setEstado(Estado.SALIENDOX);
+            this.posicionX = 0;
+            return this.getEstado();
+        }
+        if (this.posicionY <=0 ){
+            this.setEstado(Estado.SALIENDOY);
+            this.posicionY = 0;
             return this.getEstado();
         }
         else {
@@ -100,7 +115,8 @@ public class AlienShip {
         MOVIENDO,
         PAUSADO,
         SALIENDOX,
-        SALIENDOY
+        SALIENDOY,
+        DERROTA
     }
 
     public float getPosicionX() {

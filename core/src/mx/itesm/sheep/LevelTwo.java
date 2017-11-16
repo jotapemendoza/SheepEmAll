@@ -446,19 +446,20 @@ public class LevelTwo extends ScreenTemplate {
         Gdx.app.log("distancia", "X: " + moverX + ", Y: " + moverY);
 
         // Movimiento de la nave en la pantalla
-        if (tiempo >= 5){
-            moverX += 1f* aS.getDireccionX();
-            moverY += 1f * aS.getDireccionY();
+        if (tiempo >= 2){
+            moverX += 5f* aS.getDireccionX();
+            moverY += 5f * aS.getDireccionY();
             aS.spaceShipMove(moverX,moverY);
             aS.setEstado(AlienShip.Estado.MOVIENDO);
             //Gdx.app.log("Prueba","MoverX =   " + moverX);
             if(aS.saliendoPor() == AlienShip.Estado.SALIENDOX){
                 aS.cambiarDireccionX();
-                moverX = 1080;
+                //moverX = 1080;
             }
-            if (aS.saliendoPor() == AlienShip.Estado.SALIENDOY){
+            else if (aS.saliendoPor() == AlienShip.Estado.SALIENDOY){
                 aS.cambiarDireccionY();
-                moverY = 1920;
+                Gdx.app.log("Condición Y","se cumplió *****************");
+                //moverY = 1920;
             }
 
         }
