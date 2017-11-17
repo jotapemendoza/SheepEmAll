@@ -128,7 +128,7 @@ public class LevelTwo extends ScreenTemplate {
         escenaJuego = new Stage(vista);
 
         // Crear nave
-        aS = new AlienShip(alienShip, AlienShip.Estado.PAUSADO);
+        aS = new AlienShip(alienShip, AlienShip.Estado.INICIO);
 
         escenaJuego.addListener(new InputListener(){
             @Override
@@ -194,8 +194,8 @@ public class LevelTwo extends ScreenTemplate {
                 super.dragStop(event, x, y, pointer);
                 if(ovejaMoviendo != null){
                     // verificar si esta en el corral nave alien
-                    if (cordenadasCorralAlien(x,y,ovejaMoviendo.getTipo())){
-                        ovejaMoviendo.setEstado(ovejaMoviendo.getEstadoOriginal());
+                    if (ovejaMoviendo.cordenadasCorralAlien(x,y,ovejaMoviendo.getTipo(),aS)){
+                        ovejaMoviendo.setEstado(Oveja.Estado.BORRAR);
                         contOvejas++;
                         aS.setEstado(AlienShip.Estado.DERROTA);
                         Gdx.app.log("oveja","en corral: " + contOvejas);
@@ -226,15 +226,6 @@ public class LevelTwo extends ScreenTemplate {
 
         });
 
-    }
-
-    // Validar corral nave alien -------------------------------------------------------------------
-    public boolean cordenadasCorralAlien(float xP, float yP, String tipo){
-        if (xP >= 0 && xP <= aS.getAncho() && yP >= 0 && yP <= aS.getAlto()
-                && tipo.equals("ALIEN")){
-            return true;
-        }
-        return false;
     }
 
     // Validar corral correcto ---------------------------------------------------------------------
@@ -520,20 +511,22 @@ public class LevelTwo extends ScreenTemplate {
 
         // Movimiento de la nave en la pantalla
         if (tiempo >= 10){
-            moverX += 5f* aS.getDireccionX();
-            moverY += 5f * aS.getDireccionY();
-            aS.spaceShipMove(moverX,moverY);
-            aS.setEstado(AlienShip.Estado.MOVIENDO);
-            //Gdx.app.log("Prueba","MoverX =   " + moverX);
-            if(aS.saliendoPor() == AlienShip.Estado.SALIENDOX){
-                aS.cambiarDireccionX();
-                //moverX = 1080;
-            }
-            else if (aS.saliendoPor() == AlienShip.Estado.SALIENDOY){
-                aS.cambiarDireccionY();
-                Gdx.app.log("Condición Y","se cumplió *****************");
-                //moverY = 1920;
-            }
+           if (aS.getEstado() != AlienShip.Estado.DERROTA){
+                moverX += 5f* aS.getDireccionX();
+                moverY += 5f * aS.getDireccionY();
+                aS.spaceShipMove(moverX,moverY);
+                aS.setEstado(AlienShip.Estado.MOVIENDO);
+                //Gdx.app.log("Prueba","MoverX =   " + moverX);
+                if(aS.saliendoPor() == AlienShip.Estado.SALIENDOX){
+                    aS.cambiarDireccionX();
+                    //moverX = 1080;
+                }
+                else if (aS.saliendoPor() == AlienShip.Estado.SALIENDOY){
+                    aS.cambiarDireccionY();
+                    Gdx.app.log("Condición Y","se cumplió *****************");
+                    //moverY = 1920;
+                }
+           }
 
         }
         aS.render(batch);
