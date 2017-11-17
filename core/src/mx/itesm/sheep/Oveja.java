@@ -100,7 +100,7 @@ public class Oveja {
 
                 timer = 0;
                 x = 500 + ((int) (Math.random()*100)+1);
-                y = ((int) (Math.random()*-4000));
+                y = -140;//((int) (Math.random()*-4000));
                 this.estadoOriginal = estado;
                 this.estado = estado;
                 break;
