@@ -103,6 +103,7 @@ public class LevelOne extends ScreenTemplate {
 
 
     private float tiempo;
+    private float sheepTimer;
 
 
     public LevelOne(SheepEm sheepEm){
@@ -192,7 +193,7 @@ public class LevelOne extends ScreenTemplate {
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer) {
                 super.dragStop(event, x, y, pointer);
-                sheep.stop();
+                //sheep.stop();
                 if(ovejaMoviendo != null){
                     // verificar si está en el corral
                     if(cordenadasCorral(x,y,ovejaMoviendo.getColor())){
@@ -255,10 +256,11 @@ public class LevelOne extends ScreenTemplate {
     // Método que carga las ovejas en el sheepEm -----------------------------------------------------
     private void cargarOvejas(){
         //Llenar arreglo Ovejas
-        arrOvejas = new Array<Oveja>(cantOve);
+        if (arrOvejas==null) {
+            arrOvejas = new Array<Oveja>(cantOve);
+        }
         Oveja ove;
-
-        for (int i = 0; i < cantOve; i++){
+        for (int i = 0; i < 1; i++){
             int random = (int) (Math.random()*4)+1;
             int randomColor = (int) (Math.random()*4)+1;
 
@@ -414,6 +416,12 @@ public class LevelOne extends ScreenTemplate {
         if (estado == EstadoJuego.JUGANDO) {
             salida += Gdx.graphics.getDeltaTime();
             tiempo += Gdx.graphics.getDeltaTime();
+            sheepTimer -= Gdx.graphics.getDeltaTime();
+        }
+
+        if (sheepTimer<=0){
+            cargarOvejas();
+            sheepTimer = 2;
         }
 
         batch.begin();

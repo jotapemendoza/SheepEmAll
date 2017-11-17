@@ -111,6 +111,7 @@ public class LevelTwo extends ScreenTemplate {
 
     private float tiempo;
     private Music sheep;
+    private float sheepTimer;
 
 
     public LevelTwo(SheepEm sheepEm){
@@ -278,14 +279,14 @@ public class LevelTwo extends ScreenTemplate {
     // Método que carga las ovejas en el sheepEm -----------------------------------------------------
     private void cargarOvejas(){
         //Llenar arreglo Ovejas
-        arrOvejas = new Array<Oveja>(cantOve);
+        if(arrOvejas==null){
+            arrOvejas = new Array<Oveja>(cantOve);
+            OveAl = new Oveja(oveAlienArrWhite,oveAlienArrMovWhite, Oveja.Estado.ARRIBA, arrColores[0], arrTipos[1]);
+            arrOvejas.add(OveAl);
+        }
         Oveja ove;
 
-        // Crea oveja alien
-        OveAl = new Oveja(oveAlienArrWhite,oveAlienArrMovWhite, Oveja.Estado.ARRIBA, arrColores[0], arrTipos[1]);
-        arrOvejas.add(OveAl);
-
-        for (int i = 1; i < cantOve; i++){
+        for (int i = 1; i < 2; i++){
             int random = (int) (Math.random()*4)+1;
             int randomColor = (int) (Math.random()*4)+1;
 
@@ -451,6 +452,12 @@ public class LevelTwo extends ScreenTemplate {
         if (estado == EstadoJuego.JUGANDO) {
             salida += Gdx.graphics.getDeltaTime();
             tiempo += Gdx.graphics.getDeltaTime();
+            sheepTimer -= Gdx.graphics.getDeltaTime();
+        }
+
+        if (sheepTimer<=0){
+            cargarOvejas();
+            sheepTimer = 2;
         }
 
         batch.begin();

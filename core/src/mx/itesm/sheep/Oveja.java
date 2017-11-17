@@ -79,8 +79,8 @@ public class Oveja {
                 animacionMov.setPlayMode(Animation.PlayMode.LOOP);
 
                 timer = 0;
-                x = 500 + ((int) (Math.random()*100)+1);
-                y = 1900+ ((int) (Math.random()*4000));
+                x = 500 + ((int) (Math.random()*75)+1);
+                y = 1921; //1900+ ((int) (Math.random()*4000));
                 this.estadoOriginal = estado;
                 this.estado = estado;
                 break;
@@ -99,7 +99,7 @@ public class Oveja {
 
 
                 timer = 0;
-                x = 500 + ((int) (Math.random()*100)+1);
+                x = 500 + ((int) (Math.random()*75)+1);
                 y = -140;//((int) (Math.random()*-4000));
                 this.estadoOriginal = estado;
                 this.estado = estado;
@@ -118,8 +118,8 @@ public class Oveja {
                 animacionMov.setPlayMode(Animation.PlayMode.LOOP);
 
                 timer = 0;
-                x = ((int) (Math.random()*-4000));
-                y = 800 + ((int) (Math.random()*100)+1);
+                x = -this.ancho;//((int) (Math.random()*-4000));
+                y = 800 + ((int) (Math.random()*75)+1);
                 this.estadoOriginal = estado;
                 this.estado = estado;
                 break;
@@ -137,8 +137,8 @@ public class Oveja {
                 animacionMov.setPlayMode(Animation.PlayMode.LOOP);
 
                 timer = 0;
-                x = 1080 + ((int) (Math.random()*4000));
-                y = 800 + ((int) (Math.random()*100)+1);
+                x = 1081;//1080 + ((int) (Math.random()*4000));
+                y = 800 + ((int) (Math.random()*75)+1);
                 this.estadoOriginal = estado;
                 this.estado = estado;
                 break;
