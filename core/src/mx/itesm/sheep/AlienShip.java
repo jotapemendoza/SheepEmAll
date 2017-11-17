@@ -59,6 +59,12 @@ public class AlienShip {
                 batch.draw(region, posicionX, posicionY);
                 break;
             case DERROTA:
+                if (posicionX != 1080){
+                    posicionX += 2.5f;
+                    batch.draw(region, posicionX, posicionY);
+                }else {
+                    estado = Estado.PAUSADO;
+                }
                 break;
         }
     }
@@ -144,4 +150,8 @@ public class AlienShip {
     public void setEstado(Estado estado) {
         this.estado = estado;
     }
+
+    public int getAlto() { return alto; }
+
+    public int getAncho() { return ancho; }
 }

@@ -193,8 +193,16 @@ public class LevelTwo extends ScreenTemplate {
             public void dragStop(InputEvent event, float x, float y, int pointer) {
                 super.dragStop(event, x, y, pointer);
                 if(ovejaMoviendo != null){
-                    // verificar si está en el corral
-                    if(cordenadasCorral(x,y,ovejaMoviendo.getColor())){
+                    // verificar si esta en el corral nave alien
+                    if (cordenadasCorralAlien(x,y,ovejaMoviendo.getTipo())){
+                        ovejaMoviendo.setEstado(ovejaMoviendo.getEstadoOriginal());
+                        contOvejas++;
+                        aS.setEstado(AlienShip.Estado.DERROTA);
+                        Gdx.app.log("oveja","en corral: " + contOvejas);
+                        ovejaMoviendo = null;
+                    }
+                    // verificar si esta en el corral
+                    else if(cordenadasCorral(x,y,ovejaMoviendo.getColor())){
                         ovejaMoviendo.setEstado(ovejaMoviendo.getEstadoOriginal());
                         contOvejas++;
                         Gdx.app.log("oveja","en corral: " + contOvejas);
@@ -218,6 +226,15 @@ public class LevelTwo extends ScreenTemplate {
 
         });
 
+    }
+
+    // Validar corral nave alien -------------------------------------------------------------------
+    public boolean cordenadasCorralAlien(float xP, float yP, String tipo){
+        if (xP >= 0 && xP <= aS.getAncho() && yP >= 0 && yP <= aS.getAlto()
+                && tipo.equals("ALIEN")){
+            return true;
+        }
+        return false;
     }
 
     // Validar corral correcto ---------------------------------------------------------------------
@@ -483,8 +500,26 @@ public class LevelTwo extends ScreenTemplate {
         Gdx.app.log("tiempo", "T: " + tiempo);
         Gdx.app.log("distancia", "X: " + moverX + ", Y: " + moverY);
 
+
+       for (int i = 0; i < arrOvejas.size; i++) {
+           if (tiempo <= 10.0){ // a los 10 seg sale la oveja alien arriba y la nave
+               arrOvejas.get(0).setY(1920);
+               arrOvejas.get(0).setVelocidad(velocidadOve);
+               arrOvejas.get(0).render(batch);
+           }
+
+           if (salida <= 10) {
+                arrOvejas.get(i).setVelocidad(velocidadOve);
+                arrOvejas.get(i).render(batch);
+           }else{
+                velocidadOve += 0.5f;
+                salida = 0;
+           }
+
+       }
+
         // Movimiento de la nave en la pantalla
-        if (tiempo >= 2){
+        if (tiempo >= 10){
             moverX += 5f* aS.getDireccionX();
             moverY += 5f * aS.getDireccionY();
             aS.spaceShipMove(moverX,moverY);
@@ -503,22 +538,6 @@ public class LevelTwo extends ScreenTemplate {
         }
         aS.render(batch);
 
-       for (int i = 0; i < arrOvejas.size; i++) {
-           if (tiempo <= 10.0){ // a los 10 seg sale la oveja alien arriba y la nave
-               arrOvejas.get(0).setY(1920);
-               arrOvejas.get(0).setVelocidad(velocidadOve);
-               arrOvejas.get(0).render(batch);
-           }
-
-           if (salida <= 10) {
-                arrOvejas.get(i).setVelocidad(velocidadOve);
-                arrOvejas.get(i).render(batch);
-           }else{
-                velocidadOve += 0.5f;
-                salida = 0;
-           }
-
-       }
         batch.end();
 
         escenaJuego.draw();
