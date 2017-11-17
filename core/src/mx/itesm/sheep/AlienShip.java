@@ -19,8 +19,8 @@ public class AlienShip {
     private float direccionY = 1;
 
     // Tamaño
-    private int alto = 212;
-    private int ancho = 345;
+    private int alto = 424;
+    private int ancho = 691;
 
     // Animación
     private Animation animacion;
@@ -38,6 +38,7 @@ public class AlienShip {
         animacion = new Animation(0.20f, frames[0][0]);
         animacion.setPlayMode(Animation.PlayMode.LOOP);
         timer = 0;
+
         this.estado = estado;
     }
 
