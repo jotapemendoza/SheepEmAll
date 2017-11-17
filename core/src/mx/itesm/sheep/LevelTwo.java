@@ -198,6 +198,7 @@ public class LevelTwo extends ScreenTemplate {
                 if (ovejaMoviendo == null){ return; }
                 ovejaMoviendo.setX(x - ovejaMoviendo.getAncho()/2);
                 ovejaMoviendo.setY(y - ovejaMoviendo.getAlto()/2);
+
                 if(pref.getBoolean("fxOn")){
                     sheep.play();
                 }
@@ -514,11 +515,6 @@ public class LevelTwo extends ScreenTemplate {
 
 
        for (int i = 0; i < arrOvejas.size; i++) {
-           if (tiempo <= 10.0){ // a los 10 seg sale la oveja alien arriba y la nave
-               arrOvejas.get(0).setY(1920);
-               arrOvejas.get(0).setVelocidad(velocidadOve);
-               arrOvejas.get(0).render(batch);
-           }
 
            if (salida <= 10) {
                 arrOvejas.get(i).setVelocidad(velocidadOve);
@@ -531,7 +527,7 @@ public class LevelTwo extends ScreenTemplate {
        }
 
         // Movimiento de la nave en la pantalla
-        if (tiempo >= 10){
+        if (tiempo >= 2){
            if (aS.getEstado() != AlienShip.Estado.DERROTA){
                 moverX += 5f* aS.getDireccionX();
                 moverY += 5f * aS.getDireccionY();
@@ -551,6 +547,11 @@ public class LevelTwo extends ScreenTemplate {
 
         }
         aS.render(batch);
+
+        if (tiempo <= 2.0){ // a los 10 seg sale la oveja alien arriba y la nave
+            arrOvejas.get(0).setVelocidad(velocidadOve);
+            arrOvejas.get(0).render(batch);
+        }
 
         batch.end();
 
