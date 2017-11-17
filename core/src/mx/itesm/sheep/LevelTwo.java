@@ -129,6 +129,9 @@ public class LevelTwo extends ScreenTemplate {
         Gdx.input.setInputProcessor(escenaJuego);
         sheep = Gdx.audio.newMusic(Gdx.files.internal("SFX/sheep_sound.mp3"));
         lifes = 3;
+        /*** JUST FOR TESTING ****/
+        /*************************/
+
     }
 
     private void crearEscenaJuego() {
