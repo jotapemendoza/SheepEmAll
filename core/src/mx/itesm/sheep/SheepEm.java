@@ -8,15 +8,17 @@ public class SheepEm extends Game
 {
 
 	private Music menuMusic;
-	private Music gameMusic;
+	private Music levelOneMusic;
+	private Music levelTwoMusic;
 	private Music lost;
 
 	@Override
 	public void create() {
 		setScreen(new LoadingScreen(this));  // Splash ScreenTemplate
 		menuMusic = Gdx.audio.newMusic(Gdx.files.internal("music/menuMusic.mp3"));
-		gameMusic = Gdx.audio.newMusic(Gdx.files.internal("music/gameMusic.mp3"));
+		levelOneMusic = Gdx.audio.newMusic(Gdx.files.internal("music/gameMusic.mp3"));
 		lost = Gdx.audio.newMusic(Gdx.files.internal("music/lost.mp3"));
+		levelTwoMusic = Gdx.audio.newMusic(Gdx.files.internal("music/level2.mp3"));
 
 	}
 
@@ -28,22 +30,37 @@ public class SheepEm extends Game
 
 	public void pauseMenuMusic(){
 		menuMusic.pause();
-		gameMusic.setLooping(false);
+		levelOneMusic.setLooping(false);
 	}
 
 	public void playGameMusic() {
-		gameMusic.setVolume(0.8f);
-		gameMusic.play();
-		gameMusic.setLooping(true);
+		levelOneMusic.setVolume(0.8f);
+		levelOneMusic.play();
+		levelOneMusic.setLooping(true);
 	}
 
 	public void pauseGameMusic(){
-		gameMusic.pause();
-		gameMusic.setLooping(false);
+		levelOneMusic.pause();
+		levelOneMusic.setLooping(false);
+	}
+
+	public void playLevelTwoMusic(){
+		levelTwoMusic.setVolume(0.8f);
+		levelTwoMusic.play();
+		levelTwoMusic.setLooping(true);
+	}
+
+	public void pauseLevelTwoMusic(){
+		levelTwoMusic.pause();
+		levelTwoMusic.setLooping(false);
+	}
+
+	public void stopLevelTwoMusic(){
+		levelTwoMusic.stop();
 	}
 
 	public void stopGameMusic(){
-		gameMusic.stop();
+		levelOneMusic.stop();
 	}
 
 	public void playLost(){

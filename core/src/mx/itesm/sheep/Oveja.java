@@ -85,8 +85,8 @@ public class Oveja {
                 this.estado = estado;
                 break;
             case ABAJO:
-                ancho = 64;
-                alto = 75;
+                ancho = 107;
+                alto = 139;
                 frames = region.split(ancho,alto);
                 animacion = new Animation(0.20f, frames[0][0], frames[0][1]);
                 animacion.setPlayMode(Animation.PlayMode.LOOP);
@@ -223,6 +223,8 @@ public class Oveja {
                 batch.draw(region3, x, y);
                 enLlamas = true;
                 break;
+            case BORRAR:
+                break;
         }
     }
 
@@ -233,6 +235,14 @@ public class Oveja {
         return false;
     }
 
+    // Validar corral nave alien -------------------------------------------------------------------
+    public boolean cordenadasCorralAlien(float xP, float yP, String tipo, AlienShip ship){
+        if (xP >= x && xP <= x+ship.getAncho() && yP >= y && yP <= y+ship.getAlto()
+                && tipo.equals("ALIEN")){
+            return true;
+        }
+        return false;
+    }
 
     public enum Estado{
         ARRIBA,
@@ -242,7 +252,8 @@ public class Oveja {
         MOVIENDO,
         STOP,
         CONTINUAR,
-        BOOM
+        BOOM,
+        BORRAR
     }
 
     public float getx() {

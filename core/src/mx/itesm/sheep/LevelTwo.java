@@ -2,6 +2,7 @@ package mx.itesm.sheep;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -24,6 +25,12 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public class LevelTwo extends ScreenTemplate {
 
     private final SheepEm sheepEm;
+
+    private ImageButton noMusicBtn;
+    private ImageButton musicBtn;
+    private ImageButton fxBtn;
+    private ImageButton noFxBtn;
+
 
     // Texturas/Parte Gráfica ----------------------------------------------------------------------
     private Texture continueButton;
@@ -56,6 +63,15 @@ public class LevelTwo extends ScreenTemplate {
     private Texture oveArrMovRed;
     private Texture oveArrMovWhite;
     private Texture oveArrMovYellow;
+
+    private Texture oveAbBlue;
+    private Texture oveAbMovBlue;
+    private Texture oveAbRed;
+    private Texture oveAbMovRed;
+    private Texture oveAbWhite;
+    private Texture oveAbMovWhite;
+    private Texture oveAbYellow;
+    private Texture oveAbMovYellow;
 
     // Texturas alien colores
     private Texture oveAlienArrWhite;
@@ -94,6 +110,7 @@ public class LevelTwo extends ScreenTemplate {
 
 
     private float tiempo;
+    private Music sheep;
 
 
     public LevelTwo(SheepEm sheepEm){
@@ -110,7 +127,7 @@ public class LevelTwo extends ScreenTemplate {
         escenaGanar = new LevelTwo.EscenaGanar(vista,batch);
         estado = EstadoJuego.JUGANDO;
         Gdx.input.setInputProcessor(escenaJuego);
-
+        sheep = Gdx.audio.newMusic(Gdx.files.internal("SFX/sheep_sound.mp3"));
         lifes = 3;
     }
 
@@ -119,7 +136,7 @@ public class LevelTwo extends ScreenTemplate {
         escenaJuego = new Stage(vista);
 
         // Crear nave
-        aS = new AlienShip(alienShip, AlienShip.Estado.PAUSADO);
+        aS = new AlienShip(alienShip, AlienShip.Estado.INICIO);
 
         escenaJuego.addListener(new InputListener(){
             @Override
@@ -161,8 +178,8 @@ public class LevelTwo extends ScreenTemplate {
                     if (!cordenadasCorral(x,y,oveja.getColor()) && !oveja.isEnLlamas()){
                         if (oveja.comparar(x,y)){
                             ovejaMoviendo = oveja;
-                            ovejaMovX = (int) x;
-                            ovejaMovY = (int) y;
+                            ovejaMovX = (int) ovejaMoviendo.getx();
+                            ovejaMovY = (int) ovejaMoviendo.gety();
                             ovejaMoviendo.setEstado(Oveja.Estado.MOVIENDO);
                             Gdx.app.log("dragStart", "Inicia movimeinto");
                             break;
@@ -177,6 +194,9 @@ public class LevelTwo extends ScreenTemplate {
                 if (ovejaMoviendo == null){ return; }
                 ovejaMoviendo.setX(x - ovejaMoviendo.getAncho()/2);
                 ovejaMoviendo.setY(y - ovejaMoviendo.getAlto()/2);
+                if(pref.getBoolean("fxOn")){
+                    sheep.play();
+                }
                 Gdx.app.log("drag", "x = " +x + ", y = " +y);
             }
 
@@ -184,8 +204,16 @@ public class LevelTwo extends ScreenTemplate {
             public void dragStop(InputEvent event, float x, float y, int pointer) {
                 super.dragStop(event, x, y, pointer);
                 if(ovejaMoviendo != null){
-                    // verificar si está en el corral
-                    if(cordenadasCorral(x,y,ovejaMoviendo.getColor())){
+                    // verificar si esta en el corral nave alien
+                    if (ovejaMoviendo.cordenadasCorralAlien(x,y,ovejaMoviendo.getTipo(),aS)){
+                        ovejaMoviendo.setEstado(Oveja.Estado.BORRAR);
+                        contOvejas++;
+                        aS.setEstado(AlienShip.Estado.DERROTA);
+                        Gdx.app.log("oveja","en corral: " + contOvejas);
+                        ovejaMoviendo = null;
+                    }
+                    // verificar si esta en el corral
+                    else if(cordenadasCorral(x,y,ovejaMoviendo.getColor())){
                         ovejaMoviendo.setEstado(ovejaMoviendo.getEstadoOriginal());
                         contOvejas++;
                         Gdx.app.log("oveja","en corral: " + contOvejas);
@@ -282,8 +310,28 @@ public class LevelTwo extends ScreenTemplate {
                         break;
                 }
             }else if (random == 2){
-                ove = new Oveja(oveAb, oveMovAb, Oveja.Estado.ABAJO, "BLUE", arrTipos[0]);
-                arrOvejas.add(ove);
+                switch (randomColor){
+                    case 1:
+                        ove = new Oveja(oveAbWhite, oveAbMovWhite,
+                                Oveja.Estado.ABAJO, arrColores[0], arrTipos[0]);
+                        arrOvejas.add(ove);
+                        break;
+                    case 2:
+                        ove = new Oveja(oveAbBlue, oveAbMovBlue,
+                                Oveja.Estado.ABAJO, arrColores[1], arrTipos[0]);
+                        arrOvejas.add(ove);
+                        break;
+                    case 3:
+                        ove = new Oveja(oveAbRed, oveAbMovRed,
+                                Oveja.Estado.ABAJO, arrColores[2], arrTipos[0]);
+                        arrOvejas.add(ove);
+                        break;
+                    case 4:
+                        ove = new Oveja(oveAbYellow, oveAbMovYellow,
+                                Oveja.Estado.ABAJO, arrColores[3], arrTipos[0]);
+                        arrOvejas.add(ove);
+                        break;
+                }
             }else if (random == 3){
                 ove = new Oveja(oveIzq, oveMovIzq, Oveja.Estado.IZQUIERDA, "WHITE", arrTipos[0]);
                 arrOvejas.add(ove);
@@ -360,6 +408,15 @@ public class LevelTwo extends ScreenTemplate {
         oveArrMovWhite = new Texture("Sheep/White/sheep_moving_down_white.png");
         oveArrYellow = new Texture("Sheep/Yellow/sheep_down_yellow.png");
         oveArrMovYellow = new Texture("Sheep/Yellow/sheep_moving_down_yellow.png");
+
+        oveAbBlue = new Texture("Sheep/Blue/sheep_up_blue.png");
+        oveAbMovBlue = new Texture("Sheep/Blue/sheep_moving_up_blue.png");
+        oveAbRed = new Texture("Sheep/Red/sheep_up_red.png");
+        oveAbMovRed = new Texture("Sheep/Red/sheep_moving_up_red.png");
+        oveAbWhite = new Texture("Sheep/White/sheep_up_white.png");
+        oveAbMovWhite = new Texture("Sheep/White/sheep_moving_up_white.png");
+        oveAbYellow = new Texture("Sheep/Yellow/sheep_up_yellow.png");
+        oveAbMovYellow = new Texture("Sheep/Yellow/sheep_moving_up_yellow.png");
 
         //ovejas alien de colores
         oveAlienArrWhite = new Texture("Sheep/Alien/White/alien_sheep_down_white.png");
@@ -445,25 +502,6 @@ public class LevelTwo extends ScreenTemplate {
         Gdx.app.log("tiempo", "T: " + tiempo);
         Gdx.app.log("distancia", "X: " + moverX + ", Y: " + moverY);
 
-        // Movimiento de la nave en la pantalla
-        if (tiempo >= 2){
-            moverX += 5f* aS.getDireccionX();
-            moverY += 5f * aS.getDireccionY();
-            aS.spaceShipMove(moverX,moverY);
-            aS.setEstado(AlienShip.Estado.MOVIENDO);
-            //Gdx.app.log("Prueba","MoverX =   " + moverX);
-            if(aS.saliendoPor() == AlienShip.Estado.SALIENDOX){
-                aS.cambiarDireccionX();
-                //moverX = 1080;
-            }
-            else if (aS.saliendoPor() == AlienShip.Estado.SALIENDOY){
-                aS.cambiarDireccionY();
-                //Gdx.app.log("Condición Y","se cumplió *****************");
-                //moverY = 1920;
-            }
-
-        }
-        aS.render(batch);
 
        for (int i = 0; i < arrOvejas.size; i++) {
            if (tiempo <= 10.0){ // a los 10 seg sale la oveja alien arriba y la nave
@@ -481,20 +519,69 @@ public class LevelTwo extends ScreenTemplate {
            }
 
        }
+
+        // Movimiento de la nave en la pantalla
+        if (tiempo >= 10){
+           if (aS.getEstado() != AlienShip.Estado.DERROTA){
+                moverX += 5f* aS.getDireccionX();
+                moverY += 5f * aS.getDireccionY();
+                aS.spaceShipMove(moverX,moverY);
+                aS.setEstado(AlienShip.Estado.MOVIENDO);
+                //Gdx.app.log("Prueba","MoverX =   " + moverX);
+                if(aS.saliendoPor() == AlienShip.Estado.SALIENDOX){
+                    aS.cambiarDireccionX();
+                    //moverX = 1080;
+                }
+                else if (aS.saliendoPor() == AlienShip.Estado.SALIENDOY){
+                    aS.cambiarDireccionY();
+                    Gdx.app.log("Condición Y","se cumplió *****************");
+                    //moverY = 1920;
+                }
+           }
+
+        }
+        aS.render(batch);
+
         batch.end();
 
         escenaJuego.draw();
 
         if (estado == EstadoJuego.PAUSADO) {
             escenaPausa.draw();
+            if(pref.getBoolean("musicOn")){
+                musicBtn.setPosition(373,431);
+                escenaPausa.addActor(musicBtn);
+                noMusicBtn.remove();
+
+            }
+            if(!pref.getBoolean("musicOn")){
+                musicBtn.setPosition(373,431);
+                escenaPausa.addActor(noMusicBtn);
+                musicBtn.remove();
+            }
+
+            if(pref.getBoolean("fxOn")){
+                fxBtn.setPosition(561,431);
+                escenaPausa.addActor(fxBtn);
+                noFxBtn.remove();
+
+            }
+            if(!pref.getBoolean("fxOn")){
+                fxBtn.setPosition(561,431);
+                escenaPausa.addActor(noFxBtn);
+                fxBtn.remove();
+            }
+
         }
 
         if (estado == EstadoJuego.PERDIDO){
             detenerOveja(false);
             Gdx.input.setInputProcessor(escenaPerder);
-            escenaPerder.draw();
-            if(!played) sheepEm.playLost();
-            played = true;
+            if(pref.getBoolean("musicOn")) {
+                escenaPerder.draw();
+                if (!played) sheepEm.playLost();
+                played = true;
+            }
         }
 
         if(estado ==  EstadoJuego.GANADO){
@@ -505,14 +592,16 @@ public class LevelTwo extends ScreenTemplate {
 
         if(pref.getBoolean("musicOn")){
             if(estado == EstadoJuego.JUGANDO){
-                sheepEm.playGameMusic();
+                sheepEm.playLevelTwoMusic();
             }else{
-                sheepEm.pauseGameMusic();
+                sheepEm.pauseLevelTwoMusic();
             }
 
         }
+
+
         if(!pref.getBoolean("musicOn")){
-            sheepEm.pauseGameMusic();
+            sheepEm.pauseLevelTwoMusic();
         }
         eliminarOveja();
 
@@ -539,8 +628,9 @@ public class LevelTwo extends ScreenTemplate {
         PAUSADO,
         PERDIDO,
         GANADO
+
+
     }
-    // Escena para el menú de pausa ----------------------------------------------------------------
     private class EscenaPausa extends Stage {
         public EscenaPausa(Viewport vista, SpriteBatch batch) {
             super(vista,batch);
@@ -552,18 +642,11 @@ public class LevelTwo extends ScreenTemplate {
             op.setPosition(0,0);
             this.addActor(op);
 
-
             Texture pauseRectangle = new Texture("pauseRectangle.png");
             TextureRegionDrawable trdRect = new TextureRegionDrawable(new TextureRegion(pauseRectangle));
             Image rectangle = new Image(trdRect);
-            rectangle.setPosition(47,489);
+            rectangle.setPosition(71,253);
             this.addActor(rectangle);
-
-            Texture pauseText = new Texture("pauseText.png");
-            TextureRegionDrawable trdPText = new TextureRegionDrawable(new TextureRegion(pauseText));
-            Image pauseT = new Image(trdPText);
-            pauseT.setPosition(270,1399);
-            this.addActor(pauseT);
 
 
             Texture pressedContinueButton = new Texture("Buttons/pressed/pressedContinueButton.png");
@@ -578,17 +661,17 @@ public class LevelTwo extends ScreenTemplate {
                     //Cambio el estado de sheepEm a JUGANDO y regreso el poder a la escenaJuego
                     estado = EstadoJuego.JUGANDO;
                     detenerOveja(false);
-                    sheepEm.playGameMusic();
+                    sheepEm.playLevelTwoMusic();
                     Gdx.input.setInputProcessor(escenaJuego);
                 }
             });
             this.addActor(btnContinue);
 
 
-            Texture pressedHomeButton = new Texture("Buttons/pressed/PressedLevelsButton.png");
+            Texture pressedHomeButton = new Texture("Buttons/pressed/PressedLevelsMenuButton.png");
             TextureRegionDrawable trdHomepr = new TextureRegionDrawable(new
                     TextureRegion(pressedHomeButton));
-            homeButton = new Texture("Buttons/unpressed/levelsButton.png");
+            homeButton = new Texture("Buttons/unpressed/LevelsMenuButton.png");
             TextureRegionDrawable trdHome = new TextureRegionDrawable(
                     new TextureRegion(homeButton));
             ImageButton homeBtn = new ImageButton(trdHome, trdHomepr);
@@ -597,37 +680,105 @@ public class LevelTwo extends ScreenTemplate {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     // Regresa al menú
-                    sheepEm.setScreen(new MenuScreen(sheepEm));
-                    sheepEm.stopGameMusic();
+                    sheepEm.setScreen(new MapScreen(sheepEm));
+                    sheepEm.stopLevelTwoMusic();
                 }
             });
             this.addActor(homeBtn);
 
-            Texture pressedRestartButton = new Texture("Buttons/pressed/pressedRestartButton.png");
-            TextureRegionDrawable trdRestartpr =  new TextureRegionDrawable(new
-                    TextureRegion(pressedRestartButton));
-            Texture restartButton = new Texture("Buttons/unpressed/restartButton.png");
-            TextureRegionDrawable trdRestart = new TextureRegionDrawable(new
-                    TextureRegion(restartButton));
+            Texture pressedRestartButton = new Texture("Buttons/pressed/PressedRetryLevelButton.png");
+            TextureRegionDrawable trdRestartpr =  new TextureRegionDrawable(new TextureRegion(pressedRestartButton));
+            Texture restartButton = new Texture("Buttons/unpressed/RetryLevelButton.png");
+            TextureRegionDrawable trdRestart = new TextureRegionDrawable(new TextureRegion(restartButton));
             ImageButton restartBtn = new ImageButton(trdRestart, trdRestartpr);
             restartBtn.setPosition(586,695);
             restartBtn.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     // Regresa al menú
-                    sheepEm.stopGameMusic();
-                    sheepEm.setScreen(new LevelOne(sheepEm));
-                    sheepEm.playGameMusic();
+                    sheepEm.stopLevelTwoMusic();
+                    sheepEm.setScreen(new LevelTwo(sheepEm));
+                    sheepEm.playLevelTwoMusic();
                 }
             });
             this.addActor(restartBtn);
 
+            Texture pauseMusicButton = new Texture("Buttons/unpressed/MusicPause.png");
+            TextureRegionDrawable pauseMusicButtonTrd = new TextureRegionDrawable(new TextureRegion(pauseMusicButton));
+            Texture pauseMusicButtonPr = new Texture("Buttons/pressed/PressedMusicPause.png");
+            TextureRegionDrawable pauseMusicButtonPrTrd = new TextureRegionDrawable(new TextureRegion(pauseMusicButtonPr));
+
+            Texture pauseNoMusicButton = new Texture("Buttons/unpressed/noMusicPause.png");
+            TextureRegionDrawable pauseNoMusicButtonTrd = new TextureRegionDrawable(new TextureRegion(pauseNoMusicButton));
+            Texture pauseNoMusicButtonPr = new Texture("Buttons/pressed/PressedNoMusicPause.png");
+            TextureRegionDrawable pauseNoMusicButtonPrTrd = new TextureRegionDrawable(new TextureRegion(pauseNoMusicButtonPr));
+
+            musicBtn = new ImageButton(pauseMusicButtonTrd,pauseMusicButtonPrTrd);
+            musicBtn.setPosition(373,431);
+            musicBtn.addListener( new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    pref.putBoolean("musicOn",false);
+
+                }
+            } );
+            noMusicBtn = new ImageButton(pauseNoMusicButtonTrd,pauseNoMusicButtonPrTrd);
+            noMusicBtn.setPosition(373,431);
+            noMusicBtn.addListener( new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    pref.putBoolean("musicOn",true);
+                }
+            } );
+
+            Texture fxPause =  new Texture("Buttons/unpressed/fxPause.png");
+            TextureRegionDrawable fxPauseTr = new TextureRegionDrawable(new TextureRegion(fxPause));
+            Texture fxPausePr = new Texture("Buttons/pressed/PressedFxPause.png");
+            TextureRegionDrawable fxPausePrTr = new TextureRegionDrawable(new TextureRegion(fxPausePr));
+
+            Texture noFxPause = new Texture("Buttons/unpressed/NoFxPause.png");
+            TextureRegionDrawable noFxPauseTr = new TextureRegionDrawable(new TextureRegion(noFxPause));
+            Texture noFxPausePr = new Texture("Buttons/pressed/PressedNoFxPause.png");
+            TextureRegionDrawable noFxPausePrTr = new TextureRegionDrawable(new TextureRegion(noFxPausePr));
+
+            fxBtn = new ImageButton(fxPauseTr,fxPausePrTr);
+            fxBtn.setPosition(561,431);
+            fxBtn.addListener( new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    pref.putBoolean("fxOn",false);
+                    pref.flush();
+
+                }
+            } );
+
+            noFxBtn = new ImageButton(noFxPauseTr,noFxPausePrTr);
+            noFxBtn.setPosition(561,431);
+            noFxBtn.addListener( new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    pref.putBoolean("fxOn",true);
+                    pref.flush();
+
+                }
+            } );
 
 
         }
     }
 
     // Escena para la pantalla de ganar ------------------------------------------------------------
+
+    /************************
+     * ********************
+     * *************
+     * **********
+     * CAMBIAR SET SCREEN DEL SIGUIENTE NIVEL
+     */
     private class EscenaGanar extends Stage{
         public EscenaGanar(Viewport vista, SpriteBatch batch){
             super(vista,batch);
@@ -655,13 +806,13 @@ public class LevelTwo extends ScreenTemplate {
             nextLevelButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.setScreen(new MenuScreen(sheepEm));
+                    sheepEm.setScreen(new AlienLevel(sheepEm));
                 }
             });
             this.addActor(nextLevelButton);
 
-            Texture retryLevel = new Texture("Buttons/unpressed/RetryLevelButton.png");
-            Texture retryLevelPr = new Texture("Buttons/pressed/PressedRetryLevelButton.png");
+            Texture retryLevel = new Texture("Buttons/unpressed/restartButton.png");
+            Texture retryLevelPr = new Texture("Buttons/pressed/pressedRestartButton.png");
             TextureRegionDrawable retryLevelTrd = new TextureRegionDrawable(new TextureRegion(retryLevel));
             TextureRegionDrawable retryLevelPrTrd = new TextureRegionDrawable(new TextureRegion(retryLevelPr));
 
@@ -670,14 +821,14 @@ public class LevelTwo extends ScreenTemplate {
             retryLevelButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.setScreen(new LevelOne(sheepEm));
+                    sheepEm.setScreen(new AlienLevel(sheepEm));
                 }
             });
             this.addActor(retryLevelButton);
 
 
-            Texture levelsMenu = new Texture("Buttons/unpressed/LevelsMenuButton.png");
-            Texture levelsMenuPr = new Texture("Buttons/pressed/PressedLevelsMenuButton.png");
+            Texture levelsMenu = new Texture("Buttons/unpressed/levelsButton.png");
+            Texture levelsMenuPr = new Texture("Buttons/pressed/PressedLevelsButton.png");
             TextureRegionDrawable levelsMenuTrd = new TextureRegionDrawable(new TextureRegion(levelsMenu));
             TextureRegionDrawable levelsMenuPrTrd = new TextureRegionDrawable(new TextureRegion(levelsMenuPr));
 
@@ -686,7 +837,7 @@ public class LevelTwo extends ScreenTemplate {
             levelsButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.setScreen(new LevelOne(sheepEm));
+                    sheepEm.setScreen(new MapScreen(sheepEm));
                 }
             });
             this.addActor(levelsButton);
@@ -740,9 +891,9 @@ public class LevelTwo extends ScreenTemplate {
             tryAgain.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.stopGameMusic();
-                    sheepEm.setScreen(new LevelOne(sheepEm));
-                    sheepEm.playGameMusic();
+                    sheepEm.stopLevelTwoMusic();
+                    sheepEm.setScreen(new LevelTwo(sheepEm));
+                    sheepEm.playLevelTwoMusic();
                     sheepEm.stopLost();
                 }
             });
@@ -757,8 +908,8 @@ public class LevelTwo extends ScreenTemplate {
             lvsButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.stopGameMusic();
-                    sheepEm.setScreen(new MenuScreen(sheepEm));
+                    sheepEm.stopLevelTwoMusic();
+                    sheepEm.setScreen(new MapScreen(sheepEm));
                     sheepEm.stopLost();
                 }
             });

@@ -38,8 +38,10 @@ public class AlienShip {
         animacion = new Animation(0.20f, frames[0][0]);
         animacion.setPlayMode(Animation.PlayMode.LOOP);
         timer = 0;
+
         this.estado = estado;
     }
+
 
     public void render (SpriteBatch batch) {
         timer += Gdx.graphics.getDeltaTime();
@@ -49,6 +51,8 @@ public class AlienShip {
                 batch.draw(region, posicionX, posicionY);
                 break;
             case PAUSADO:
+                timer = 0;
+                batch.draw(region, posicionX, posicionY);
                 break;
             case SALIENDOX:
                 batch.draw(region, posicionX, posicionY);
@@ -57,6 +61,14 @@ public class AlienShip {
                 batch.draw(region, posicionX, posicionY);
                 break;
             case DERROTA:
+                if (posicionX != 1080){
+                    posicionX += 2.5f;
+                    batch.draw(region, posicionX, posicionY);
+                }else {
+                    timer = 0;
+                }
+                break;
+            case INICIO:
                 break;
         }
     }
@@ -116,7 +128,8 @@ public class AlienShip {
         PAUSADO,
         SALIENDOX,
         SALIENDOY,
-        DERROTA
+        DERROTA,
+        INICIO
     }
 
     public float getPosicionX() {
@@ -142,4 +155,8 @@ public class AlienShip {
     public void setEstado(Estado estado) {
         this.estado = estado;
     }
+
+    public int getAlto() { return alto; }
+
+    public int getAncho() { return ancho; }
 }

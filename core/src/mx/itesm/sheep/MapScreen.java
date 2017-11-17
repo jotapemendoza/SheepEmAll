@@ -25,7 +25,10 @@ public class MapScreen extends ScreenTemplate {
             lvlBtn,
             levelTwo,
             levelThree,
-            cloud;
+            cloud,
+            text,
+            backButton,
+            pressedBackButton;
 
     private Image cloud_1,
             cloud_2,
@@ -48,13 +51,16 @@ public class MapScreen extends ScreenTemplate {
     }
 
     private void cargarTexturas() {
+        pressedBackButton = new Texture("Buttons/pressed/pressedBackButton.png");
+        backButton = new Texture("Buttons/unpressed/backButton.png");
         levelThree = new Texture("levelsScreen/level3.png");
         levelOne = new Texture("levelsScreen/level1.png");
         levelTwo = new Texture("levelsScreen/level2.png");
         lvlBtn = new Texture("levelsScreen/btn.png");
-        background = new Texture("menuBg.png");
-        grass = new Texture("mapsBG.png");
+        background = new Texture("nightBG.png");
+        grass = new Texture("mapsBGtest.png");
         cloud = new Texture("cloud.png");
+        text = new Texture("chooseText.png");
     }
 
     private void crearEscenaMapa(){
@@ -63,7 +69,7 @@ public class MapScreen extends ScreenTemplate {
 
         TextureRegionDrawable trdBg = new TextureRegionDrawable(new TextureRegion(background));
         Image bg =  new Image(trdBg);
-        bg.setPosition(0,0);
+        bg.setPosition(0,725);
         escenaLevels.addActor(bg);
 
         TextureRegionDrawable levelOneTrd = new TextureRegionDrawable(new TextureRegion(lvlBtn));
@@ -103,6 +109,20 @@ public class MapScreen extends ScreenTemplate {
         });
 
         drawClouds();
+
+        TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(backButton));
+        TextureRegionDrawable trdBackpr = new TextureRegionDrawable(new TextureRegion(pressedBackButton));
+        ImageButton btnBack = new ImageButton(trdBack, trdBackpr);
+        btnBack.setPosition(50,1720);
+        btnBack.addListener( new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+
+                sheepEm.setScreen(new MenuScreen(sheepEm));
+            }
+        } );
+        escenaLevels.addActor(btnBack);
 
     }
 
@@ -165,6 +185,7 @@ public class MapScreen extends ScreenTemplate {
         batch.begin();
 
         batch.draw(grass,0,0);
+        batch.draw(text,227,1450);
 
         if(!pref.getBoolean("wonLevelOne")){
             batch.draw(levelOne,78,116);

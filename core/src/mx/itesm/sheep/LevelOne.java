@@ -25,7 +25,17 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public class LevelOne extends ScreenTemplate {
 
     private final SheepEm sheepEm;
-    
+
+
+
+    /*****************************************/
+    private ImageButton noMusicBtn;
+    private ImageButton musicBtn;
+    private ImageButton fxBtn;
+    private ImageButton noFxBtn;
+
+    /*****************************************/
+
     // Texturas/Parte Gráfica ----------------------------------------------------------------------
     private Texture continueButton;
     private Texture pauseButton;
@@ -54,6 +64,15 @@ public class LevelOne extends ScreenTemplate {
     private Texture oveArrMovRed;
     private Texture oveArrMovWhite;
     private Texture oveArrMovYellow;
+
+    private Texture oveAbBlue;
+    private Texture oveAbMovBlue;
+    private Texture oveAbRed;
+    private Texture oveAbMovRed;
+    private Texture oveAbWhite;
+    private Texture oveAbMovWhite;
+    private Texture oveAbYellow;
+    private Texture oveAbMovYellow;
 
     private Boolean played = false;
 
@@ -150,10 +169,9 @@ public class LevelOne extends ScreenTemplate {
                     if (!cordenadasCorral(x,y,oveja.getColor()) && !oveja.isEnLlamas()){
                         if (oveja.comparar(x,y)){
                             ovejaMoviendo = oveja;
-                            ovejaMovX = (int) x;
-                            ovejaMovY = (int) y;
+                            ovejaMovX = (int) ovejaMoviendo.getx();
+                            ovejaMovY = (int) ovejaMoviendo.gety();
                             ovejaMoviendo.setEstado(Oveja.Estado.MOVIENDO);
-
                             break;
                         }
                     }
@@ -164,7 +182,9 @@ public class LevelOne extends ScreenTemplate {
             public void drag(InputEvent event, float x, float y, int pointer) {
                 super.drag(event, x, y, pointer);
                 if (ovejaMoviendo == null){ return; }
-                sheep.play();
+                if(pref.getBoolean("fxOn")){
+                    sheep.play();
+                }
                 ovejaMoviendo.setX(x - ovejaMoviendo.getAncho()/2);
                 ovejaMoviendo.setY(y - ovejaMoviendo.getAlto()/2);
             }
@@ -266,8 +286,28 @@ public class LevelOne extends ScreenTemplate {
                         break;
                 }
             }else if (random == 2){
-                ove = new Oveja(oveAb, oveMovAb, Oveja.Estado.ABAJO, "BLUE", arrTipos[0]);
-                arrOvejas.add(ove);
+                switch (randomColor){
+                    case 1:
+                        ove = new Oveja(oveAbWhite, oveAbMovWhite,
+                                Oveja.Estado.ABAJO, arrColores[0], arrTipos[0]);
+                        arrOvejas.add(ove);
+                        break;
+                    case 2:
+                        ove = new Oveja(oveAbBlue, oveAbMovBlue,
+                                Oveja.Estado.ABAJO, arrColores[1], arrTipos[0]);
+                        arrOvejas.add(ove);
+                        break;
+                    case 3:
+                        ove = new Oveja(oveAbRed, oveAbMovRed,
+                                Oveja.Estado.ABAJO, arrColores[2], arrTipos[0]);
+                        arrOvejas.add(ove);
+                        break;
+                    case 4:
+                        ove = new Oveja(oveAbYellow, oveAbMovYellow,
+                                Oveja.Estado.ABAJO, arrColores[3], arrTipos[0]);
+                        arrOvejas.add(ove);
+                        break;
+                }
             }else if (random == 3){
                 ove = new Oveja(oveIzq, oveMovIzq, Oveja.Estado.IZQUIERDA, "WHITE", arrTipos[0]);
                 arrOvejas.add(ove);
@@ -341,6 +381,15 @@ public class LevelOne extends ScreenTemplate {
         oveArrMovWhite = new Texture("Sheep/White/sheep_moving_down_white.png");
         oveArrYellow = new Texture("Sheep/Yellow/sheep_down_yellow.png");
         oveArrMovYellow = new Texture("Sheep/Yellow/sheep_moving_down_yellow.png");
+
+        oveAbBlue = new Texture("Sheep/Blue/sheep_up_blue.png");
+        oveAbMovBlue = new Texture("Sheep/Blue/sheep_moving_up_blue.png");
+        oveAbRed = new Texture("Sheep/Red/sheep_up_red.png");
+        oveAbMovRed = new Texture("Sheep/Red/sheep_moving_up_red.png");
+        oveAbWhite = new Texture("Sheep/White/sheep_up_white.png");
+        oveAbMovWhite = new Texture("Sheep/White/sheep_moving_up_white.png");
+        oveAbYellow = new Texture("Sheep/Yellow/sheep_up_yellow.png");
+        oveAbMovYellow = new Texture("Sheep/Yellow/sheep_moving_up_yellow.png");
     }
 
 
@@ -434,14 +483,45 @@ public class LevelOne extends ScreenTemplate {
 
         if (estado == EstadoJuego.PAUSADO) {
             escenaPausa.draw();
+
+            /********************************/
+            if(pref.getBoolean("musicOn")){
+                musicBtn.setPosition(373,431);
+                escenaPausa.addActor(musicBtn);
+                noMusicBtn.remove();
+
+            }
+            if(!pref.getBoolean("musicOn")){
+                musicBtn.setPosition(373,431);
+                escenaPausa.addActor(noMusicBtn);
+                musicBtn.remove();
+            }
+
+            if(pref.getBoolean("fxOn")){
+                fxBtn.setPosition(561,431);
+                escenaPausa.addActor(fxBtn);
+                noFxBtn.remove();
+
+            }
+            if(!pref.getBoolean("fxOn")){
+                fxBtn.setPosition(561,431);
+                escenaPausa.addActor(noFxBtn);
+                fxBtn.remove();
+            }
+
+
+            /********************************/
+
         }
 
         if (estado == EstadoJuego.PERDIDO){
             detenerOveja(false);
             Gdx.input.setInputProcessor(escenaPerder);
             escenaPerder.draw();
-            if(!played) sheepEm.playLost();
-            played = true;
+            if(pref.getBoolean("musicOn")){
+                if(!played) sheepEm.playLost();
+                played = true;
+            }
             sheep.stop();
         }
 
@@ -499,18 +579,11 @@ public class LevelOne extends ScreenTemplate {
             op.setPosition(0,0);
             this.addActor(op);
 
-
             Texture pauseRectangle = new Texture("pauseRectangle.png");
             TextureRegionDrawable trdRect = new TextureRegionDrawable(new TextureRegion(pauseRectangle));
             Image rectangle = new Image(trdRect);
-            rectangle.setPosition(47,489);
+            rectangle.setPosition(71,253);
             this.addActor(rectangle);
-
-            Texture pauseText = new Texture("pauseText.png");
-            TextureRegionDrawable trdPText = new TextureRegionDrawable(new TextureRegion(pauseText));
-            Image pauseT = new Image(trdPText);
-            pauseT.setPosition(270,1399);
-            this.addActor(pauseT);
 
 
             Texture pressedContinueButton = new Texture("Buttons/pressed/pressedContinueButton.png");
@@ -532,10 +605,10 @@ public class LevelOne extends ScreenTemplate {
             this.addActor(btnContinue);
 
 
-            Texture pressedHomeButton = new Texture("Buttons/pressed/PressedLevelsButton.png");
+            Texture pressedHomeButton = new Texture("Buttons/pressed/PressedLevelsMenuButton.png");
             TextureRegionDrawable trdHomepr = new TextureRegionDrawable(new
                     TextureRegion(pressedHomeButton));
-            homeButton = new Texture("Buttons/unpressed/levelsButton.png");
+            homeButton = new Texture("Buttons/unpressed/LevelsMenuButton.png");
             TextureRegionDrawable trdHome = new TextureRegionDrawable(
                     new TextureRegion(homeButton));
             ImageButton homeBtn = new ImageButton(trdHome, trdHomepr);
@@ -544,18 +617,16 @@ public class LevelOne extends ScreenTemplate {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     // Regresa al menú
-                    sheepEm.setScreen(new MenuScreen(sheepEm));
+                    sheepEm.setScreen(new MapScreen(sheepEm));
                     sheepEm.stopGameMusic();
                 }
             });
             this.addActor(homeBtn);
 
-            Texture pressedRestartButton = new Texture("Buttons/pressed/pressedRestartButton.png");
-            TextureRegionDrawable trdRestartpr =  new TextureRegionDrawable(new
-                    TextureRegion(pressedRestartButton));
-            Texture restartButton = new Texture("Buttons/unpressed/restartButton.png");
-            TextureRegionDrawable trdRestart = new TextureRegionDrawable(new
-                    TextureRegion(restartButton));
+            Texture pressedRestartButton = new Texture("Buttons/pressed/PressedRetryLevelButton.png");
+            TextureRegionDrawable trdRestartpr =  new TextureRegionDrawable(new TextureRegion(pressedRestartButton));
+            Texture restartButton = new Texture("Buttons/unpressed/RetryLevelButton.png");
+            TextureRegionDrawable trdRestart = new TextureRegionDrawable(new TextureRegion(restartButton));
             ImageButton restartBtn = new ImageButton(trdRestart, trdRestartpr);
             restartBtn.setPosition(586,695);
             restartBtn.addListener(new ClickListener(){
@@ -569,6 +640,69 @@ public class LevelOne extends ScreenTemplate {
             });
             this.addActor(restartBtn);
 
+            Texture pauseMusicButton = new Texture("Buttons/unpressed/MusicPause.png");
+            TextureRegionDrawable pauseMusicButtonTrd = new TextureRegionDrawable(new TextureRegion(pauseMusicButton));
+            Texture pauseMusicButtonPr = new Texture("Buttons/pressed/PressedMusicPause.png");
+            TextureRegionDrawable pauseMusicButtonPrTrd = new TextureRegionDrawable(new TextureRegion(pauseMusicButtonPr));
+
+            Texture pauseNoMusicButton = new Texture("Buttons/unpressed/noMusicPause.png");
+            TextureRegionDrawable pauseNoMusicButtonTrd = new TextureRegionDrawable(new TextureRegion(pauseNoMusicButton));
+            Texture pauseNoMusicButtonPr = new Texture("Buttons/pressed/PressedNoMusicPause.png");
+            TextureRegionDrawable pauseNoMusicButtonPrTrd = new TextureRegionDrawable(new TextureRegion(pauseNoMusicButtonPr));
+
+            musicBtn = new ImageButton(pauseMusicButtonTrd,pauseMusicButtonPrTrd);
+            musicBtn.setPosition(373,431);
+            musicBtn.addListener( new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    pref.putBoolean("musicOn",false);
+
+                }
+            } );
+            noMusicBtn = new ImageButton(pauseNoMusicButtonTrd,pauseNoMusicButtonPrTrd);
+            noMusicBtn.setPosition(373,431);
+            noMusicBtn.addListener( new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    pref.putBoolean("musicOn",true);
+                }
+            } );
+
+            Texture fxPause =  new Texture("Buttons/unpressed/fxPause.png");
+            TextureRegionDrawable fxPauseTr = new TextureRegionDrawable(new TextureRegion(fxPause));
+            Texture fxPausePr = new Texture("Buttons/pressed/PressedFxPause.png");
+            TextureRegionDrawable fxPausePrTr = new TextureRegionDrawable(new TextureRegion(fxPausePr));
+
+            Texture noFxPause = new Texture("Buttons/unpressed/NoFxPause.png");
+            TextureRegionDrawable noFxPauseTr = new TextureRegionDrawable(new TextureRegion(noFxPause));
+            Texture noFxPausePr = new Texture("Buttons/pressed/PressedNoFxPause.png");
+            TextureRegionDrawable noFxPausePrTr = new TextureRegionDrawable(new TextureRegion(noFxPausePr));
+
+            fxBtn = new ImageButton(fxPauseTr,fxPausePrTr);
+            fxBtn.setPosition(561,431);
+            fxBtn.addListener( new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    pref.putBoolean("fxOn",false);
+                    pref.flush();
+
+                }
+            } );
+
+            noFxBtn = new ImageButton(noFxPauseTr,noFxPausePrTr);
+            noFxBtn.setPosition(561,431);
+            noFxBtn.addListener( new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    pref.putBoolean("fxOn",true);
+                    pref.flush();
+
+                }
+            } );
 
 
         }
@@ -607,8 +741,8 @@ public class LevelOne extends ScreenTemplate {
             });
             this.addActor(nextLevelButton);
 
-            Texture retryLevel = new Texture("Buttons/unpressed/RetryLevelButton.png");
-            Texture retryLevelPr = new Texture("Buttons/pressed/PressedRetryLevelButton.png");
+            Texture retryLevel = new Texture("Buttons/unpressed/restartButton.png");
+            Texture retryLevelPr = new Texture("Buttons/pressed/pressedRestartButton.png");
             TextureRegionDrawable retryLevelTrd = new TextureRegionDrawable(new TextureRegion(retryLevel));
             TextureRegionDrawable retryLevelPrTrd = new TextureRegionDrawable(new TextureRegion(retryLevelPr));
 
@@ -623,8 +757,8 @@ public class LevelOne extends ScreenTemplate {
             this.addActor(retryLevelButton);
 
 
-            Texture levelsMenu = new Texture("Buttons/unpressed/LevelsMenuButton.png");
-            Texture levelsMenuPr = new Texture("Buttons/pressed/PressedLevelsMenuButton.png");
+            Texture levelsMenu = new Texture("Buttons/unpressed/levelsButton.png");
+            Texture levelsMenuPr = new Texture("Buttons/pressed/PressedLevelsButton.png");
             TextureRegionDrawable levelsMenuTrd = new TextureRegionDrawable(new TextureRegion(levelsMenu));
             TextureRegionDrawable levelsMenuPrTrd = new TextureRegionDrawable(new TextureRegion(levelsMenuPr));
 
