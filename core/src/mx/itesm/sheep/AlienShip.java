@@ -42,6 +42,7 @@ public class AlienShip {
         this.estado = estado;
     }
 
+
     public void render (SpriteBatch batch) {
         timer += Gdx.graphics.getDeltaTime();
         TextureRegion region = (TextureRegion) animacion.getKeyFrame(timer);

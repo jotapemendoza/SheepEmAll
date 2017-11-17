@@ -27,9 +27,11 @@ public class AlienLevel extends ScreenTemplate {
 
     private EscenaGanar escenaGanar;
     private EscenaPerder escenaPerder;
-    private Stage escenaJuego;
 
     private int hpAlien;
+
+    private EstadoJuego estado;
+    private float scale_factor;
 
     public AlienLevel(SheepEm sheepEm) {
         this.sheepEm = sheepEm;
@@ -41,9 +43,8 @@ public class AlienLevel extends ScreenTemplate {
         crearEscenaNave();
         escenaPerder = new EscenaPerder(vista,batch);
         escenaGanar = new EscenaGanar(vista,batch);
-        //estado = LevelOne.EstadoJuego.JUGANDO;
+        estado = EstadoJuego.JUGANDO;
         Gdx.input.setInputProcessor(escenaAlien);
-
         hpAlien = 10;
     }
 
@@ -58,21 +59,23 @@ public class AlienLevel extends ScreenTemplate {
 
         // Sheep
         TextureRegionDrawable trdSheep =  new TextureRegionDrawable(new TextureRegion(sheep));
-        Image sheepimg = new Image(trdSheep);
-        sheepimg.setPosition(50,500);
+        final Image sheepimg = new Image(trdSheep);
+        sheepimg.setPosition(200,300);
         escenaAlien.addActor(sheepimg);
 
         // Nave
         TextureRegionDrawable trdNave = new TextureRegionDrawable(new TextureRegion(nave));
         final ImageButton btnNave = new ImageButton(trdNave);
-        btnNave.setPosition(374,1167);
+        btnNave.setPosition(200,700);
         escenaAlien.addActor(btnNave);
         btnNave.addListener( new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 System.out.println(hpAlien);
+                scale_factor += 0.1;
                 hpAlien--;
+                sheepimg.setScale(1-scale_factor);
             }
         } );
     }
@@ -88,22 +91,45 @@ public class AlienLevel extends ScreenTemplate {
         borrarPantalla(0,0,0);
         batch.setProjectionMatrix(camara.combined);
         batch.begin();
-        escenaAlien.draw();
-        /*if (hpAlien==0){
-            estado = LevelOne.EstadoJuego.GANADO;
+        if (hpAlien==0){
+            this.estado = EstadoJuego.GANADO;
         }
+        escenaAlien.draw();
 
-        if (estado == LevelOne.EstadoJuego.PERDIDO){
+        batch.end();
+
+        if (estado == EstadoJuego.PERDIDO){
             Gdx.input.setInputProcessor(escenaPerder);
             escenaPerder.draw();
             if(!played) sheepEm.playLost();
             played = true;
         }
-        if(estado ==  LevelOne.EstadoJuego.GANADO){
+
+        if(estado ==  EstadoJuego.GANADO){
             Gdx.input.setInputProcessor(escenaGanar);
             escenaGanar.draw();
-        }*/
-        batch.end();
+            pref.putBoolean("wonAlien",true);
+        }
+
+        if(pref.getBoolean("musicOn")){
+            if(estado == EstadoJuego.JUGANDO){
+                sheepEm.playGameMusic();
+            }else{
+                sheepEm.pauseGameMusic();
+            }
+
+        }
+        if(!pref.getBoolean("musicOn")){
+            sheepEm.pauseGameMusic();
+        }
+        pref.flush();
+    }
+
+    enum EstadoJuego {
+        JUGANDO,
+        PAUSADO,
+        PERDIDO,
+        GANADO
     }
 
     @Override
@@ -120,7 +146,6 @@ public class AlienLevel extends ScreenTemplate {
     public void dispose() {
 
     }
-
 
     private class EscenaGanar extends Stage{
         public EscenaGanar(Viewport vista, SpriteBatch batch){
@@ -192,8 +217,6 @@ public class AlienLevel extends ScreenTemplate {
 
     }
     // Escena para la pantalla de Perder -----------------------------------------------------------
-
-
     private class EscenaPerder extends Stage{
         public EscenaPerder(Viewport vista, SpriteBatch batch){
 
@@ -259,8 +282,6 @@ public class AlienLevel extends ScreenTemplate {
                 }
             });
             this.addActor(lvsButton);
-
-
         }
     }
 
