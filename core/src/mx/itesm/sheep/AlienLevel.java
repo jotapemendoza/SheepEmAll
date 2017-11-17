@@ -60,7 +60,7 @@ public class AlienLevel extends ScreenTemplate {
         // Sheep
         TextureRegionDrawable trdSheep =  new TextureRegionDrawable(new TextureRegion(sheep));
         final Image sheepimg = new Image(trdSheep);
-        sheepimg.setPosition(200,300);
+        sheepimg.setPosition(400,100);
         escenaAlien.addActor(sheepimg);
 
         // Nave
