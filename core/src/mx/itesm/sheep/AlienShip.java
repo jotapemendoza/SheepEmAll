@@ -51,6 +51,8 @@ public class AlienShip {
                 batch.draw(region, posicionX, posicionY);
                 break;
             case PAUSADO:
+                timer = 0;
+                batch.draw(region, posicionX, posicionY);
                 break;
             case SALIENDOX:
                 batch.draw(region, posicionX, posicionY);
@@ -63,8 +65,10 @@ public class AlienShip {
                     posicionX += 2.5f;
                     batch.draw(region, posicionX, posicionY);
                 }else {
-                    estado = Estado.PAUSADO;
+                    timer = 0;
                 }
+                break;
+            case INICIO:
                 break;
         }
     }
@@ -124,7 +128,8 @@ public class AlienShip {
         PAUSADO,
         SALIENDOX,
         SALIENDOY,
-        DERROTA
+        DERROTA,
+        INICIO
     }
 
     public float getPosicionX() {
