@@ -543,6 +543,9 @@ public class LevelTwo extends ScreenTemplate {
                     Gdx.app.log("Condición Y","se cumplió *****************");
                     //moverY = 1920;
                 }
+                else {
+                    //arrOvejas.removeIndex(0);
+                }
            }
 
         }
@@ -550,6 +553,8 @@ public class LevelTwo extends ScreenTemplate {
 
         if (tiempo <= 2.0){ // a los 10 seg sale la oveja alien arriba y la nave
             arrOvejas.get(0).setVelocidad(velocidadOve);
+            arrOvejas.get(0).render(batch);
+        } else {
             arrOvejas.get(0).render(batch);
         }
 
