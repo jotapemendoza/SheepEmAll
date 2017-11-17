@@ -50,6 +50,11 @@ public class SheepEm extends Game
 		levelTwoMusic.setLooping(true);
 	}
 
+	public void pauseLevelTwoMusic(){
+		levelTwoMusic.pause();
+		levelTwoMusic.setLooping(false);
+	}
+
 	public void stopLevelTwoMusic(){
 		levelTwoMusic.stop();
 	}

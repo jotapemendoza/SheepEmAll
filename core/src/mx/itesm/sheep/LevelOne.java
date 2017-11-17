@@ -25,7 +25,17 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public class LevelOne extends ScreenTemplate {
 
     private final SheepEm sheepEm;
-    
+
+
+
+    /*****************************************/
+    private ImageButton noMusicBtn;
+    private ImageButton musicBtn;
+    private ImageButton fxBtn;
+    private ImageButton noFxBtn;
+
+    /*****************************************/
+
     // Texturas/Parte Gráfica ----------------------------------------------------------------------
     private Texture continueButton;
     private Texture pauseButton;
@@ -172,7 +182,9 @@ public class LevelOne extends ScreenTemplate {
             public void drag(InputEvent event, float x, float y, int pointer) {
                 super.drag(event, x, y, pointer);
                 if (ovejaMoviendo == null){ return; }
-                sheep.play();
+                if(pref.getBoolean("fxOn")){
+                    sheep.play();
+                }
                 ovejaMoviendo.setX(x - ovejaMoviendo.getAncho()/2);
                 ovejaMoviendo.setY(y - ovejaMoviendo.getAlto()/2);
             }
@@ -471,14 +483,45 @@ public class LevelOne extends ScreenTemplate {
 
         if (estado == EstadoJuego.PAUSADO) {
             escenaPausa.draw();
+
+            /********************************/
+            if(pref.getBoolean("musicOn")){
+                musicBtn.setPosition(373,431);
+                escenaPausa.addActor(musicBtn);
+                noMusicBtn.remove();
+
+            }
+            if(!pref.getBoolean("musicOn")){
+                musicBtn.setPosition(373,431);
+                escenaPausa.addActor(noMusicBtn);
+                musicBtn.remove();
+            }
+
+            if(pref.getBoolean("fxOn")){
+                fxBtn.setPosition(561,431);
+                escenaPausa.addActor(fxBtn);
+                noFxBtn.remove();
+
+            }
+            if(!pref.getBoolean("fxOn")){
+                fxBtn.setPosition(561,431);
+                escenaPausa.addActor(noFxBtn);
+                fxBtn.remove();
+            }
+
+
+            /********************************/
+
         }
 
         if (estado == EstadoJuego.PERDIDO){
             detenerOveja(false);
             Gdx.input.setInputProcessor(escenaPerder);
             escenaPerder.draw();
-            if(!played) sheepEm.playLost();
-            played = true;
+            if(pref.getBoolean("musicOn")){
+                if(!played) sheepEm.playLost();
+                played = true;
+            }
             sheep.stop();
         }
 
@@ -597,6 +640,69 @@ public class LevelOne extends ScreenTemplate {
             });
             this.addActor(restartBtn);
 
+            Texture pauseMusicButton = new Texture("Buttons/unpressed/MusicPause.png");
+            TextureRegionDrawable pauseMusicButtonTrd = new TextureRegionDrawable(new TextureRegion(pauseMusicButton));
+            Texture pauseMusicButtonPr = new Texture("Buttons/pressed/PressedMusicPause.png");
+            TextureRegionDrawable pauseMusicButtonPrTrd = new TextureRegionDrawable(new TextureRegion(pauseMusicButtonPr));
+
+            Texture pauseNoMusicButton = new Texture("Buttons/unpressed/noMusicPause.png");
+            TextureRegionDrawable pauseNoMusicButtonTrd = new TextureRegionDrawable(new TextureRegion(pauseNoMusicButton));
+            Texture pauseNoMusicButtonPr = new Texture("Buttons/pressed/PressedNoMusicPause.png");
+            TextureRegionDrawable pauseNoMusicButtonPrTrd = new TextureRegionDrawable(new TextureRegion(pauseNoMusicButtonPr));
+
+            musicBtn = new ImageButton(pauseMusicButtonTrd,pauseMusicButtonPrTrd);
+            musicBtn.setPosition(373,431);
+            musicBtn.addListener( new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    pref.putBoolean("musicOn",false);
+
+                }
+            } );
+            noMusicBtn = new ImageButton(pauseNoMusicButtonTrd,pauseNoMusicButtonPrTrd);
+            noMusicBtn.setPosition(373,431);
+            noMusicBtn.addListener( new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    pref.putBoolean("musicOn",true);
+                }
+            } );
+
+            Texture fxPause =  new Texture("Buttons/unpressed/fxPause.png");
+            TextureRegionDrawable fxPauseTr = new TextureRegionDrawable(new TextureRegion(fxPause));
+            Texture fxPausePr = new Texture("Buttons/pressed/PressedFxPause.png");
+            TextureRegionDrawable fxPausePrTr = new TextureRegionDrawable(new TextureRegion(fxPausePr));
+
+            Texture noFxPause = new Texture("Buttons/unpressed/NoFxPause.png");
+            TextureRegionDrawable noFxPauseTr = new TextureRegionDrawable(new TextureRegion(noFxPause));
+            Texture noFxPausePr = new Texture("Buttons/pressed/PressedNoFxPause.png");
+            TextureRegionDrawable noFxPausePrTr = new TextureRegionDrawable(new TextureRegion(noFxPausePr));
+
+            fxBtn = new ImageButton(fxPauseTr,fxPausePrTr);
+            fxBtn.setPosition(561,431);
+            fxBtn.addListener( new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    pref.putBoolean("fxOn",false);
+                    pref.flush();
+
+                }
+            } );
+
+            noFxBtn = new ImageButton(noFxPauseTr,noFxPausePrTr);
+            noFxBtn.setPosition(561,431);
+            noFxBtn.addListener( new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    pref.putBoolean("fxOn",true);
+                    pref.flush();
+
+                }
+            } );
 
 
         }
