@@ -55,6 +55,15 @@ public class LevelOne extends ScreenTemplate {
     private Texture oveArrMovWhite;
     private Texture oveArrMovYellow;
 
+    private Texture oveAbBlue;
+    private Texture oveAbMovBlue;
+    private Texture oveAbRed;
+    private Texture oveAbMovRed;
+    private Texture oveAbWhite;
+    private Texture oveAbMovWhite;
+    private Texture oveAbYellow;
+    private Texture oveAbMovYellow;
+
     private Boolean played = false;
 
     private Music sheep;
@@ -150,10 +159,9 @@ public class LevelOne extends ScreenTemplate {
                     if (!cordenadasCorral(x,y,oveja.getColor()) && !oveja.isEnLlamas()){
                         if (oveja.comparar(x,y)){
                             ovejaMoviendo = oveja;
-                            ovejaMovX = (int) x;
-                            ovejaMovY = (int) y;
+                            ovejaMovX = (int) ovejaMoviendo.getx();
+                            ovejaMovY = (int) ovejaMoviendo.gety();
                             ovejaMoviendo.setEstado(Oveja.Estado.MOVIENDO);
-
                             break;
                         }
                     }
@@ -266,8 +274,28 @@ public class LevelOne extends ScreenTemplate {
                         break;
                 }
             }else if (random == 2){
-                ove = new Oveja(oveAb, oveMovAb, Oveja.Estado.ABAJO, "BLUE", arrTipos[0]);
-                arrOvejas.add(ove);
+                switch (randomColor){
+                    case 1:
+                        ove = new Oveja(oveAbWhite, oveAbMovWhite,
+                                Oveja.Estado.ABAJO, arrColores[0], arrTipos[0]);
+                        arrOvejas.add(ove);
+                        break;
+                    case 2:
+                        ove = new Oveja(oveAbBlue, oveAbMovBlue,
+                                Oveja.Estado.ABAJO, arrColores[1], arrTipos[0]);
+                        arrOvejas.add(ove);
+                        break;
+                    case 3:
+                        ove = new Oveja(oveAbRed, oveAbMovRed,
+                                Oveja.Estado.ABAJO, arrColores[2], arrTipos[0]);
+                        arrOvejas.add(ove);
+                        break;
+                    case 4:
+                        ove = new Oveja(oveAbYellow, oveAbMovYellow,
+                                Oveja.Estado.ABAJO, arrColores[3], arrTipos[0]);
+                        arrOvejas.add(ove);
+                        break;
+                }
             }else if (random == 3){
                 ove = new Oveja(oveIzq, oveMovIzq, Oveja.Estado.IZQUIERDA, "WHITE", arrTipos[0]);
                 arrOvejas.add(ove);
@@ -341,6 +369,15 @@ public class LevelOne extends ScreenTemplate {
         oveArrMovWhite = new Texture("Sheep/White/sheep_moving_down_white.png");
         oveArrYellow = new Texture("Sheep/Yellow/sheep_down_yellow.png");
         oveArrMovYellow = new Texture("Sheep/Yellow/sheep_moving_down_yellow.png");
+
+        oveAbBlue = new Texture("Sheep/Blue/sheep_up_blue.png");
+        oveAbMovBlue = new Texture("Sheep/Blue/sheep_moving_up_blue.png");
+        oveAbRed = new Texture("Sheep/Red/sheep_up_red.png");
+        oveAbMovRed = new Texture("Sheep/Red/sheep_moving_up_red.png");
+        oveAbWhite = new Texture("Sheep/White/sheep_up_white.png");
+        oveAbMovWhite = new Texture("Sheep/White/sheep_moving_up_white.png");
+        oveAbYellow = new Texture("Sheep/Yellow/sheep_up_yellow.png");
+        oveAbMovYellow = new Texture("Sheep/Yellow/sheep_moving_up_yellow.png");
     }
 
 

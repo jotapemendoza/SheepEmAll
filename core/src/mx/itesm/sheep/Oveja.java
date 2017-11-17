@@ -85,8 +85,8 @@ public class Oveja {
                 this.estado = estado;
                 break;
             case ABAJO:
-                ancho = 64;
-                alto = 75;
+                ancho = 106;
+                alto = 138;
                 frames = region.split(ancho,alto);
                 animacion = new Animation(0.20f, frames[0][0], frames[0][1]);
                 animacion.setPlayMode(Animation.PlayMode.LOOP);
