@@ -617,7 +617,7 @@ public class LevelOne extends ScreenTemplate {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     // Regresa al menú
-                    sheepEm.setScreen(new MenuScreen(sheepEm));
+                    sheepEm.setScreen(new MapScreen(sheepEm));
                     sheepEm.stopGameMusic();
                 }
             });
