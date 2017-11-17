@@ -25,7 +25,10 @@ public class MapScreen extends ScreenTemplate {
             lvlBtn,
             levelTwo,
             levelThree,
-            cloud;
+            cloud,
+            text,
+            backButton,
+            pressedBackButton;
 
     private Image cloud_1,
             cloud_2,
@@ -35,7 +38,6 @@ public class MapScreen extends ScreenTemplate {
 
     private ImageButton levelTwoBtn,
             levelThreeBtn;
-    private Texture text;
 
 
     public MapScreen(SheepEm sheepEm){
@@ -49,6 +51,8 @@ public class MapScreen extends ScreenTemplate {
     }
 
     private void cargarTexturas() {
+        pressedBackButton = new Texture("Buttons/pressed/pressedBackButton.png");
+        backButton = new Texture("Buttons/unpressed/backButton.png");
         levelThree = new Texture("levelsScreen/level3.png");
         levelOne = new Texture("levelsScreen/level1.png");
         levelTwo = new Texture("levelsScreen/level2.png");
@@ -105,6 +109,20 @@ public class MapScreen extends ScreenTemplate {
         });
 
         drawClouds();
+
+        TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(backButton));
+        TextureRegionDrawable trdBackpr = new TextureRegionDrawable(new TextureRegion(pressedBackButton));
+        ImageButton btnBack = new ImageButton(trdBack, trdBackpr);
+        btnBack.setPosition(50,1720);
+        btnBack.addListener( new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+
+                sheepEm.setScreen(new MenuScreen(sheepEm));
+            }
+        } );
+        escenaLevels.addActor(btnBack);
 
     }
 

@@ -562,9 +562,9 @@ public class LevelTwo extends ScreenTemplate {
 
         if(pref.getBoolean("musicOn")){
             if(estado == EstadoJuego.JUGANDO){
-                sheepEm.playGameMusic();
+                sheepEm.playLevelTwoMusic();
             }else{
-                sheepEm.pauseGameMusic();
+                sheepEm.stopLevelTwoMusic();
             }
 
         }
@@ -635,7 +635,7 @@ public class LevelTwo extends ScreenTemplate {
                     //Cambio el estado de sheepEm a JUGANDO y regreso el poder a la escenaJuego
                     estado = EstadoJuego.JUGANDO;
                     detenerOveja(false);
-                    sheepEm.playGameMusic();
+                    sheepEm.playLevelTwoMusic();
                     Gdx.input.setInputProcessor(escenaJuego);
                 }
             });
@@ -674,7 +674,7 @@ public class LevelTwo extends ScreenTemplate {
                     // Regresa al menú
                     sheepEm.stopGameMusic();
                     sheepEm.setScreen(new LevelOne(sheepEm));
-                    sheepEm.playGameMusic();
+                    sheepEm.playLevelTwoMusic();
                 }
             });
             this.addActor(restartBtn);
@@ -799,7 +799,7 @@ public class LevelTwo extends ScreenTemplate {
                 public void clicked(InputEvent event, float x, float y) {
                     sheepEm.stopGameMusic();
                     sheepEm.setScreen(new LevelOne(sheepEm));
-                    sheepEm.playGameMusic();
+                    sheepEm.playLevelTwoMusic();
                     sheepEm.stopLost();
                 }
             });

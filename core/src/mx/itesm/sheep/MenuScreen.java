@@ -65,7 +65,6 @@ class MenuScreen extends ScreenTemplate
 
     private void crearEscenaMenu() {
 
-
         escenaMenu = new Stage(vista);
         bgandcloudGenerator();
         drawGraphics();
