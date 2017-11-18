@@ -169,6 +169,7 @@ public class LevelTwo extends ScreenTemplate {
                 estado = EstadoJuego.PAUSADO;
                 escenaPausa = new LevelTwo.EscenaPausa(vista,batch);
                 detenerOveja(true);
+                aS.setEstado(AlienShip.Estado.PAUSADO);
                 Gdx.input.setInputProcessor(escenaPausa);
             }
         } );
@@ -537,23 +538,25 @@ public class LevelTwo extends ScreenTemplate {
 
         // Movimiento de la nave en la pantalla
         if (tiempo >= 2){
-           if (aS.getEstado() != AlienShip.Estado.DERROTA){
-                moverX += 5f* aS.getDireccionX();
-                moverY += 5f * aS.getDireccionY();
-                aS.spaceShipMove(moverX,moverY);
-                aS.setEstado(AlienShip.Estado.MOVIENDO);
-                //Gdx.app.log("Prueba","MoverX =   " + moverX);
-                if(aS.saliendoPor() == AlienShip.Estado.SALIENDOX){
-                    aS.cambiarDireccionX();
-                    //moverX = 1080;
-                }
-                else if (aS.saliendoPor() == AlienShip.Estado.SALIENDOY){
-                    aS.cambiarDireccionY();
-                    Gdx.app.log("Condición Y","se cumplió *****************");
-                    //moverY = 1920;
-                }
-           }else {
-               estaEnNave = true;
+           if (aS.getEstado() != AlienShip.Estado.PAUSADO){
+               if (aS.getEstado() != AlienShip.Estado.DERROTA){
+                    moverX += 5f* aS.getDireccionX();
+                    moverY += 5f * aS.getDireccionY();
+                    aS.spaceShipMove(moverX,moverY);
+                    aS.setEstado(AlienShip.Estado.MOVIENDO);
+                    //Gdx.app.log("Prueba","MoverX =   " + moverX);
+                    if(aS.saliendoPor() == AlienShip.Estado.SALIENDOX){
+                        aS.cambiarDireccionX();
+                        //moverX = 1080;
+                    }
+                    else if (aS.saliendoPor() == AlienShip.Estado.SALIENDOY){
+                        aS.cambiarDireccionY();
+                        Gdx.app.log("Condición Y","se cumplió *****************");
+                        //moverY = 1920;
+                    }
+               }else {
+                   estaEnNave = true;
+               }
            }
 
         }
@@ -685,6 +688,7 @@ public class LevelTwo extends ScreenTemplate {
                     //Cambio el estado de sheepEm a JUGANDO y regreso el poder a la escenaJuego
                     estado = EstadoJuego.JUGANDO;
                     detenerOveja(false);
+                    aS.setEstado(AlienShip.Estado.MOVIENDO);
                     sheepEm.playLevelTwoMusic();
                     Gdx.input.setInputProcessor(escenaJuego);
                 }
