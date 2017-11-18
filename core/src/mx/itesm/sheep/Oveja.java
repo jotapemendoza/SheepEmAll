@@ -237,7 +237,8 @@ public class Oveja {
 
     // Validar corral nave alien -------------------------------------------------------------------
     public boolean cordenadasCorralAlien(float xP, float yP, String tipo, AlienShip ship){
-        if (xP >= x && xP <= x+ship.getAncho() && yP >= y && yP <= y+ship.getAlto()
+        if (xP >= ship.getPosicionX() && xP <= ship.getDireccionX()+ship.getAncho()
+                && yP >= ship.getPosicionY() && yP <= ship.getPosicionY()+ship.getAlto()
                 && tipo.equals("ALIEN")){
             return true;
         }

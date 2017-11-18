@@ -522,7 +522,7 @@ public class LevelTwo extends ScreenTemplate {
         Gdx.app.log("tiempo", "T: " + tiempo);
         Gdx.app.log("distancia", "X: " + moverX + ", Y: " + moverY);
 
-
+        // pintar ovejas
        for (int i = 0; i < arrOvejas.size; i++) {
 
            if (salida <= 10) {
