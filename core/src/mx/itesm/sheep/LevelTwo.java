@@ -112,6 +112,7 @@ public class LevelTwo extends ScreenTemplate {
     private float tiempo;
     private Music sheep;
     private float sheepTimer;
+    private boolean estaEnNave = false;
 
 
     public LevelTwo(SheepEm sheepEm){
@@ -282,7 +283,8 @@ public class LevelTwo extends ScreenTemplate {
         //Llenar arreglo Ovejas
         if(arrOvejas==null){
             arrOvejas = new Array<Oveja>(cantOve);
-            OveAl = new Oveja(oveAlienArrWhite,oveAlienArrMovWhite, Oveja.Estado.ARRIBA, arrColores[0], arrTipos[1]);
+            OveAl = new Oveja(oveAlienArrWhite, oveAlienArrMovWhite,
+                    Oveja.Estado.ARRIBA, arrColores[0], arrTipos[1]);
             arrOvejas.add(OveAl);
         }
         Oveja ove;
@@ -350,6 +352,13 @@ public class LevelTwo extends ScreenTemplate {
     // Método que elimina las ovejas en el sheepEm ---------------------------------------------------
     private void eliminarOveja(){
         for (int i = 0; i < arrOvejas.size; i++){
+            if (arrOvejas.get(i).getTipo().equals("ALIEN")){
+                if (estaEnNave){
+                    arrOvejas.removeIndex(i);
+                    System.out.println("ovejas disponibles: " + arrOvejas.size);
+                    break;
+                }
+            }
             if (arrOvejas.get(i).getEstado().equals(Oveja.Estado.ARRIBA)){
                 if (arrOvejas.get(i).gety() <= 0){
                     arrOvejas.removeIndex(i);
@@ -543,9 +552,8 @@ public class LevelTwo extends ScreenTemplate {
                     Gdx.app.log("Condición Y","se cumplió *****************");
                     //moverY = 1920;
                 }
-                else {
-                    //arrOvejas.removeIndex(0);
-                }
+           }else {
+               estaEnNave = true;
            }
 
         }
