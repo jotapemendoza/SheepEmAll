@@ -8,14 +8,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
  * Muestra una pantalla inicial durante cierto tiempo.
  */
 
-class LoadingScreen extends ScreenTemplate
+class SplashScreen extends ScreenTemplate
 {
     private SheepEm sheepEm;
     private float tiempo;   // Tiempo transcurrido
     private Texture logo_itesm;
 
 
-    public LoadingScreen(SheepEm sheepEm) {
+    public SplashScreen(SheepEm sheepEm) {
         this.sheepEm = sheepEm;
     }
     @Override
