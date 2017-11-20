@@ -34,11 +34,13 @@ public class AlienLevel extends ScreenTemplate {
 
     private winScene winScene;
     private lostScene lostScene;
+    private pauseScene pauseScene;
 
     private int hpAlien;
 
     private EstadoJuego estado;
     private float scale_factor;
+    private Texture pauseButton;
 
     public AlienLevel(SheepEm sheepEm) {
         this.sheepEm = sheepEm;
@@ -85,12 +87,33 @@ public class AlienLevel extends ScreenTemplate {
                 sheepimg.setScale(1-scale_factor);
             }
         } );
+
+        // Botón de pausa --------------------------------------------------------------------------
+
+        Texture pressedPauseButton = new Texture("Buttons/pressed/pressedPauseButton.png");
+        TextureRegionDrawable trdPausepr = new TextureRegionDrawable(new TextureRegion(pressedPauseButton));
+        TextureRegionDrawable trdPause = new TextureRegionDrawable(new TextureRegion(pauseButton));
+        ImageButton imPause = new ImageButton(trdPause, trdPausepr);
+        imPause.setPosition(150, 1734);
+        escenaAlien.addActor(imPause);
+
+        imPause.addListener( new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                estado = EstadoJuego.PAUSADO;
+                pauseScene = new pauseScene(view,batch);
+                Gdx.input.setInputProcessor(pauseScene);
+            }
+        } );
     }
 
     private void cargarTexturas() {
         background = new Texture("alienLevelbg.png");
         nave = new Texture("alienShip.png");
         sheep = new Texture("sheepAlienlvl.png");
+        pauseButton = new Texture("Buttons/unpressed/pauseButton.png");
+
     }
 
     @Override
@@ -104,6 +127,30 @@ public class AlienLevel extends ScreenTemplate {
         escenaAlien.draw();
 
         batch.end();
+
+        if (estado == EstadoJuego.PAUSADO) {
+            pauseScene.draw();
+            if(pref.getBoolean("musicOn")){
+                musicBtn.setPosition(373,431);
+                pauseScene.addActor(musicBtn);
+                noMusicBtn.remove();
+            }
+            if(!pref.getBoolean("musicOn")){
+                musicBtn.setPosition(373,431);
+                pauseScene.addActor(noMusicBtn);
+                musicBtn.remove();
+            }
+            if(pref.getBoolean("fxOn")){
+                fxBtn.setPosition(561,431);
+                pauseScene.addActor(fxBtn);
+                noFxBtn.remove();
+            }
+            if(!pref.getBoolean("fxOn")){
+                fxBtn.setPosition(561,431);
+                pauseScene.addActor(noFxBtn);
+                fxBtn.remove();
+            }
+        }
 
         if (estado == EstadoJuego.PERDIDO){
             Gdx.input.setInputProcessor(lostScene);
@@ -218,7 +265,7 @@ public class AlienLevel extends ScreenTemplate {
                 public void clicked(InputEvent event, float x, float y) {
                     // Regresa al menú
                     sheepEm.stopLevelTwoMusic();
-                    sheepEm.setScreen(new LevelTwo(sheepEm));
+                    sheepEm.setScreen(new AlienLevel(sheepEm));
                     sheepEm.playLevelTwoMusic();
                 }
             });
