@@ -45,7 +45,7 @@ class AboutUsScreen extends ScreenTemplate {
 
     private void crearEscenaAyuda() {
 
-        escenaAyuda = new Stage(vista);
+        escenaAyuda = new Stage(view);
 
         //Background
 
@@ -178,8 +178,8 @@ class AboutUsScreen extends ScreenTemplate {
 
     @Override
     public void render(float delta) {
-        borrarPantalla(0,0,0);
-        batch.setProjectionMatrix(camara.combined);
+        clearScreen(0,0,0);
+        batch.setProjectionMatrix(camera.combined);
         escenaAyuda.draw();
     }
 

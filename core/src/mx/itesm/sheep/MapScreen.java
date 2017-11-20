@@ -65,7 +65,7 @@ public class MapScreen extends ScreenTemplate {
 
     private void crearEscenaMapa(){
 
-        escenaLevels = new Stage(vista);
+        escenaLevels = new Stage(view);
 
         TextureRegionDrawable trdBg = new TextureRegionDrawable(new TextureRegion(background));
         Image bg =  new Image(trdBg);
@@ -175,8 +175,8 @@ public class MapScreen extends ScreenTemplate {
 
         /*-----------------------------------------------------------------------------------------------------------------*/
 
-        borrarPantalla(0,0,0);
-        batch.setProjectionMatrix(camara.combined);
+        clearScreen(0,0,0);
+        batch.setProjectionMatrix(camera.combined);
 
         escenaLevels.draw();
         moveClouds(delta);
@@ -214,31 +214,31 @@ public class MapScreen extends ScreenTemplate {
 
     private void moveClouds(float delta) {
         cloud_1.setX(cloud_1.getX()+120*delta);
-        if (cloud_1.getX() >= ANCHO){
+        if (cloud_1.getX() >= WIDTH){
             cloud_1.setX(-cloud_1.getWidth());
         }
         cloud_1.setColor(1,1,1,0.7f);
 
         cloud_2.setX(cloud_2.getX()+60*delta);
-        if (cloud_2.getX() >= ANCHO){
+        if (cloud_2.getX() >= WIDTH){
             cloud_2.setX(-cloud_2.getWidth());
         }
         cloud_2.setColor(1,1,1,0.6f);
 
         cloud_3.setX(cloud_3.getX()+40*delta);
-        if (cloud_3.getX() >= ANCHO){
+        if (cloud_3.getX() >= WIDTH){
             cloud_3.setX(-cloud_3.getWidth());
         }
         cloud_3.setColor(1,1,1,0.3f);
 
         cloud_4.setX(cloud_4.getX()+30*delta);
-        if (cloud_4.getX() >= ANCHO){
+        if (cloud_4.getX() >= WIDTH){
             cloud_4.setX(-cloud_4.getWidth());
         }
         cloud_4.setColor(1,1,1,0.4f);
 
         cloud_5.setX(cloud_5.getX()+15*delta);
-        if (cloud_5.getX() >= ANCHO){
+        if (cloud_5.getX() >= WIDTH){
             cloud_5.setX(-cloud_5.getWidth());
         }
         cloud_5.setColor(1,1,1,0.3f);

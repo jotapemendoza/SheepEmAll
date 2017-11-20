@@ -65,7 +65,7 @@ class MenuScreen extends ScreenTemplate
 
     private void crearEscenaMenu() {
 
-        escenaMenu = new Stage(vista);
+        escenaMenu = new Stage(view);
         bgandcloudGenerator();
         drawGraphics();
 
@@ -228,36 +228,36 @@ class MenuScreen extends ScreenTemplate
 
     @Override
     public void render(float delta) {
-        borrarPantalla(1,1,1);
-        batch.setProjectionMatrix(camara.combined);
+        clearScreen(1,1,1);
+        batch.setProjectionMatrix(camera.combined);
         escenaMenu.draw();
 
         cloud_1.setX(cloud_1.getX()+100*delta);
-        if (cloud_1.getX() >= ANCHO){
+        if (cloud_1.getX() >= WIDTH){
             cloud_1.setX(-cloud_1.getWidth());
         }
         cloud_1.setColor(1,1,1,0.7f);
 
         cloud_2.setX(cloud_2.getX()+70*delta);
-        if (cloud_2.getX() >= ANCHO){
+        if (cloud_2.getX() >= WIDTH){
             cloud_2.setX(-cloud_2.getWidth());
         }
         cloud_2.setColor(1,1,1,0.6f);
 
         cloud_3.setX(cloud_3.getX()+50*delta);
-        if (cloud_3.getX() >= ANCHO){
+        if (cloud_3.getX() >= WIDTH){
             cloud_3.setX(-cloud_3.getWidth());
         }
         cloud_3.setColor(1,1,1,0.5f);
 
         cloud_4.setX(cloud_4.getX()+30*delta);
-        if (cloud_4.getX() >= ANCHO){
+        if (cloud_4.getX() >= WIDTH){
             cloud_4.setX(-cloud_4.getWidth());
         }
         cloud_4.setColor(1,1,1,0.4f);
 
         cloud_5.setX(cloud_5.getX()+15*delta);
-        if (cloud_5.getX() >= ANCHO){
+        if (cloud_5.getX() >= WIDTH){
             cloud_5.setX(-cloud_5.getWidth());
         }
         cloud_5.setColor(1,1,1,0.3f);

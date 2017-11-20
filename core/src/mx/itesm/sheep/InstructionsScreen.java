@@ -31,7 +31,7 @@ public class InstructionsScreen extends ScreenTemplate {
     }
 
     private void crearEscenaInstructions() {
-        escenaInstrucciones = new Stage(vista);
+        escenaInstrucciones = new Stage(view);
         TextureRegionDrawable instr = new TextureRegionDrawable(new TextureRegion(instrucciones));
         final ImageButton botinstr = new ImageButton(instr);
         botinstr.setPosition(0,0);
@@ -51,8 +51,8 @@ public class InstructionsScreen extends ScreenTemplate {
 
     @Override
     public void render(float delta) {
-        borrarPantalla(0,0,0);
-        batch.setProjectionMatrix(camara.combined);
+        clearScreen(0,0,0);
+        batch.setProjectionMatrix(camera.combined);
         escenaInstrucciones.draw();
     }
 

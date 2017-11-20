@@ -48,15 +48,15 @@ public class AlienLevel extends ScreenTemplate {
     public void show() {
         cargarTexturas();
         crearEscenaNave();
-        escenaPerder = new EscenaPerder(vista,batch);
-        escenaGanar = new EscenaGanar(vista,batch);
+        escenaPerder = new EscenaPerder(view,batch);
+        escenaGanar = new EscenaGanar(view,batch);
         estado = EstadoJuego.JUGANDO;
         Gdx.input.setInputProcessor(escenaAlien);
         hpAlien = 10;
     }
 
     private void crearEscenaNave() {
-        escenaAlien = new Stage(vista);
+        escenaAlien = new Stage(view);
 
         // Background
         TextureRegionDrawable trdBg =  new TextureRegionDrawable(new TextureRegion(background));
@@ -95,8 +95,8 @@ public class AlienLevel extends ScreenTemplate {
 
     @Override
     public void render(float delta) {
-        borrarPantalla(0,0,0);
-        batch.setProjectionMatrix(camara.combined);
+        clearScreen(0,0,0);
+        batch.setProjectionMatrix(camera.combined);
         batch.begin();
         if (hpAlien==0){
             this.estado = EstadoJuego.GANADO;

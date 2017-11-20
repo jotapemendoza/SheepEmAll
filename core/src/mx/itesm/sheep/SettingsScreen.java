@@ -58,7 +58,7 @@ public class SettingsScreen extends ScreenTemplate {
 
     private void crearEscenaSettings(){
 
-        escenaSettings = new Stage(vista);
+        escenaSettings = new Stage(view);
 
         TextureRegionDrawable trdBg =  new TextureRegionDrawable(new TextureRegion(background));
         Image bg = new Image(trdBg);
@@ -133,8 +133,8 @@ public class SettingsScreen extends ScreenTemplate {
 
     @Override
     public void render(float delta) {
-        borrarPantalla(0,0,0);
-        batch.setProjectionMatrix(camara.combined);
+        clearScreen(0,0,0);
+        batch.setProjectionMatrix(camera.combined);
 
         escenaSettings.draw();
 

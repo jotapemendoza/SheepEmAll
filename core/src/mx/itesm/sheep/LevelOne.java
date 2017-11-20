@@ -79,8 +79,8 @@ public class LevelOne extends ScreenTemplate {
     private Music sheep;
 
     // Arreglo de ovejas ---------------------------------------------------------------------------
-    private Array<Oveja> arrOvejas;
-    private Oveja ovejaMoviendo = null;
+    private Array<Sheep> arrOvejas;
+    private Sheep ovejaMoviendo = null;
     private int ovejaMovX;
     private int ovejaMovY;
     private final int cantOve = 20;
@@ -116,8 +116,8 @@ public class LevelOne extends ScreenTemplate {
         cargarOvejas();
         crearEscenaJuego();
         font = new BitmapFont(Gdx.files.internal("Intro.fnt"));
-        escenaPerder = new EscenaPerder(vista,batch);
-        escenaGanar = new EscenaGanar(vista,batch);
+        escenaPerder = new EscenaPerder(view,batch);
+        escenaGanar = new EscenaGanar(view,batch);
         estado = EstadoJuego.JUGANDO;
         Gdx.input.setInputProcessor(escenaJuego);
         Gdx.input.setCatchBackKey(true);
@@ -127,7 +127,7 @@ public class LevelOne extends ScreenTemplate {
 
     private void crearEscenaJuego() {
 
-        escenaJuego = new Stage(vista);
+        escenaJuego = new Stage(view);
 
         escenaJuego.addListener(new InputListener(){
             @Override
@@ -154,7 +154,7 @@ public class LevelOne extends ScreenTemplate {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 estado = EstadoJuego.PAUSADO;
-                escenaPausa = new EscenaPausa(vista,batch);
+                escenaPausa = new EscenaPausa(view,batch);
                 detenerOveja(true);
                 Gdx.input.setInputProcessor(escenaPausa);
             }
@@ -166,13 +166,13 @@ public class LevelOne extends ScreenTemplate {
             @Override
             public void dragStart(InputEvent event, float x, float y, int pointer) {
                 super.dragStart(event, x, y, pointer);
-                for (Oveja oveja: arrOvejas){
-                    if (!cordenadasCorral(x,y,oveja.getColor()) && !oveja.isEnLlamas()){
-                        if (oveja.comparar(x,y)){
-                            ovejaMoviendo = oveja;
+                for (Sheep sheep : arrOvejas){
+                    if (!cordenadasCorral(x,y, sheep.getColor()) && !sheep.isEnLlamas()){
+                        if (sheep.comparar(x,y)){
+                            ovejaMoviendo = sheep;
                             ovejaMovX = (int) ovejaMoviendo.getx();
                             ovejaMovY = (int) ovejaMoviendo.gety();
-                            ovejaMoviendo.setEstado(Oveja.Estado.MOVIENDO);
+                            ovejaMoviendo.setEstado(Sheep.Estado.MOVIENDO);
                             break;
                         }
                     }
@@ -202,7 +202,7 @@ public class LevelOne extends ScreenTemplate {
                         ovejaMoviendo = null;
                     }else{
                         if(!cordenadasLineales(x,y)){
-                            ovejaMoviendo.setEstado(Oveja.Estado.BOOM);
+                            ovejaMoviendo.setEstado(Sheep.Estado.BOOM);
                             lifes--;
                             ovejaMoviendo = null;
                         }else{
@@ -243,12 +243,12 @@ public class LevelOne extends ScreenTemplate {
     // Detener ovejas en el sheepEm ------------------------------------------------------------------
     private void detenerOveja(boolean stop) {
         if (stop){
-            for (Oveja oveja: arrOvejas){
-                oveja.setEstado(Oveja.Estado.STOP);
+            for (Sheep sheep : arrOvejas){
+                sheep.setEstado(Sheep.Estado.STOP);
             }
         }else{
-            for (Oveja oveja: arrOvejas){
-                oveja.setEstado(Oveja.Estado.CONTINUAR);
+            for (Sheep sheep : arrOvejas){
+                sheep.setEstado(Sheep.Estado.CONTINUAR);
             }
         }
     }
@@ -257,9 +257,9 @@ public class LevelOne extends ScreenTemplate {
     private void cargarOvejas(){
         //Llenar arreglo Ovejas
         if (arrOvejas==null) {
-            arrOvejas = new Array<Oveja>(cantOve);
+            arrOvejas = new Array<Sheep>(cantOve);
         }
-        Oveja ove;
+        Sheep ove;
         for (int i = 0; i < 1; i++){
             int random = (int) (Math.random()*4)+1;
             int randomColor = (int) (Math.random()*4)+1;
@@ -267,54 +267,54 @@ public class LevelOne extends ScreenTemplate {
             if (random == 1){
                 switch (randomColor){
                     case 1:
-                        ove = new Oveja(oveArrWhite, oveArrMovWhite,
-                                Oveja.Estado.ARRIBA, arrColores[0], arrTipos[0]);
+                        ove = new Sheep(oveArrWhite, oveArrMovWhite,
+                                Sheep.Estado.ARRIBA, arrColores[0], arrTipos[0]);
                         arrOvejas.add(ove);
                         break;
                     case 2:
-                        ove = new Oveja(oveArrBlue, oveArrMovBlue,
-                                Oveja.Estado.ARRIBA, arrColores[1], arrTipos[0]);
+                        ove = new Sheep(oveArrBlue, oveArrMovBlue,
+                                Sheep.Estado.ARRIBA, arrColores[1], arrTipos[0]);
                         arrOvejas.add(ove);
                         break;
                     case 3:
-                        ove = new Oveja(oveArrRed, oveArrMovRed,
-                                Oveja.Estado.ARRIBA, arrColores[2], arrTipos[0]);
+                        ove = new Sheep(oveArrRed, oveArrMovRed,
+                                Sheep.Estado.ARRIBA, arrColores[2], arrTipos[0]);
                         arrOvejas.add(ove);
                         break;
                     case 4:
-                        ove = new Oveja(oveArrYellow, oveArrMovYellow,
-                                Oveja.Estado.ARRIBA, arrColores[3], arrTipos[0]);
+                        ove = new Sheep(oveArrYellow, oveArrMovYellow,
+                                Sheep.Estado.ARRIBA, arrColores[3], arrTipos[0]);
                         arrOvejas.add(ove);
                         break;
                 }
             }else if (random == 2){
                 switch (randomColor){
                     case 1:
-                        ove = new Oveja(oveAbWhite, oveAbMovWhite,
-                                Oveja.Estado.ABAJO, arrColores[0], arrTipos[0]);
+                        ove = new Sheep(oveAbWhite, oveAbMovWhite,
+                                Sheep.Estado.ABAJO, arrColores[0], arrTipos[0]);
                         arrOvejas.add(ove);
                         break;
                     case 2:
-                        ove = new Oveja(oveAbBlue, oveAbMovBlue,
-                                Oveja.Estado.ABAJO, arrColores[1], arrTipos[0]);
+                        ove = new Sheep(oveAbBlue, oveAbMovBlue,
+                                Sheep.Estado.ABAJO, arrColores[1], arrTipos[0]);
                         arrOvejas.add(ove);
                         break;
                     case 3:
-                        ove = new Oveja(oveAbRed, oveAbMovRed,
-                                Oveja.Estado.ABAJO, arrColores[2], arrTipos[0]);
+                        ove = new Sheep(oveAbRed, oveAbMovRed,
+                                Sheep.Estado.ABAJO, arrColores[2], arrTipos[0]);
                         arrOvejas.add(ove);
                         break;
                     case 4:
-                        ove = new Oveja(oveAbYellow, oveAbMovYellow,
-                                Oveja.Estado.ABAJO, arrColores[3], arrTipos[0]);
+                        ove = new Sheep(oveAbYellow, oveAbMovYellow,
+                                Sheep.Estado.ABAJO, arrColores[3], arrTipos[0]);
                         arrOvejas.add(ove);
                         break;
                 }
             }else if (random == 3){
-                ove = new Oveja(oveIzq, oveMovIzq, Oveja.Estado.IZQUIERDA, "WHITE", arrTipos[0]);
+                ove = new Sheep(oveIzq, oveMovIzq, Sheep.Estado.IZQUIERDA, "WHITE", arrTipos[0]);
                 arrOvejas.add(ove);
             }else{
-                ove = new Oveja(oveDer, oveMovDer, Oveja.Estado.DERECHA, "YELLOW", arrTipos[0]);
+                ove = new Sheep(oveDer, oveMovDer, Sheep.Estado.DERECHA, "YELLOW", arrTipos[0]);
                 arrOvejas.add(ove);
             }
         }
@@ -323,7 +323,7 @@ public class LevelOne extends ScreenTemplate {
     // Método que elimina las ovejas en el sheepEm ---------------------------------------------------
     private void eliminarOveja(){
         for (int i = 0; i < arrOvejas.size; i++){
-            if (arrOvejas.get(i).getEstado().equals(Oveja.Estado.ARRIBA)){
+            if (arrOvejas.get(i).getEstado().equals(Sheep.Estado.ARRIBA)){
                 if (arrOvejas.get(i).gety() <= 0){
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
@@ -331,7 +331,7 @@ public class LevelOne extends ScreenTemplate {
                     break;
                 }
             }
-            if (arrOvejas.get(i).getEstado().equals(Oveja.Estado.ABAJO)){
+            if (arrOvejas.get(i).getEstado().equals(Sheep.Estado.ABAJO)){
                 if (arrOvejas.get(i).gety() >= 1920){
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
@@ -339,7 +339,7 @@ public class LevelOne extends ScreenTemplate {
                     break;
                 }
             }
-            if (arrOvejas.get(i).getEstado().equals(Oveja.Estado.IZQUIERDA)){
+            if (arrOvejas.get(i).getEstado().equals(Sheep.Estado.IZQUIERDA)){
                 if (arrOvejas.get(i).getx() >= 1080){
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
@@ -347,7 +347,7 @@ public class LevelOne extends ScreenTemplate {
                     break;
                 }
             }
-            if (arrOvejas.get(i).getEstado().equals(Oveja.Estado.DERECHA)){
+            if (arrOvejas.get(i).getEstado().equals(Sheep.Estado.DERECHA)){
                 if (arrOvejas.get(i).getx() <= 0){
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
@@ -400,8 +400,8 @@ public class LevelOne extends ScreenTemplate {
     public void render(float delta) {
 
 
-        borrarPantalla(0, 0, 0);
-        batch.setProjectionMatrix(camara.combined);
+        clearScreen(0, 0, 0);
+        batch.setProjectionMatrix(camera.combined);
 
         float deltaTime = Gdx.graphics.getDeltaTime(); //You might prefer getRawDeltaTime()
 

@@ -2,7 +2,6 @@ package mx.itesm.sheep;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 /**
  * Muestra una pantalla inicial durante cierto tiempo.
@@ -26,11 +25,11 @@ class SplashScreen extends ScreenTemplate
 
     @Override
     public void render(float delta) {
-        borrarPantalla(1, 1, 1);
+        clearScreen(1, 1, 1);
         // Dibuja
-        batch.setProjectionMatrix(camara.combined);
+        batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        batch.draw(logo_itesm,(ANCHO-logo_itesm.getWidth())/2,(ALTO)/2);
+        batch.draw(logo_itesm,(WIDTH -logo_itesm.getWidth())/2,(HEIGHT)/2);
 
         batch.end();
         // Actualiza

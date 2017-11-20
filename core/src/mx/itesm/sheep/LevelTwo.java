@@ -80,13 +80,13 @@ public class LevelTwo extends ScreenTemplate {
     private Boolean played = false;
 
     // Arreglo de ovejas ---------------------------------------------------------------------------
-    private Array<Oveja> arrOvejas;
-    private Oveja ovejaMoviendo = null;
+    private Array<Sheep> arrOvejas;
+    private Sheep ovejaMoviendo = null;
     private int ovejaMovX;
     private int ovejaMovY;
     private final int cantOve = 21;
     private int contOvejas = 0;
-    private Oveja OveAl;
+    private Sheep OveAl;
     private String arrColores[] = {"WHITE","BLUE","RED","YELLOW"};
     private String arrTipos[] = {"NORMAL","ALIEN","RAINBOW"};
 
@@ -104,9 +104,9 @@ public class LevelTwo extends ScreenTemplate {
     private float moverY = 0;
 
     // Escenas -------------------------------------------------------------------------------------
-    private LevelTwo.EscenaPerder escenaPerder;
-    private LevelTwo.EscenaGanar escenaGanar;
-    private LevelTwo.EscenaPausa escenaPausa;
+    private lostScene lostScene;
+    private winScene winScene;
+    private pauseScene pauseScene;
 
 
     private float tiempo;
@@ -121,12 +121,12 @@ public class LevelTwo extends ScreenTemplate {
 
     @Override
     public void show() {
-        cargarTexturas();
-        cargarOvejas();
-        crearEscenaJuego();
+        loadTextures();
+        loadSheep();
+        createGameScene();
         font = new BitmapFont(Gdx.files.internal("Intro.fnt"));
-        escenaPerder = new LevelTwo.EscenaPerder(vista,batch);
-        escenaGanar = new LevelTwo.EscenaGanar(vista,batch);
+        lostScene = new lostScene(view,batch);
+        winScene = new winScene(view,batch);
         estado = EstadoJuego.JUGANDO;
         Gdx.input.setInputProcessor(escenaJuego);
         sheep = Gdx.audio.newMusic(Gdx.files.internal("SFX/sheep_sound.mp3"));
@@ -136,9 +136,9 @@ public class LevelTwo extends ScreenTemplate {
 
     }
 
-    private void crearEscenaJuego() {
+    private void createGameScene() {
 
-        escenaJuego = new Stage(vista);
+        escenaJuego = new Stage(view);
 
         // Crear nave
         aS = new AlienShip(alienShip, AlienShip.Estado.INICIO);
@@ -167,10 +167,10 @@ public class LevelTwo extends ScreenTemplate {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 estado = EstadoJuego.PAUSADO;
-                escenaPausa = new LevelTwo.EscenaPausa(vista,batch);
+                pauseScene = new pauseScene(view,batch);
                 detenerOveja(true);
                 aS.setEstado(AlienShip.Estado.PAUSADO);
-                Gdx.input.setInputProcessor(escenaPausa);
+                Gdx.input.setInputProcessor(pauseScene);
             }
         } );
 
@@ -180,13 +180,13 @@ public class LevelTwo extends ScreenTemplate {
             @Override
             public void dragStart(InputEvent event, float x, float y, int pointer) {
                 super.dragStart(event, x, y, pointer);
-                for (Oveja oveja: arrOvejas){
-                    if (!cordenadasCorral(x,y,oveja.getColor()) && !oveja.isEnLlamas()){
-                        if (oveja.comparar(x,y)){
-                            ovejaMoviendo = oveja;
+                for (Sheep sheep : arrOvejas){
+                    if (!cordenadasCorral(x,y, sheep.getColor()) && !sheep.isEnLlamas()){
+                        if (sheep.comparar(x,y)){
+                            ovejaMoviendo = sheep;
                             ovejaMovX = (int) ovejaMoviendo.getx();
                             ovejaMovY = (int) ovejaMoviendo.gety();
-                            ovejaMoviendo.setEstado(Oveja.Estado.MOVIENDO);
+                            ovejaMoviendo.setEstado(Sheep.Estado.MOVIENDO);
                             Gdx.app.log("dragStart", "Inicia movimeinto");
                             break;
                         }
@@ -213,7 +213,7 @@ public class LevelTwo extends ScreenTemplate {
                 if(ovejaMoviendo != null){
                     // verificar si esta en el corral nave alien
                     if (ovejaMoviendo.cordenadasCorralAlien(x,y,ovejaMoviendo.getTipo(),aS)){
-                        ovejaMoviendo.setEstado(Oveja.Estado.BORRAR);
+                        ovejaMoviendo.setEstado(Sheep.Estado.BORRAR);
                         contOvejas++;
                         aS.setEstado(AlienShip.Estado.DERROTA);
                         Gdx.app.log("oveja","en corral: " + contOvejas);
@@ -228,7 +228,7 @@ public class LevelTwo extends ScreenTemplate {
                     }else{
                         if(!cordenadasLineales(x,y)){
                             Gdx.app.log("corral", "Corral incorrecto");
-                            ovejaMoviendo.setEstado(Oveja.Estado.BOOM);
+                            ovejaMoviendo.setEstado(Sheep.Estado.BOOM);
                             lifes--;
                             ovejaMoviendo = null;
                         }else{
@@ -269,26 +269,26 @@ public class LevelTwo extends ScreenTemplate {
     // Detener ovejas en el sheepEm ------------------------------------------------------------------
     private void detenerOveja(boolean stop) {
         if (stop){
-            for (Oveja oveja: arrOvejas){
-                oveja.setEstado(Oveja.Estado.STOP);
+            for (Sheep sheep : arrOvejas){
+                sheep.setEstado(Sheep.Estado.STOP);
             }
         }else{
-            for (Oveja oveja: arrOvejas){
-                oveja.setEstado(Oveja.Estado.CONTINUAR);
+            for (Sheep sheep : arrOvejas){
+                sheep.setEstado(Sheep.Estado.CONTINUAR);
             }
         }
     }
 
     // Método que carga las ovejas en el sheepEm -----------------------------------------------------
-    private void cargarOvejas(){
+    private void loadSheep(){
         //Llenar arreglo Ovejas
         if(arrOvejas==null){
-            arrOvejas = new Array<Oveja>(cantOve);
-            OveAl = new Oveja(oveAlienArrWhite, oveAlienArrMovWhite,
-                    Oveja.Estado.ARRIBA, arrColores[0], arrTipos[1]);
+            arrOvejas = new Array<Sheep>(cantOve);
+            OveAl = new Sheep(oveAlienArrWhite, oveAlienArrMovWhite,
+                    Sheep.Estado.ARRIBA, arrColores[0], arrTipos[1]);
             arrOvejas.add(OveAl);
         }
-        Oveja ove;
+        Sheep ove;
 
         for (int i = 1; i < 2; i++){
             int random = (int) (Math.random()*4)+1;
@@ -297,54 +297,54 @@ public class LevelTwo extends ScreenTemplate {
             if (random == 1){
                 switch (randomColor){
                     case 1:
-                        ove = new Oveja(oveArrWhite, oveArrMovWhite,
-                                Oveja.Estado.ARRIBA, arrColores[0], arrTipos[0]);
+                        ove = new Sheep(oveArrWhite, oveArrMovWhite,
+                                Sheep.Estado.ARRIBA, arrColores[0], arrTipos[0]);
                         arrOvejas.add(ove);
                         break;
                     case 2:
-                        ove = new Oveja(oveArrBlue, oveArrMovBlue,
-                                Oveja.Estado.ARRIBA, arrColores[1], arrTipos[0]);
+                        ove = new Sheep(oveArrBlue, oveArrMovBlue,
+                                Sheep.Estado.ARRIBA, arrColores[1], arrTipos[0]);
                         arrOvejas.add(ove);
                         break;
                     case 3:
-                        ove = new Oveja(oveArrRed, oveArrMovRed,
-                                Oveja.Estado.ARRIBA, arrColores[2], arrTipos[0]);
+                        ove = new Sheep(oveArrRed, oveArrMovRed,
+                                Sheep.Estado.ARRIBA, arrColores[2], arrTipos[0]);
                         arrOvejas.add(ove);
                         break;
                     case 4:
-                        ove = new Oveja(oveArrYellow, oveArrMovYellow,
-                                Oveja.Estado.ARRIBA, arrColores[3], arrTipos[0]);
+                        ove = new Sheep(oveArrYellow, oveArrMovYellow,
+                                Sheep.Estado.ARRIBA, arrColores[3], arrTipos[0]);
                         arrOvejas.add(ove);
                         break;
                 }
             }else if (random == 2){
                 switch (randomColor){
                     case 1:
-                        ove = new Oveja(oveAbWhite, oveAbMovWhite,
-                                Oveja.Estado.ABAJO, arrColores[0], arrTipos[0]);
+                        ove = new Sheep(oveAbWhite, oveAbMovWhite,
+                                Sheep.Estado.ABAJO, arrColores[0], arrTipos[0]);
                         arrOvejas.add(ove);
                         break;
                     case 2:
-                        ove = new Oveja(oveAbBlue, oveAbMovBlue,
-                                Oveja.Estado.ABAJO, arrColores[1], arrTipos[0]);
+                        ove = new Sheep(oveAbBlue, oveAbMovBlue,
+                                Sheep.Estado.ABAJO, arrColores[1], arrTipos[0]);
                         arrOvejas.add(ove);
                         break;
                     case 3:
-                        ove = new Oveja(oveAbRed, oveAbMovRed,
-                                Oveja.Estado.ABAJO, arrColores[2], arrTipos[0]);
+                        ove = new Sheep(oveAbRed, oveAbMovRed,
+                                Sheep.Estado.ABAJO, arrColores[2], arrTipos[0]);
                         arrOvejas.add(ove);
                         break;
                     case 4:
-                        ove = new Oveja(oveAbYellow, oveAbMovYellow,
-                                Oveja.Estado.ABAJO, arrColores[3], arrTipos[0]);
+                        ove = new Sheep(oveAbYellow, oveAbMovYellow,
+                                Sheep.Estado.ABAJO, arrColores[3], arrTipos[0]);
                         arrOvejas.add(ove);
                         break;
                 }
             }else if (random == 3){
-                ove = new Oveja(oveIzq, oveMovIzq, Oveja.Estado.IZQUIERDA, "WHITE", arrTipos[0]);
+                ove = new Sheep(oveIzq, oveMovIzq, Sheep.Estado.IZQUIERDA, "WHITE", arrTipos[0]);
                 arrOvejas.add(ove);
             }else{
-                ove = new Oveja(oveDer, oveMovDer, Oveja.Estado.DERECHA, "YELLOW", arrTipos[0]);
+                ove = new Sheep(oveDer, oveMovDer, Sheep.Estado.DERECHA, "YELLOW", arrTipos[0]);
                 arrOvejas.add(ove);
             }
         }
@@ -360,7 +360,7 @@ public class LevelTwo extends ScreenTemplate {
                     break;
                 }
             }
-            if (arrOvejas.get(i).getEstado().equals(Oveja.Estado.ARRIBA)){
+            if (arrOvejas.get(i).getEstado().equals(Sheep.Estado.ARRIBA)){
                 if (arrOvejas.get(i).gety() <= 0){
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
@@ -368,7 +368,7 @@ public class LevelTwo extends ScreenTemplate {
                     break;
                 }
             }
-            if (arrOvejas.get(i).getEstado().equals(Oveja.Estado.ABAJO)){
+            if (arrOvejas.get(i).getEstado().equals(Sheep.Estado.ABAJO)){
                 if (arrOvejas.get(i).gety() >= 1920){
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
@@ -376,7 +376,7 @@ public class LevelTwo extends ScreenTemplate {
                     break;
                 }
             }
-            if (arrOvejas.get(i).getEstado().equals(Oveja.Estado.IZQUIERDA)){
+            if (arrOvejas.get(i).getEstado().equals(Sheep.Estado.IZQUIERDA)){
                 if (arrOvejas.get(i).getx() >= 1080){
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
@@ -384,7 +384,7 @@ public class LevelTwo extends ScreenTemplate {
                     break;
                 }
             }
-            if (arrOvejas.get(i).getEstado().equals(Oveja.Estado.DERECHA)){
+            if (arrOvejas.get(i).getEstado().equals(Sheep.Estado.DERECHA)){
                 if (arrOvejas.get(i).getx() <= 0){
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
@@ -396,7 +396,7 @@ public class LevelTwo extends ScreenTemplate {
     }
 
     // Método que carga todas las texturas del sheepEm -----------------------------------------------
-    private void cargarTexturas() {
+    private void loadTextures() {
         background = new Texture("noche.png");
         pauseButton = new Texture("Buttons/unpressed/pauseButton.png");
         oveArr = new Texture("sheep_down.png");
@@ -446,8 +446,8 @@ public class LevelTwo extends ScreenTemplate {
         Gdx.input.setCatchBackKey(true);
 
 
-        borrarPantalla(0, 0, 0);
-        batch.setProjectionMatrix(camara.combined);
+        clearScreen(0, 0, 0);
+        batch.setProjectionMatrix(camera.combined);
 
         float deltaTime = Gdx.graphics.getDeltaTime(); //You might prefer getRawDeltaTime()
 
@@ -467,7 +467,7 @@ public class LevelTwo extends ScreenTemplate {
         }
 
         if (sheepTimer<=0){
-            cargarOvejas();
+            loadSheep();
             sheepTimer = 2;
         }
 
@@ -574,28 +574,28 @@ public class LevelTwo extends ScreenTemplate {
         escenaJuego.draw();
 
         if (estado == EstadoJuego.PAUSADO) {
-            escenaPausa.draw();
+            pauseScene.draw();
             if(pref.getBoolean("musicOn")){
                 musicBtn.setPosition(373,431);
-                escenaPausa.addActor(musicBtn);
+                pauseScene.addActor(musicBtn);
                 noMusicBtn.remove();
 
             }
             if(!pref.getBoolean("musicOn")){
                 musicBtn.setPosition(373,431);
-                escenaPausa.addActor(noMusicBtn);
+                pauseScene.addActor(noMusicBtn);
                 musicBtn.remove();
             }
 
             if(pref.getBoolean("fxOn")){
                 fxBtn.setPosition(561,431);
-                escenaPausa.addActor(fxBtn);
+                pauseScene.addActor(fxBtn);
                 noFxBtn.remove();
 
             }
             if(!pref.getBoolean("fxOn")){
                 fxBtn.setPosition(561,431);
-                escenaPausa.addActor(noFxBtn);
+                pauseScene.addActor(noFxBtn);
                 fxBtn.remove();
             }
 
@@ -603,17 +603,17 @@ public class LevelTwo extends ScreenTemplate {
 
         if (estado == EstadoJuego.PERDIDO){
             detenerOveja(false);
-            Gdx.input.setInputProcessor(escenaPerder);
+            Gdx.input.setInputProcessor(lostScene);
             if(pref.getBoolean("musicOn")) {
-                escenaPerder.draw();
+                lostScene.draw();
                 if (!played) sheepEm.playLost();
                 played = true;
             }
         }
 
         if(estado ==  EstadoJuego.GANADO){
-            Gdx.input.setInputProcessor(escenaGanar);
-            escenaGanar.draw();
+            Gdx.input.setInputProcessor(winScene);
+            winScene.draw();
             pref.putBoolean("wonLevelTwo",true);
         }
 
@@ -658,8 +658,8 @@ public class LevelTwo extends ScreenTemplate {
 
 
     }
-    private class EscenaPausa extends Stage {
-        public EscenaPausa(Viewport vista, SpriteBatch batch) {
+    private class pauseScene extends Stage {
+        public pauseScene(Viewport vista, SpriteBatch batch) {
             super(vista,batch);
 
 
@@ -807,8 +807,8 @@ public class LevelTwo extends ScreenTemplate {
      * **********
      * CAMBIAR SET SCREEN DEL SIGUIENTE NIVEL
      */
-    private class EscenaGanar extends Stage{
-        public EscenaGanar(Viewport vista, SpriteBatch batch){
+    private class winScene extends Stage{
+        public winScene(Viewport vista, SpriteBatch batch){
             super(vista,batch);
 
             Texture opaque = new Texture("opaque.png");
@@ -877,8 +877,8 @@ public class LevelTwo extends ScreenTemplate {
     }
 
     // Escena para la pantalla de perder -----------------------------------------------------------
-    private class EscenaPerder extends Stage{
-        public EscenaPerder(Viewport vista, SpriteBatch batch){
+    private class lostScene extends Stage{
+        public lostScene(Viewport vista, SpriteBatch batch){
 
             super(vista,batch);
 
