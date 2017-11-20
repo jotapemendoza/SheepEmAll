@@ -32,13 +32,15 @@ public class AlienLevel extends ScreenTemplate {
     private Texture sheep;
     private Boolean played = false;
 
-    private EscenaGanar escenaGanar;
-    private EscenaPerder escenaPerder;
+    private winScene winScene;
+    private lostScene lostScene;
+    private pauseScene pauseScene;
 
     private int hpAlien;
 
     private EstadoJuego estado;
     private float scale_factor;
+    private Texture pauseButton;
 
     public AlienLevel(SheepEm sheepEm) {
         this.sheepEm = sheepEm;
@@ -48,8 +50,8 @@ public class AlienLevel extends ScreenTemplate {
     public void show() {
         cargarTexturas();
         crearEscenaNave();
-        escenaPerder = new EscenaPerder(view,batch);
-        escenaGanar = new EscenaGanar(view,batch);
+        lostScene = new lostScene(view,batch);
+        winScene = new winScene(view,batch);
         estado = EstadoJuego.JUGANDO;
         Gdx.input.setInputProcessor(escenaAlien);
         hpAlien = 10;
@@ -85,12 +87,33 @@ public class AlienLevel extends ScreenTemplate {
                 sheepimg.setScale(1-scale_factor);
             }
         } );
+
+        // Botón de pausa --------------------------------------------------------------------------
+
+        Texture pressedPauseButton = new Texture("Buttons/pressed/pressedPauseButton.png");
+        TextureRegionDrawable trdPausepr = new TextureRegionDrawable(new TextureRegion(pressedPauseButton));
+        TextureRegionDrawable trdPause = new TextureRegionDrawable(new TextureRegion(pauseButton));
+        ImageButton imPause = new ImageButton(trdPause, trdPausepr);
+        imPause.setPosition(150, 1734);
+        escenaAlien.addActor(imPause);
+
+        imPause.addListener( new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                estado = EstadoJuego.PAUSADO;
+                pauseScene = new pauseScene(view,batch);
+                Gdx.input.setInputProcessor(pauseScene);
+            }
+        } );
     }
 
     private void cargarTexturas() {
         background = new Texture("alienLevelbg.png");
         nave = new Texture("alienShip.png");
         sheep = new Texture("sheepAlienlvl.png");
+        pauseButton = new Texture("Buttons/unpressed/pauseButton.png");
+
     }
 
     @Override
@@ -105,16 +128,40 @@ public class AlienLevel extends ScreenTemplate {
 
         batch.end();
 
+        if (estado == EstadoJuego.PAUSADO) {
+            pauseScene.draw();
+            if(pref.getBoolean("musicOn")){
+                musicBtn.setPosition(373,431);
+                pauseScene.addActor(musicBtn);
+                noMusicBtn.remove();
+            }
+            if(!pref.getBoolean("musicOn")){
+                musicBtn.setPosition(373,431);
+                pauseScene.addActor(noMusicBtn);
+                musicBtn.remove();
+            }
+            if(pref.getBoolean("fxOn")){
+                fxBtn.setPosition(561,431);
+                pauseScene.addActor(fxBtn);
+                noFxBtn.remove();
+            }
+            if(!pref.getBoolean("fxOn")){
+                fxBtn.setPosition(561,431);
+                pauseScene.addActor(noFxBtn);
+                fxBtn.remove();
+            }
+        }
+
         if (estado == EstadoJuego.PERDIDO){
-            Gdx.input.setInputProcessor(escenaPerder);
-            escenaPerder.draw();
+            Gdx.input.setInputProcessor(lostScene);
+            lostScene.draw();
             if(!played) sheepEm.playLost();
             played = true;
         }
 
         if(estado ==  EstadoJuego.GANADO){
-            Gdx.input.setInputProcessor(escenaGanar);
-            escenaGanar.draw();
+            Gdx.input.setInputProcessor(winScene);
+            winScene.draw();
             pref.putBoolean("wonAlien",true);
         }
 
@@ -153,144 +200,8 @@ public class AlienLevel extends ScreenTemplate {
     public void dispose() {
 
     }
-    // Escena para la pantalla de ganar ------------------------------------------------------------
-    private class EscenaGanar extends Stage{
-        public EscenaGanar(Viewport vista, SpriteBatch batch){
-            super(vista,batch);
-
-            Texture opaque = new Texture("opaque.png");
-            TextureRegionDrawable trdOpaq = new TextureRegionDrawable(new TextureRegion(opaque));
-            Image op = new Image(trdOpaq);
-            op.setPosition(0,0);
-            this.addActor(op);
-
-            Texture winRectangle = new Texture("winRectangle.png");
-            TextureRegionDrawable winRectTrd = new TextureRegionDrawable(new TextureRegion(winRectangle));
-            Image winRect = new Image(winRectTrd);
-            winRect.setPosition(40,292);
-            this.addActor(winRect);
-
-
-            Texture nextLevel = new Texture("Buttons/unpressed/NextLevelButton.png");
-            Texture nextLevelPr = new Texture("Buttons/pressed/PressedNextLevelButton.png");
-            TextureRegionDrawable nextLevelTrd = new TextureRegionDrawable(new TextureRegion(nextLevel));
-            TextureRegionDrawable nextLevelPrTrd = new TextureRegionDrawable(new TextureRegion(nextLevelPr));
-
-            ImageButton nextLevelButton = new ImageButton(nextLevelTrd,nextLevelPrTrd);
-            nextLevelButton.setPosition(383,972);
-            nextLevelButton.addListener(new ClickListener(){
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.setScreen(new MenuScreen(sheepEm));
-                }
-            });
-            this.addActor(nextLevelButton);
-
-            Texture retryLevel = new Texture("Buttons/unpressed/restartButton.png");
-            Texture retryLevelPr = new Texture("Buttons/pressed/pressedRestartButton.png");
-            TextureRegionDrawable retryLevelTrd = new TextureRegionDrawable(new TextureRegion(retryLevel));
-            TextureRegionDrawable retryLevelPrTrd = new TextureRegionDrawable(new TextureRegion(retryLevelPr));
-
-            ImageButton retryLevelButton = new ImageButton(retryLevelTrd, retryLevelPrTrd);
-            retryLevelButton.setPosition(586,699);
-            retryLevelButton.addListener(new ClickListener(){
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.setScreen(new LevelOne(sheepEm));
-                }
-            });
-            this.addActor(retryLevelButton);
-
-
-            Texture levelsMenu = new Texture("Buttons/unpressed/levelsButton.png");
-            Texture levelsMenuPr = new Texture("Buttons/pressed/PressedLevelsButton.png");
-            TextureRegionDrawable levelsMenuTrd = new TextureRegionDrawable(new TextureRegion(levelsMenu));
-            TextureRegionDrawable levelsMenuPrTrd = new TextureRegionDrawable(new TextureRegion(levelsMenuPr));
-
-            ImageButton levelsButton = new ImageButton(levelsMenuTrd,levelsMenuPrTrd);
-            levelsButton.setPosition(285,699);
-            levelsButton.addListener(new ClickListener(){
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.setScreen(new LevelOne(sheepEm));
-                }
-            });
-            this.addActor(levelsButton);
-
-
-        }
-    }
-    // Escena para la pantalla de Perder -----------------------------------------------------------
-    private class EscenaPerder extends Stage{
-        public EscenaPerder(Viewport vista, SpriteBatch batch){
-
-            super(vista,batch);
-
-            Texture opaque = new Texture("opaque.png");
-            TextureRegionDrawable trdOpaq = new TextureRegionDrawable(new TextureRegion(opaque));
-            Image op = new Image(trdOpaq);
-            op.setPosition(0,0);
-            this.addActor(op);
-
-            Texture lostRectangle = new Texture("lostRectangle.png");
-            TextureRegionDrawable trdRect = new TextureRegionDrawable(new TextureRegion(lostRectangle));
-            Image rect = new Image(trdRect);
-            rect.setPosition(47,300);
-            this.addActor(rect);
-
-
-            Texture homeButtonLost = new Texture("Buttons/unpressed/homeButtonLost.png");
-            TextureRegionDrawable trdHome = new TextureRegionDrawable(new TextureRegion(homeButtonLost));
-            TextureRegionDrawable trdHomePr = new TextureRegionDrawable(new TextureRegion(new Texture("Buttons/pressed/PressedHomeButtonLost.png")));
-            ImageButton homeButton = new ImageButton(trdHome, trdHomePr);
-            homeButton.setPosition(586,700);
-            homeButton.addListener(new ClickListener(){
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.stopGameMusic();
-                    sheepEm.setScreen(new MenuScreen(sheepEm));
-                    sheepEm.stopLost();
-
-                }
-            });
-            this.addActor(homeButton);
-
-            Texture tryAgainButton = new Texture("Buttons/unpressed/tryAgainButton.png");
-            TextureRegionDrawable trdAgain = new TextureRegionDrawable(new TextureRegion(tryAgainButton));
-            TextureRegionDrawable trdAgainpr = new TextureRegionDrawable(new TextureRegion(new Texture("Buttons/pressed/PressedTryAgainButton.png")));
-            ImageButton tryAgain = new ImageButton(trdAgain, trdAgainpr);
-            tryAgain.setPosition(383,972);
-            tryAgain.addListener(new ClickListener(){
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.stopGameMusic();
-                    sheepEm.setScreen(new LevelOne(sheepEm));
-                    sheepEm.playGameMusic();
-                    sheepEm.stopLost();
-                }
-            });
-            this.addActor(tryAgain);
-
-            Texture levelsButton = new Texture("Buttons/unpressed/levelsButtonLost.png");
-            Texture levelsButtonpr = new Texture("Buttons/pressed/PressedLevelsButtonLost.png");
-            TextureRegionDrawable trdLevels = new TextureRegionDrawable(new TextureRegion(levelsButton));
-            TextureRegionDrawable trdLevelspr = new TextureRegionDrawable(new TextureRegion(levelsButtonpr));
-            ImageButton lvsButton = new ImageButton(trdLevels,trdLevelspr);
-            lvsButton.setPosition(285,700);
-            lvsButton.addListener(new ClickListener(){
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.stopGameMusic();
-                    sheepEm.setScreen(new MenuScreen(sheepEm));
-                    sheepEm.stopLost();
-                }
-            });
-            this.addActor(lvsButton);
-        }
-    }
-    //Escena para la pantalla de pausa -------------------------------------------------------------
-    private class EscenaPausa extends Stage {
-        public EscenaPausa(Viewport vista, SpriteBatch batch) {
+    private class pauseScene extends Stage {
+        public pauseScene(Viewport vista, SpriteBatch batch) {
             super(vista,batch);
 
 
@@ -354,7 +265,7 @@ public class AlienLevel extends ScreenTemplate {
                 public void clicked(InputEvent event, float x, float y) {
                     // Regresa al menú
                     sheepEm.stopLevelTwoMusic();
-                    sheepEm.setScreen(new LevelTwo(sheepEm));
+                    sheepEm.setScreen(new AlienLevel(sheepEm));
                     sheepEm.playLevelTwoMusic();
                 }
             });
@@ -423,6 +334,151 @@ public class AlienLevel extends ScreenTemplate {
 
                 }
             } );
+
+
+        }
+    }
+    /************************
+     * ********************
+     * *************
+     * **********
+     * CAMBIAR SET SCREEN DEL SIGUIENTE NIVEL
+     */
+    private class winScene extends Stage{
+        public winScene(Viewport vista, SpriteBatch batch){
+            super(vista,batch);
+
+            Texture opaque = new Texture("opaque.png");
+            TextureRegionDrawable trdOpaq = new TextureRegionDrawable(new TextureRegion(opaque));
+            Image op = new Image(trdOpaq);
+            op.setPosition(0,0);
+            this.addActor(op);
+
+            Texture winRectangle = new Texture("winRectangle.png");
+            TextureRegionDrawable winRectTrd = new TextureRegionDrawable(new TextureRegion(winRectangle));
+            Image winRect = new Image(winRectTrd);
+            winRect.setPosition(40,292);
+            this.addActor(winRect);
+
+
+            Texture nextLevel = new Texture("Buttons/unpressed/NextLevelButton.png");
+            Texture nextLevelPr = new Texture("Buttons/pressed/PressedNextLevelButton.png");
+            TextureRegionDrawable nextLevelTrd = new TextureRegionDrawable(new TextureRegion(nextLevel));
+            TextureRegionDrawable nextLevelPrTrd = new TextureRegionDrawable(new TextureRegion(nextLevelPr));
+
+            ImageButton nextLevelButton = new ImageButton(nextLevelTrd,nextLevelPrTrd);
+            nextLevelButton.setPosition(383,972);
+            nextLevelButton.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    sheepEm.setScreen(new AlienLevel(sheepEm));
+                }
+            });
+            this.addActor(nextLevelButton);
+
+            Texture retryLevel = new Texture("Buttons/unpressed/restartButton.png");
+            Texture retryLevelPr = new Texture("Buttons/pressed/pressedRestartButton.png");
+            TextureRegionDrawable retryLevelTrd = new TextureRegionDrawable(new TextureRegion(retryLevel));
+            TextureRegionDrawable retryLevelPrTrd = new TextureRegionDrawable(new TextureRegion(retryLevelPr));
+
+            ImageButton retryLevelButton = new ImageButton(retryLevelTrd, retryLevelPrTrd);
+            retryLevelButton.setPosition(586,699);
+            retryLevelButton.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    sheepEm.setScreen(new AlienLevel(sheepEm));
+                }
+            });
+            this.addActor(retryLevelButton);
+
+
+            Texture levelsMenu = new Texture("Buttons/unpressed/levelsButton.png");
+            Texture levelsMenuPr = new Texture("Buttons/pressed/PressedLevelsButton.png");
+            TextureRegionDrawable levelsMenuTrd = new TextureRegionDrawable(new TextureRegion(levelsMenu));
+            TextureRegionDrawable levelsMenuPrTrd = new TextureRegionDrawable(new TextureRegion(levelsMenuPr));
+
+            ImageButton levelsButton = new ImageButton(levelsMenuTrd,levelsMenuPrTrd);
+            levelsButton.setPosition(285,699);
+            levelsButton.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    sheepEm.setScreen(new MapScreen(sheepEm));
+                }
+            });
+            this.addActor(levelsButton);
+
+
+        }
+    }
+
+    // Escena para la pantalla de perder -----------------------------------------------------------
+    private class lostScene extends Stage{
+        public lostScene(Viewport vista, SpriteBatch batch){
+
+            super(vista,batch);
+
+            Texture opaque = new Texture("opaque.png");
+            TextureRegionDrawable trdOpaq = new TextureRegionDrawable(new TextureRegion(opaque));
+            Image op = new Image(trdOpaq);
+            op.setPosition(0,0);
+            this.addActor(op);
+
+            Texture lostRectangle = new Texture("lostRectangle.png");
+            TextureRegionDrawable trdRect = new TextureRegionDrawable(new TextureRegion(lostRectangle));
+            Image rect = new Image(trdRect);
+            rect.setPosition(47,300);
+            this.addActor(rect);
+
+
+            Texture homeButtonLost = new Texture("Buttons/unpressed/homeButtonLost.png");
+            TextureRegionDrawable trdHome = new TextureRegionDrawable(new TextureRegion(homeButtonLost));
+            TextureRegionDrawable trdHomePr = new TextureRegionDrawable(new TextureRegion(new Texture("Buttons/pressed/PressedHomeButtonLost.png")));
+            ImageButton homeButton = new ImageButton(trdHome, trdHomePr);
+            homeButton.setPosition(586,700);
+            homeButton.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    sheepEm.stopGameMusic();
+                    sheepEm.setScreen(new MenuScreen(sheepEm));
+                    sheepEm.stopLost();
+
+                }
+            });
+            this.addActor(homeButton);
+
+            Texture tryAgainButton = new Texture("Buttons/unpressed/tryAgainButton.png");
+            TextureRegionDrawable trdAgain = new TextureRegionDrawable(new TextureRegion(tryAgainButton));
+            TextureRegionDrawable trdAgainpr = new TextureRegionDrawable(new TextureRegion(new Texture("Buttons/pressed/PressedTryAgainButton.png")));
+            ImageButton tryAgain = new ImageButton(trdAgain, trdAgainpr);
+            tryAgain.setPosition(383,972);
+            tryAgain.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    sheepEm.stopLevelTwoMusic();
+                    sheepEm.setScreen(new LevelTwo(sheepEm));
+                    sheepEm.playLevelTwoMusic();
+                    sheepEm.stopLost();
+                }
+            });
+            this.addActor(tryAgain);
+
+            Texture levelsButton = new Texture("Buttons/unpressed/levelsButtonLost.png");
+            Texture levelsButtonpr = new Texture("Buttons/pressed/PressedLevelsButtonLost.png");
+            TextureRegionDrawable trdLevels = new TextureRegionDrawable(new TextureRegion(levelsButton));
+            TextureRegionDrawable trdLevelspr = new TextureRegionDrawable(new TextureRegion(levelsButtonpr));
+            ImageButton lvsButton = new ImageButton(trdLevels,trdLevelspr);
+            lvsButton.setPosition(285,700);
+            lvsButton.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    sheepEm.stopLevelTwoMusic();
+                    sheepEm.setScreen(new MapScreen(sheepEm));
+                    sheepEm.stopLost();
+                }
+            });
+            this.addActor(lvsButton);
+
+
         }
     }
 }
