@@ -164,7 +164,6 @@ public class AlienLevel extends ScreenTemplate {
             op.setPosition(0,0);
             this.addActor(op);
 
-
             Texture winRectangle = new Texture("winRectangle.png");
             TextureRegionDrawable winRectTrd = new TextureRegionDrawable(new TextureRegion(winRectangle));
             Image winRect = new Image(winRectTrd);
@@ -187,8 +186,8 @@ public class AlienLevel extends ScreenTemplate {
             });
             this.addActor(nextLevelButton);
 
-            Texture retryLevel = new Texture("Buttons/unpressed/RetryLevelButton.png");
-            Texture retryLevelPr = new Texture("Buttons/pressed/PressedRetryLevelButton.png");
+            Texture retryLevel = new Texture("Buttons/unpressed/restartButton.png");
+            Texture retryLevelPr = new Texture("Buttons/pressed/pressedRestartButton.png");
             TextureRegionDrawable retryLevelTrd = new TextureRegionDrawable(new TextureRegion(retryLevel));
             TextureRegionDrawable retryLevelPrTrd = new TextureRegionDrawable(new TextureRegion(retryLevelPr));
 
@@ -203,8 +202,8 @@ public class AlienLevel extends ScreenTemplate {
             this.addActor(retryLevelButton);
 
 
-            Texture levelsMenu = new Texture("Buttons/unpressed/LevelsMenuButton.png");
-            Texture levelsMenuPr = new Texture("Buttons/pressed/PressedLevelsMenuButton.png");
+            Texture levelsMenu = new Texture("Buttons/unpressed/levelsButton.png");
+            Texture levelsMenuPr = new Texture("Buttons/pressed/PressedLevelsButton.png");
             TextureRegionDrawable levelsMenuTrd = new TextureRegionDrawable(new TextureRegion(levelsMenu));
             TextureRegionDrawable levelsMenuPrTrd = new TextureRegionDrawable(new TextureRegion(levelsMenuPr));
 
@@ -220,8 +219,6 @@ public class AlienLevel extends ScreenTemplate {
 
 
         }
-
-
     }
     // Escena para la pantalla de Perder -----------------------------------------------------------
     private class EscenaPerder extends Stage{
