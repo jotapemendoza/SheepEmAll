@@ -12,7 +12,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 class LoadingScreen extends ScreenTemplate
 {
     private SheepEm sheepEm;
-    private float tiempo;   // Tiempo transcurrido
     private Texture sheep;
     private Texture background;
     private TextureRegion[] animationFrames;
@@ -25,7 +24,6 @@ class LoadingScreen extends ScreenTemplate
     }
     @Override
     public void show() {
-        tiempo = 0;
         sheep = new Texture("loadingScreenSprite.png");
         background = new Texture("loadingBG.png");
         TextureRegion[][] tmpFrames = TextureRegion.split(sheep,693,695);
@@ -33,11 +31,10 @@ class LoadingScreen extends ScreenTemplate
         int index = 0;
 
         for (int i = 0; i < 5 ; i++) {
-            System.out.println(index);
             animationFrames[index++] = tmpFrames[0][i];
         }
 
-        animation = new Animation(1f/8f,animationFrames);
+        animation = new Animation(1f/5f,animationFrames);
     }
 
     @Override
@@ -50,9 +47,9 @@ class LoadingScreen extends ScreenTemplate
         TextureRegion sheeptr = (TextureRegion) animation.getKeyFrame(elapsedTime,true);
         batch.draw(sheeptr,207,829);
         batch.end();
-        // Actualiza
-        tiempo += Gdx.graphics.getDeltaTime();  // Acumula tiempo
-        if (tiempo>=5.5) {
+
+        elapsedTime += Gdx.graphics.getDeltaTime();
+        if (elapsedTime>=6) {
             sheepEm.setScreen(new MenuScreen(sheepEm));
         }
     }
