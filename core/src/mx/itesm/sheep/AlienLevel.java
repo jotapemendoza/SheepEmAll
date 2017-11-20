@@ -224,8 +224,6 @@ public class AlienLevel extends ScreenTemplate {
 
 
         }
-
-
     }
 
     // Escena para la pantalla de perder -----------------------------------------------------------
