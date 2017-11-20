@@ -92,7 +92,7 @@ public class LevelOne extends ScreenTemplate {
     private float velocidadOve = 1.0f;
     private int lifes;
 
-    float totalTime = 1 * 60;
+    float totalTime = 60;
 
     private EstadoJuego estado;
     

@@ -1,6 +1,8 @@
 package mx.itesm.sheep;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 /**
  * Muestra una pantalla inicial durante cierto tiempo.
@@ -10,15 +12,16 @@ class LoadingScreen extends ScreenTemplate
 {
     private SheepEm sheepEm;
     private float tiempo;   // Tiempo transcurrido
+    private Texture logo_itesm;
 
 
     public LoadingScreen(SheepEm sheepEm) {
         this.sheepEm = sheepEm;
     }
-// Se ejecuta cuando esta pantalla es la principal del sheepEm
     @Override
     public void show() {
         tiempo = 0;
+        logo_itesm = new Texture("logo_itesm.png");
     }
 
     @Override
@@ -27,12 +30,12 @@ class LoadingScreen extends ScreenTemplate
         // Dibuja
         batch.setProjectionMatrix(camara.combined);
         batch.begin();
-
+        batch.draw(logo_itesm,(ANCHO-logo_itesm.getWidth())/2,(ALTO)/2);
 
         batch.end();
         // Actualiza
         tiempo += Gdx.graphics.getDeltaTime();  // Acumula tiempo
-        if (tiempo>=1) {
+        if (tiempo>=2.5) {
             sheepEm.setScreen(new MenuScreen(sheepEm));
         }
     }
