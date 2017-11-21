@@ -19,22 +19,18 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
- * Created by jekot on 11/20/17.
+ * Created by Andreu on 11/11/17.
  */
 
-public class LevelTwo extends ScreenTemplate {
+public class LevelThree extends ScreenTemplate {
 
     private final SheepEm sheepEm;
 
-
-
-    /*****************************************/
     private ImageButton noMusicBtn;
     private ImageButton musicBtn;
     private ImageButton fxBtn;
     private ImageButton noFxBtn;
 
-    /*****************************************/
 
     // Texturas/Parte Gráfica ----------------------------------------------------------------------
     private Texture continueButton;
@@ -53,6 +49,9 @@ public class LevelTwo extends ScreenTemplate {
     private Texture oveMovArr;
     private Texture oveMovIzq;
     private Texture oveMovDer;
+    private Texture oveAlienArr;
+    private Texture oveAlienArrMov;
+    private Texture alienShip;
     private BitmapFont font;
 
     // Texturas de colores
@@ -74,17 +73,20 @@ public class LevelTwo extends ScreenTemplate {
     private Texture oveAbYellow;
     private Texture oveAbMovYellow;
 
-    private Boolean played = false;
+    // Texturas alien colores
+    private Texture oveAlienArrWhite;
+    private Texture oveAlienArrMovWhite;
 
-    private Music sheep;
+    private Boolean played = false;
 
     // Arreglo de ovejas ---------------------------------------------------------------------------
     private Array<Sheep> arrOvejas;
     private Sheep ovejaMoviendo = null;
     private int ovejaMovX;
     private int ovejaMovY;
-    private final int cantOve = 20;
+    private final int cantOve = 21;
     private int contOvejas = 0;
+    private Sheep OveAl;
     private String arrColores[] = {"WHITE","BLUE","RED","YELLOW"};
     private String arrTipos[] = {"NORMAL","ALIEN","RAINBOW"};
 
@@ -92,49 +94,60 @@ public class LevelTwo extends ScreenTemplate {
     private float velocidadOve = 1.0f;
     private int lifes;
 
-    float totalTime = 60;
+    float totalTime = 1 * 60;
 
     private EstadoJuego estado;
 
+    // AlienShip -----------------------------------------------------------------------------------
+    private AlienShip aS;
+    private float moverX = 0;
+    private float moverY = 0;
+
     // Escenas -------------------------------------------------------------------------------------
-    private EscenaPerder escenaPerder;
-    private EscenaGanar escenaGanar;
-    private EscenaPausa escenaPausa;
+    private lostScene lostScene;
+    private winScene winScene;
+    private pauseScene pauseScene;
 
 
     private float tiempo;
+    private Music sheep;
     private float sheepTimer;
+    private boolean estaEnNave = false;
 
 
-    public LevelTwo(SheepEm sheepEm){
+    public LevelThree(SheepEm sheepEm){
         this.sheepEm = sheepEm;
     }
 
     @Override
     public void show() {
-        cargarTexturas();
-        cargarOvejas();
-        crearEscenaJuego();
+        loadTextures();
+        loadSheep();
+        createGameScene();
         font = new BitmapFont(Gdx.files.internal("Intro.fnt"));
-        escenaPerder = new EscenaPerder(view,batch);
-        escenaGanar = new EscenaGanar(view,batch);
+        lostScene = new lostScene(view,batch);
+        winScene = new winScene(view,batch);
         estado = EstadoJuego.JUGANDO;
         Gdx.input.setInputProcessor(escenaJuego);
-        Gdx.input.setCatchBackKey(true);
-        lifes = 3;
         sheep = Gdx.audio.newMusic(Gdx.files.internal("SFX/sheep_sound.mp3"));
+        lifes = 3;
+        /*** JUST FOR TESTING ****/
+        /*************************/
+
     }
 
-    private void crearEscenaJuego() {
+    private void createGameScene() {
 
         escenaJuego = new Stage(view);
+
+        // Crear nave
+        aS = new AlienShip(alienShip, AlienShip.Estado.INICIO);
 
         escenaJuego.addListener(new InputListener(){
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
                 if (keycode==Input.Keys.BACK){
-                    sheepEm.setScreen(new MapScreen(sheepEm));
-                    sheepEm.pauseGameMusic();
+                    //setScreen
                 }
                 return true;
             }
@@ -154,9 +167,10 @@ public class LevelTwo extends ScreenTemplate {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 estado = EstadoJuego.PAUSADO;
-                escenaPausa = new EscenaPausa(view,batch);
+                pauseScene = new pauseScene(view,batch);
                 detenerOveja(true);
-                Gdx.input.setInputProcessor(escenaPausa);
+                aS.setEstado(AlienShip.Estado.PAUSADO);
+                Gdx.input.setInputProcessor(pauseScene);
             }
         } );
 
@@ -173,6 +187,7 @@ public class LevelTwo extends ScreenTemplate {
                             ovejaMovX = (int) ovejaMoviendo.getx();
                             ovejaMovY = (int) ovejaMoviendo.gety();
                             ovejaMoviendo.setEstado(Sheep.Estado.MOVIENDO);
+                            Gdx.app.log("dragStart", "Inicia movimeinto");
                             break;
                         }
                     }
@@ -183,25 +198,36 @@ public class LevelTwo extends ScreenTemplate {
             public void drag(InputEvent event, float x, float y, int pointer) {
                 super.drag(event, x, y, pointer);
                 if (ovejaMoviendo == null){ return; }
+                ovejaMoviendo.setX(x - ovejaMoviendo.getAncho()/2);
+                ovejaMoviendo.setY(y - ovejaMoviendo.getAlto()/2);
+
                 if(pref.getBoolean("fxOn")){
                     sheep.play();
                 }
-                ovejaMoviendo.setX(x - ovejaMoviendo.getAncho()/2);
-                ovejaMoviendo.setY(y - ovejaMoviendo.getAlto()/2);
+                Gdx.app.log("drag", "x = " +x + ", y = " +y);
             }
 
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer) {
                 super.dragStop(event, x, y, pointer);
-                //sheep.stop();
                 if(ovejaMoviendo != null){
-                    // verificar si está en el corral
-                    if(cordenadasCorral(x,y,ovejaMoviendo.getColor())){
+                    // verificar si esta en el corral nave alien
+                    if (ovejaMoviendo.cordenadasCorralAlien(x,y,ovejaMoviendo.getTipo(),aS)){
+                        ovejaMoviendo.setEstado(Sheep.Estado.BORRAR);
+                        contOvejas++;
+                        aS.setEstado(AlienShip.Estado.DERROTA);
+                        Gdx.app.log("oveja","en corral: " + contOvejas);
+                        ovejaMoviendo = null;
+                    }
+                    // verificar si esta en el corral
+                    else if(cordenadasCorral(x,y,ovejaMoviendo.getColor())){
                         ovejaMoviendo.setEstado(ovejaMoviendo.getEstadoOriginal());
                         contOvejas++;
+                        Gdx.app.log("oveja","en corral: " + contOvejas);
                         ovejaMoviendo = null;
                     }else{
                         if(!cordenadasLineales(x,y)){
+                            Gdx.app.log("corral", "Corral incorrecto");
                             ovejaMoviendo.setEstado(Sheep.Estado.BOOM);
                             lifes--;
                             ovejaMoviendo = null;
@@ -254,13 +280,17 @@ public class LevelTwo extends ScreenTemplate {
     }
 
     // Método que carga las ovejas en el sheepEm -----------------------------------------------------
-    private void cargarOvejas(){
+    private void loadSheep(){
         //Llenar arreglo Ovejas
-        if (arrOvejas==null) {
+        if(arrOvejas==null){
             arrOvejas = new Array<Sheep>(cantOve);
+            OveAl = new Sheep(oveAlienArrWhite, oveAlienArrMovWhite,
+                    Sheep.Estado.ARRIBA, arrColores[0], arrTipos[1]);
+            arrOvejas.add(OveAl);
         }
         Sheep ove;
-        for (int i = 0; i < 1; i++){
+
+        for (int i = 1; i < 2; i++){
             int random = (int) (Math.random()*4)+1;
             int randomColor = (int) (Math.random()*4)+1;
 
@@ -323,6 +353,13 @@ public class LevelTwo extends ScreenTemplate {
     // Método que elimina las ovejas en el sheepEm ---------------------------------------------------
     private void eliminarOveja(){
         for (int i = 0; i < arrOvejas.size; i++){
+            if (arrOvejas.get(i).getTipo().equals("ALIEN")){
+                if (estaEnNave){
+                    arrOvejas.removeIndex(i);
+                    System.out.println("ovejas disponibles: " + arrOvejas.size);
+                    break;
+                }
+            }
             if (arrOvejas.get(i).getEstado().equals(Sheep.Estado.ARRIBA)){
                 if (arrOvejas.get(i).gety() <= 0){
                     arrOvejas.removeIndex(i);
@@ -359,8 +396,8 @@ public class LevelTwo extends ScreenTemplate {
     }
 
     // Método que carga todas las texturas del sheepEm -----------------------------------------------
-    private void cargarTexturas() {
-        background = new Texture("gBg.png");
+    private void loadTextures() {
+        background = new Texture("noche.png");
         pauseButton = new Texture("Buttons/unpressed/pauseButton.png");
         oveArr = new Texture("sheep_down.png");
         oveIzq = new Texture("sheep_right.png");
@@ -373,6 +410,9 @@ public class LevelTwo extends ScreenTemplate {
         oveMovAb = new Texture("sheep_moving.png");
         oveMovIzq = new Texture("sheep_moving3.png");
         oveMovDer = new Texture("sheep_moving2.png");
+        oveAlienArr = new Texture("Alien_sheep_down.png");
+        oveAlienArrMov = new Texture("Alien_sheep_moving_down.png");
+        alienShip = new Texture("alienShip.png");
 
         //ovejas de colores
         oveArrBlue = new Texture("Sheep/Blue/sheep_down_blue.png");
@@ -392,12 +432,18 @@ public class LevelTwo extends ScreenTemplate {
         oveAbMovWhite = new Texture("Sheep/White/sheep_moving_up_white.png");
         oveAbYellow = new Texture("Sheep/Yellow/sheep_up_yellow.png");
         oveAbMovYellow = new Texture("Sheep/Yellow/sheep_moving_up_yellow.png");
+
+        //ovejas alien de colores
+        oveAlienArrWhite = new Texture("Sheep/Alien/White/alien_sheep_down_white.png");
+        oveAlienArrMovWhite = new Texture("Sheep/Alien/White/alien_sheep_moving_down_white.png");
     }
 
 
 
     @Override
     public void render(float delta) {
+
+        Gdx.input.setCatchBackKey(true);
 
 
         clearScreen(0, 0, 0);
@@ -408,6 +454,7 @@ public class LevelTwo extends ScreenTemplate {
         if(estado == EstadoJuego.JUGANDO){
             if(totalTime>=1) totalTime -= deltaTime;
         }
+
 
         int minutes = ((int)totalTime) / 60;
         int seconds = ((int)totalTime) % 60;
@@ -420,7 +467,7 @@ public class LevelTwo extends ScreenTemplate {
         }
 
         if (sheepTimer<=0){
-            cargarOvejas();
+            loadSheep();
             sheepTimer = 2;
         }
 
@@ -473,82 +520,115 @@ public class LevelTwo extends ScreenTemplate {
         }
         // -----------------------------------------------------------------------------------------
 
+        Gdx.app.log("tiempo", "T: " + tiempo);
+        Gdx.app.log("distancia", "X: " + moverX + ", Y: " + moverY);
 
-        for (int i = 0; i < arrOvejas.size; i++) {
-            if (salida <= 10) {
+        // pintar ovejas
+       for (int i = 0; i < arrOvejas.size; i++) {
+
+           if (salida <= 10) {
                 arrOvejas.get(i).setVelocidad(velocidadOve);
                 arrOvejas.get(i).render(batch);
-            }
-            else{
+           }else{
                 velocidadOve += 0.5f;
                 salida = 0;
-            }
+           }
+
+       }
+
+        // Movimiento de la nave en la pantalla
+        if (tiempo >= 2){
+           if (aS.getEstado() != AlienShip.Estado.PAUSADO){
+               if (aS.getEstado() != AlienShip.Estado.DERROTA){
+                    moverX += 5f* aS.getDireccionX();
+                    moverY += 5f * aS.getDireccionY();
+                    aS.spaceShipMove(moverX,moverY);
+                    aS.setEstado(AlienShip.Estado.MOVIENDO);
+                    //Gdx.app.log("Prueba","MoverX =   " + moverX);
+                    if(aS.saliendoPor() == AlienShip.Estado.SALIENDOX){
+                        aS.cambiarDireccionX();
+                        //moverX = 1080;
+                    }
+                    else if (aS.saliendoPor() == AlienShip.Estado.SALIENDOY){
+                        aS.cambiarDireccionY();
+                        Gdx.app.log("Condición Y","se cumplió *****************");
+                        //moverY = 1920;
+                    }
+               }else {
+                   estaEnNave = true;
+               }
+           }
 
         }
+        aS.render(batch);
+
+        if (tiempo <= 2.0){ // a los 10 seg sale la oveja alien arriba y la nave
+            arrOvejas.get(0).setVelocidad(velocidadOve);
+            arrOvejas.get(0).render(batch);
+        } else {
+            arrOvejas.get(0).render(batch);
+        }
+
         batch.end();
 
         escenaJuego.draw();
 
         if (estado == EstadoJuego.PAUSADO) {
-            escenaPausa.draw();
-
-            /********************************/
+            pauseScene.draw();
             if(pref.getBoolean("musicOn")){
                 musicBtn.setPosition(373,431);
-                escenaPausa.addActor(musicBtn);
+                pauseScene.addActor(musicBtn);
                 noMusicBtn.remove();
 
             }
             if(!pref.getBoolean("musicOn")){
                 musicBtn.setPosition(373,431);
-                escenaPausa.addActor(noMusicBtn);
+                pauseScene.addActor(noMusicBtn);
                 musicBtn.remove();
             }
 
             if(pref.getBoolean("fxOn")){
                 fxBtn.setPosition(561,431);
-                escenaPausa.addActor(fxBtn);
+                pauseScene.addActor(fxBtn);
                 noFxBtn.remove();
 
             }
             if(!pref.getBoolean("fxOn")){
                 fxBtn.setPosition(561,431);
-                escenaPausa.addActor(noFxBtn);
+                pauseScene.addActor(noFxBtn);
                 fxBtn.remove();
             }
-
-
-            /********************************/
 
         }
 
         if (estado == EstadoJuego.PERDIDO){
             detenerOveja(false);
-            Gdx.input.setInputProcessor(escenaPerder);
-            escenaPerder.draw();
-            if(pref.getBoolean("musicOn")){
-                if(!played) sheepEm.playLost();
+            Gdx.input.setInputProcessor(lostScene);
+            if(pref.getBoolean("musicOn")) {
+                lostScene.draw();
+                if (!played) sheepEm.playLost();
                 played = true;
             }
-            sheep.stop();
         }
 
         if(estado ==  EstadoJuego.GANADO){
-            Gdx.input.setInputProcessor(escenaGanar);
-            pref.putBoolean("wonLevelOne",true);
-            escenaGanar.draw();
+            Gdx.input.setInputProcessor(winScene);
+            winScene.draw();
+            pref.putBoolean("wonLevelTwo",true);
         }
 
         if(pref.getBoolean("musicOn")){
             if(estado == EstadoJuego.JUGANDO){
-                sheepEm.playGameMusic();
+                sheepEm.playLevelTwoMusic();
             }else{
-                sheepEm.pauseGameMusic();
+                sheepEm.pauseLevelTwoMusic();
             }
 
         }
+
+
         if(!pref.getBoolean("musicOn")){
-            sheepEm.pauseGameMusic();
+            sheepEm.pauseLevelTwoMusic();
         }
         eliminarOveja();
 
@@ -567,6 +647,7 @@ public class LevelTwo extends ScreenTemplate {
 
     @Override
     public void dispose() {
+
     }
 
     enum EstadoJuego {
@@ -574,10 +655,11 @@ public class LevelTwo extends ScreenTemplate {
         PAUSADO,
         PERDIDO,
         GANADO
+
+
     }
-    // Escena para el menú de pausa ----------------------------------------------------------------
-    private class EscenaPausa extends Stage {
-        public EscenaPausa(Viewport vista, SpriteBatch batch) {
+    private class pauseScene extends Stage {
+        public pauseScene(Viewport vista, SpriteBatch batch) {
             super(vista,batch);
 
 
@@ -606,7 +688,8 @@ public class LevelTwo extends ScreenTemplate {
                     //Cambio el estado de sheepEm a JUGANDO y regreso el poder a la escenaJuego
                     estado = EstadoJuego.JUGANDO;
                     detenerOveja(false);
-                    sheepEm.playGameMusic();
+                    aS.setEstado(AlienShip.Estado.MOVIENDO);
+                    sheepEm.playLevelTwoMusic();
                     Gdx.input.setInputProcessor(escenaJuego);
                 }
             });
@@ -626,7 +709,7 @@ public class LevelTwo extends ScreenTemplate {
                 public void clicked(InputEvent event, float x, float y) {
                     // Regresa al menú
                     sheepEm.setScreen(new MapScreen(sheepEm));
-                    sheepEm.stopGameMusic();
+                    sheepEm.stopLevelTwoMusic();
                 }
             });
             this.addActor(homeBtn);
@@ -641,9 +724,9 @@ public class LevelTwo extends ScreenTemplate {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     // Regresa al menú
-                    sheepEm.stopGameMusic();
-                    sheepEm.setScreen(new LevelOne(sheepEm));
-                    sheepEm.playGameMusic();
+                    sheepEm.stopLevelTwoMusic();
+                    sheepEm.setScreen(new LevelThree(sheepEm));
+                    sheepEm.playLevelTwoMusic();
                 }
             });
             this.addActor(restartBtn);
@@ -717,8 +800,15 @@ public class LevelTwo extends ScreenTemplate {
     }
 
     // Escena para la pantalla de ganar ------------------------------------------------------------
-    private class EscenaGanar extends Stage{
-        public EscenaGanar(Viewport vista, SpriteBatch batch){
+
+    /************************
+     * ********************
+     * *************
+     * **********
+     * CAMBIAR SET SCREEN DEL SIGUIENTE NIVEL
+     */
+    private class winScene extends Stage{
+        public winScene(Viewport vista, SpriteBatch batch){
             super(vista,batch);
 
             Texture opaque = new Texture("opaque.png");
@@ -744,7 +834,7 @@ public class LevelTwo extends ScreenTemplate {
             nextLevelButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.setScreen(new MenuScreen(sheepEm));
+                    sheepEm.setScreen(new AlienLevel(sheepEm));
                 }
             });
             this.addActor(nextLevelButton);
@@ -759,7 +849,7 @@ public class LevelTwo extends ScreenTemplate {
             retryLevelButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.setScreen(new LevelOne(sheepEm));
+                    sheepEm.setScreen(new AlienLevel(sheepEm));
                 }
             });
             this.addActor(retryLevelButton);
@@ -775,7 +865,7 @@ public class LevelTwo extends ScreenTemplate {
             levelsButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.setScreen(new LevelOne(sheepEm));
+                    sheepEm.setScreen(new MapScreen(sheepEm));
                 }
             });
             this.addActor(levelsButton);
@@ -787,8 +877,8 @@ public class LevelTwo extends ScreenTemplate {
     }
 
     // Escena para la pantalla de perder -----------------------------------------------------------
-    private class EscenaPerder extends Stage{
-        public EscenaPerder(Viewport vista, SpriteBatch batch){
+    private class lostScene extends Stage{
+        public lostScene(Viewport vista, SpriteBatch batch){
 
             super(vista,batch);
 
@@ -829,9 +919,9 @@ public class LevelTwo extends ScreenTemplate {
             tryAgain.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.stopGameMusic();
-                    sheepEm.setScreen(new LevelOne(sheepEm));
-                    sheepEm.playGameMusic();
+                    sheepEm.stopLevelTwoMusic();
+                    sheepEm.setScreen(new LevelThree(sheepEm));
+                    sheepEm.playLevelTwoMusic();
                     sheepEm.stopLost();
                 }
             });
@@ -846,7 +936,7 @@ public class LevelTwo extends ScreenTemplate {
             lvsButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.stopGameMusic();
+                    sheepEm.stopLevelTwoMusic();
                     sheepEm.setScreen(new MapScreen(sheepEm));
                     sheepEm.stopLost();
                 }
@@ -856,5 +946,6 @@ public class LevelTwo extends ScreenTemplate {
 
         }
     }
+
 
 }

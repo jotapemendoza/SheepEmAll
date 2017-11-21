@@ -480,7 +480,7 @@ public class AlienLevel extends ScreenTemplate {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     sheepEm.stopLevelTwoMusic();
-                    sheepEm.setScreen(new LevelTwo(sheepEm));
+                    sheepEm.setScreen(new LevelThree(sheepEm));
                     sheepEm.playLevelTwoMusic();
                     sheepEm.stopLost();
                 }
