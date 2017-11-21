@@ -270,105 +270,107 @@ public class LevelOne extends ScreenTemplate {
         if (arrOvejas == null) {
             arrOvejas = new Array<Sheep>(cantOve);
         }
-
         // Llenar arreglo de ovejas por tiempo
-        Sheep ove;
+        if (arrOvejas.size < cantOve){
 
-        for (int i = 0; i < 1; i++){
-            int random = (int) (Math.random()*4)+1;
-            int randomColor = (int) (Math.random()*4)+1;
+            Sheep ove;
 
-            if (random == 1){
-                switch (randomColor){
-                    case 1:
-                        ove = new Sheep(oveArrWhite, oveArrMovWhite,
-                                Sheep.Estado.ARRIBA, arrColores[0], arrTipos[0]);
-                        arrOvejas.add(ove);
-                        break;
-                    case 2:
-                        ove = new Sheep(oveArrBlue, oveArrMovBlue,
-                                Sheep.Estado.ARRIBA, arrColores[1], arrTipos[0]);
-                        arrOvejas.add(ove);
-                        break;
-                    case 3:
-                        ove = new Sheep(oveArrRed, oveArrMovRed,
-                                Sheep.Estado.ARRIBA, arrColores[2], arrTipos[0]);
-                        arrOvejas.add(ove);
-                        break;
-                    case 4:
-                        ove = new Sheep(oveArrYellow, oveArrMovYellow,
-                                Sheep.Estado.ARRIBA, arrColores[3], arrTipos[0]);
-                        arrOvejas.add(ove);
-                        break;
-                }
-            }else if (random == 2){
-                switch (randomColor){
-                    case 1:
-                        ove = new Sheep(oveAbWhite, oveAbMovWhite,
-                                Sheep.Estado.ABAJO, arrColores[0], arrTipos[0]);
-                        arrOvejas.add(ove);
-                        break;
-                    case 2:
-                        ove = new Sheep(oveAbBlue, oveAbMovBlue,
-                                Sheep.Estado.ABAJO, arrColores[1], arrTipos[0]);
-                        arrOvejas.add(ove);
-                        break;
-                    case 3:
-                        ove = new Sheep(oveAbRed, oveAbMovRed,
-                                Sheep.Estado.ABAJO, arrColores[2], arrTipos[0]);
-                        arrOvejas.add(ove);
-                        break;
-                    case 4:
-                        ove = new Sheep(oveAbYellow, oveAbMovYellow,
-                                Sheep.Estado.ABAJO, arrColores[3], arrTipos[0]);
-                        arrOvejas.add(ove);
-                        break;
-                }
-            }else if (random == 3){
-                switch (randomColor){
-                    case 1:
-                        ove = new Sheep(oveIzqWhite, oveIzqMovWhite,
-                                Sheep.Estado.IZQUIERDA, arrColores[0], arrTipos[0]);
-                        arrOvejas.add(ove);
-                        break;
-                    case 2:
-                        ove = new Sheep(oveIzqBlue, oveIzqMovBlue,
-                                Sheep.Estado.IZQUIERDA, arrColores[1], arrTipos[0]);
-                        arrOvejas.add(ove);
-                        break;
-                    case 3:
-                        ove = new Sheep(oveIzqRed, oveIzqMovRed,
-                                Sheep.Estado.IZQUIERDA, arrColores[2], arrTipos[0]);
-                        arrOvejas.add(ove);
-                        break;
-                    case 4:
-                        ove = new Sheep(oveIzqYellow, oveIzqMovYellow,
-                                Sheep.Estado.IZQUIERDA, arrColores[3], arrTipos[0]);
-                        arrOvejas.add(ove);
-                        break;
-                }
-            }else{
-                switch (randomColor){
-                    case 1:
-                        ove = new Sheep(oveDerWhite, oveDerMovWhite,
-                                Sheep.Estado.DERECHA, arrColores[0], arrTipos[0]);
-                        arrOvejas.add(ove);
-                        break;
-                    case 2:
-                        ove = new Sheep(oveDerBlue, oveDerMovBlue,
-                                Sheep.Estado.DERECHA, arrColores[1], arrTipos[0]);
-                        arrOvejas.add(ove);
-                        break;
-                    case 3:
-                        ove = new Sheep(oveDerRed, oveDerMovRed,
-                                Sheep.Estado.DERECHA, arrColores[2], arrTipos[0]);
-                        arrOvejas.add(ove);
-                        break;
-                    case 4:
-                        ove = new Sheep(oveDerYellow, oveDerMovYellow,
-                                Sheep.Estado.DERECHA, arrColores[3], arrTipos[0]);
-                        arrOvejas.add(ove);
-                        break;
+            for (int i = 0; i < 1; i++){
+                int random = (int) (Math.random()*4)+1;
+                int randomColor = (int) (Math.random()*4)+1;
+
+                if (random == 1){
+                    switch (randomColor){
+                        case 1:
+                            ove = new Sheep(oveArrWhite, oveArrMovWhite,
+                                    Sheep.Estado.ARRIBA, arrColores[0], arrTipos[0]);
+                            arrOvejas.add(ove);
+                            break;
+                        case 2:
+                            ove = new Sheep(oveArrBlue, oveArrMovBlue,
+                                    Sheep.Estado.ARRIBA, arrColores[1], arrTipos[0]);
+                            arrOvejas.add(ove);
+                            break;
+                        case 3:
+                            ove = new Sheep(oveArrRed, oveArrMovRed,
+                                    Sheep.Estado.ARRIBA, arrColores[2], arrTipos[0]);
+                            arrOvejas.add(ove);
+                            break;
+                        case 4:
+                            ove = new Sheep(oveArrYellow, oveArrMovYellow,
+                                    Sheep.Estado.ARRIBA, arrColores[3], arrTipos[0]);
+                            arrOvejas.add(ove);
+                            break;
+                    }
+                }else if (random == 2){
+                    switch (randomColor){
+                        case 1:
+                            ove = new Sheep(oveAbWhite, oveAbMovWhite,
+                                    Sheep.Estado.ABAJO, arrColores[0], arrTipos[0]);
+                            arrOvejas.add(ove);
+                            break;
+                        case 2:
+                            ove = new Sheep(oveAbBlue, oveAbMovBlue,
+                                    Sheep.Estado.ABAJO, arrColores[1], arrTipos[0]);
+                            arrOvejas.add(ove);
+                            break;
+                        case 3:
+                            ove = new Sheep(oveAbRed, oveAbMovRed,
+                                    Sheep.Estado.ABAJO, arrColores[2], arrTipos[0]);
+                            arrOvejas.add(ove);
+                            break;
+                        case 4:
+                            ove = new Sheep(oveAbYellow, oveAbMovYellow,
+                                    Sheep.Estado.ABAJO, arrColores[3], arrTipos[0]);
+                            arrOvejas.add(ove);
+                            break;
+                    }
+                }else if (random == 3){
+                    switch (randomColor){
+                        case 1:
+                            ove = new Sheep(oveIzqWhite, oveIzqMovWhite,
+                                    Sheep.Estado.IZQUIERDA, arrColores[0], arrTipos[0]);
+                            arrOvejas.add(ove);
+                            break;
+                        case 2:
+                            ove = new Sheep(oveIzqBlue, oveIzqMovBlue,
+                                    Sheep.Estado.IZQUIERDA, arrColores[1], arrTipos[0]);
+                            arrOvejas.add(ove);
+                            break;
+                        case 3:
+                            ove = new Sheep(oveIzqRed, oveIzqMovRed,
+                                    Sheep.Estado.IZQUIERDA, arrColores[2], arrTipos[0]);
+                            arrOvejas.add(ove);
+                            break;
+                        case 4:
+                            ove = new Sheep(oveIzqYellow, oveIzqMovYellow,
+                                    Sheep.Estado.IZQUIERDA, arrColores[3], arrTipos[0]);
+                            arrOvejas.add(ove);
+                            break;
+                    }
+                }else{
+                    switch (randomColor){
+                        case 1:
+                            ove = new Sheep(oveDerWhite, oveDerMovWhite,
+                                    Sheep.Estado.DERECHA, arrColores[0], arrTipos[0]);
+                            arrOvejas.add(ove);
+                            break;
+                        case 2:
+                            ove = new Sheep(oveDerBlue, oveDerMovBlue,
+                                    Sheep.Estado.DERECHA, arrColores[1], arrTipos[0]);
+                            arrOvejas.add(ove);
+                            break;
+                        case 3:
+                            ove = new Sheep(oveDerRed, oveDerMovRed,
+                                    Sheep.Estado.DERECHA, arrColores[2], arrTipos[0]);
+                            arrOvejas.add(ove);
+                            break;
+                        case 4:
+                            ove = new Sheep(oveDerYellow, oveDerMovYellow,
+                                    Sheep.Estado.DERECHA, arrColores[3], arrTipos[0]);
+                            arrOvejas.add(ove);
+                            break;
+                    }
                 }
             }
         }
