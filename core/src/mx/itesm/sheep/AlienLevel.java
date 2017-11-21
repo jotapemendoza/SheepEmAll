@@ -29,7 +29,8 @@ public class AlienLevel extends ScreenTemplate {
     private Stage escenaAlien;
     private Texture nave;
     private Texture background;
-    private Texture sheep;
+    private Texture hp_outter;
+    private Texture hp_inner;
     private Boolean played = false;
 
     private winScene winScene;
@@ -60,7 +61,7 @@ public class AlienLevel extends ScreenTemplate {
         winScene = new winScene(view,batch);
         estado = EstadoJuego.JUGANDO;
         Gdx.input.setInputProcessor(escenaAlien);
-        hpAlien = 10;
+        hpAlien = 50;
     }
 
     private void crearEscenaNave() {
@@ -72,11 +73,18 @@ public class AlienLevel extends ScreenTemplate {
         bg.setPosition(0,0);
         escenaAlien.addActor(bg);
 
-        // Sheep
-        TextureRegionDrawable trdSheep =  new TextureRegionDrawable(new TextureRegion(sheep));
-        final Image sheepimg = new Image(trdSheep);
-        sheepimg.setPosition(400,100);
-        escenaAlien.addActor(sheepimg);
+        // HP bar inner
+        TextureRegionDrawable trd_hp_in =  new TextureRegionDrawable(new TextureRegion(hp_inner));
+        final Image innerimg = new Image(trd_hp_in);
+        innerimg.setPosition(39,28);
+        escenaAlien.addActor(innerimg);
+
+        // HP bar outter
+        TextureRegionDrawable trd_hp_out =  new TextureRegionDrawable(new TextureRegion(hp_outter));
+        final Image outterimg = new Image(trd_hp_out);
+        outterimg.setPosition(29,14);
+        escenaAlien.addActor(outterimg);
+
         //sheepAbd.setX(150);
         //sheepAbd.setY(150);
 
@@ -90,9 +98,11 @@ public class AlienLevel extends ScreenTemplate {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 System.out.println(hpAlien);
-                scale_factor += 0.1;
+                scale_factor += 0.02;
                 hpAlien--;
-                sheepimg.setScale(1-scale_factor);
+                outterimg.setZIndex(10);
+                innerimg.setScale(1-scale_factor,1);
+
             }
         } );
 
@@ -119,7 +129,8 @@ public class AlienLevel extends ScreenTemplate {
     private void cargarTexturas() {
         background = new Texture("alienLevelbg.png");
         nave = new Texture("alienShip.png");
-        sheep = new Texture("sheepAlienlvl.png");
+        hp_inner = new Texture("innerhp.png");
+        hp_outter = new Texture("outerhp.png");
         pauseButton = new Texture("Buttons/unpressed/pauseButton.png");
         whitesheep = new Texture("sheepAlienlvl.png");
     }
