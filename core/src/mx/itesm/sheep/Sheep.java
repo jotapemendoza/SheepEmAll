@@ -167,6 +167,7 @@ public class Sheep {
                         y = y - velocidad;
                     }
                 }else {
+                    timer = 0;
                     batch.draw(region, x, y);
                 }
                 break;
@@ -177,6 +178,7 @@ public class Sheep {
                         y = y + velocidad;
                     }
                 }else {
+                    timer = 0;
                     batch.draw(region, x, y);
                 }
                 break;
@@ -187,6 +189,7 @@ public class Sheep {
                         x = x + velocidad;
                     }
                 }else {
+                    timer = 0;
                     batch.draw(region, x, y);
                 }
                 break;
@@ -197,6 +200,7 @@ public class Sheep {
                         x = x - velocidad;
                     }
                 }else {
+                    timer = 0;
                     batch.draw(region, x, y);
                 }
                 break;

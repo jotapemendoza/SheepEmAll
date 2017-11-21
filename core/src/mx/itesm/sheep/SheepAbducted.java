@@ -14,6 +14,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class SheepAbducted {
 
+    // Animacion
+    private final Animation animacion;
+    private float timer;
+
     // Posición oveja
     private float x = 0;
     private float y = 150;
@@ -35,10 +39,16 @@ public class SheepAbducted {
     public SheepAbducted(Texture textura, String color) {
         this.color = color;
         this.sheepText = textura;
+
+        TextureRegion region = new TextureRegion(textura);
+        TextureRegion[][] frames = region.split(ancho,alto);
+        animacion = new Animation(0.20f, frames[0][0]);
+        animacion.setPlayMode(Animation.PlayMode.LOOP);
     }
 
     public void render (SpriteBatch batch) {
-        TextureRegion region = new TextureRegion(sheepText,ancho,alto);
+        timer += Gdx.graphics.getDeltaTime();
+        TextureRegion region = (TextureRegion) animacion.getKeyFrame(timer);
         batch.draw(region, x, y);
         y += velocidad;
 
