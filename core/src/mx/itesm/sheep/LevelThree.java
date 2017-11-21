@@ -228,30 +228,46 @@ public class LevelThree extends ScreenTemplate {
                         ovejaMoviendo = null;
                     }
                     // verificar si esta en el corral
-                    else if(cordenadasCorral(x,y,ovejaMoviendo.getColor())){
-                        ovejaMoviendo.setEstado(ovejaMoviendo.getEstadoOriginal());
-                        contOvejas++;
-                        Gdx.app.log("oveja","en corral: " + contOvejas);
-                        ovejaMoviendo = null;
-                    }else{
-                        if(!cordenadasLineales(x,y)){
-                            Gdx.app.log("corral", "Corral incorrecto");
-                            ovejaMoviendo.setEstado(Sheep.Estado.BOOM);
-                            lifes--;
-                            ovejaMoviendo = null;
-                        }else{
-                            ovejaMoviendo.setSeMovio(false);
-                            ovejaMoviendo.setEstado(ovejaMoviendo.getEstadoOriginal());
-                            ovejaMoviendo.setX(ovejaMovX);
-                            ovejaMoviendo.setY(ovejaMovY);
-                            ovejaMoviendo = null;
+                    else{
+                        if(cordenadasCorral(x,y,ovejaMoviendo.getColor())){
+                            if (ovejaMoviendo.getTipo().equals("ALIEN")){
+                                ovejaMoviendo.setEstado(Sheep.Estado.BOOM);
+                                lifes--;
+                                aS.setEstado(AlienShip.Estado.DERROTA);
+                                Gdx.app.log("oveja","en corral: " + contOvejas);
+                                ovejaMoviendo = null;
+                            }else {
+                                ovejaMoviendo.setEstado(ovejaMoviendo.getEstadoOriginal());
+                                contOvejas++;
+                                Gdx.app.log("oveja","en corral: " + contOvejas);
+                                ovejaMoviendo = null;
+                            }
+                        }else {
+                            if (!cordenadasLineales(x, y) && ovejaMoviendo.getTipo().equals("ALIEN")){
+                                Gdx.app.log("corral", "Corral incorrecto");
+                                ovejaMoviendo.setEstado(Sheep.Estado.BOOM);
+                                lifes--;
+                                aS.setEstado(AlienShip.Estado.DERROTA);
+                                ovejaMoviendo = null;
+                            }
+
+                            else if (!cordenadasLineales(x, y)) {
+                                Gdx.app.log("corral", "Corral incorrecto");
+                                ovejaMoviendo.setEstado(Sheep.Estado.BOOM);
+                                lifes--;
+                                ovejaMoviendo = null;
+                            } else {
+                                ovejaMoviendo.setSeMovio(false);
+                                ovejaMoviendo.setEstado(ovejaMoviendo.getEstadoOriginal());
+                                ovejaMoviendo.setX(ovejaMovX);
+                                ovejaMoviendo.setY(ovejaMovY);
+                                ovejaMoviendo = null;
+                            }
                         }
                     }
                 }
             }
-
         });
-
     }
 
     // Validar corral correcto ---------------------------------------------------------------------
@@ -615,7 +631,9 @@ public class LevelThree extends ScreenTemplate {
                         //moverY = 1920;
                     }
                }else {
-                   estaEnNave = true;
+                   if (!arrOvejas.get(0).isEnLlamas()){
+                        estaEnNave = true;
+                   }
                }
            }
 

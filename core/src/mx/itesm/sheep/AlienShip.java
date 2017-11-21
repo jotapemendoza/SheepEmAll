@@ -62,7 +62,7 @@ public class AlienShip {
                 break;
             case DERROTA:
                 if (posicionX != 1080){
-                    posicionX += 2.5f;
+                    posicionX += 6.5f;
                     batch.draw(region, posicionX, posicionY);
                 }else {
                     timer = 0;
