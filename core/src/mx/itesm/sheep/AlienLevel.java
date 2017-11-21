@@ -150,9 +150,10 @@ public class AlienLevel extends ScreenTemplate {
         batch.begin();
         if (hpAlien==0){
             this.estado = EstadoJuego.GANADO;
+        }else{
+            escenaAlien.draw();
+            sheepAbd.render(batch);
         }
-        escenaAlien.draw();
-        sheepAbd.render(batch);
         batch.end();
 
 
