@@ -71,13 +71,13 @@ public class AlienLevel extends ScreenTemplate {
         // HP bar inner
         TextureRegionDrawable trd_hp_in =  new TextureRegionDrawable(new TextureRegion(hp_inner));
         final Image innerimg = new Image(trd_hp_in);
-        innerimg.setPosition(39,28);
+        innerimg.setPosition(226,64);
         escenaAlien.addActor(innerimg);
 
         // HP bar outter
         TextureRegionDrawable trd_hp_out =  new TextureRegionDrawable(new TextureRegion(hp_outter));
         final Image outterimg = new Image(trd_hp_out);
-        outterimg.setPosition(29,14);
+        outterimg.setPosition(213,50);
         escenaAlien.addActor(outterimg);
 
         //sheepAbd.setX(150);
