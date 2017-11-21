@@ -348,7 +348,7 @@ public class LevelOne extends ScreenTemplate {
                             arrOvejas.add(ove);
                             break;
                     }
-                }else{
+                }else if (random == 4){
                     switch (randomColor){
                         case 1:
                             ove = new Sheep(oveDerWhite, oveDerMovWhite,

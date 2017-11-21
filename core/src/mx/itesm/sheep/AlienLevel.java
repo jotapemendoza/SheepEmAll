@@ -93,6 +93,7 @@ public class AlienLevel extends ScreenTemplate {
         final ImageButton btnNave = new ImageButton(trdNave);
         btnNave.setPosition(200,700);
         escenaAlien.addActor(btnNave);
+        btnNave.setZIndex(15);
         btnNave.addListener( new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -101,6 +102,7 @@ public class AlienLevel extends ScreenTemplate {
                 scale_factor += 0.02;
                 hpAlien--;
                 outterimg.setZIndex(10);
+                sheepAbd.setY(sheepAbd.gety()-10);
                 innerimg.setScale(1-scale_factor,1);
 
             }

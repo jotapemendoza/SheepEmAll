@@ -427,6 +427,14 @@ public class LevelThree extends ScreenTemplate {
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
                     break;
                 }
+
+                if (arrOvejas.get(i).getTipo().equals("ALIEN") && arrOvejas.get(i).gety() <= 0) {
+                    arrOvejas.removeIndex(i);
+                    System.out.println("ovejas disponibles: " + arrOvejas.size);
+                    velocidadOve += 1;
+                    aS.setEstado(AlienShip.Estado.DERROTA);
+                    break;
+                }
             }
             if (arrOvejas.get(i).getEstado().equals(Sheep.Estado.ARRIBA)){
                 if (arrOvejas.get(i).gety() <= 0){
@@ -766,7 +774,7 @@ public class LevelThree extends ScreenTemplate {
                     //Cambio el estado de sheepEm a JUGANDO y regreso el poder a la escenaJuego
                     estado = EstadoJuego.JUGANDO;
                     detenerOveja(false);
-                    aS.setEstado(AlienShip.Estado.MOVIENDO);
+                    aS.setEstado(AlienShip.Estado.INICIO);
                     sheepEm.playLevelTwoMusic();
                     Gdx.input.setInputProcessor(escenaJuego);
                 }
