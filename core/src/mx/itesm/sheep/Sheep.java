@@ -105,8 +105,8 @@ public class Sheep {
                 this.estado = estado;
                 break;
             case IZQUIERDA:
-                ancho = 76;
-                alto = 70;
+                ancho = 156;
+                alto = 116;
                 frames = region.split(ancho,alto);
                 animacion = new Animation(0.20f, frames[0][0], frames[0][1], frames[0][2]);
                 animacion.setPlayMode(Animation.PlayMode.LOOP);
@@ -124,8 +124,8 @@ public class Sheep {
                 this.estado = estado;
                 break;
             case DERECHA:
-                ancho = 76;
-                alto = 70;
+                ancho = 156;
+                alto = 116;
                 frames = region.split(ancho,alto);
                 animacion = new Animation(0.20f, frames[0][0], frames[0][1], frames[0][2]);
                 animacion.setPlayMode(Animation.PlayMode.LOOP);

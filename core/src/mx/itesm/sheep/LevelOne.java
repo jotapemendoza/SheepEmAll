@@ -42,13 +42,9 @@ public class LevelOne extends ScreenTemplate {
     private Texture homeButton;
     private Texture background;
     private Stage escenaJuego;
-    private Texture oveIzq;
-    private Texture oveDer;
     private Texture time;
     private Texture life;
     private Texture life_lost;
-    private Texture oveMovIzq;
-    private Texture oveMovDer;
     private BitmapFont font;
 
     // Texturas de colores
@@ -420,13 +416,9 @@ public class LevelOne extends ScreenTemplate {
     private void cargarTexturas() {
         background = new Texture("gBg.png");
         pauseButton = new Texture("Buttons/unpressed/pauseButton.png");
-        oveIzq = new Texture("sheep_right.png");
-        oveDer = new Texture("sheep_left.png");
         time = new Texture("time.png");
         life = new Texture("life.png");
         life_lost = new Texture("life_lost.png");
-        oveMovIzq = new Texture("sheep_moving3.png");
-        oveMovDer = new Texture("sheep_moving2.png");
 
         //ovejas de colores
         oveArrBlue = new Texture("Sheep/Level 1/Blue/sheep_down_blue.png");
@@ -460,10 +452,10 @@ public class LevelOne extends ScreenTemplate {
         oveDerMovBlue = new Texture("Sheep/Level 1/Blue/sheep_moving_right_blue.png");
         oveDerRed = new Texture("Sheep/Level 1/Red/sheep_right_red.png");
         oveDerMovRed = new Texture("Sheep/Level 1/Red/sheep_moving_right_red.png");
-        oveDerWhite = new Texture();
-        oveDerMovWhite = new  Texture();
-        oveDerYellow = new Texture();
-        oveDerMovYellow = new Texture();
+        oveDerWhite = new Texture("Sheep/Level 1/White/sheep_right_white.png");
+        oveDerMovWhite = new  Texture("Sheep/Level 1/White/sheep_moving_right_white.png");
+        oveDerYellow = new Texture("Sheep/Level 1/Yellow/sheep_right_yellow.png");
+        oveDerMovYellow = new Texture("Sheep/Level 1/Yellow/sheep_moving_right_yellow.png");
     }
 
 

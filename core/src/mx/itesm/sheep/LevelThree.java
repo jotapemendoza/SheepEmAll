@@ -38,19 +38,9 @@ public class LevelThree extends ScreenTemplate {
     private Texture homeButton;
     private Texture background;
     private Stage escenaJuego;
-    private Texture oveArr;
-    private Texture oveIzq;
-    private Texture oveDer;
-    private Texture oveAb;
     private Texture time;
     private Texture life;
     private Texture life_lost;
-    private Texture oveMovAb;
-    private Texture oveMovArr;
-    private Texture oveMovIzq;
-    private Texture oveMovDer;
-    private Texture oveAlienArr;
-    private Texture oveAlienArrMov;
     private Texture alienShip;
     private BitmapFont font;
 
@@ -72,6 +62,24 @@ public class LevelThree extends ScreenTemplate {
     private Texture oveAbMovWhite;
     private Texture oveAbYellow;
     private Texture oveAbMovYellow;
+
+    private Texture oveIzqBlue;
+    private Texture oveIzqMovBlue;
+    private Texture oveIzqRed;
+    private Texture oveIzqMovRed;
+    private Texture oveIzqWhite;
+    private Texture oveIzqMovWhite;
+    private Texture oveIzqYellow;
+    private Texture oveIzqMovYellow;
+
+    private Texture oveDerBlue;
+    private Texture oveDerMovBlue;
+    private Texture oveDerRed;
+    private Texture oveDerMovRed;
+    private Texture oveDerWhite;
+    private Texture oveDerMovWhite;
+    private Texture oveDerYellow;
+    private Texture oveDerMovYellow;
 
     // Texturas alien colores
     private Texture oveAlienArrWhite;
@@ -341,11 +349,51 @@ public class LevelThree extends ScreenTemplate {
                         break;
                 }
             }else if (random == 3){
-                ove = new Sheep(oveIzq, oveMovIzq, Sheep.Estado.IZQUIERDA, "WHITE", arrTipos[0]);
-                arrOvejas.add(ove);
+                switch (randomColor){
+                    case 1:
+                        ove = new Sheep(oveIzqWhite, oveIzqMovWhite,
+                                Sheep.Estado.IZQUIERDA, arrColores[0], arrTipos[0]);
+                        arrOvejas.add(ove);
+                        break;
+                    case 2:
+                        ove = new Sheep(oveIzqBlue, oveIzqMovBlue,
+                                Sheep.Estado.IZQUIERDA, arrColores[1], arrTipos[0]);
+                        arrOvejas.add(ove);
+                        break;
+                    case 3:
+                        ove = new Sheep(oveIzqRed, oveIzqMovRed,
+                                Sheep.Estado.IZQUIERDA, arrColores[2], arrTipos[0]);
+                        arrOvejas.add(ove);
+                        break;
+                    case 4:
+                        ove = new Sheep(oveIzqYellow, oveIzqMovYellow,
+                                Sheep.Estado.IZQUIERDA, arrColores[3], arrTipos[0]);
+                        arrOvejas.add(ove);
+                        break;
+                }
             }else{
-                ove = new Sheep(oveDer, oveMovDer, Sheep.Estado.DERECHA, "YELLOW", arrTipos[0]);
-                arrOvejas.add(ove);
+                switch (randomColor){
+                    case 1:
+                        ove = new Sheep(oveDerWhite, oveDerMovWhite,
+                                Sheep.Estado.DERECHA, arrColores[0], arrTipos[0]);
+                        arrOvejas.add(ove);
+                        break;
+                    case 2:
+                        ove = new Sheep(oveDerBlue, oveDerMovBlue,
+                                Sheep.Estado.DERECHA, arrColores[1], arrTipos[0]);
+                        arrOvejas.add(ove);
+                        break;
+                    case 3:
+                        ove = new Sheep(oveDerRed, oveDerMovRed,
+                                Sheep.Estado.DERECHA, arrColores[2], arrTipos[0]);
+                        arrOvejas.add(ove);
+                        break;
+                    case 4:
+                        ove = new Sheep(oveDerYellow, oveDerMovYellow,
+                                Sheep.Estado.DERECHA, arrColores[3], arrTipos[0]);
+                        arrOvejas.add(ove);
+                        break;
+                }
             }
         }
     }
@@ -399,43 +447,51 @@ public class LevelThree extends ScreenTemplate {
     private void loadTextures() {
         background = new Texture("noche.png");
         pauseButton = new Texture("Buttons/unpressed/pauseButton.png");
-        oveArr = new Texture("sheep_down.png");
-        oveIzq = new Texture("sheep_right.png");
-        oveAb = new Texture("sheep_up.png");
-        oveDer = new Texture("sheep_left.png");
         time = new Texture("time.png");
         life = new Texture("life.png");
         life_lost = new Texture("life_lost.png");
-        oveMovArr = new Texture("sheep_moving1.png");
-        oveMovAb = new Texture("sheep_moving.png");
-        oveMovIzq = new Texture("sheep_moving3.png");
-        oveMovDer = new Texture("sheep_moving2.png");
-        oveAlienArr = new Texture("Alien_sheep_down.png");
-        oveAlienArrMov = new Texture("Alien_sheep_moving_down.png");
         alienShip = new Texture("alienShip.png");
 
         //ovejas de colores
-        oveArrBlue = new Texture("Sheep/Blue/sheep_down_blue.png");
-        oveArrMovBlue = new Texture("Sheep/Blue/sheep_moving_down_blue.png");
-        oveArrRed = new Texture("Sheep/Red/sheep_down_red.png");
-        oveArrMovRed = new Texture("Sheep/Red/sheep_moving_down_red.png");
-        oveArrWhite = new Texture("Sheep/White/sheep_down_white.png");
-        oveArrMovWhite = new Texture("Sheep/White/sheep_moving_down_white.png");
-        oveArrYellow = new Texture("Sheep/Yellow/sheep_down_yellow.png");
-        oveArrMovYellow = new Texture("Sheep/Yellow/sheep_moving_down_yellow.png");
+        oveArrBlue = new Texture("Sheep/Level 1/Blue/sheep_down_blue.png");
+        oveArrMovBlue = new Texture("Sheep/Level 1/Blue/sheep_moving_down_blue.png");
+        oveArrRed = new Texture("Sheep/Level 1/Red/sheep_down_red.png");
+        oveArrMovRed = new Texture("Sheep/Level 1/Red/sheep_moving_down_red.png");
+        oveArrWhite = new Texture("Sheep/Level 1/White/sheep_down_white.png");
+        oveArrMovWhite = new Texture("Sheep/Level 1/White/sheep_moving_down_white.png");
+        oveArrYellow = new Texture("Sheep/Level 1/Yellow/sheep_down_yellow.png");
+        oveArrMovYellow = new Texture("Sheep/Level 1/Yellow/sheep_moving_down_yellow.png");
 
-        oveAbBlue = new Texture("Sheep/Blue/sheep_up_blue.png");
-        oveAbMovBlue = new Texture("Sheep/Blue/sheep_moving_up_blue.png");
-        oveAbRed = new Texture("Sheep/Red/sheep_up_red.png");
-        oveAbMovRed = new Texture("Sheep/Red/sheep_moving_up_red.png");
-        oveAbWhite = new Texture("Sheep/White/sheep_up_white.png");
-        oveAbMovWhite = new Texture("Sheep/White/sheep_moving_up_white.png");
-        oveAbYellow = new Texture("Sheep/Yellow/sheep_up_yellow.png");
-        oveAbMovYellow = new Texture("Sheep/Yellow/sheep_moving_up_yellow.png");
+        oveAbBlue = new Texture("Sheep/Level 1/Blue/sheep_up_blue.png");
+        oveAbMovBlue = new Texture("Sheep/Level 1/Blue/sheep_moving_up_blue.png");
+        oveAbRed = new Texture("Sheep/Level 1/Red/sheep_up_red.png");
+        oveAbMovRed = new Texture("Sheep/Level 1/Red/sheep_moving_up_red.png");
+        oveAbWhite = new Texture("Sheep/Level 1/White/sheep_up_white.png");
+        oveAbMovWhite = new Texture("Sheep/Level 1/White/sheep_moving_up_white.png");
+        oveAbYellow = new Texture("Sheep/Level 1/Yellow/sheep_up_yellow.png");
+        oveAbMovYellow = new Texture("Sheep/Level 1/Yellow/sheep_moving_up_yellow.png");
+
+        oveIzqBlue = new Texture("Sheep/Level 1/Blue/sheep_left_blue.png");
+        oveIzqMovBlue = new Texture("Sheep/Level 1/Blue/sheep_moving_left_blue.png");
+        oveIzqRed = new Texture("Sheep/Level 1/Red/sheep_left_red.png");
+        oveIzqMovRed = new Texture("Sheep/Level 1/Red/sheep_moving_left_red.png");
+        oveIzqWhite = new Texture("Sheep/Level 1/White/sheep_left_white.png");
+        oveIzqMovWhite = new Texture("Sheep/Level 1/White/sheep_moving_left_white.png");
+        oveIzqYellow = new Texture("Sheep/Level 1/Yellow/sheep_left_yellow.png");
+        oveIzqMovYellow = new Texture("Sheep/Level 1/Yellow/sheep_moving_left_yellow.png");
+
+        oveDerBlue = new Texture("Sheep/Level 1/Blue/sheep_right_blue.png");
+        oveDerMovBlue = new Texture("Sheep/Level 1/Blue/sheep_moving_right_blue.png");
+        oveDerRed = new Texture("Sheep/Level 1/Red/sheep_right_red.png");
+        oveDerMovRed = new Texture("Sheep/Level 1/Red/sheep_moving_right_red.png");
+        oveDerWhite = new Texture("Sheep/Level 1/White/sheep_right_white.png");
+        oveDerMovWhite = new  Texture("Sheep/Level 1/White/sheep_moving_right_white.png");
+        oveDerYellow = new Texture("Sheep/Level 1/Yellow/sheep_right_yellow.png");
+        oveDerMovYellow = new Texture("Sheep/Level 1/Yellow/sheep_moving_right_yellow.png");
 
         //ovejas alien de colores
-        oveAlienArrWhite = new Texture("Sheep/Alien/White/alien_sheep_down_white.png");
-        oveAlienArrMovWhite = new Texture("Sheep/Alien/White/alien_sheep_moving_down_white.png");
+        oveAlienArrWhite = new Texture("Sheep/Level 3/Alien/White/alien_sheep_down_white.png");
+        oveAlienArrMovWhite = new Texture("Sheep/Level 3/Alien/White/alien_sheep_moving_down_white.png");
     }
 
 
