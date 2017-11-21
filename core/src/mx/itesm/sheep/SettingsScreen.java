@@ -1,10 +1,12 @@
 package mx.itesm.sheep;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -49,6 +51,7 @@ public class SettingsScreen extends ScreenTemplate {
         cargarTexturas();
         crearEscenaSettings();
         Gdx.input.setInputProcessor(escenaSettings);
+        Gdx.input.setCatchBackKey(true);
     }
 
     private void cargarTexturas() {
@@ -71,6 +74,17 @@ public class SettingsScreen extends ScreenTemplate {
     private void crearEscenaSettings(){
 
         escenaSettings = new Stage(view);
+
+        escenaSettings.addListener(new InputListener(){
+            @Override
+            public boolean keyDown(InputEvent event, int keycode) {
+                if (keycode== Input.Keys.BACK){
+                    sheepEm.setScreen(new MenuScreen(sheepEm));
+                    sheepEm.pauseGameMusic();
+                }
+                return true;
+            }
+        });
 
         TextureRegionDrawable trdBg =  new TextureRegionDrawable(new TextureRegion(background));
         Image bg = new Image(trdBg);

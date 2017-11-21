@@ -34,7 +34,7 @@ class LoadingScreen extends ScreenTemplate
             animationFrames[index++] = tmpFrames[0][i];
         }
 
-        animation = new Animation(1f/4.5f,animationFrames);
+        animation = new Animation(1f/6f,animationFrames);
     }
 
     @Override
@@ -49,7 +49,7 @@ class LoadingScreen extends ScreenTemplate
         batch.end();
 
         elapsedTime += Gdx.graphics.getDeltaTime();
-        if (elapsedTime>=6) {
+        if (elapsedTime>=7) {
             sheepEm.setScreen(new MenuScreen(sheepEm));
         }
     }

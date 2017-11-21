@@ -1,9 +1,11 @@
 package mx.itesm.sheep;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -49,6 +51,7 @@ public class MapScreen extends ScreenTemplate {
         cargarTexturas();
         crearEscenaMapa();
         Gdx.input.setInputProcessor(escenaLevels);
+        Gdx.input.setCatchBackKey(true);
     }
 
     private void cargarTexturas() {
@@ -68,6 +71,17 @@ public class MapScreen extends ScreenTemplate {
     private void crearEscenaMapa(){
 
         escenaLevels = new Stage(view);
+
+        escenaLevels.addListener(new InputListener(){
+            @Override
+            public boolean keyDown(InputEvent event, int keycode) {
+                if (keycode== Input.Keys.BACK){
+                    sheepEm.setScreen(new MenuScreen(sheepEm));
+                    sheepEm.pauseGameMusic();
+                }
+                return true;
+            }
+        });
 
         TextureRegionDrawable nightBg = new TextureRegionDrawable(new TextureRegion(nightBackground));
 
@@ -182,8 +196,8 @@ public class MapScreen extends ScreenTemplate {
 
         // GANADOS
 
-        pref.putBoolean("wonLevelOne",true);
-        pref.putBoolean("wonLevelTwo",true);
+       // pref.putBoolean("wonLevelOne",true);
+        //pref.putBoolean("wonLevelTwo",true);
 
         /*-----------------------------------------------------------------------------------------------------------------*/
 
