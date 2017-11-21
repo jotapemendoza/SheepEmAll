@@ -39,8 +39,11 @@ public class SheepAbducted {
 
     public void render (SpriteBatch batch) {
         TextureRegion region = new TextureRegion(sheepText,ancho,alto);
-        batch.draw(region , x, y);
+        batch.draw(sheepText , x, y);
         y += velocidad;
+
+        Gdx.app.log("y: ",Float.toString(y));
+        Gdx.app.log("velocidad: ",Float.toString(velocidad));
     }
 
 

@@ -102,6 +102,7 @@ public class LevelOne extends ScreenTemplate {
     private EscenaPausa escenaPausa;
 
 
+
     private float tiempo;
     private float sheepTimer;
 
@@ -448,6 +449,9 @@ public class LevelOne extends ScreenTemplate {
             estado = EstadoJuego.PERDIDO;
         }
 
+        System.out.println(cantOve);
+        System.out.println(contOvejas);
+
         if(contOvejas >= cantOve && lifes == 3){
             estado = EstadoJuego.GANADO;
         }
@@ -744,7 +748,7 @@ public class LevelOne extends ScreenTemplate {
             nextLevelButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.setScreen(new MenuScreen(sheepEm));
+                    sheepEm.setScreen(new LevelTwo(sheepEm));
                 }
             });
             this.addActor(nextLevelButton);
