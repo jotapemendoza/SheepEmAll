@@ -540,7 +540,7 @@ public class LevelOne extends ScreenTemplate {
         }else{
             font.draw(batch,Integer.toString(minutes)+ ":0"+ Integer.toString(seconds),805,1848);
         }
-        // -----------------------------------------------------------------------------------------
+
 
 
         for (int i = 0; i < arrOvejas.size; i++) {
