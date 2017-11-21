@@ -130,15 +130,11 @@ public class AlienLevel extends ScreenTemplate {
         clearScreen(0,0,0);
         batch.setProjectionMatrix(camera.combined);
 
-        //float deltaTime = Gdx.graphics.getDeltaTime();
-
-        //int minutes = ((int)totalTime) / 60;
-        //int seconds = ((int)totalTime) % 60;
 
         if (estado == EstadoJuego.JUGANDO) {
             sheepTimer -= Gdx.graphics.getDeltaTime();
         }
-        //Gdx.app.log("sheepTimer: ","*********" + sheepTimer);
+
 
         batch.begin();
         if (hpAlien==0){
@@ -253,7 +249,7 @@ public class AlienLevel extends ScreenTemplate {
                 public void clicked(InputEvent event, float x, float y) {
                     //Cambio el estado de sheepEm a JUGANDO y regreso el poder a la escenaJuego
                     estado = EstadoJuego.JUGANDO;
-                    sheepEm.playLevelTwoMusic();
+                    sheepEm.playGameMusic();
                     Gdx.input.setInputProcessor(escenaAlien);
                 }
             });
@@ -273,7 +269,7 @@ public class AlienLevel extends ScreenTemplate {
                 public void clicked(InputEvent event, float x, float y) {
                     // Regresa al menú
                     sheepEm.setScreen(new MapScreen(sheepEm));
-                    sheepEm.stopLevelTwoMusic();
+                    sheepEm.stopGameMusic();
                 }
             });
             this.addActor(homeBtn);
@@ -288,9 +284,9 @@ public class AlienLevel extends ScreenTemplate {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     // Regresa al menú
-                    sheepEm.stopLevelTwoMusic();
+                    sheepEm.stopGameMusic();
                     sheepEm.setScreen(new AlienLevel(sheepEm));
-                    sheepEm.playLevelTwoMusic();
+                    sheepEm.playGameMusic();
                 }
             });
             this.addActor(restartBtn);
@@ -436,7 +432,7 @@ public class AlienLevel extends ScreenTemplate {
         }
     }
 
-    // Losing scene -----------------------------------------------------------
+    //  scene -----------------------------------------------------------
     private class lostScene extends Stage{
         public lostScene(Viewport vista, SpriteBatch batch){
 

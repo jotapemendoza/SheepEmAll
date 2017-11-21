@@ -34,7 +34,7 @@ class SplashScreen extends ScreenTemplate
         batch.end();
         // Actualiza
         tiempo += Gdx.graphics.getDeltaTime();  // Acumula tiempo
-        if (tiempo>=2.5) {
+        if (tiempo>=1) {
             sheepEm.setScreen(new LoadingScreen(sheepEm));
         }
     }
