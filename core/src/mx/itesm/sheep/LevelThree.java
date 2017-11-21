@@ -453,23 +453,23 @@ public class LevelThree extends ScreenTemplate {
         alienShip = new Texture("alienShip.png");
 
         //ovejas de colores
-        oveArrBlue = new Texture("Sheep/Level 1/Blue/sheep_down_blue.png");
-        oveArrMovBlue = new Texture("Sheep/Level 1/Blue/sheep_moving_down_blue.png");
-        oveArrRed = new Texture("Sheep/Level 1/Red/sheep_down_red.png");
-        oveArrMovRed = new Texture("Sheep/Level 1/Red/sheep_moving_down_red.png");
-        oveArrWhite = new Texture("Sheep/Level 1/White/sheep_down_white.png");
-        oveArrMovWhite = new Texture("Sheep/Level 1/White/sheep_moving_down_white.png");
-        oveArrYellow = new Texture("Sheep/Level 1/Yellow/sheep_down_yellow.png");
-        oveArrMovYellow = new Texture("Sheep/Level 1/Yellow/sheep_moving_down_yellow.png");
+        oveArrBlue = new Texture("Sheep/Level 3/Blue/sheep_down_blue.png");
+        oveArrMovBlue = new Texture("Sheep/Level 3/Blue/sheep_moving_down_blue.png");
+        oveArrRed = new Texture("Sheep/Level 3/Red/sheep_down_red.png");
+        oveArrMovRed = new Texture("Sheep/Level 3/Red/sheep_moving_down_red.png");
+        oveArrWhite = new Texture("Sheep/Level 3/White/sheep_down_white.png");
+        oveArrMovWhite = new Texture("Sheep/Level 3/White/sheep_moving_down_white.png");
+        oveArrYellow = new Texture("Sheep/Level 3/Yellow/sheep_down_yellow.png");
+        oveArrMovYellow = new Texture("Sheep/Level 3/Yellow/sheep_moving_down_yellow.png");
 
-        oveAbBlue = new Texture("Sheep/Level 1/Blue/sheep_up_blue.png");
-        oveAbMovBlue = new Texture("Sheep/Level 1/Blue/sheep_moving_up_blue.png");
-        oveAbRed = new Texture("Sheep/Level 1/Red/sheep_up_red.png");
-        oveAbMovRed = new Texture("Sheep/Level 1/Red/sheep_moving_up_red.png");
-        oveAbWhite = new Texture("Sheep/Level 1/White/sheep_up_white.png");
-        oveAbMovWhite = new Texture("Sheep/Level 1/White/sheep_moving_up_white.png");
-        oveAbYellow = new Texture("Sheep/Level 1/Yellow/sheep_up_yellow.png");
-        oveAbMovYellow = new Texture("Sheep/Level 1/Yellow/sheep_moving_up_yellow.png");
+        oveAbBlue = new Texture("Sheep/Level 3/Blue/sheep_up_blue.png");
+        oveAbMovBlue = new Texture("Sheep/Level 3/Blue/sheep_moving_up_blue.png");
+        oveAbRed = new Texture("Sheep/Level 3/Red/sheep_up_red.png");
+        oveAbMovRed = new Texture("Sheep/Level 3/Red/sheep_moving_up_red.png");
+        oveAbWhite = new Texture("Sheep/Level 3/White/sheep_up_white.png");
+        oveAbMovWhite = new Texture("Sheep/Level 3/White/sheep_moving_up_white.png");
+        oveAbYellow = new Texture("Sheep/Level 3/Yellow/sheep_up_yellow.png");
+        oveAbMovYellow = new Texture("Sheep/Level 3/Yellow/sheep_moving_up_yellow.png");
 
         oveIzqBlue = new Texture("Sheep/Level 1/Blue/sheep_left_blue.png");
         oveIzqMovBlue = new Texture("Sheep/Level 1/Blue/sheep_moving_left_blue.png");
