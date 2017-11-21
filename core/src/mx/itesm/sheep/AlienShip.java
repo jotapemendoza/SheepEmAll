@@ -69,6 +69,9 @@ public class AlienShip {
                 break;
             case INICIO:
                 break;
+            case BOSS:
+                batch.draw(region, posicionX,posicionY);
+                break;
         }
     }
 
@@ -128,7 +131,8 @@ public class AlienShip {
         SALIENDOX,
         SALIENDOY,
         DERROTA,
-        INICIO
+        INICIO,
+        BOSS
     }
 
     public float getPosicionX() {
@@ -158,4 +162,8 @@ public class AlienShip {
     public int getAlto() { return alto; }
 
     public int getAncho() { return ancho; }
+
+    public void hideShip(){
+        this.setEstado(Estado.INICIO);
+    }
 }
