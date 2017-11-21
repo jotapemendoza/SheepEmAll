@@ -137,6 +137,7 @@ public class AlienLevel extends ScreenTemplate {
 
     @Override
     public void render(float delta) {
+
         Gdx.input.setCatchBackKey(true);
         clearScreen(0,0,0);
         batch.setProjectionMatrix(camera.combined);
@@ -146,12 +147,14 @@ public class AlienLevel extends ScreenTemplate {
             sheepTimer -= Gdx.graphics.getDeltaTime();
         }
 
+        escenaAlien.draw();
+
 
         batch.begin();
         if (hpAlien==0){
             this.estado = EstadoJuego.GANADO;
         }else{
-            escenaAlien.draw();
+            sheepAbd.setX(440);
             sheepAbd.render(batch);
         }
         batch.end();

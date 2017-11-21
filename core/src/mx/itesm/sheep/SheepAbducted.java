@@ -16,7 +16,7 @@ public class SheepAbducted {
 
     // Posición oveja
     private float x = 0;
-    private float y = 0;
+    private float y = 150;
 
     // Multiplicador de Velocidad
     private float velocidad = 1;
@@ -25,8 +25,8 @@ public class SheepAbducted {
     private String color;
 
     // Tamaño
-    private int alto = 255;
-    private int ancho = 200;
+    private int alto = 200;
+    private int ancho = 255;
 
     // Textura
     private Texture sheepText;
@@ -42,6 +42,7 @@ public class SheepAbducted {
         batch.draw(region, x, y);
         y += velocidad;
 
+        Gdx.app.log("x: ",Float.toString(x));
         Gdx.app.log("y: ",Float.toString(y));
         Gdx.app.log("velocidad: ",Float.toString(velocidad));
     }
