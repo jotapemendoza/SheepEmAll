@@ -308,9 +308,9 @@ public class LevelThree extends ScreenTemplate {
         //Llenar arreglo Ovejas
         if (arrOvejas == null) {
             arrOvejas = new Array<Sheep>(cantOve);
-            OveAl = new Sheep(oveAlienArrWhite, oveAlienArrMovWhite,
+            Sheep OveAlArr = new Sheep(oveAlienArrWhite, oveAlienArrMovWhite,
                     Sheep.Estado.ARRIBA, arrColores[0], arrTipos[1]);
-            arrOvejas.add(OveAl);
+            arrOvejas.add(OveAlArr);
         }
         // Llenar arreglo de ovejas por tiempo
         if (arrOvejas.size < cantOve) {
@@ -640,7 +640,7 @@ public class LevelThree extends ScreenTemplate {
         }
         aS.render(batch);
 
-        if (tiempo <= 2.0){ // a los 10 seg sale la oveja alien arriba y la nave
+        if (tiempo <= 2.0){ // a los 2 seg sale la oveja alien arriba y la nave
             arrOvejas.get(0).setVelocidad(velocidadOve);
             arrOvejas.get(0).render(batch);
         } else {
