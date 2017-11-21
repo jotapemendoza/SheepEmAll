@@ -77,6 +77,7 @@ class AboutUsScreen extends ScreenTemplate {
         // ANDY
         final ImageButton btnmonandy = new ImageButton(moniyo);
         btnmonandy.setPosition(615,1107);
+        btnmonandy.setColor(0,0,0,0);
         escenaAyuda.addActor(btnmonandy);
         btnmonandy.addListener( new ClickListener() {
             @Override
@@ -84,7 +85,7 @@ class AboutUsScreen extends ScreenTemplate {
                 super.clicked(event, x, y);
                 TextureRegionDrawable botandy = new TextureRegionDrawable(new TextureRegion(bioandy));
                 final ImageButton btnandy = new ImageButton(botandy);
-                btnandy.setPosition(80,350);
+                btnandy.setPosition(80,351);
                 escenaAyuda.addActor(btnandy);
                 btnandy.addListener( new ClickListener() {
                     @Override
@@ -100,13 +101,14 @@ class AboutUsScreen extends ScreenTemplate {
         final ImageButton btnmonedgar = new ImageButton(moniyo);
         btnmonedgar.setPosition(131,1107);
         escenaAyuda.addActor(btnmonedgar);
+        btnmonedgar.setColor(0,0,0,0);
         btnmonedgar.addListener( new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 TextureRegionDrawable botedgar = new TextureRegionDrawable(new TextureRegion(bioedgar));
                 final ImageButton btnedgar = new ImageButton(botedgar);
-                btnedgar.setPosition(70,350);
+                btnedgar.setPosition(72,351);
                 escenaAyuda.addActor(btnedgar);
                 btnedgar.addListener( new ClickListener() {
                     @Override
@@ -122,13 +124,14 @@ class AboutUsScreen extends ScreenTemplate {
         final ImageButton btnmonpablo = new ImageButton(moniyo);
         btnmonpablo.setPosition(615,550);
         escenaAyuda.addActor(btnmonpablo);
+        btnmonpablo.setColor(0,0,0,0);
         btnmonpablo.addListener( new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 TextureRegionDrawable botpablo = new TextureRegionDrawable(new TextureRegion(biopablo));
                 final ImageButton btnpablo = new ImageButton(botpablo);
-                btnpablo.setPosition(70,350);
+                btnpablo.setPosition(72,351);
                 escenaAyuda.addActor(btnpablo);
                 btnpablo.addListener( new ClickListener() {
                     @Override
@@ -144,13 +147,14 @@ class AboutUsScreen extends ScreenTemplate {
         final ImageButton btnmonjose = new ImageButton(moniyo);
         btnmonjose.setPosition(131,550);
         escenaAyuda.addActor(btnmonjose);
+        btnmonjose.setColor(0,0,0,0);
         btnmonjose.addListener( new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 TextureRegionDrawable botjose = new TextureRegionDrawable(new TextureRegion(biojose));
                 final ImageButton btnjose = new ImageButton(botjose);
-                btnjose.setPosition(70,350);
+                btnjose.setPosition(72,351);
                 escenaAyuda.addActor(btnjose);
                 btnjose.addListener( new ClickListener() {
                     @Override
