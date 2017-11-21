@@ -61,7 +61,7 @@ public class AlienLevel extends ScreenTemplate {
         winScene = new winScene(view,batch);
         estado = EstadoJuego.JUGANDO;
         Gdx.input.setInputProcessor(escenaAlien);
-        hpAlien = 10;
+        hpAlien = 50;
     }
 
     private void crearEscenaNave() {
@@ -98,7 +98,7 @@ public class AlienLevel extends ScreenTemplate {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 System.out.println(hpAlien);
-                scale_factor += 0.1;
+                scale_factor += 0.02;
                 hpAlien--;
                 outterimg.setZIndex(10);
                 innerimg.setScale(1-scale_factor,1);
