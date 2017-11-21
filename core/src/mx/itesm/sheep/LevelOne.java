@@ -348,7 +348,7 @@ public class LevelOne extends ScreenTemplate {
                             arrOvejas.add(ove);
                             break;
                     }
-                }else{
+                }else if (random == 4){
                     switch (randomColor){
                         case 1:
                             ove = new Sheep(oveDerWhite, oveDerMovWhite,
@@ -380,7 +380,7 @@ public class LevelOne extends ScreenTemplate {
     private void eliminarOveja(){
         for (int i = 0; i < arrOvejas.size; i++){
             if (arrOvejas.get(i).getEstado().equals(Sheep.Estado.ARRIBA)){
-                if (arrOvejas.get(i).gety() <= 100){
+                if (arrOvejas.get(i).gety() <= 0){
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
                     lifes--;
@@ -388,7 +388,7 @@ public class LevelOne extends ScreenTemplate {
                 }
             }
             if (arrOvejas.get(i).getEstado().equals(Sheep.Estado.ABAJO)){
-                if (arrOvejas.get(i).gety() >= 2020){
+                if (arrOvejas.get(i).gety() >= 1920){
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
                     lifes--;
@@ -396,7 +396,7 @@ public class LevelOne extends ScreenTemplate {
                 }
             }
             if (arrOvejas.get(i).getEstado().equals(Sheep.Estado.IZQUIERDA)){
-                if (arrOvejas.get(i).getx() >= 1180){
+                if (arrOvejas.get(i).getx() >= 1080){
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
                     lifes--;
@@ -404,7 +404,7 @@ public class LevelOne extends ScreenTemplate {
                 }
             }
             if (arrOvejas.get(i).getEstado().equals(Sheep.Estado.DERECHA)){
-                if (arrOvejas.get(i).getx() <= 150){
+                if (arrOvejas.get(i).getx() <= 0){
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
                     lifes--;

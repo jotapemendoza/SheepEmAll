@@ -52,7 +52,6 @@ public class AlienShip {
                 break;
             case PAUSADO:
                 timer = 0;
-                batch.draw(region, posicionX, posicionY);
                 break;
             case SALIENDOX:
                 batch.draw(region, posicionX, posicionY);
