@@ -41,8 +41,13 @@ public class AlienLevel extends ScreenTemplate {
     private EstadoJuego estado;
     private float scale_factor;
     private Texture pauseButton;
+    //private float totalTime = 60;
+    private float sheepTimer = 60;
+    private SheepAbducted sheepAbd;
+    private Texture whitesheep;
 
     public AlienLevel(SheepEm sheepEm) {
+
         this.sheepEm = sheepEm;
     }
 
@@ -50,6 +55,7 @@ public class AlienLevel extends ScreenTemplate {
     public void show() {
         cargarTexturas();
         crearEscenaNave();
+        sheepAbd = new SheepAbducted(whitesheep, "WHITE");
         lostScene = new lostScene(view,batch);
         winScene = new winScene(view,batch);
         estado = EstadoJuego.JUGANDO;
@@ -71,6 +77,8 @@ public class AlienLevel extends ScreenTemplate {
         final Image sheepimg = new Image(trdSheep);
         sheepimg.setPosition(400,100);
         escenaAlien.addActor(sheepimg);
+        //sheepAbd.setX(150);
+        //sheepAbd.setY(150);
 
         // Nave
         TextureRegionDrawable trdNave = new TextureRegionDrawable(new TextureRegion(nave));
@@ -113,20 +121,34 @@ public class AlienLevel extends ScreenTemplate {
         nave = new Texture("alienShip.png");
         sheep = new Texture("sheepAlienlvl.png");
         pauseButton = new Texture("Buttons/unpressed/pauseButton.png");
-
+        whitesheep = new Texture("sheepAlienlvl.png");
     }
 
     @Override
     public void render(float delta) {
+        Gdx.input.setCatchBackKey(true);
         clearScreen(0,0,0);
         batch.setProjectionMatrix(camera.combined);
+
+        //float deltaTime = Gdx.graphics.getDeltaTime();
+
+        //int minutes = ((int)totalTime) / 60;
+        //int seconds = ((int)totalTime) % 60;
+
+        if (estado == EstadoJuego.JUGANDO) {
+            sheepTimer -= Gdx.graphics.getDeltaTime();
+        }
+        //Gdx.app.log("sheepTimer: ","*********" + sheepTimer);
+
         batch.begin();
         if (hpAlien==0){
             this.estado = EstadoJuego.GANADO;
         }
         escenaAlien.draw();
-
+        sheepAbd.render(batch);
         batch.end();
+
+
 
         if (estado == EstadoJuego.PAUSADO) {
             pauseScene.draw();
@@ -200,6 +222,8 @@ public class AlienLevel extends ScreenTemplate {
     public void dispose() {
 
     }
+
+    // Pause scene *********************
     private class pauseScene extends Stage {
         public pauseScene(Viewport vista, SpriteBatch batch) {
             super(vista,batch);
@@ -344,6 +368,7 @@ public class AlienLevel extends ScreenTemplate {
      * **********
      * CAMBIAR SET SCREEN DEL SIGUIENTE NIVEL
      */
+    // Winning scene **************************************
     private class winScene extends Stage{
         public winScene(Viewport vista, SpriteBatch batch){
             super(vista,batch);
@@ -411,7 +436,7 @@ public class AlienLevel extends ScreenTemplate {
         }
     }
 
-    // Escena para la pantalla de perder -----------------------------------------------------------
+    // Losing scene -----------------------------------------------------------
     private class lostScene extends Stage{
         public lostScene(Viewport vista, SpriteBatch batch){
 
