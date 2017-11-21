@@ -64,7 +64,6 @@ public class SheepAbducted {
         this.y = y;
     }
 
-
     public int getAncho() { return ancho; }
 
     public int getAlto() { return alto; }
@@ -73,4 +72,9 @@ public class SheepAbducted {
 
     public void setVelocidad(float velocidad) { this.velocidad = velocidad; }
 
+    public void hideSheep() {
+        this.setX(-500);
+        this.setY(-500);
+        this.setVelocidad(0);
+    }
 }
