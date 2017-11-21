@@ -28,10 +28,17 @@ public class SettingsScreen extends ScreenTemplate {
             pressedMusicButton,
             pressedBackButton,
             pressedNoMusicButton,
+            pressedNoSfxButton,
+            pressedSfxButton,
+            noSfxButton,
             background;
 
     private ImageButton btnMusic,
             btnNoMusic;
+
+    private Texture sfxButton;
+    private ImageButton btnSfx;
+    private ImageButton btnNoSfx;
 
     public SettingsScreen(SheepEm sheepEm){
         this.sheepEm = sheepEm;
@@ -46,7 +53,7 @@ public class SettingsScreen extends ScreenTemplate {
 
     private void cargarTexturas() {
         background = new Texture("sBg.png");
-        musicButton = new Texture("Buttons/unpressed/music.png");
+        musicButton = new Texture("Buttons/unpressed/musicButton.png");
         restartButton =  new Texture("fx.png");
         pressedRestart =  new Texture("pressedFx.png");
         backButton = new Texture("Buttons/unpressed/backButton.png");
@@ -54,6 +61,11 @@ public class SettingsScreen extends ScreenTemplate {
         pressedBackButton = new Texture("Buttons/pressed/pressedBackButton.png");
         noMusicButton = new Texture("Buttons/unpressed/noMusicButton.png");
         pressedNoMusicButton = new Texture("Buttons/pressed/pressedNoMusicButton.png");
+        sfxButton = new Texture("Buttons/unpressed/sfxButton.png");
+        pressedSfxButton = new Texture("Buttons/pressed/PressedSfxButton.png");
+        noSfxButton = new Texture("Buttons/unpressed/NoSfxButton.png");
+        pressedNoSfxButton = new Texture("Buttons/pressed/PressedNoSfxButton.png");
+
     }
 
     private void crearEscenaSettings(){
@@ -64,6 +76,34 @@ public class SettingsScreen extends ScreenTemplate {
         Image bg = new Image(trdBg);
         bg.setPosition(0,0);
         escenaSettings.addActor(bg);
+        /*-------------------------SFX BUTTON----------------------*/
+        TextureRegionDrawable trdSfx = new TextureRegionDrawable(new TextureRegion(sfxButton));
+        TextureRegionDrawable trdPressedSfx = new TextureRegionDrawable(new TextureRegion(pressedSfxButton));
+
+        TextureRegionDrawable trdNoSfx = new TextureRegionDrawable(new TextureRegion(noSfxButton));
+        TextureRegionDrawable trdPressedNoSfx = new TextureRegionDrawable(new TextureRegion(pressedNoSfxButton));
+
+        btnSfx = new ImageButton(trdSfx,trdPressedSfx);
+        btnSfx.setPosition(640,581);
+        btnSfx.addListener( new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                pref.putBoolean("fxOn",false);
+            }
+        } );
+
+        btnNoSfx = new ImageButton(trdNoSfx,trdPressedNoSfx);
+        btnNoSfx.setPosition(640,581);
+        btnNoSfx.addListener( new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                pref.putBoolean("fxOn",true);
+            }
+        } );
+
+
 
         /*------------------------MUSIC BUTTON---------------------*/
 
@@ -74,9 +114,9 @@ public class SettingsScreen extends ScreenTemplate {
         TextureRegionDrawable trdNoMusicpr = new TextureRegionDrawable(new TextureRegion(pressedNoMusicButton));
 
         btnNoMusic = new ImageButton(trdNoMusic,trdNoMusicpr);
-        btnNoMusic.setPosition(374,631);
+        btnNoMusic.setPosition(180,581);
         btnMusic =  new ImageButton(trdMusic, trdMusicpr);
-        btnMusic.setPosition(374,631);
+        btnMusic.setPosition(180,581);
 
         btnMusic.addListener( new ClickListener() {
             @Override
@@ -139,16 +179,29 @@ public class SettingsScreen extends ScreenTemplate {
         escenaSettings.draw();
 
         if(pref.getBoolean("musicOn")){
-            btnMusic.setPosition(374,631);
+            btnMusic.setPosition(180,581);
             escenaSettings.addActor(btnMusic);
             btnNoMusic.remove();
 
         }
         if(!pref.getBoolean("musicOn")){
-            btnMusic.setPosition(374,631);
+            btnMusic.setPosition(180,581);
             escenaSettings.addActor(btnNoMusic);
             btnMusic.remove();
         }
+
+        if(pref.getBoolean("fxOn")){
+            btnSfx.setPosition(640,581);
+            escenaSettings.addActor(btnSfx);
+            btnNoSfx.remove();
+
+        }
+        if(!pref.getBoolean("fxOn")){
+            btnSfx.setPosition(640,581);
+            escenaSettings.addActor(btnNoSfx);
+            btnSfx.remove();
+        }
+
 
         if(pref.getBoolean("musicOn")){
             sheepEm.startMenuMusic();

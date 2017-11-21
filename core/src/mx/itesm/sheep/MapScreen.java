@@ -58,7 +58,7 @@ public class MapScreen extends ScreenTemplate {
         levelOne = new Texture("levelsScreen/level1.png");
         levelTwo = new Texture("levelsScreen/level2.png");
         lvlBtn = new Texture("levelsScreen/btn.png");
-        background = new Texture("sBg.png");
+        background = new Texture("menuBg.png");
         nightBackground = new Texture("nightBG.png");
         grass = new Texture("mapsBGtest.png");
         cloud = new Texture("cloud.png");
@@ -177,13 +177,13 @@ public class MapScreen extends ScreenTemplate {
 
         // NO GANADOS
 
-        //pref.putBoolean("wonLevelOne",false);
-        //pref.putBoolean("wonLevelTwo",false);
+        pref.putBoolean("wonLevelOne",false);
+        pref.putBoolean("wonLevelTwo",false);
 
         // GANADOS
 
-        pref.putBoolean("wonLevelOne",true);
-        pref.putBoolean("wonLevelTwo",true);
+        //pref.putBoolean("wonLevelOne",true);
+        //pref.putBoolean("wonLevelTwo",true);
 
         /*-----------------------------------------------------------------------------------------------------------------*/
 

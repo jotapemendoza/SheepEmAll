@@ -378,7 +378,7 @@ public class LevelOne extends ScreenTemplate {
     private void eliminarOveja(){
         for (int i = 0; i < arrOvejas.size; i++){
             if (arrOvejas.get(i).getEstado().equals(Sheep.Estado.ARRIBA)){
-                if (arrOvejas.get(i).gety() <= 0){
+                if (arrOvejas.get(i).gety() <= 100){
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
                     lifes--;
@@ -386,7 +386,7 @@ public class LevelOne extends ScreenTemplate {
                 }
             }
             if (arrOvejas.get(i).getEstado().equals(Sheep.Estado.ABAJO)){
-                if (arrOvejas.get(i).gety() >= 1920){
+                if (arrOvejas.get(i).gety() >= 2020){
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
                     lifes--;
@@ -394,7 +394,7 @@ public class LevelOne extends ScreenTemplate {
                 }
             }
             if (arrOvejas.get(i).getEstado().equals(Sheep.Estado.IZQUIERDA)){
-                if (arrOvejas.get(i).getx() >= 1080){
+                if (arrOvejas.get(i).getx() >= 1180){
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
                     lifes--;
@@ -402,7 +402,7 @@ public class LevelOne extends ScreenTemplate {
                 }
             }
             if (arrOvejas.get(i).getEstado().equals(Sheep.Estado.DERECHA)){
-                if (arrOvejas.get(i).getx() <= 0){
+                if (arrOvejas.get(i).getx() <= 150){
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
                     lifes--;

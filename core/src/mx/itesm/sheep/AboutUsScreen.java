@@ -59,7 +59,7 @@ class AboutUsScreen extends ScreenTemplate {
         TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(backButton));
         TextureRegionDrawable trdBackpr = new TextureRegionDrawable(new TextureRegion(pressedBackButton));
         final ImageButton btnBack = new ImageButton(trdBack, trdBackpr);
-        btnBack.setPosition(461,120);
+        btnBack.setPosition(461,90);
         escenaAyuda.addActor(btnBack);
 
 
@@ -85,7 +85,7 @@ class AboutUsScreen extends ScreenTemplate {
                 super.clicked(event, x, y);
                 TextureRegionDrawable botandy = new TextureRegionDrawable(new TextureRegion(bioandy));
                 final ImageButton btnandy = new ImageButton(botandy);
-                btnandy.setPosition(80,351);
+                btnandy.setPosition(0,0);
                 escenaAyuda.addActor(btnandy);
                 btnandy.addListener( new ClickListener() {
                     @Override
@@ -131,7 +131,7 @@ class AboutUsScreen extends ScreenTemplate {
                 super.clicked(event, x, y);
                 TextureRegionDrawable botpablo = new TextureRegionDrawable(new TextureRegion(biopablo));
                 final ImageButton btnpablo = new ImageButton(botpablo);
-                btnpablo.setPosition(72,351);
+                btnpablo.setPosition(0,0);
                 escenaAyuda.addActor(btnpablo);
                 btnpablo.addListener( new ClickListener() {
                     @Override
@@ -154,7 +154,7 @@ class AboutUsScreen extends ScreenTemplate {
                 super.clicked(event, x, y);
                 TextureRegionDrawable botjose = new TextureRegionDrawable(new TextureRegion(biojose));
                 final ImageButton btnjose = new ImageButton(botjose);
-                btnjose.setPosition(72,351);
+                btnjose.setPosition(0,0);
                 escenaAyuda.addActor(btnjose);
                 btnjose.addListener( new ClickListener() {
                     @Override
