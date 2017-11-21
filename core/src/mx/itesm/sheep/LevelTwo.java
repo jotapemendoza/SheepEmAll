@@ -415,7 +415,7 @@ public class LevelTwo extends ScreenTemplate {
 
     // Método que carga todas las texturas del sheepEm -----------------------------------------------
     private void cargarTexturas() {
-        background = new Texture("gBg.png");
+        background = new Texture("atardecer.png");
         pauseButton = new Texture("Buttons/unpressed/pauseButton.png");
         time = new Texture("time.png");
         life = new Texture("life.png");

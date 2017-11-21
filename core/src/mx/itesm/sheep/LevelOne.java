@@ -380,7 +380,7 @@ public class LevelOne extends ScreenTemplate {
     private void eliminarOveja(){
         for (int i = 0; i < arrOvejas.size; i++){
             if (arrOvejas.get(i).getEstado().equals(Sheep.Estado.ARRIBA)){
-                if (arrOvejas.get(i).gety() <= 100){
+                if (arrOvejas.get(i).gety() <= 0){
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
                     lifes--;
@@ -388,7 +388,7 @@ public class LevelOne extends ScreenTemplate {
                 }
             }
             if (arrOvejas.get(i).getEstado().equals(Sheep.Estado.ABAJO)){
-                if (arrOvejas.get(i).gety() >= 2020){
+                if (arrOvejas.get(i).gety() >= 1920){
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
                     lifes--;
@@ -396,7 +396,7 @@ public class LevelOne extends ScreenTemplate {
                 }
             }
             if (arrOvejas.get(i).getEstado().equals(Sheep.Estado.IZQUIERDA)){
-                if (arrOvejas.get(i).getx() >= 1180){
+                if (arrOvejas.get(i).getx() >= 1080){
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
                     lifes--;
@@ -404,7 +404,7 @@ public class LevelOne extends ScreenTemplate {
                 }
             }
             if (arrOvejas.get(i).getEstado().equals(Sheep.Estado.DERECHA)){
-                if (arrOvejas.get(i).getx() <= 150){
+                if (arrOvejas.get(i).getx() <= 0){
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
                     lifes--;
@@ -532,14 +532,13 @@ public class LevelOne extends ScreenTemplate {
         batch.draw(life_lost, 177,1796);
         batch.draw(life_lost, 77,1796);
 
-        batch.draw(time,680,1814);
-
         // Se dibuja el tiempo restante que tiene el usuario ---------------------------------------
+        batch.draw(time,730,1774);
 
         if(seconds>=10){
-            font.draw(batch,Integer.toString(minutes)+ ":"+ Integer.toString(seconds),755,1888);
+            font.draw(batch,Integer.toString(minutes)+ ":"+ Integer.toString(seconds),805,1848);
         }else{
-            font.draw(batch,Integer.toString(minutes)+ ":0"+ Integer.toString(seconds),755,1888);
+            font.draw(batch,Integer.toString(minutes)+ ":0"+ Integer.toString(seconds),805,1848);
         }
         // -----------------------------------------------------------------------------------------
 
