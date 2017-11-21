@@ -95,7 +95,7 @@ public class LevelThree extends ScreenTemplate {
     private final int cantOve = 21;
     private int contOvejas = 0;
     private Sheep OveAl;
-    private String arrColores[] = {"WHITE","BLUE","RED","YELLOW"};
+    private String arrColores[] = {"WHITE","BLUE","RED","YELLOW","RAINBOW"};
     private String arrTipos[] = {"NORMAL","ALIEN","RAINBOW"};
 
     private float salida;

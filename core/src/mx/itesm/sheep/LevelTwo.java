@@ -84,6 +84,9 @@ public class LevelTwo extends ScreenTemplate {
     private Texture oveDerYellow;
     private Texture oveDerMovYellow;
 
+    private Texture oveArrRainbow;
+    private Texture oveArrMovRainbow;
+
     private Boolean played = false;
 
     private Music sheep;
@@ -95,7 +98,7 @@ public class LevelTwo extends ScreenTemplate {
     private int ovejaMovY;
     private final int cantOve = 20;
     private int contOvejas = 0;
-    private String arrColores[] = {"WHITE","BLUE","RED","YELLOW"};
+    private String arrColores[] = {"WHITE","BLUE","RED","YELLOW","RAINBOW"};
     private String arrTipos[] = {"NORMAL","ALIEN","RAINBOW"};
 
     private float salida;
@@ -207,9 +210,16 @@ public class LevelTwo extends ScreenTemplate {
                 if(ovejaMoviendo != null){
                     // verificar si está en el corral
                     if(cordenadasCorral(x,y,ovejaMoviendo.getColor())){
-                        ovejaMoviendo.setEstado(ovejaMoviendo.getEstadoOriginal());
-                        contOvejas++;
-                        ovejaMoviendo = null;
+                        if (ovejaMoviendo.getColor().equals("RAINBOW")){
+                            ovejaMoviendo.setEstado(ovejaMoviendo.getEstadoOriginal());
+                            lifes++;
+                            contOvejas++;
+                            ovejaMoviendo = null;
+                        }else {
+                            ovejaMoviendo.setEstado(ovejaMoviendo.getEstadoOriginal());
+                            contOvejas++;
+                            ovejaMoviendo = null;
+                        }
                     }else{
                         if(!cordenadasLineales(x,y)){
                             ovejaMoviendo.setEstado(Sheep.Estado.BOOM);
@@ -232,10 +242,14 @@ public class LevelTwo extends ScreenTemplate {
 
     // Validar corral correcto ---------------------------------------------------------------------
     public boolean cordenadasCorral(float xP, float yP, String color) {
-        if ((xP >= 0 && xP <= 410 && yP >= 110 && yP <= 730 && color.equals("RED")) ||
-                (xP >= 670 && xP <= 1080 && yP >= 110 && yP <= 730 && color.equals("BLUE")) ||
-                (xP >= 0 && xP <= 410 && yP >= 1104 && yP <= 1730 && color.equals("WHITE")) ||
-                (xP >= 670 && xP <= 1080 && yP >= 1104 && yP <= 1730 && color.equals("YELLOW"))){
+        if ((xP >= 0 && xP <= 410 && yP >= 110 && yP <= 730
+                && (color.equals("RED") || color.equals("RAINBOW"))) ||
+                (xP >= 670 && xP <= 1080 && yP >= 110 && yP <= 730
+                        && (color.equals("BLUE") || color.equals("RAINBOW"))) ||
+                (xP >= 0 && xP <= 410 && yP >= 1104 && yP <= 1730
+                        && (color.equals("WHITE") || color.equals("RAINBOW"))) ||
+                (xP >= 670 && xP <= 1080 && yP >= 1104 && yP <= 1730
+                        && (color.equals("YELLOW") || color.equals("RAINBOW")))){
             return true;
         }
         return false;
@@ -268,13 +282,16 @@ public class LevelTwo extends ScreenTemplate {
         //Llenar arreglo Ovejas
         if (arrOvejas == null) {
             arrOvejas = new Array<Sheep>(cantOve);
+            Sheep rainbow = new Sheep(oveArrRainbow, oveArrMovWhite,
+                    Sheep.Estado.ARRIBA, arrColores[4], arrTipos[2]);
+            arrOvejas.add(rainbow);
         }
         // Llenar arreglo de ovejas por tiempo
         if (arrOvejas.size < cantOve) {
 
             Sheep ove;
 
-            for (int i = 0; i < 1; i++) {
+            for (int i = 1; i < 2; i++) {
                 int random = (int) (Math.random() * 4) + 1;
                 int randomColor = (int) (Math.random() * 4) + 1;
 
@@ -457,6 +474,9 @@ public class LevelTwo extends ScreenTemplate {
         oveDerMovWhite = new  Texture("Sheep/Level 1/White/sheep_moving_right_white.png");
         oveDerYellow = new Texture("Sheep/Level 1/Yellow/sheep_right_yellow.png");
         oveDerMovYellow = new Texture("Sheep/Level 1/Yellow/sheep_moving_right_yellow.png");
+
+        oveArrRainbow = new Texture("Sheep/Level 2/Rainbow/rainbow_up.png");
+        //oveArrMovRainbow = new Texture("");
     }
 
 
@@ -550,6 +570,14 @@ public class LevelTwo extends ScreenTemplate {
             }
 
         }
+
+        if (tiempo <= 2.0){ // a los 2 seg sale la oveja arcoiris arriba
+            arrOvejas.get(0).setVelocidad(velocidadOve);
+            arrOvejas.get(0).render(batch);
+        } else {
+            arrOvejas.get(0).render(batch);
+        }
+
         batch.end();
 
         escenaJuego.draw();

@@ -49,6 +49,8 @@ public class Sheep {
 
         this.color = color;
         this.tipo = tipo;
+        this.estadoOriginal = estado;
+        this.estado = estado;
 
         TextureRegion region = new TextureRegion(textura);
         TextureRegion[][] frames;
@@ -66,23 +68,36 @@ public class Sheep {
 
         switch (estado){
             case ARRIBA:
-                ancho = 108;
-                alto = 140;
-                frames = region.split(ancho,alto);
-                animacion = new Animation(0.20f, frames[0][0], frames[0][1]);
-                animacion.setPlayMode(Animation.PlayMode.LOOP);
+                if (tipo.equals("RAINBOW")){
+                    ancho = 108;
+                    alto = 140;
+                    frames = region.split(ancho,alto);
+                    animacion = new Animation(0.20f, frames[0][0], frames[0][1]);
+                    animacion.setPlayMode(Animation.PlayMode.LOOP);
 
-                anchoM = 114;
-                altoM = 127;
-                frames2 = region2.split(anchoM,altoM);
-                animacionMov = new Animation(0.20f, frames2[0][0], frames2[0][1]);
-                animacionMov.setPlayMode(Animation.PlayMode.LOOP);
+                    anchoM = 114;
+                    altoM = 127;
+                    frames2 = region2.split(anchoM,altoM);
+                    animacionMov = new Animation(0.20f, frames2[0][0], frames2[0][1]);
+                    animacionMov.setPlayMode(Animation.PlayMode.LOOP);
+
+                }else {
+                    ancho = 108;
+                    alto = 140;
+                    frames = region.split(ancho,alto);
+                    animacion = new Animation(0.20f, frames[0][0], frames[0][1]);
+                    animacion.setPlayMode(Animation.PlayMode.LOOP);
+
+                    anchoM = 114;
+                    altoM = 127;
+                    frames2 = region2.split(anchoM,altoM);
+                    animacionMov = new Animation(0.20f, frames2[0][0], frames2[0][1]);
+                    animacionMov.setPlayMode(Animation.PlayMode.LOOP);
+                }
 
                 timer = 0;
                 x = 500 + ((int) (Math.random()*65)+1);
                 y = 1921; //1900+ ((int) (Math.random()*4000));
-                this.estadoOriginal = estado;
-                this.estado = estado;
                 break;
             case ABAJO:
                 ancho = 107;
@@ -101,8 +116,6 @@ public class Sheep {
                 timer = 0;
                 x = 500 + ((int) (Math.random()*65)+1);
                 y = -140;//((int) (Math.random()*-4000));
-                this.estadoOriginal = estado;
-                this.estado = estado;
                 break;
             case IZQUIERDA:
                 ancho = 156;
@@ -120,8 +133,6 @@ public class Sheep {
                 timer = 0;
                 x = -this.ancho;//((int) (Math.random()*-4000));
                 y = 800 + ((int) (Math.random()*65)+1);
-                this.estadoOriginal = estado;
-                this.estado = estado;
                 break;
             case DERECHA:
                 ancho = 156;
@@ -139,8 +150,6 @@ public class Sheep {
                 timer = 0;
                 x = 1081;//1080 + ((int) (Math.random()*4000));
                 y = 800 + ((int) (Math.random()*65)+1);
-                this.estadoOriginal = estado;
-                this.estado = estado;
                 break;
             case MOVIENDO:
                 break;
