@@ -153,6 +153,7 @@ public class Sheep {
         }
     }
 
+
     public void render (SpriteBatch batch) {
         timer += Gdx.graphics.getDeltaTime();
         TextureRegion region = (TextureRegion) animacion.getKeyFrame(timer);
