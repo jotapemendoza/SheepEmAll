@@ -19,7 +19,7 @@ public class SheepAbducted {
     private float y = 150;
 
     // Multiplicador de Velocidad
-    private float velocidad = 1;
+    private float velocidad = 2;
 
     // Color de la oveja
     private String color;
