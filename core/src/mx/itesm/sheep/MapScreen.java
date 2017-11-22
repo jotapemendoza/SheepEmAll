@@ -108,6 +108,7 @@ public class MapScreen extends ScreenTemplate {
                 sheepEm.pauseMenuMusic();
                 sheepEm.stopEasterEgg();
                 pref.putBoolean("easterEgg",false);
+                pref.flush();
 
             }
         });
@@ -123,7 +124,7 @@ public class MapScreen extends ScreenTemplate {
                 sheepEm.pauseMenuMusic();
                 sheepEm.stopEasterEgg();
                 pref.putBoolean("easterEgg",false);
-
+                pref.flush();
             }
         });
 
@@ -137,6 +138,7 @@ public class MapScreen extends ScreenTemplate {
                 sheepEm.pauseMenuMusic();
                 sheepEm.stopEasterEgg();
                 pref.putBoolean("easterEgg",false);
+                pref.flush();
             }
         });
 

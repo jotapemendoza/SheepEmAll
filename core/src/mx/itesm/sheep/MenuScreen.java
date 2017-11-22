@@ -207,7 +207,6 @@ class MenuScreen extends ScreenTemplate
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                Gdx.app.log("Sheep:", Integer.toString(easterEgg));
                 easterEgg++;
             }
         } );
@@ -279,6 +278,7 @@ class MenuScreen extends ScreenTemplate
         if(easterEgg>=10){
             pref.putBoolean("easterEgg",true);
             sheepEm.stopMenuMusic();
+            pref.flush();
         }
         //******************************************
 
