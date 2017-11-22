@@ -81,8 +81,8 @@ class AboutUsScreen extends ScreenTemplate {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-
                 sheepEm.setScreen(new MenuScreen(sheepEm));
+                dispose();
             }
         } );
 
@@ -106,6 +106,7 @@ class AboutUsScreen extends ScreenTemplate {
                     public void clicked(InputEvent event, float x, float y) {
                         super.clicked(event, x, y);
                         sheepEm.setScreen(new AboutUsScreen(sheepEm));
+                        dispose();
                     }
                 } );
             }
@@ -122,13 +123,14 @@ class AboutUsScreen extends ScreenTemplate {
                 super.clicked(event, x, y);
                 TextureRegionDrawable botedgar = new TextureRegionDrawable(new TextureRegion(bioedgar));
                 final ImageButton btnedgar = new ImageButton(botedgar);
-                btnedgar.setPosition(72,351);
+                btnedgar.setPosition(0,0);
                 escenaAyuda.addActor(btnedgar);
                 btnedgar.addListener( new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         super.clicked(event, x, y);
                         sheepEm.setScreen(new AboutUsScreen(sheepEm));
+                        dispose();
                     }
                 } );
             }
@@ -152,6 +154,7 @@ class AboutUsScreen extends ScreenTemplate {
                     public void clicked(InputEvent event, float x, float y) {
                         super.clicked(event, x, y);
                         sheepEm.setScreen(new AboutUsScreen(sheepEm));
+                        dispose();
                     }
                 } );
             }
@@ -175,6 +178,7 @@ class AboutUsScreen extends ScreenTemplate {
                     public void clicked(InputEvent event, float x, float y) {
                         super.clicked(event, x, y);
                         sheepEm.setScreen(new AboutUsScreen(sheepEm));
+                        dispose();
                     }
                 } );
             }
