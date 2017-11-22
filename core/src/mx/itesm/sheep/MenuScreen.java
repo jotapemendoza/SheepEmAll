@@ -51,6 +51,8 @@ class MenuScreen extends ScreenTemplate
     private Image cloud_5;
 
 
+    private int easterEgg;
+
     public MenuScreen(SheepEm sheepEm) {
         this.sheepEm = sheepEm;
         pref.putBoolean("played", pref.getBoolean("played"));
@@ -61,6 +63,7 @@ class MenuScreen extends ScreenTemplate
         cargarTexturas();
         crearEscenaMenu();
         Gdx.input.setInputProcessor(escenaMenu);
+        easterEgg = 0;
     }
 
     private void crearEscenaMenu() {
@@ -83,10 +86,8 @@ class MenuScreen extends ScreenTemplate
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-
                 sheepEm.setScreen(new MapScreen(sheepEm));
-                pref.flush();
-                sheepEm.pauseMenuMusic();
+
             }
         } );
     //-----------------------------------------------------------------
@@ -202,6 +203,16 @@ class MenuScreen extends ScreenTemplate
         sh.setPosition(120,145);
         escenaMenu.addActor(sh);
 
+        sh.addListener( new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                Gdx.app.log("Sheep:", Integer.toString(easterEgg));
+                easterEgg++;
+            }
+        } );
+
+
     }
 
     private void cargarTexturas() {
@@ -264,12 +275,28 @@ class MenuScreen extends ScreenTemplate
 
 
 
+        //**************************************
+        if(easterEgg>=10){
+            pref.putBoolean("easterEgg",true);
+            sheepEm.stopMenuMusic();
+        }
+        //******************************************
+
 
         if(pref.getBoolean("musicOn")){
-            sheepEm.startMenuMusic();
+            if(pref.getBoolean("easterEgg")){
+                sheepEm.playEasterEgg();
+            }else{
+                sheepEm.startMenuMusic();
+            }
+
         }
         if(!pref.getBoolean("musicOn")){
-            sheepEm.pauseMenuMusic();
+            if(pref.getBoolean("easterEgg")){
+                sheepEm.pauseEasterEgg();
+            }else{
+                sheepEm.stopGameMusic();
+            }
         }
 
     }

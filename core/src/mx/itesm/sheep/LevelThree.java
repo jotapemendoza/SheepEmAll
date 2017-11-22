@@ -935,7 +935,7 @@ public class LevelThree extends ScreenTemplate {
             retryLevelButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.setScreen(new AlienLevel(sheepEm));
+                    sheepEm.setScreen(new LevelThree(sheepEm));
                 }
             });
             this.addActor(retryLevelButton);

@@ -106,6 +106,9 @@ public class MapScreen extends ScreenTemplate {
             public void clicked(InputEvent event, float x, float y) {
                 sheepEm.setScreen(new LevelOne(sheepEm));
                 sheepEm.pauseMenuMusic();
+                sheepEm.stopEasterEgg();
+                pref.putBoolean("easterEgg",false);
+
             }
         });
         escenaLevels.addActor(levelOneBtn);
@@ -118,6 +121,8 @@ public class MapScreen extends ScreenTemplate {
             public void clicked(InputEvent event, float x, float y) {
                 sheepEm.setScreen(new LevelTwo(sheepEm));
                 sheepEm.pauseMenuMusic();
+                sheepEm.stopEasterEgg();
+                pref.putBoolean("easterEgg",false);
 
             }
         });
@@ -128,9 +133,10 @@ public class MapScreen extends ScreenTemplate {
         levelThreeBtn.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                sheepEm.setScreen(new AlienLevel(sheepEm));
+                sheepEm.setScreen(new LevelThree(sheepEm));
                 sheepEm.pauseMenuMusic();
-
+                sheepEm.stopEasterEgg();
+                pref.putBoolean("easterEgg",false);
             }
         });
 
@@ -227,15 +233,23 @@ public class MapScreen extends ScreenTemplate {
 
         batch.end();
 
-        /*-----------------------MUSIC----------------------*/
         if(pref.getBoolean("musicOn")){
-            sheepEm.startMenuMusic();
+            if(pref.getBoolean("easterEgg")){
+                sheepEm.playEasterEgg();
+            }else{
+                sheepEm.startMenuMusic();
+            }
+
         }
         if(!pref.getBoolean("musicOn")){
-            sheepEm.pauseMenuMusic();
+            if(pref.getBoolean("easterEgg")){
+                sheepEm.stopEasterEgg();
+            }else{
+                sheepEm.stopGameMusic();
+            }
         }
 
-        pref.flush();
+
     }
 
     private void moveClouds(float delta) {
