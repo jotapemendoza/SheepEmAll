@@ -34,7 +34,7 @@ class LoadingScreen extends ScreenTemplate
             animationFrames[index++] = tmpFrames[0][i];
         }
 
-        animation = new Animation(1f/6f,animationFrames);
+        animation = new Animation(1f/5f,animationFrames);
     }
 
     @Override
