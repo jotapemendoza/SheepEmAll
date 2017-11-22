@@ -844,7 +844,7 @@ public class LevelOne extends ScreenTemplate {
             levelsButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.setScreen(new LevelOne(sheepEm));
+                    sheepEm.setScreen(new MapScreen(sheepEm));
                 }
             });
             this.addActor(levelsButton);

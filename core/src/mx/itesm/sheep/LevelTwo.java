@@ -735,7 +735,7 @@ public class LevelTwo extends ScreenTemplate {
                 public void clicked(InputEvent event, float x, float y) {
                     // Regresa al menú
                     sheepEm.stopGameMusic();
-                    sheepEm.setScreen(new LevelOne(sheepEm));
+                    sheepEm.setScreen(new LevelTwo(sheepEm));
                     sheepEm.playGameMusic();
                 }
             });
