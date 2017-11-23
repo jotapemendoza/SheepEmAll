@@ -242,14 +242,10 @@ public class LevelTwo extends ScreenTemplate {
 
     // Validar corral correcto ---------------------------------------------------------------------
     public boolean cordenadasCorral(float xP, float yP, String color) {
-        if ((xP >= 0 && xP <= 410 && yP >= 110 && yP <= 730
-                && (color.equals("RED") || color.equals("RAINBOW"))) ||
-                (xP >= 670 && xP <= 1080 && yP >= 110 && yP <= 730
-                        && (color.equals("BLUE") || color.equals("RAINBOW"))) ||
-                (xP >= 0 && xP <= 410 && yP >= 1104 && yP <= 1730
-                        && (color.equals("WHITE") || color.equals("RAINBOW"))) ||
-                (xP >= 670 && xP <= 1080 && yP >= 1104 && yP <= 1730
-                        && (color.equals("YELLOW") || color.equals("RAINBOW")))){
+        if ((xP >= 0 && xP <= 405 && yP >= 110 && yP <= 720 && color.equals("YELLOW")) ||
+                (xP >= 677 && xP <= 1080 && yP >= 110 && yP <= 720 && color.equals("BLUE")) ||
+                (xP >= 0 && xP <= 405 && yP >= 1105 && yP <= 1662 && color.equals("RED")) ||
+                (xP >= 677 && xP <= 1080 && yP >= 1105 && yP <= 1662 && color.equals("WHITE"))){
             return true;
         }
         return false;
@@ -257,8 +253,8 @@ public class LevelTwo extends ScreenTemplate {
 
     // Validar camino de ovejas --------------------------------------------------------------------
     public boolean cordenadasLineales(float xP, float yP){
-        if ( (xP >= 410 && xP <= 670 && yP >= 0 && yP <= 1920) ||
-                (xP >= 0 && xP <= 1080 && yP >= 730 && yP <= 1104) ){
+        if ( (xP >= 406 && xP <= 676 && yP >= 0 && yP <= 1920) ||
+                (xP >= 0 && xP <= 1080 && yP >= 721 && yP <= 1104) ){
             return true;
         }
         return false;
@@ -282,9 +278,30 @@ public class LevelTwo extends ScreenTemplate {
         //Llenar arreglo Ovejas
         if (arrOvejas == null) {
             arrOvejas = new Array<Sheep>(cantOve);
-            Sheep rainbow = new Sheep(oveArrRainbow, oveArrMovWhite,
-                    Sheep.Estado.ARRIBA, arrColores[4], arrTipos[2]);
-            arrOvejas.add(rainbow);
+            int randomRainbow = (int) (Math.random() * 4) + 1;
+            Sheep rainbow;
+            switch (randomRainbow){
+                case 1:
+                    rainbow = new Sheep(oveArrRainbow, oveArrMovWhite,
+                            Sheep.Estado.ARRIBA, arrColores[4], arrTipos[2]);
+                    arrOvejas.add(rainbow);
+                    break;
+                case 2:
+                    rainbow = new Sheep(oveArrRainbow, oveArrMovWhite,
+                            Sheep.Estado.ARRIBA, arrColores[4], arrTipos[2]);
+                    arrOvejas.add(rainbow);
+                    break;
+                case 3:
+                    rainbow = new Sheep(oveArrRainbow, oveArrMovWhite,
+                            Sheep.Estado.ARRIBA, arrColores[4], arrTipos[2]);
+                    arrOvejas.add(rainbow);
+                    break;
+                case 4:
+                    rainbow = new Sheep(oveArrRainbow, oveArrMovWhite,
+                            Sheep.Estado.ARRIBA, arrColores[4], arrTipos[2]);
+                    arrOvejas.add(rainbow);
+                    break;
+            }
         }
         // Llenar arreglo de ovejas por tiempo
         if (arrOvejas.size < cantOve) {
@@ -559,7 +576,7 @@ public class LevelTwo extends ScreenTemplate {
         // -----------------------------------------------------------------------------------------
 
 
-        for (int i = 0; i < arrOvejas.size; i++) {
+        for (int i = 1; i < arrOvejas.size; i++) {
             if (salida <= 10) {
                 arrOvejas.get(i).setVelocidad(velocidadOve);
                 arrOvejas.get(i).render(batch);
@@ -571,10 +588,8 @@ public class LevelTwo extends ScreenTemplate {
 
         }
 
-        if (tiempo <= 2.0){ // a los 2 seg sale la oveja arcoiris arriba
+        if (tiempo >= 30.0){ // a los 30 seg sale la oveja arcoiris arriba
             arrOvejas.get(0).setVelocidad(velocidadOve);
-            arrOvejas.get(0).render(batch);
-        } else {
             arrOvejas.get(0).render(batch);
         }
 
@@ -923,7 +938,7 @@ public class LevelTwo extends ScreenTemplate {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     sheepEm.stopGameMusic();
-                    sheepEm.setScreen(new LevelOne(sheepEm));
+                    sheepEm.setScreen(new LevelTwo(sheepEm));
                     sheepEm.playGameMusic();
                     sheepEm.stopLost();
                 }

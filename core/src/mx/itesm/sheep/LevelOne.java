@@ -234,10 +234,10 @@ public class LevelOne extends ScreenTemplate {
 
     // Validar corral correcto ---------------------------------------------------------------------
     public boolean cordenadasCorral(float xP, float yP, String color) {
-        if ((xP >= 0 && xP <= 410 && yP >= 110 && yP <= 730 && color.equals("RED")) ||
-                (xP >= 670 && xP <= 1080 && yP >= 110 && yP <= 730 && color.equals("BLUE")) ||
-                (xP >= 0 && xP <= 410 && yP >= 1104 && yP <= 1730 && color.equals("WHITE")) ||
-                (xP >= 670 && xP <= 1080 && yP >= 1104 && yP <= 1730 && color.equals("YELLOW"))){
+        if ((xP >= 0 && xP <= 405 && yP >= 110 && yP <= 720 && color.equals("RED")) ||
+                (xP >= 677 && xP <= 1080 && yP >= 110 && yP <= 720 && color.equals("BLUE")) ||
+                (xP >= 0 && xP <= 405 && yP >= 1105 && yP <= 1662 && color.equals("WHITE")) ||
+                (xP >= 677 && xP <= 1080 && yP >= 1105 && yP <= 1662 && color.equals("YELLOW"))){
             return true;
         }
         return false;
@@ -245,8 +245,8 @@ public class LevelOne extends ScreenTemplate {
 
     // Validar camino de ovejas --------------------------------------------------------------------
     public boolean cordenadasLineales(float xP, float yP){
-        if ( (xP >= 410 && xP <= 670 && yP >= 0 && yP <= 1920) ||
-                (xP >= 0 && xP <= 1080 && yP >= 730 && yP <= 1104) ){
+        if ( (xP >= 406 && xP <= 676 && yP >= 0 && yP <= 1920) ||
+                (xP >= 0 && xP <= 1080 && yP >= 721 && yP <= 1104) ){
             return true;
         }
         return false;
