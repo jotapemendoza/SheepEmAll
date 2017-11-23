@@ -195,6 +195,7 @@ public class LevelOne extends ScreenTemplate {
                 super.drag(event, x, y, pointer);
                 if (ovejaMoviendo == null){ return; }
                 if(pref.getBoolean("fxOn")){
+                    sheep.setVolume(0.8f);
                     sheep.play();
                 }
                 ovejaMoviendo.setX(x - ovejaMoviendo.getAncho()/2);

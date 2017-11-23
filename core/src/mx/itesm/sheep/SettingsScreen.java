@@ -229,19 +229,11 @@ public class SettingsScreen extends ScreenTemplate {
 
 
         if(pref.getBoolean("musicOn")){
-            if(pref.getBoolean("easterEgg")){
-                sheepEm.playEasterEgg();
-            }else{
-                sheepEm.startMenuMusic();
-            }
+            sheepEm.startMenuMusic();
 
         }
         if(!pref.getBoolean("musicOn")){
-            if(pref.getBoolean("easterEgg")){
-                sheepEm.pauseEasterEgg();
-            }else{
-                sheepEm.stopGameMusic();
-            }
+            sheepEm.stopGameMusic();
         }
 
         pref.flush();

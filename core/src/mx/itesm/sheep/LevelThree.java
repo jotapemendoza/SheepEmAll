@@ -210,6 +210,7 @@ public class LevelThree extends ScreenTemplate {
                 ovejaMoviendo.setY(y - ovejaMoviendo.getAlto()/2);
 
                 if(pref.getBoolean("fxOn")){
+                    sheep.setVolume(0.8f);
                     sheep.play();
                 }
                 Gdx.app.log("drag", "x = " +x + ", y = " +y);

@@ -87,13 +87,8 @@ public class MapScreen extends ScreenTemplate {
 
         TextureRegionDrawable trdBg = new TextureRegionDrawable(new TextureRegion(background));
         Image bg =  new Image(trdBg);
-        if(!pref.getBoolean("wonLevelOne")){
-            bg.setPosition(0,725);
-        }
-        if(pref.getBoolean("wonLevelOne")){
-            bg.setDrawable(nightBg);
-            bg.setPosition(0,725);
-        }
+        bg.setPosition(0,725);
+
 
 
         escenaLevels.addActor(bg);
@@ -106,8 +101,6 @@ public class MapScreen extends ScreenTemplate {
             public void clicked(InputEvent event, float x, float y) {
                 sheepEm.setScreen(new LevelOne(sheepEm));
                 sheepEm.pauseMenuMusic();
-                sheepEm.stopEasterEgg();
-                pref.putBoolean("easterEgg",false);
                 pref.flush();
 
             }
@@ -122,8 +115,6 @@ public class MapScreen extends ScreenTemplate {
             public void clicked(InputEvent event, float x, float y) {
                 sheepEm.setScreen(new LevelTwo(sheepEm));
                 sheepEm.pauseMenuMusic();
-                sheepEm.stopEasterEgg();
-                pref.putBoolean("easterEgg",false);
                 pref.flush();
             }
         });
@@ -136,8 +127,6 @@ public class MapScreen extends ScreenTemplate {
             public void clicked(InputEvent event, float x, float y) {
                 sheepEm.setScreen(new LevelThree(sheepEm));
                 sheepEm.pauseMenuMusic();
-                sheepEm.stopEasterEgg();
-                pref.putBoolean("easterEgg",false);
                 pref.flush();
             }
         });
@@ -204,8 +193,8 @@ public class MapScreen extends ScreenTemplate {
 
         // GANADOS
 
-       pref.putBoolean("wonLevelOne",true);
-        pref.putBoolean("wonLevelTwo",true);
+        //pref.putBoolean("wonLevelOne",true);
+        //pref.putBoolean("wonLevelTwo",true);
 
         /*-----------------------------------------------------------------------------------------------------------------*/
 
@@ -236,19 +225,11 @@ public class MapScreen extends ScreenTemplate {
         batch.end();
 
         if(pref.getBoolean("musicOn")){
-            if(pref.getBoolean("easterEgg")){
-                sheepEm.playEasterEgg();
-            }else{
-                sheepEm.startMenuMusic();
-            }
+            sheepEm.startMenuMusic();
 
         }
         if(!pref.getBoolean("musicOn")){
-            if(pref.getBoolean("easterEgg")){
-                sheepEm.stopEasterEgg();
-            }else{
-                sheepEm.stopGameMusic();
-            }
+            sheepEm.stopGameMusic();
         }
 
 

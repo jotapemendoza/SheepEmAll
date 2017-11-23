@@ -62,13 +62,6 @@ public class SheepEm extends Game
 		levelTwoMusic.setLooping(false);
 	}
 
-	public void playEasterEgg(){
-		allStar.play();
-		allStar.setLooping(true);
-	}
-	public void stopEasterEgg(){
-		allStar.stop();
-	}
 	public void stopLevelTwoMusic(){
 		levelTwoMusic.stop();
 	}
@@ -85,8 +78,6 @@ public class SheepEm extends Game
 		lost.stop();
 	}
 
-	public void pauseEasterEgg() {
-		allStar.pause();
-	}
+
 }
 

@@ -197,6 +197,7 @@ public class LevelTwo extends ScreenTemplate {
                 super.drag(event, x, y, pointer);
                 if (ovejaMoviendo == null){ return; }
                 if(pref.getBoolean("fxOn")){
+                    sheep.setVolume(0.8f);
                     sheep.play();
                 }
                 ovejaMoviendo.setX(x - ovejaMoviendo.getAncho()/2);
@@ -206,7 +207,6 @@ public class LevelTwo extends ScreenTemplate {
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer) {
                 super.dragStop(event, x, y, pointer);
-                //sheep.stop();
                 if(ovejaMoviendo != null){
                     // verificar si está en el corral
                     if(cordenadasCorral(x,y,ovejaMoviendo.getColor())){
