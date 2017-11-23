@@ -274,13 +274,13 @@ class MenuScreen extends ScreenTemplate
 
 
 
-        //**************************************
+     /*
         if(easterEgg>=10){
             pref.putBoolean("easterEgg",true);
             sheepEm.stopMenuMusic();
             pref.flush();
-        }
-        //******************************************
+        }*/
+
 
 
         if(pref.getBoolean("musicOn")){

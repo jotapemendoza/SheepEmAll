@@ -61,7 +61,7 @@ public class MapScreen extends ScreenTemplate {
         levelOne = new Texture("levelsScreen/level1.png");
         levelTwo = new Texture("levelsScreen/level2.png");
         lvlBtn = new Texture("levelsScreen/btn.png");
-        background = new Texture("menuBg.png");
+        background = new Texture("dayBG.png");
         nightBackground = new Texture("nightBG.png");
         grass = new Texture("mapsBGtest.png");
         cloud = new Texture("cloud.png");
@@ -88,7 +88,7 @@ public class MapScreen extends ScreenTemplate {
         TextureRegionDrawable trdBg = new TextureRegionDrawable(new TextureRegion(background));
         Image bg =  new Image(trdBg);
         if(!pref.getBoolean("wonLevelOne")){
-            bg.setPosition(0,0);
+            bg.setPosition(0,725);
         }
         if(pref.getBoolean("wonLevelOne")){
             bg.setDrawable(nightBg);

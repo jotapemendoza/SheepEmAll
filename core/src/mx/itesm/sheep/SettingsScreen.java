@@ -3,6 +3,7 @@ package mx.itesm.sheep;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -13,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
  * Created by josepablo on 9/14/17.
@@ -41,6 +43,9 @@ public class SettingsScreen extends ScreenTemplate {
     private Texture sfxButton;
     private ImageButton btnSfx;
     private ImageButton btnNoSfx;
+    private boolean popup;
+
+    private popScene popScene;
 
     public SettingsScreen(SheepEm sheepEm){
         this.sheepEm = sheepEm;
@@ -52,6 +57,8 @@ public class SettingsScreen extends ScreenTemplate {
         crearEscenaSettings();
         Gdx.input.setInputProcessor(escenaSettings);
         Gdx.input.setCatchBackKey(true);
+        popup = false;
+        popScene = new popScene(view,batch);
     }
 
     private void cargarTexturas() {
@@ -161,9 +168,8 @@ public class SettingsScreen extends ScreenTemplate {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                pref.putBoolean("wonLevelOne", false);
-                pref.putBoolean("wonLevelTwo",false);
-                pref.flush();
+                popup = true;
+
             }
         } );
 
@@ -191,6 +197,11 @@ public class SettingsScreen extends ScreenTemplate {
         batch.setProjectionMatrix(camera.combined);
 
         escenaSettings.draw();
+
+        if (popup==true){
+            popScene.draw();
+            Gdx.input.setInputProcessor(popScene);
+        }
 
         if(pref.getBoolean("musicOn")){
             btnMusic.setPosition(180,581);
@@ -235,6 +246,60 @@ public class SettingsScreen extends ScreenTemplate {
 
         pref.flush();
     }
+
+    private class popScene extends Stage{
+        public popScene(Viewport vista, SpriteBatch batch){
+
+            super(vista,batch);
+
+            Texture opaque = new Texture("opaque.png");
+            TextureRegionDrawable trdOpaq = new TextureRegionDrawable(new TextureRegion(opaque));
+            Image op = new Image(trdOpaq);
+            op.setPosition(0,0);
+            this.addActor(op);
+
+            Texture popUp = new Texture("popUp.png");
+            TextureRegionDrawable trdPopUp = new TextureRegionDrawable(new TextureRegion(popUp));
+            Image rect = new Image(trdPopUp);
+            rect.setPosition(187,739);
+            this.addActor(rect);
+
+
+            Texture yes = new Texture("Buttons/unpressed/yes.png");
+            TextureRegionDrawable trdHome = new TextureRegionDrawable(new TextureRegion(yes));
+            TextureRegionDrawable trdHomePr = new TextureRegionDrawable(new TextureRegion(new Texture("Buttons/pressed/PressedYes.png")));
+            ImageButton homeButton = new ImageButton(trdHome, trdHomePr);
+            homeButton.setPosition(581,873);
+            homeButton.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    pref.putBoolean("wonLevelOne", false);
+                    pref.putBoolean("wonLevelTwo",false);
+                    pref.flush();
+                    popup = false;
+                    Gdx.input.setInputProcessor(escenaSettings);
+                }
+            });
+            this.addActor(homeButton);
+
+            Texture no = new Texture("Buttons/unpressed/no.png");
+            TextureRegionDrawable trdAgain = new TextureRegionDrawable(new TextureRegion(no));
+            TextureRegionDrawable trdAgainpr = new TextureRegionDrawable(new TextureRegion(new Texture("Buttons/pressed/PressedNo.png")));
+            ImageButton tryAgain = new ImageButton(trdAgain, trdAgainpr);
+            tryAgain.setPosition(345,873);
+            tryAgain.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                   popup = false;
+                   Gdx.input.setInputProcessor(escenaSettings);
+                }
+            });
+            this.addActor(tryAgain);
+
+
+        }
+    }
+
 
     @Override
     public void pause() {
