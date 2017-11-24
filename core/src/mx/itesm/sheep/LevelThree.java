@@ -121,8 +121,6 @@ public class LevelThree extends ScreenTemplate {
     private Music sheep;
     private float sheepTimer;
     private boolean estaEnNave = false;
-    private boolean hayAlien = false;
-    private int cantAliens = 3;
 
 
     public LevelThree(SheepEm sheepEm){
@@ -234,7 +232,7 @@ public class LevelThree extends ScreenTemplate {
                     else{
                         if(cordenadasCorral(x,y,ovejaMoviendo.getColor())){
                             if (ovejaMoviendo.getTipo().equals("ALIEN")){
-                                ovejaMoviendo.setEstado(Sheep.Estado.BOOM);
+                                //ovejaMoviendo.setEstado(Sheep.Estado.BOOM);
                                 lifes--;
                                 aS.setEstado(AlienShip.Estado.DERROTA);
                                 Gdx.app.log("oveja","en corral: " + contOvejas);
@@ -248,7 +246,7 @@ public class LevelThree extends ScreenTemplate {
                         }else {
                             if (!cordenadasLineales(x, y) && ovejaMoviendo.getTipo().equals("ALIEN")){
                                 Gdx.app.log("corral", "Corral incorrecto");
-                                ovejaMoviendo.setEstado(Sheep.Estado.BOOM);
+                                //ovejaMoviendo.setEstado(Sheep.Estado.BOOM);
                                 lifes--;
                                 aS.setEstado(AlienShip.Estado.DERROTA);
                                 ovejaMoviendo = null;
@@ -314,16 +312,14 @@ public class LevelThree extends ScreenTemplate {
             Sheep OveAlArr = new Sheep(oveAlienArrWhite, oveAlienArrMovWhite,
                     Sheep.Estado.ARRIBA, arrColores[0], arrTipos[1]);
             arrOvejas.add(OveAlArr);
-            arrOvejas.add(OveAlArr);
-            arrOvejas.add(OveAlArr);
-            arrOvejas.add(OveAlArr);
+
         }
         // Llenar arreglo de ovejas por tiempo
         if (arrOvejas.size < cantOve) {
 
             Sheep ove;
 
-            for (int i = 4; i < 5; i++) {
+            for (int i = 1; i < 2; i++) {
                 int random = (int) (Math.random() * 4) + 1;
                 int randomColor = (int) (Math.random() * 4) + 1;
 
@@ -477,45 +473,6 @@ public class LevelThree extends ScreenTemplate {
         }
     }
 
-    // Método para pintar la nave ------------------------------------------------------------------
-    private void naveEnPantalla (){
-        if (hayAlien){
-            if (aS.getEstado() != AlienShip.Estado.PAUSADO){
-                if (aS.getEstado() != AlienShip.Estado.DERROTA){
-                    moverX += 5f* aS.getDireccionX();
-                    moverY += 5f * aS.getDireccionY();
-                    aS.spaceShipMove(moverX,moverY);
-                    aS.setEstado(AlienShip.Estado.MOVIENDO);
-                    //Gdx.app.log("Prueba","MoverX =   " + moverX);
-                    if(aS.saliendoPor() == AlienShip.Estado.SALIENDOX){
-                        aS.cambiarDireccionX();
-                        //moverX = 1080;
-                    }
-                    else if (aS.saliendoPor() == AlienShip.Estado.SALIENDOY){
-                        aS.cambiarDireccionY();
-                        Gdx.app.log("Condición Y","se cumplió *****************");
-                        //moverY = 1920;
-                    }
-                }else {
-                    if (!arrOvejas.get(cantAliens).isEnLlamas()){
-                        estaEnNave = true;
-                        cantAliens--;
-                    }
-                }
-            }
-
-        }
-        aS.render(batch);
-    }
-
-    // Método para que salgan las ovejas alien -----------------------------------------------------
-    private void ovejasAlien (){
-        if (hayAlien && cantAliens >= 0){
-            arrOvejas.get(cantAliens).setVelocidad(velocidadOve);
-            arrOvejas.get(cantAliens).render(batch);
-        }
-    }
-
     // Método que carga todas las texturas del sheepEm ---------------------------------------------
     private void loadTextures() {
         background = new Texture("noche.png");
@@ -649,7 +606,7 @@ public class LevelThree extends ScreenTemplate {
         }
         // -----------------------------------------------------------------------------------------
 
-        Gdx.app.log("tiempo", "T: " + salida);
+        Gdx.app.log("tiempo", "T: " + tiempo);
         Gdx.app.log("distancia", "X: " + moverX + ", Y: " + moverY);
 
         // pintar ovejas
@@ -666,20 +623,39 @@ public class LevelThree extends ScreenTemplate {
        }
 
         // Movimiento de la nave en la pantalla
-        if (tiempo >= 2.0 && cantAliens >= 0 && aS.getEstado() != AlienShip.Estado.DERROTA) {
-           hayAlien = true;
-           naveEnPantalla();
-        }else {
-           hayAlien = false;
-           aS.render(batch);
-        }
+        if (tiempo >= 2.0f){
+            if (aS.getEstado() != AlienShip.Estado.PAUSADO){
+                if (aS.getEstado() != AlienShip.Estado.DERROTA){
+                    moverX += 5f* aS.getDireccionX();
+                    moverY += 5f * aS.getDireccionY();
+                    aS.spaceShipMove(moverX,moverY);
+                    aS.setEstado(AlienShip.Estado.MOVIENDO);
+                    //Gdx.app.log("Prueba","MoverX =   " + moverX);
+                    if(aS.saliendoPor() == AlienShip.Estado.SALIENDOX){
+                        aS.cambiarDireccionX();
+                        //moverX = 1080;
+                    }
+                    else if (aS.saliendoPor() == AlienShip.Estado.SALIENDOY){
+                        aS.cambiarDireccionY();
+                        Gdx.app.log("Condición Y","se cumplió *****************");
+                        //moverY = 1920;
+                    }
+                }else {
+                    if (!arrOvejas.get(0).isEnLlamas()){
+                        estaEnNave = true;
+                    }
+                }
+            }
 
+        }
+        aS.render(batch);
 
         // Sacar oveja alien
-        if (tiempo >= 2.0 && cantAliens >= 0) {
-           ovejasAlien();
+        if (tiempo >= 2.0f){
+            arrOvejas.get(0).setVelocidad(velocidadOve);
+            arrOvejas.get(0).render(batch);
         }else {
-            arrOvejas.get(cantAliens).render(batch);
+            arrOvejas.get(0).render(batch);
         }
 
         batch.end();
