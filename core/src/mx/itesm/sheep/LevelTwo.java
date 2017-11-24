@@ -228,6 +228,7 @@ public class LevelTwo extends ScreenTemplate {
                         if(!cordenadasLineales(x,y)){
                             ovejaMoviendo.setEstado(Sheep.Estado.BOOM);
                             lifes--;
+                            contOvejas++;
                             ovejaMoviendo = null;
                         }else{
                             ovejaMoviendo.setSeMovio(false);
@@ -246,10 +247,14 @@ public class LevelTwo extends ScreenTemplate {
 
     // Validar corral correcto ---------------------------------------------------------------------
     public boolean cordenadasCorral(float xP, float yP, String color) {
-        if ((xP >= 0 && xP <= 405 && yP >= 110 && yP <= 720 && color.equals("YELLOW")) ||
-                (xP >= 677 && xP <= 1080 && yP >= 110 && yP <= 720 && color.equals("BLUE")) ||
-                (xP >= 0 && xP <= 405 && yP >= 1105 && yP <= 1662 && color.equals("RED")) ||
-                (xP >= 677 && xP <= 1080 && yP >= 1105 && yP <= 1662 && color.equals("WHITE"))){
+        if ((xP >= 0 && xP <= 405 && yP >= 110 && yP <= 720
+                && (color.equals("RED") || color.equals("RAINBOW"))) ||
+                (xP >= 677 && xP <= 1080 && yP >= 110 && yP <= 720
+                        && (color.equals("BLUE") || color.equals("RAINBOW"))) ||
+                (xP >= 0 && xP <= 405 && yP >= 1105 && yP <= 1662
+                        && (color.equals("WHITE") || color.equals("RAINBOW"))) ||
+                (xP >= 677 && xP <= 1080 && yP >= 1105 && yP <= 1662
+                        && (color.equals("YELLOW") || color.equals("RAINBOW")))){
             return true;
         }
         return false;
@@ -463,42 +468,43 @@ public class LevelTwo extends ScreenTemplate {
         barn_shadow = new Texture("shadow.png");
 
         //ovejas de colores
-        oveArrBlue = new Texture("Sheep/Level 1/Blue/sheep_down_blue.png");
-        oveArrMovBlue = new Texture("Sheep/Level 1/Blue/sheep_moving_down_blue.png");
-        oveArrRed = new Texture("Sheep/Level 1/Red/sheep_down_red.png");
-        oveArrMovRed = new Texture("Sheep/Level 1/Red/sheep_moving_down_red.png");
-        oveArrWhite = new Texture("Sheep/Level 1/White/sheep_down_white.png");
-        oveArrMovWhite = new Texture("Sheep/Level 1/White/sheep_moving_down_white.png");
-        oveArrYellow = new Texture("Sheep/Level 1/Yellow/sheep_down_yellow.png");
-        oveArrMovYellow = new Texture("Sheep/Level 1/Yellow/sheep_moving_down_yellow.png");
+        oveArrBlue = new Texture("Sheep/Level 2/Blue/sheep_down_blue.png");
+        oveArrMovBlue = new Texture("Sheep/Level 2/Blue/sheep_moving_down_blue.png");
+        oveArrRed = new Texture("Sheep/Level 2/Red/sheep_down_red.png");
+        oveArrMovRed = new Texture("Sheep/Level 2/Red/sheep_moving_down_red.png");
+        oveArrWhite = new Texture("Sheep/Level 2/White/sheep_down_white.png");
+        oveArrMovWhite = new Texture("Sheep/Level 2/White/sheep_moving_down_white.png");
+        oveArrYellow = new Texture("Sheep/Level 2/Yellow/sheep_down_yellow.png");
+        oveArrMovYellow = new Texture("Sheep/Level 2/Yellow/sheep_moving_down_yellow.png");
 
-        oveAbBlue = new Texture("Sheep/Level 1/Blue/sheep_up_blue.png");
-        oveAbMovBlue = new Texture("Sheep/Level 1/Blue/sheep_moving_up_blue.png");
-        oveAbRed = new Texture("Sheep/Level 1/Red/sheep_up_red.png");
-        oveAbMovRed = new Texture("Sheep/Level 1/Red/sheep_moving_up_red.png");
-        oveAbWhite = new Texture("Sheep/Level 1/White/sheep_up_white.png");
-        oveAbMovWhite = new Texture("Sheep/Level 1/White/sheep_moving_up_white.png");
-        oveAbYellow = new Texture("Sheep/Level 1/Yellow/sheep_up_yellow.png");
-        oveAbMovYellow = new Texture("Sheep/Level 1/Yellow/sheep_moving_up_yellow.png");
+        oveAbBlue = new Texture("Sheep/Level 2/Blue/sheep_up_blue.png");
+        oveAbMovBlue = new Texture("Sheep/Level 2/Blue/sheep_moving_up_blue.png");
+        oveAbRed = new Texture("Sheep/Level 2/Red/sheep_up_red.png");
+        oveAbMovRed = new Texture("Sheep/Level 2/Red/sheep_moving_up_red.png");
+        oveAbWhite = new Texture("Sheep/Level 2/White/sheep_up_white.png");
+        oveAbMovWhite = new Texture("Sheep/Level 2/White/sheep_moving_up_white.png");
+        oveAbYellow = new Texture("Sheep/Level 2/Yellow/sheep_up_yellow.png");
+        oveAbMovYellow = new Texture("Sheep/Level 2/Yellow/sheep_moving_up_yellow.png");
 
-        oveIzqBlue = new Texture("Sheep/Level 1/Blue/sheep_left_blue.png");
-        oveIzqMovBlue = new Texture("Sheep/Level 1/Blue/sheep_moving_left_blue.png");
-        oveIzqRed = new Texture("Sheep/Level 1/Red/sheep_left_red.png");
-        oveIzqMovRed = new Texture("Sheep/Level 1/Red/sheep_moving_left_red.png");
-        oveIzqWhite = new Texture("Sheep/Level 1/White/sheep_left_white.png");
-        oveIzqMovWhite = new Texture("Sheep/Level 1/White/sheep_moving_left_white.png");
-        oveIzqYellow = new Texture("Sheep/Level 1/Yellow/sheep_left_yellow.png");
-        oveIzqMovYellow = new Texture("Sheep/Level 1/Yellow/sheep_moving_left_yellow.png");
+        oveIzqBlue = new Texture("Sheep/Level 2/Blue/sheep_left_blue.png");
+        oveIzqMovBlue = new Texture("Sheep/Level 2/Blue/sheep_moving_left_blue.png");
+        oveIzqRed = new Texture("Sheep/Level 2/Red/sheep_left_red.png");
+        oveIzqMovRed = new Texture("Sheep/Level 2/Red/sheep_moving_left_red.png");
+        oveIzqWhite = new Texture("Sheep/Level 2/White/sheep_left_white.png");
+        oveIzqMovWhite = new Texture("Sheep/Level 2/White/sheep_moving_left_white.png");
+        oveIzqYellow = new Texture("Sheep/Level 2/Yellow/sheep_left_yellow.png");
+        oveIzqMovYellow = new Texture("Sheep/Level 2/Yellow/sheep_moving_left_yellow.png");
 
-        oveDerBlue = new Texture("Sheep/Level 1/Blue/sheep_right_blue.png");
-        oveDerMovBlue = new Texture("Sheep/Level 1/Blue/sheep_moving_right_blue.png");
-        oveDerRed = new Texture("Sheep/Level 1/Red/sheep_right_red.png");
-        oveDerMovRed = new Texture("Sheep/Level 1/Red/sheep_moving_right_red.png");
-        oveDerWhite = new Texture("Sheep/Level 1/White/sheep_right_white.png");
-        oveDerMovWhite = new  Texture("Sheep/Level 1/White/sheep_moving_right_white.png");
-        oveDerYellow = new Texture("Sheep/Level 1/Yellow/sheep_right_yellow.png");
-        oveDerMovYellow = new Texture("Sheep/Level 1/Yellow/sheep_moving_right_yellow.png");
+        oveDerBlue = new Texture("Sheep/Level 2/Blue/sheep_right_blue.png");
+        oveDerMovBlue = new Texture("Sheep/Level 2/Blue/sheep_moving_right_blue.png");
+        oveDerRed = new Texture("Sheep/Level 2/Red/sheep_right_red.png");
+        oveDerMovRed = new Texture("Sheep/Level 2/Red/sheep_moving_right_red.png");
+        oveDerWhite = new Texture("Sheep/Level 2/White/sheep_right_white.png");
+        oveDerMovWhite = new  Texture("Sheep/Level 2/White/sheep_moving_right_white.png");
+        oveDerYellow = new Texture("Sheep/Level 2/Yellow/sheep_right_yellow.png");
+        oveDerMovYellow = new Texture("Sheep/Level 2/Yellow/sheep_moving_right_yellow.png");
 
+        // oveja Rainbow
         oveArrRainbow = new Texture("Sheep/Level 2/Rainbow/rainbow_up.png");
         //oveArrMovRainbow = new Texture("");
     }

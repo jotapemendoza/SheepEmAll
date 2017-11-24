@@ -225,6 +225,7 @@ public class LevelOne extends ScreenTemplate {
                         if(!cordenadasLineales(x,y)){
                             ovejaMoviendo.setEstado(Sheep.Estado.BOOM);
                             lifes--;
+                            contOvejas++;
                             ovejaMoviendo = null;
                         }else{
                             ovejaMoviendo.setSeMovio(false);

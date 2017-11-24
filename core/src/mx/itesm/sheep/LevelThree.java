@@ -85,6 +85,9 @@ public class LevelThree extends ScreenTemplate {
     private Texture oveAlienArrWhite;
     private Texture oveAlienArrMovWhite;
 
+    // Textura oveja Rainbow
+    private Texture oveArrRainbow;
+
     private Boolean played = false;
 
     // Arreglo de ovejas ---------------------------------------------------------------------------
@@ -121,6 +124,7 @@ public class LevelThree extends ScreenTemplate {
     private Music sheep;
     private float sheepTimer;
     private boolean estaEnNave = false;
+    private boolean noDerrota = true;
 
 
     public LevelThree(SheepEm sheepEm){
@@ -228,13 +232,22 @@ public class LevelThree extends ScreenTemplate {
                     // verificar si esta en el corral
                     else{
                         if(cordenadasCorral(x,y,ovejaMoviendo.getColor())){
-                            if (ovejaMoviendo.getTipo().equals("ALIEN")){
+                            if (ovejaMoviendo.getColor().equals("RAINBOW")){
+                                ovejaMoviendo.setEstado(ovejaMoviendo.getEstadoOriginal());
+                                lifes++;
+                                contOvejas++;
+                                ovejaMoviendo = null;
+                            }
+
+                            else if (ovejaMoviendo.getTipo().equals("ALIEN")){
                                 //ovejaMoviendo.setEstado(Sheep.Estado.BOOM);
-                                lifes--;
+                                //lifes--;
+                                contOvejas++;
                                 aS.setEstado(AlienShip.Estado.DERROTA);
+                                noDerrota = false;
                                 Gdx.app.log("oveja","en corral: " + contOvejas);
                                 ovejaMoviendo = null;
-                            }else {
+                            }else{
                                 ovejaMoviendo.setEstado(ovejaMoviendo.getEstadoOriginal());
                                 contOvejas++;
                                 Gdx.app.log("oveja","en corral: " + contOvejas);
@@ -244,7 +257,7 @@ public class LevelThree extends ScreenTemplate {
                             if (!cordenadasLineales(x, y) && ovejaMoviendo.getTipo().equals("ALIEN")){
                                 Gdx.app.log("corral", "Corral incorrecto");
                                 //ovejaMoviendo.setEstado(Sheep.Estado.BOOM);
-                                lifes--;
+                                //lifes--;
                                 aS.setEstado(AlienShip.Estado.DERROTA);
                                 ovejaMoviendo = null;
                             }
@@ -252,6 +265,7 @@ public class LevelThree extends ScreenTemplate {
                                 Gdx.app.log("corral", "Corral incorrecto");
                                 ovejaMoviendo.setEstado(Sheep.Estado.BOOM);
                                 lifes--;
+                                contOvejas++;
                                 ovejaMoviendo = null;
                             } else {
                                 ovejaMoviendo.setSeMovio(false);
@@ -269,10 +283,14 @@ public class LevelThree extends ScreenTemplate {
 
     // Validar corral correcto ---------------------------------------------------------------------
     public boolean cordenadasCorral(float xP, float yP, String color) {
-        if ((xP >= 0 && xP <= 405 && yP >= 110 && yP <= 720 && color.equals("RED")) ||
-                (xP >= 677 && xP <= 1080 && yP >= 110 && yP <= 720 && color.equals("BLUE")) ||
-                (xP >= 0 && xP <= 405 && yP >= 1105 && yP <= 1662 && color.equals("WHITE")) ||
-                (xP >= 677 && xP <= 1080 && yP >= 1105 && yP <= 1662 && color.equals("YELLOW"))){
+        if ((xP >= 0 && xP <= 405 && yP >= 110 && yP <= 720
+                && (color.equals("YELLOW") || color.equals("RAINBOW"))) ||
+                (xP >= 677 && xP <= 1080 && yP >= 110 && yP <= 720
+                        && (color.equals("BLUE") || color.equals("RAINBOW"))) ||
+                (xP >= 0 && xP <= 405 && yP >= 1105 && yP <= 1662
+                        && (color.equals("RED") || color.equals("RAINBOW"))) ||
+                (xP >= 677 && xP <= 1080 && yP >= 1105 && yP <= 1662
+                        && (color.equals("WHITE") || color.equals("RAINBOW")))){
             return true;
         }
         return false;
@@ -305,9 +323,56 @@ public class LevelThree extends ScreenTemplate {
         //Llenar arreglo Ovejas
         if (arrOvejas == null) {
             arrOvejas = new Array<Sheep>(cantOve);
-            Sheep OveAlArr = new Sheep(oveAlienArrWhite, oveAlienArrMovWhite,
-                    Sheep.Estado.ARRIBA, arrColores[0], arrTipos[1]);
-            arrOvejas.add(OveAlArr);
+
+            int randomAlien = (int) (Math.random() * 4) + 1;
+            Sheep Alien;
+            switch (randomAlien){
+                case 1:
+                    Alien = new Sheep(oveAlienArrWhite, oveAlienArrMovWhite,
+                            Sheep.Estado.ARRIBA, arrColores[0], arrTipos[1]);
+                    arrOvejas.add(Alien);
+                    break;
+                case 2:
+                    Alien = new Sheep(oveAlienArrWhite, oveAlienArrMovWhite,
+                            Sheep.Estado.ARRIBA, arrColores[0], arrTipos[1]);
+                    arrOvejas.add(Alien);
+                    break;
+                case 3:
+                    Alien = new Sheep(oveAlienArrWhite, oveAlienArrMovWhite,
+                            Sheep.Estado.ARRIBA, arrColores[0], arrTipos[1]);
+                    arrOvejas.add(Alien);
+                    break;
+                case 4:
+                    Alien = new Sheep(oveAlienArrWhite, oveAlienArrMovWhite,
+                            Sheep.Estado.ARRIBA, arrColores[0], arrTipos[1]);
+                    arrOvejas.add(Alien);
+                    break;
+            }
+
+            int randomRainbow = (int) (Math.random() * 4) + 1;
+            Sheep rainbow;
+            switch (randomRainbow){
+                case 1:
+                    rainbow = new Sheep(oveArrRainbow, oveArrMovWhite,
+                            Sheep.Estado.ARRIBA, arrColores[4], arrTipos[2]);
+                    arrOvejas.add(rainbow);
+                    break;
+                case 2:
+                    rainbow = new Sheep(oveArrRainbow, oveArrMovWhite,
+                            Sheep.Estado.ARRIBA, arrColores[4], arrTipos[2]);
+                    arrOvejas.add(rainbow);
+                    break;
+                case 3:
+                    rainbow = new Sheep(oveArrRainbow, oveArrMovWhite,
+                            Sheep.Estado.ARRIBA, arrColores[4], arrTipos[2]);
+                    arrOvejas.add(rainbow);
+                    break;
+                case 4:
+                    rainbow = new Sheep(oveArrRainbow, oveArrMovWhite,
+                            Sheep.Estado.ARRIBA, arrColores[4], arrTipos[2]);
+                    arrOvejas.add(rainbow);
+                    break;
+            }
 
         }
         // Llenar arreglo de ovejas por tiempo
@@ -315,7 +380,7 @@ public class LevelThree extends ScreenTemplate {
 
             Sheep ove;
 
-            for (int i = 1; i < 2; i++) {
+            for (int i = 2; i < 3; i++) {
                 int random = (int) (Math.random() * 4) + 1;
                 int randomColor = (int) (Math.random() * 4) + 1;
 
@@ -497,27 +562,31 @@ public class LevelThree extends ScreenTemplate {
         oveAbYellow = new Texture("Sheep/Level 3/Yellow/sheep_up_yellow.png");
         oveAbMovYellow = new Texture("Sheep/Level 3/Yellow/sheep_moving_up_yellow.png");
 
-        oveIzqBlue = new Texture("Sheep/Level 1/Blue/sheep_left_blue.png");
-        oveIzqMovBlue = new Texture("Sheep/Level 1/Blue/sheep_moving_left_blue.png");
-        oveIzqRed = new Texture("Sheep/Level 1/Red/sheep_left_red.png");
-        oveIzqMovRed = new Texture("Sheep/Level 1/Red/sheep_moving_left_red.png");
-        oveIzqWhite = new Texture("Sheep/Level 1/White/sheep_left_white.png");
-        oveIzqMovWhite = new Texture("Sheep/Level 1/White/sheep_moving_left_white.png");
-        oveIzqYellow = new Texture("Sheep/Level 1/Yellow/sheep_left_yellow.png");
-        oveIzqMovYellow = new Texture("Sheep/Level 1/Yellow/sheep_moving_left_yellow.png");
+        oveIzqBlue = new Texture("Sheep/Level 3/Blue/sheep_left_blue.png");
+        oveIzqMovBlue = new Texture("Sheep/Level 3/Blue/sheep_moving_left_blue.png");
+        oveIzqRed = new Texture("Sheep/Level 3/Red/sheep_left_red.png");
+        oveIzqMovRed = new Texture("Sheep/Level 3/Red/sheep_moving_left_red.png");
+        oveIzqWhite = new Texture("Sheep/Level 3/White/sheep_left_white.png");
+        oveIzqMovWhite = new Texture("Sheep/Level 3/White/sheep_moving_left_white.png");
+        oveIzqYellow = new Texture("Sheep/Level 3/Yellow/sheep_left_yellow.png");
+        oveIzqMovYellow = new Texture("Sheep/Level 3/Yellow/sheep_moving_left_yellow.png");
 
-        oveDerBlue = new Texture("Sheep/Level 1/Blue/sheep_right_blue.png");
-        oveDerMovBlue = new Texture("Sheep/Level 1/Blue/sheep_moving_right_blue.png");
-        oveDerRed = new Texture("Sheep/Level 1/Red/sheep_right_red.png");
-        oveDerMovRed = new Texture("Sheep/Level 1/Red/sheep_moving_right_red.png");
-        oveDerWhite = new Texture("Sheep/Level 1/White/sheep_right_white.png");
-        oveDerMovWhite = new  Texture("Sheep/Level 1/White/sheep_moving_right_white.png");
-        oveDerYellow = new Texture("Sheep/Level 1/Yellow/sheep_right_yellow.png");
-        oveDerMovYellow = new Texture("Sheep/Level 1/Yellow/sheep_moving_right_yellow.png");
+        oveDerBlue = new Texture("Sheep/Level 3/Blue/sheep_right_blue.png");
+        oveDerMovBlue = new Texture("Sheep/Level 3/Blue/sheep_moving_right_blue.png");
+        oveDerRed = new Texture("Sheep/Level 3/Red/sheep_right_red.png");
+        oveDerMovRed = new Texture("Sheep/Level 3/Red/sheep_moving_right_red.png");
+        oveDerWhite = new Texture("Sheep/Level 3/White/sheep_right_white.png");
+        oveDerMovWhite = new  Texture("Sheep/Level 3/White/sheep_moving_right_white.png");
+        oveDerYellow = new Texture("Sheep/Level 3/Yellow/sheep_right_yellow.png");
+        oveDerMovYellow = new Texture("Sheep/Level 3/Yellow/sheep_moving_right_yellow.png");
 
         //ovejas alien de colores
         oveAlienArrWhite = new Texture("Sheep/Level 3/Alien/White/alien_sheep_down_white.png");
         oveAlienArrMovWhite = new Texture("Sheep/Level 3/Alien/White/alien_sheep_moving_down_white.png");
+
+        // oveja Rainbow
+        oveArrRainbow = new Texture("Sheep/Level 2/Rainbow/rainbow_up.png");
+        //oveArrMovRainbow = new Texture("");
     }
 
 
@@ -606,7 +675,7 @@ public class LevelThree extends ScreenTemplate {
         Gdx.app.log("distancia", "X: " + moverX + ", Y: " + moverY);
 
         // pintar ovejas
-       for (int i = 1; i < arrOvejas.size; i++) {
+       for (int i = 2; i < arrOvejas.size; i++) {
 
            if (salida <= 10) {
                 arrOvejas.get(i).setVelocidad(velocidadOve);
@@ -652,6 +721,12 @@ public class LevelThree extends ScreenTemplate {
             arrOvejas.get(0).render(batch);
         }else {
             arrOvejas.get(0).render(batch);
+        }
+
+        // a los 30 seg sale la oveja arcoiris arriba
+        if (tiempo >= 3.0){
+            arrOvejas.get(1).setVelocidad(velocidadOve);
+            arrOvejas.get(1).render(batch);
         }
 
         batch.end();
@@ -773,7 +848,9 @@ public class LevelThree extends ScreenTemplate {
                     //Cambio el estado de sheepEm a JUGANDO y regreso el poder a la escenaJuego
                     estado = EstadoJuego.JUGANDO;
                     detenerOveja(false);
-                    aS.setEstado(AlienShip.Estado.INICIO);
+                    /*if (!noDerrota){
+                        aS.setEstado(AlienShip.Estado.INICIO);
+                    }*/
                     sheepEm.playLevelThreeMusic();
                     Gdx.input.setInputProcessor(escenaJuego);
                 }
