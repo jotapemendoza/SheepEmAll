@@ -33,7 +33,6 @@ class AboutUsScreen extends ScreenTemplate {
     private Texture monito;
 
 
-
     public AboutUsScreen(SheepEm sheepEm) {
         this.sheepEm = sheepEm;
     }

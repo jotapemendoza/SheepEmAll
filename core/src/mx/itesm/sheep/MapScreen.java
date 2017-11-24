@@ -183,20 +183,6 @@ public class MapScreen extends ScreenTemplate {
     @Override
     public void render(float delta) {
 
-        /*-----------------------------ESTAS LÍNEAS SOLAMENTE SON PARA PRUEBAS----------------------------------------------*/
-
-        // NO GANADOS
-
-        //pref.putBoolean("wonLevelOne",false);
-        //pref.putBoolean("wonLevelTwo",false);
-
-        // GANADOS
-
-        //pref.putBoolean("wonLevelOne",true);
-        //pref.putBoolean("wonLevelTwo",true);
-
-        /*-----------------------------------------------------------------------------------------------------------------*/
-
         clearScreen(0,0,0);
         batch.setProjectionMatrix(camera.combined);
 
@@ -228,11 +214,8 @@ public class MapScreen extends ScreenTemplate {
 
         }
         if(!pref.getBoolean("musicOn")){
-
-            sheepEm.stopMenuMusic();
+            sheepEm.pauseMenuMusic();
         }
-
-
     }
 
     private void moveClouds(float delta) {
@@ -274,5 +257,6 @@ public class MapScreen extends ScreenTemplate {
     public void resume() {}
 
     @Override
-    public void dispose() {}
+    public void dispose() {
+    }
 }

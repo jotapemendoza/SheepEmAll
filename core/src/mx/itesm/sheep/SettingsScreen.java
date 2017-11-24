@@ -236,7 +236,7 @@ public class SettingsScreen extends ScreenTemplate {
 
         }
         if(!pref.getBoolean("musicOn")){
-            sheepEm.stopMenuMusic();
+            sheepEm.pauseMenuMusic();
         }
 
         pref.flush();

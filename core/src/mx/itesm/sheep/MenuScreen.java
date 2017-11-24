@@ -273,22 +273,12 @@ class MenuScreen extends ScreenTemplate
         cloud_5.setColor(1,1,1,0.3f);
 
 
-
-     /*
-        if(easterEgg>=10){
-            pref.putBoolean("easterEgg",true);
-            sheepEm.stopMenuMusic();
-            pref.flush();
-        }*/
-
-
-
         if(pref.getBoolean("musicOn")){
             sheepEm.startMenuMusic();
 
         }
         if(!pref.getBoolean("musicOn")){
-            sheepEm.stopMenuMusic();
+            sheepEm.pauseMenuMusic();
         }
 
     }
