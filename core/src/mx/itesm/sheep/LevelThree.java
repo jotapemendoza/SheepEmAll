@@ -251,7 +251,6 @@ public class LevelThree extends ScreenTemplate {
                                 aS.setEstado(AlienShip.Estado.DERROTA);
                                 ovejaMoviendo = null;
                             }
-
                             else if (!cordenadasLineales(x, y)) {
                                 Gdx.app.log("corral", "Corral incorrecto");
                                 ovejaMoviendo.setEstado(Sheep.Estado.BOOM);
@@ -610,7 +609,7 @@ public class LevelThree extends ScreenTemplate {
         Gdx.app.log("distancia", "X: " + moverX + ", Y: " + moverY);
 
         // pintar ovejas
-       for (int i = 4; i < arrOvejas.size; i++) {
+       for (int i = 1; i < arrOvejas.size; i++) {
 
            if (salida <= 10) {
                 arrOvejas.get(i).setVelocidad(velocidadOve);
