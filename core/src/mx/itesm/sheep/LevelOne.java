@@ -26,7 +26,7 @@ public class LevelOne extends ScreenTemplate {
 
     private final SheepEm sheepEm;
 
-
+    private boolean isUp;
 
     /*****************************************/
     private ImageButton noMusicBtn;
@@ -136,6 +136,7 @@ public class LevelOne extends ScreenTemplate {
         Gdx.input.setInputProcessor(escenaJuego);
         Gdx.input.setCatchBackKey(true);
         lifes = 3;
+        sheepTimer = 1.5f;
         sheep = Gdx.audio.newMusic(Gdx.files.internal("SFX/sheep_sound.mp3"));
     }
 
@@ -199,6 +200,7 @@ public class LevelOne extends ScreenTemplate {
             @Override
             public void drag(InputEvent event, float x, float y, int pointer) {
                 super.drag(event, x, y, pointer);
+                isUp = true;
                 if (ovejaMoviendo == null){ return; }
                 if(pref.getBoolean("fxOn")){
                     sheep.setVolume(0.8f);
@@ -212,6 +214,7 @@ public class LevelOne extends ScreenTemplate {
             public void dragStop(InputEvent event, float x, float y, int pointer) {
                 super.dragStop(event, x, y, pointer);
                 //sheep.stop();
+                isUp = false;
                 if(ovejaMoviendo != null){
                     // verificar si está en el corral
                     if(cordenadasCorral(x,y,ovejaMoviendo.getColor())){
@@ -498,7 +501,7 @@ public class LevelOne extends ScreenTemplate {
 
         if (sheepTimer<=0){
             cargarOvejas();
-            sheepTimer = 3;
+            sheepTimer = 1.5f;
         }
 
         /*------------------------BATCH BEGIN ---------------------*/
@@ -509,21 +512,24 @@ public class LevelOne extends ScreenTemplate {
 
         batch.draw(barn_shadow,466,1709);
 
+
         for (int i = 0; i < arrOvejas.size; i++) {
             if (salida <= 10) {
                 arrOvejas.get(i).setVelocidad(velocidadOve);
                 arrOvejas.get(i).render(batch);
-            }
-            else{
+            } else {
                 velocidadOve += 0.5f;
                 salida = 0;
             }
 
         }
 
+
+
         batch.draw(barn,0,1709);
 
-        batch.draw(cr,0,1039);
+        batch.draw(cr,0,1617);
+
 
         batch.draw(life_lost, 60,1774);
 
@@ -539,6 +545,7 @@ public class LevelOne extends ScreenTemplate {
         if(lifes==1){
             batch.draw(life,66,1778);
         }
+
 
 
         if(lifes<=0){

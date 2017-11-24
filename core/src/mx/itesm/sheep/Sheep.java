@@ -114,7 +114,7 @@ public class Sheep {
 
 
                 timer = 0;
-                x = 500 + ((int) (Math.random()*65)+1);
+                x = 480 + ((int) (Math.random()*15)+1);
                 y = -140;
                 break;
             case IZQUIERDA:
