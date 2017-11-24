@@ -96,7 +96,7 @@ public class Sheep {
                 }
 
                 timer = 0;
-                x = 500 + ((int) (Math.random()*65)+1);
+                x = 485;
                 y = 1921; //1900+ ((int) (Math.random()*4000));
                 break;
             case ABAJO:
@@ -115,7 +115,7 @@ public class Sheep {
 
                 timer = 0;
                 x = 500 + ((int) (Math.random()*65)+1);
-                y = -140;//((int) (Math.random()*-4000));
+                y = -140;
                 break;
             case IZQUIERDA:
                 ancho = 156;

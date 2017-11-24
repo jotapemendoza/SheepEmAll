@@ -93,7 +93,7 @@ public class LevelOne extends ScreenTemplate {
     private Sheep ovejaMoviendo = null;
     private int ovejaMovX;
     private int ovejaMovY;
-    private final int cantOve = 20;
+    private final int cantOve = 35;
     private int contOvejas = 0;
     private String arrColores[] = {"WHITE","BLUE","RED","YELLOW"};
     private String arrTipos[] = {"NORMAL","ALIEN","RAINBOW"};
@@ -115,6 +115,9 @@ public class LevelOne extends ScreenTemplate {
 
     private float tiempo;
     private float sheepTimer;
+    private Texture barn;
+    private Texture cr;
+    private Texture barn_shadow;
 
 
     public LevelOne(SheepEm sheepEm){
@@ -151,13 +154,16 @@ public class LevelOne extends ScreenTemplate {
             }
         });
 
+
+
+
         // Botón de pausa --------------------------------------------------------------------------
 
         Texture pressedPauseButton = new Texture("Buttons/pressed/pressedPauseButton.png");
         TextureRegionDrawable trdPausepr = new TextureRegionDrawable(new TextureRegion(pressedPauseButton));
         TextureRegionDrawable trdPause = new TextureRegionDrawable(new TextureRegion(pauseButton));
         ImageButton imPause = new ImageButton(trdPause, trdPausepr);
-        imPause.setPosition(461, 1734);
+        imPause.setPosition(887, 1743);
         escenaJuego.addActor(imPause);
 
         imPause.addListener( new ClickListener() {
@@ -423,6 +429,9 @@ public class LevelOne extends ScreenTemplate {
         time = new Texture("time.png");
         life = new Texture("life.png");
         life_lost = new Texture("life_lost.png");
+        barn = new Texture("day_barn.png");
+        cr = new Texture("cr.png");
+        barn_shadow = new Texture("shadow.png");
 
         //ovejas de colores
         oveArrBlue = new Texture("Sheep/Level 1/Blue/sheep_down_blue.png");
@@ -489,60 +498,16 @@ public class LevelOne extends ScreenTemplate {
 
         if (sheepTimer<=0){
             cargarOvejas();
-            sheepTimer = 2;
+            sheepTimer = 3;
         }
+
+        /*------------------------BATCH BEGIN ---------------------*/
 
         batch.begin();
-        batch.draw(background, 0, 0);
-        
-        // Dibujar el asset de vidas dependiendo al número de vidas --------------------------------
 
-        if(lifes==3) {
-            batch.draw(life, 277, 1796);
-            batch.draw(life, 177, 1796);
-            batch.draw(life,77,1796);
-        }
-        if(lifes==2){
-            batch.draw(life, 177, 1796);
-            batch.draw(life,77,1796);
-        }
-        if(lifes==1){
-            batch.draw(life,77,1796);
-        }
-        
-        // -----------------------------------------------------------------------------------------
+        batch.draw(background,0,0);
 
-        if(lifes<=0){
-            estado = EstadoJuego.PERDIDO;
-        }
-
-        System.out.println(cantOve);
-        System.out.println(contOvejas);
-
-        if(contOvejas >= cantOve && lifes == 3){
-            estado = EstadoJuego.GANADO;
-        }
-        if(contOvejas >= (cantOve-1) && lifes == 2){
-            estado = EstadoJuego.GANADO;
-        }
-        if(contOvejas >= (cantOve-2) && lifes == 1){
-            estado = EstadoJuego.GANADO;
-        }
-
-        batch.draw(life_lost, 277,1796);
-        batch.draw(life_lost, 177,1796);
-        batch.draw(life_lost, 77,1796);
-
-        // Se dibuja el tiempo restante que tiene el usuario ---------------------------------------
-        batch.draw(time,730,1774);
-
-        if(seconds>=10){
-            font.draw(batch,Integer.toString(minutes)+ ":"+ Integer.toString(seconds),805,1848);
-        }else{
-            font.draw(batch,Integer.toString(minutes)+ ":0"+ Integer.toString(seconds),805,1848);
-        }
-
-
+        batch.draw(barn_shadow,466,1709);
 
         for (int i = 0; i < arrOvejas.size; i++) {
             if (salida <= 10) {
@@ -555,9 +520,50 @@ public class LevelOne extends ScreenTemplate {
             }
 
         }
+
+        batch.draw(barn,0,1709);
+
+        batch.draw(cr,0,1039);
+
+        batch.draw(life_lost, 60,1774);
+
+        if(lifes>=3) {
+            batch.draw(life, 266, 1778);
+            batch.draw(life, 166, 1778);
+            batch.draw(life,66,1778);
+        }
+        if(lifes==2){
+            batch.draw(life, 166, 1778);
+            batch.draw(life,66,1778);
+        }
+        if(lifes==1){
+            batch.draw(life,66,1778);
+        }
+
+
+        if(lifes<=0){
+            estado = EstadoJuego.PERDIDO;
+        }
+
+
+        if(contOvejas >= cantOve && lifes == 3){
+            estado = EstadoJuego.GANADO;
+        }
+        if(contOvejas >= (cantOve-1) && lifes == 2){
+            estado = EstadoJuego.GANADO;
+        }
+        if(contOvejas >= (cantOve-2) && lifes == 1){
+            estado = EstadoJuego.GANADO;
+        }
+
+
         batch.end();
+        /*------------------------BATCH END ---------------------*/
+
 
         escenaJuego.draw();
+
+
 
         if (estado == EstadoJuego.PAUSADO) {
             escenaPausa.draw();
