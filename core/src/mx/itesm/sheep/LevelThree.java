@@ -707,16 +707,16 @@ public class LevelThree extends ScreenTemplate {
 
         if(pref.getBoolean("musicOn")){
             if(estado == EstadoJuego.JUGANDO){
-                sheepEm.playLevelTwoMusic();
+                sheepEm.playLevelThreeMusic();
             }else{
-                sheepEm.pauseLevelTwoMusic();
+                sheepEm.pauseLevelThreeMusic();
             }
 
         }
 
 
         if(!pref.getBoolean("musicOn")){
-            sheepEm.pauseLevelTwoMusic();
+            sheepEm.pauseLevelThreeMusic();
         }
         eliminarOveja();
 
@@ -777,7 +777,7 @@ public class LevelThree extends ScreenTemplate {
                     estado = EstadoJuego.JUGANDO;
                     detenerOveja(false);
                     aS.setEstado(AlienShip.Estado.INICIO);
-                    sheepEm.playLevelTwoMusic();
+                    sheepEm.playLevelThreeMusic();
                     Gdx.input.setInputProcessor(escenaJuego);
                 }
             });
@@ -797,7 +797,7 @@ public class LevelThree extends ScreenTemplate {
                 public void clicked(InputEvent event, float x, float y) {
                     // Regresa al menú
                     sheepEm.setScreen(new MapScreen(sheepEm));
-                    sheepEm.stopLevelTwoMusic();
+                    sheepEm.stopLevelThreeMusic();
                 }
             });
             this.addActor(homeBtn);
@@ -812,9 +812,9 @@ public class LevelThree extends ScreenTemplate {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     // Regresa al menú
-                    sheepEm.stopLevelTwoMusic();
+                    sheepEm.stopLevelThreeMusic();
                     sheepEm.setScreen(new LevelThree(sheepEm));
-                    sheepEm.playLevelTwoMusic();
+                    sheepEm.playLevelThreeMusic();
                 }
             });
             this.addActor(restartBtn);
@@ -991,7 +991,7 @@ public class LevelThree extends ScreenTemplate {
             homeButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.stopGameMusic();
+                    sheepEm.stopLevelThreeMusic();
                     sheepEm.setScreen(new MenuScreen(sheepEm));
                     sheepEm.stopLost();
 
@@ -1007,9 +1007,9 @@ public class LevelThree extends ScreenTemplate {
             tryAgain.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.stopLevelTwoMusic();
+                    sheepEm.stopLevelThreeMusic();
                     sheepEm.setScreen(new LevelThree(sheepEm));
-                    sheepEm.playLevelTwoMusic();
+                    sheepEm.playLevelThreeMusic();
                     sheepEm.stopLost();
                 }
             });
@@ -1024,7 +1024,7 @@ public class LevelThree extends ScreenTemplate {
             lvsButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.stopLevelTwoMusic();
+                    sheepEm.stopLevelThreeMusic();
                     sheepEm.setScreen(new MapScreen(sheepEm));
                     sheepEm.stopLost();
                 }

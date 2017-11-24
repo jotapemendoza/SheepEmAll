@@ -288,7 +288,7 @@ class MenuScreen extends ScreenTemplate
 
         }
         if(!pref.getBoolean("musicOn")){
-            sheepEm.stopGameMusic();
+            sheepEm.stopMenuMusic();
         }
 
     }

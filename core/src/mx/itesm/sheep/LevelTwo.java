@@ -147,7 +147,7 @@ public class LevelTwo extends ScreenTemplate {
             public boolean keyDown(InputEvent event, int keycode) {
                 if (keycode==Input.Keys.BACK){
                     sheepEm.setScreen(new MapScreen(sheepEm));
-                    sheepEm.pauseGameMusic();
+                    sheepEm.pauseLevelOneMusic();
                 }
                 return true;
             }
@@ -649,14 +649,14 @@ public class LevelTwo extends ScreenTemplate {
 
         if(pref.getBoolean("musicOn")){
             if(estado == EstadoJuego.JUGANDO){
-                sheepEm.playGameMusic();
+                sheepEm.playLevelOneMusic();
             }else{
-                sheepEm.pauseGameMusic();
+                sheepEm.pauseLevelOneMusic();
             }
 
         }
         if(!pref.getBoolean("musicOn")){
-            sheepEm.pauseGameMusic();
+            sheepEm.pauseLevelOneMusic();
         }
         eliminarOveja();
 
@@ -714,7 +714,7 @@ public class LevelTwo extends ScreenTemplate {
                     //Cambio el estado de sheepEm a JUGANDO y regreso el poder a la escenaJuego
                     estado = EstadoJuego.JUGANDO;
                     detenerOveja(false);
-                    sheepEm.playGameMusic();
+                    sheepEm.playLevelOneMusic();
                     Gdx.input.setInputProcessor(escenaJuego);
                 }
             });
@@ -734,7 +734,7 @@ public class LevelTwo extends ScreenTemplate {
                 public void clicked(InputEvent event, float x, float y) {
                     // Regresa al menú
                     sheepEm.setScreen(new MapScreen(sheepEm));
-                    sheepEm.stopGameMusic();
+                    sheepEm.stopLevelOneMusic();
                 }
             });
             this.addActor(homeBtn);
@@ -749,9 +749,9 @@ public class LevelTwo extends ScreenTemplate {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     // Regresa al menú
-                    sheepEm.stopGameMusic();
+                    sheepEm.stopLevelOneMusic();
                     sheepEm.setScreen(new LevelTwo(sheepEm));
-                    sheepEm.playGameMusic();
+                    sheepEm.playLevelOneMusic();
                 }
             });
             this.addActor(restartBtn);
@@ -921,7 +921,7 @@ public class LevelTwo extends ScreenTemplate {
             homeButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.stopGameMusic();
+                    sheepEm.stopLevelOneMusic();
                     sheepEm.setScreen(new MenuScreen(sheepEm));
                     sheepEm.stopLost();
 
@@ -937,9 +937,9 @@ public class LevelTwo extends ScreenTemplate {
             tryAgain.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.stopGameMusic();
+                    sheepEm.stopLevelOneMusic();
                     sheepEm.setScreen(new LevelTwo(sheepEm));
-                    sheepEm.playGameMusic();
+                    sheepEm.playLevelOneMusic();
                     sheepEm.stopLost();
                 }
             });
@@ -954,7 +954,7 @@ public class LevelTwo extends ScreenTemplate {
             lvsButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.stopGameMusic();
+                    sheepEm.stopLevelOneMusic();
                     sheepEm.setScreen(new MapScreen(sheepEm));
                     sheepEm.stopLost();
                 }

@@ -77,7 +77,6 @@ public class MapScreen extends ScreenTemplate {
             public boolean keyDown(InputEvent event, int keycode) {
                 if (keycode== Input.Keys.BACK){
                     sheepEm.setScreen(new MenuScreen(sheepEm));
-                    sheepEm.pauseGameMusic();
                 }
                 return true;
             }
@@ -229,7 +228,8 @@ public class MapScreen extends ScreenTemplate {
 
         }
         if(!pref.getBoolean("musicOn")){
-            sheepEm.stopGameMusic();
+
+            sheepEm.stopMenuMusic();
         }
 
 

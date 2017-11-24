@@ -55,7 +55,6 @@ class AboutUsScreen extends ScreenTemplate {
             public boolean keyDown(InputEvent event, int keycode) {
                 if (keycode== Input.Keys.BACK){
                     sheepEm.setScreen(new MenuScreen(sheepEm));
-                    sheepEm.pauseGameMusic();
                 }
                 return true;
             }

@@ -165,14 +165,14 @@ public class AlienLevel extends ScreenTemplate {
 
         if(pref.getBoolean("musicOn")){
             if(estado == EstadoJuego.JUGANDO){
-                sheepEm.playGameMusic();
+                sheepEm.playLevelOneMusic();
             }else{
-                sheepEm.pauseGameMusic();
+                sheepEm.pauseLevelOneMusic();
             }
 
         }
         if(!pref.getBoolean("musicOn")){
-            sheepEm.pauseGameMusic();
+            sheepEm.pauseLevelOneMusic();
         }
         pref.flush();
     }
@@ -299,7 +299,7 @@ public class AlienLevel extends ScreenTemplate {
             homeButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.stopGameMusic();
+                    sheepEm.stopLevelOneMusic();
                     sheepEm.setScreen(new MenuScreen(sheepEm));
                     sheepEm.stopLost();
 
@@ -315,9 +315,9 @@ public class AlienLevel extends ScreenTemplate {
             tryAgain.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.stopLevelTwoMusic();
+                    sheepEm.stopLevelThreeMusic();
                     sheepEm.setScreen(new AlienLevel(sheepEm));
-                    sheepEm.playLevelTwoMusic();
+                    sheepEm.playLevelThreeMusic();
                     sheepEm.stopLost();
                 }
             });
@@ -332,7 +332,7 @@ public class AlienLevel extends ScreenTemplate {
             lvsButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.stopLevelTwoMusic();
+                    sheepEm.stopLevelThreeMusic();
                     sheepEm.setScreen(new MapScreen(sheepEm));
                     sheepEm.stopLost();
                 }
