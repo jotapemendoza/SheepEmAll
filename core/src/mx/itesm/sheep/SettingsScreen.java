@@ -111,6 +111,7 @@ public class SettingsScreen extends ScreenTemplate {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 pref.putBoolean("fxOn",false);
+                pref.flush();
             }
         } );
 
@@ -121,6 +122,7 @@ public class SettingsScreen extends ScreenTemplate {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 pref.putBoolean("fxOn",true);
+                pref.flush();
             }
         } );
 
@@ -144,6 +146,7 @@ public class SettingsScreen extends ScreenTemplate {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 pref.putBoolean("musicOn",false);
+                pref.flush();
 
             }
         } );
@@ -153,6 +156,7 @@ public class SettingsScreen extends ScreenTemplate {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 pref.putBoolean("musicOn",true);
+                pref.flush();
             }
         } );
 
