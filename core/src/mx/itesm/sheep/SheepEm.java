@@ -67,7 +67,6 @@ public class SheepEm extends Game
 		levelTwoMusic.stop();
 	}
 
-
 	public void playLost(){
 		lost.play();
 	}

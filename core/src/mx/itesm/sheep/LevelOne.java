@@ -735,7 +735,7 @@ public class LevelOne extends ScreenTemplate {
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
                     pref.putBoolean("musicOn",false);
-
+                    pref.flush();
                 }
             } );
             noMusicBtn = new ImageButton(pauseNoMusicButtonTrd,pauseNoMusicButtonPrTrd);
@@ -745,6 +745,7 @@ public class LevelOne extends ScreenTemplate {
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
                     pref.putBoolean("musicOn",true);
+                    pref.flush();
                 }
             } );
 
@@ -766,7 +767,6 @@ public class LevelOne extends ScreenTemplate {
                     super.clicked(event, x, y);
                     pref.putBoolean("fxOn",false);
                     pref.flush();
-
                 }
             } );
 
@@ -778,7 +778,6 @@ public class LevelOne extends ScreenTemplate {
                     super.clicked(event, x, y);
                     pref.putBoolean("fxOn",true);
                     pref.flush();
-
                 }
             } );
 

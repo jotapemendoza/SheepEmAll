@@ -139,9 +139,6 @@ public class LevelThree extends ScreenTemplate {
         Gdx.input.setInputProcessor(escenaJuego);
         sheep = Gdx.audio.newMusic(Gdx.files.internal("SFX/sheep_sound.mp3"));
         lifes = 3;
-        /*** JUST FOR TESTING ****/
-        /*************************/
-
     }
 
     private void createGameScene() {
@@ -836,7 +833,7 @@ public class LevelThree extends ScreenTemplate {
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
                     pref.putBoolean("musicOn",false);
-
+                    pref.flush();
                 }
             } );
             noMusicBtn = new ImageButton(pauseNoMusicButtonTrd,pauseNoMusicButtonPrTrd);
@@ -846,6 +843,7 @@ public class LevelThree extends ScreenTemplate {
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
                     pref.putBoolean("musicOn",true);
+                    pref.flush();
                 }
             } );
 
@@ -867,7 +865,6 @@ public class LevelThree extends ScreenTemplate {
                     super.clicked(event, x, y);
                     pref.putBoolean("fxOn",false);
                     pref.flush();
-
                 }
             } );
 
@@ -879,7 +876,6 @@ public class LevelThree extends ScreenTemplate {
                     super.clicked(event, x, y);
                     pref.putBoolean("fxOn",true);
                     pref.flush();
-
                 }
             } );
 
