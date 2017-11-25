@@ -93,7 +93,7 @@ public class LevelOne extends ScreenTemplate {
     private Sheep ovejaMoviendo = null;
     private int ovejaMovX;
     private int ovejaMovY;
-    private final int cantOve = 1;
+    private final int cantOve = 35;
     private int contOvejas = 0;
     private String arrColores[] = {"WHITE","BLUE","RED","YELLOW"};
     private String arrTipos[] = {"NORMAL","ALIEN","RAINBOW"};
@@ -633,6 +633,7 @@ public class LevelOne extends ScreenTemplate {
             escenaGanar.draw();
             if(pref.getBoolean("musicOn")){
                 sheepEm.win.play();
+                sheepEm.win.setLooping(true);
             }
             pref.flush();
         }

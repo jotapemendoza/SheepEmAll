@@ -798,6 +798,7 @@ public class LevelThree extends ScreenTemplate {
             pref.putBoolean("wonLevelTwo",true);
             if(pref.getBoolean("musicOn")){
                 sheepEm.win.play();
+                sheepEm.win.setLooping(true);
             }
             pref.flush();
         }
