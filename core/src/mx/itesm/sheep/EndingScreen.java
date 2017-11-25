@@ -68,6 +68,12 @@ public class EndingScreen extends ScreenTemplate {
         button = new ImageButton(trdHome,trdPressedHome);
         button.setPosition(WIDTH/2,HEIGHT/2);
         storyStage.addActor(button);
+        button.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                sheepEm.setScreen(new CreditsScreen(sheepEm));
+            }
+        });
     }
 
     @Override
@@ -82,15 +88,15 @@ public class EndingScreen extends ScreenTemplate {
 
         batch.end();
 
-        if(elapsedTime>=2.5){
-            button.addListener(new ClickListener(){
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.setScreen(new MenuScreen(sheepEm));
-                }
-            });
+
+        if(pref.getBoolean("musicOn")){
+            sheepEm.finalMusic.play();
+            sheepEm.finalMusic.setLooping(true);
+        }else{
+            sheepEm.finalMusic.stop();
         }
     }
+
 
     @Override
     public void pause() {

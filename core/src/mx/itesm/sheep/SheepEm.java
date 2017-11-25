@@ -14,6 +14,8 @@ public class SheepEm extends Game
 	protected Music lostSheep;
 	protected Music win;
 	protected Music levelTwoMusic;
+	protected Music finalMusic;
+	protected Music alienLevel;
 
 	@Override
 	public void create() {
@@ -25,6 +27,8 @@ public class SheepEm extends Game
 		lostSheep = Gdx.audio.newMusic(Gdx.files.internal("music/die.mp3"));
 		win = Gdx.audio.newMusic(Gdx.files.internal("music/win.mp3"));
 		levelTwoMusic = Gdx.audio.newMusic(Gdx.files.internal("music/levetwo.mp3"));
+		finalMusic = Gdx.audio.newMusic(Gdx.files.internal("music/finalMusic.mp3"));
+		alienLevel = Gdx.audio.newMusic(Gdx.files.internal("music/levelAlien.mp3"));
 	}
 
 	public void startMenuMusic(){

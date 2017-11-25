@@ -28,7 +28,6 @@ public class AlienLevel extends ScreenTemplate {
     private Texture hp_inner;
     private Boolean played = false;
 
-    private winScene winScene;
     private lostScene lostScene;
 
     private int hpAlien;
@@ -62,7 +61,6 @@ public class AlienLevel extends ScreenTemplate {
         sheepAbd = new SheepAbducted(whitesheep, "WHITE");
         alienShip = new AlienShip(nave, AlienShip.Estado.BOSS);
         lostScene = new lostScene(view,batch);
-        winScene = new winScene(view,batch);
         estado = EstadoJuego.JUGANDO;
         Gdx.input.setInputProcessor(escenaAlien);
         hpAlien = 50;
@@ -191,14 +189,15 @@ public class AlienLevel extends ScreenTemplate {
 
         if(pref.getBoolean("musicOn")){
             if(estado == EstadoJuego.JUGANDO){
-                sheepEm.playLevelOneMusic();
+                sheepEm.alienLevel.play();
+                sheepEm.alienLevel.setLooping(true);
             }else{
-                sheepEm.pauseLevelOneMusic();
+                sheepEm.alienLevel.pause();
             }
 
         }
         if(!pref.getBoolean("musicOn")){
-            sheepEm.pauseLevelOneMusic();
+            sheepEm.alienLevel.pause();
         }
         pref.flush();
     }
@@ -231,72 +230,6 @@ public class AlienLevel extends ScreenTemplate {
      * CAMBIAR SET SCREEN DEL SIGUIENTE NIVEL
      */
     // Winning scene **************************************
-    private class winScene extends Stage{
-        public winScene(Viewport vista, SpriteBatch batch){
-            super(vista,batch);
-
-            Texture opaque = new Texture("opaque.png");
-            TextureRegionDrawable trdOpaq = new TextureRegionDrawable(new TextureRegion(opaque));
-            Image op = new Image(trdOpaq);
-            op.setPosition(0,0);
-            this.addActor(op);
-
-            Texture winRectangle = new Texture("winRectangle.png");
-            TextureRegionDrawable winRectTrd = new TextureRegionDrawable(new TextureRegion(winRectangle));
-            Image winRect = new Image(winRectTrd);
-            winRect.setPosition(40,292);
-            this.addActor(winRect);
-
-
-            Texture nextLevel = new Texture("Buttons/unpressed/NextLevelButton.png");
-            Texture nextLevelPr = new Texture("Buttons/pressed/PressedNextLevelButton.png");
-            TextureRegionDrawable nextLevelTrd = new TextureRegionDrawable(new TextureRegion(nextLevel));
-            TextureRegionDrawable nextLevelPrTrd = new TextureRegionDrawable(new TextureRegion(nextLevelPr));
-
-            ImageButton nextLevelButton = new ImageButton(nextLevelTrd,nextLevelPrTrd);
-            nextLevelButton.setPosition(383,972);
-            nextLevelButton.addListener(new ClickListener(){
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.setScreen(new MenuScreen(sheepEm));
-                }
-            });
-            this.addActor(nextLevelButton);
-
-            Texture retryLevel = new Texture("Buttons/unpressed/restartButton.png");
-            Texture retryLevelPr = new Texture("Buttons/pressed/pressedRestartButton.png");
-            TextureRegionDrawable retryLevelTrd = new TextureRegionDrawable(new TextureRegion(retryLevel));
-            TextureRegionDrawable retryLevelPrTrd = new TextureRegionDrawable(new TextureRegion(retryLevelPr));
-
-            ImageButton retryLevelButton = new ImageButton(retryLevelTrd, retryLevelPrTrd);
-            retryLevelButton.setPosition(586,699);
-            retryLevelButton.addListener(new ClickListener(){
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.setScreen(new AlienLevel(sheepEm));
-                }
-            });
-            this.addActor(retryLevelButton);
-
-
-            Texture levelsMenu = new Texture("Buttons/unpressed/levelsButton.png");
-            Texture levelsMenuPr = new Texture("Buttons/pressed/PressedLevelsButton.png");
-            TextureRegionDrawable levelsMenuTrd = new TextureRegionDrawable(new TextureRegion(levelsMenu));
-            TextureRegionDrawable levelsMenuPrTrd = new TextureRegionDrawable(new TextureRegion(levelsMenuPr));
-
-            ImageButton levelsButton = new ImageButton(levelsMenuTrd,levelsMenuPrTrd);
-            levelsButton.setPosition(285,699);
-            levelsButton.addListener(new ClickListener(){
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.setScreen(new MapScreen(sheepEm));
-                }
-            });
-            this.addActor(levelsButton);
-
-
-        }
-    }
 
     // Losing scene -----------------------------------------------------------
     private class lostScene extends Stage{
@@ -325,7 +258,7 @@ public class AlienLevel extends ScreenTemplate {
             homeButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.stopLevelOneMusic();
+                    sheepEm.alienLevel.stop();
                     sheepEm.setScreen(new MenuScreen(sheepEm));
                     sheepEm.stopLost();
 
@@ -341,9 +274,10 @@ public class AlienLevel extends ScreenTemplate {
             tryAgain.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.stopLevelThreeMusic();
+                    sheepEm.alienLevel.stop();
                     sheepEm.setScreen(new AlienLevel(sheepEm));
-                    sheepEm.playLevelThreeMusic();
+                    sheepEm.alienLevel.play();
+                    sheepEm.alienLevel.setLooping(true);
                     sheepEm.stopLost();
                 }
             });
@@ -358,7 +292,7 @@ public class AlienLevel extends ScreenTemplate {
             lvsButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.stopLevelThreeMusic();
+                    sheepEm.alienLevel.stop();
                     sheepEm.setScreen(new MapScreen(sheepEm));
                     sheepEm.stopLost();
                 }
