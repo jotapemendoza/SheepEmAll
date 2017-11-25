@@ -608,7 +608,39 @@ public class LevelThree extends ScreenTemplate {
                     break;
                 }
 
-                if (arrOvejas.get(i).getTipo().equals("ALIEN") && arrOvejas.get(i).gety() <= 0) {
+                if (arrOvejas.get(i).getTipo().equals("ALIEN")
+                        && arrOvejas.get(i).getEstado().equals(Sheep.Estado.ARRIBA)
+                        && arrOvejas.get(i).gety() <= 0) {
+                    arrOvejas.removeIndex(i);
+                    System.out.println("ovejas disponibles: " + arrOvejas.size);
+                    velocidadOve += 1;
+                    aS.setEstado(AlienShip.Estado.DERROTA);
+                    break;
+                }
+
+                if (arrOvejas.get(i).getTipo().equals("ALIEN")
+                        && arrOvejas.get(i).getEstado().equals(Sheep.Estado.ABAJO)
+                        && arrOvejas.get(i).gety() >= 1920) {
+                    arrOvejas.removeIndex(i);
+                    System.out.println("ovejas disponibles: " + arrOvejas.size);
+                    velocidadOve += 1;
+                    aS.setEstado(AlienShip.Estado.DERROTA);
+                    break;
+                }
+
+                if (arrOvejas.get(i).getTipo().equals("ALIEN")
+                        && arrOvejas.get(i).getEstado().equals(Sheep.Estado.IZQUIERDA)
+                        && arrOvejas.get(i).gety() >= 1080) {
+                    arrOvejas.removeIndex(i);
+                    System.out.println("ovejas disponibles: " + arrOvejas.size);
+                    velocidadOve += 1;
+                    aS.setEstado(AlienShip.Estado.DERROTA);
+                    break;
+                }
+
+                if (arrOvejas.get(i).getTipo().equals("ALIEN")
+                        && arrOvejas.get(i).getEstado().equals(Sheep.Estado.DERECHA)
+                        && arrOvejas.get(i).gety() <= 0) {
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
                     velocidadOve += 1;
@@ -789,7 +821,7 @@ public class LevelThree extends ScreenTemplate {
         }
 
 
-        if(undrawTimer>=1.5){
+        if(undrawTimer >= 3.5){
             apperAS = false;
         }
 
@@ -889,10 +921,10 @@ public class LevelThree extends ScreenTemplate {
 
 
         // Sacar oveja alien
-        if (tiempo >= 2.0f) {
+        if (tiempo >= 2.0) {
             arrOvejas.get(0).setVelocidad(velocidadOve);
             arrOvejas.get(0).render(batch);
-        } else {
+        }else{
             arrOvejas.get(0).render(batch);
         }
 

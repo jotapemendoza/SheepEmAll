@@ -125,8 +125,6 @@ public class Sheep {
                    animacionMov = new Animation(0.20f, frames2[0][0], frames2[0][1]);
                    animacionMov.setPlayMode(Animation.PlayMode.LOOP);
                }
-
-
                 timer = 0;
                 x = 480 + ((int) (Math.random()*15)+1);
                 y = -140;
