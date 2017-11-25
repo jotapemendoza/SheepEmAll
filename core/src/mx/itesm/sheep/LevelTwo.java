@@ -666,6 +666,10 @@ public class LevelTwo extends ScreenTemplate {
             Gdx.input.setInputProcessor(escenaGanar);
             pref.putBoolean("wonLevelTwo",true);
             escenaGanar.draw();
+            if(pref.getBoolean("musicOn")){
+                sheepEm.win.play();
+            }
+            pref.flush();
         }
 
         if(pref.getBoolean("musicOn")){
@@ -873,6 +877,9 @@ public class LevelTwo extends ScreenTemplate {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     sheepEm.setScreen(new LevelThree(sheepEm));
+                    if(pref.getBoolean("musicOn")){
+                        sheepEm.win.stop();
+                    }
                 }
             });
             this.addActor(nextLevelButton);
@@ -888,6 +895,9 @@ public class LevelTwo extends ScreenTemplate {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     sheepEm.setScreen(new LevelTwo(sheepEm));
+                    if(pref.getBoolean("musicOn")){
+                        sheepEm.win.stop();
+                    }
                 }
             });
             this.addActor(retryLevelButton);
@@ -904,6 +914,9 @@ public class LevelTwo extends ScreenTemplate {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     sheepEm.setScreen(new MapScreen(sheepEm));
+                    if(pref.getBoolean("musicOn")){
+                        sheepEm.win.stop();
+                    }
                 }
             });
             this.addActor(levelsButton);
