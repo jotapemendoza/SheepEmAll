@@ -87,9 +87,6 @@ public class MapScreen extends ScreenTemplate {
         TextureRegionDrawable trdBg = new TextureRegionDrawable(new TextureRegion(background));
         Image bg =  new Image(trdBg);
         bg.setPosition(0,725);
-
-
-
         escenaLevels.addActor(bg);
 
         TextureRegionDrawable levelOneTrd = new TextureRegionDrawable(new TextureRegion(lvlBtn));
@@ -188,7 +185,6 @@ public class MapScreen extends ScreenTemplate {
 
         escenaLevels.draw();
         moveClouds(delta);
-
 
         /*------------------------BATCH---------------------*/
         batch.begin();
