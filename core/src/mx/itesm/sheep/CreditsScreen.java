@@ -49,12 +49,12 @@ public class CreditsScreen extends ScreenTemplate {
         batch.setProjectionMatrix(camera.combined);
         timer+= Gdx.graphics.getDeltaTime();
 
-        if(timer>=0.01){
+        if(timer>=0.02){
             imgCredits.setY(imgCredits.getY()+2);
             timer = 0;
         }
 
-        if(imgCredits.getY()>=1100){
+        if(imgCredits.getY()>=1050){
             sheepEm.finalMusic.stop();
             sheepEm.setScreen(new MenuScreen(sheepEm));
         }
