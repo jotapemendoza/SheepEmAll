@@ -821,7 +821,6 @@ public class LevelThree extends ScreenTemplate {
             arrOvejas.get(1).render(batch);
         }
 
-
         batch.draw(barn,0,1709);
 
         batch.draw(cr,0,1617);
@@ -856,6 +855,7 @@ public class LevelThree extends ScreenTemplate {
         if(contOvejas >= (cantOve-2) && lifes == 1){
             estado = EstadoJuego.GANADO;
         }
+
 
 
         if (tiempo >= 2.0f) {
