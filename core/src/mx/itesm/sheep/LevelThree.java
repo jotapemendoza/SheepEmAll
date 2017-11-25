@@ -83,6 +83,12 @@ public class LevelThree extends ScreenTemplate {
 
     private Texture oveArrRainbow;
     private Texture oveArrMovRainbow;
+    private Texture oveAbRainbow;
+    private Texture oveAbMovRainbow;
+    private Texture oveIzqRainbow;
+    private Texture oveIzqMovRainbow;
+    private Texture oveDerRainbow;
+    private Texture oveDerMovRainbow;
 
     private Texture barn;
     private Texture cr;
@@ -362,23 +368,23 @@ public class LevelThree extends ScreenTemplate {
 
             switch (randomRainbow){
                 case 1:
-                    rainbow = new Sheep(oveArrRainbow, oveArrMovWhite,
+                    rainbow = new Sheep(oveArrRainbow, oveArrMovRainbow,
                             Sheep.Estado.ARRIBA, arrColores[4], arrTipos[2]);
                     arrOvejas.add(rainbow);
                     break;
                 case 2:
-                    rainbow = new Sheep(oveArrRainbow, oveArrMovWhite,
-                            Sheep.Estado.ARRIBA, arrColores[4], arrTipos[2]);
+                    rainbow = new Sheep(oveAbRainbow, oveAbMovRainbow,
+                            Sheep.Estado.ABAJO, arrColores[4], arrTipos[2]);
                     arrOvejas.add(rainbow);
                     break;
                 case 3:
-                    rainbow = new Sheep(oveArrRainbow, oveArrMovWhite,
-                            Sheep.Estado.ARRIBA, arrColores[4], arrTipos[2]);
+                    rainbow = new Sheep(oveIzqRainbow, oveIzqMovRainbow,
+                            Sheep.Estado.IZQUIERDA, arrColores[4], arrTipos[2]);
                     arrOvejas.add(rainbow);
                     break;
                 case 4:
-                    rainbow = new Sheep(oveArrRainbow, oveArrMovWhite,
-                            Sheep.Estado.ARRIBA, arrColores[4], arrTipos[2]);
+                    rainbow = new Sheep(oveDerRainbow, oveDerMovRainbow,
+                            Sheep.Estado.DERECHA, arrColores[4], arrTipos[2]);
                     arrOvejas.add(rainbow);
                     break;
             }
@@ -608,8 +614,14 @@ public class LevelThree extends ScreenTemplate {
         oveAlienArrMovWhite = new Texture("Sheep/Level 3/Alien/White/alien_sheep_moving_down_white.png");
 
         // oveja Rainbow
-        oveArrRainbow = new Texture("Sheep/Level 2/Rainbow/rainbow_up.png");
-        //oveArrMovRainbow = new Texture("");
+        oveArrRainbow = new Texture("Sheep/Level 2/Rainbow/rainbow_down.png");
+        oveArrMovRainbow = new Texture("Sheep/Level 2/Rainbow/rainbow_moving_down.png");
+        oveAbRainbow = new Texture("Sheep/Level 2/Rainbow/rainbow_up.png");
+        oveAbMovRainbow = new Texture("Sheep/Level 2/Rainbow/rainbow_moving_up.png");
+        oveIzqRainbow = new Texture("Sheep/Level 2/Rainbow/rainbow_left.png");
+        oveIzqMovRainbow = new Texture("Sheep/Level 2/Rainbow/rainbow_moving_left.png");
+        oveDerRainbow = new Texture("Sheep/Level 2/Rainbow/rainbow_right.png");
+        oveDerMovRainbow = new Texture("Sheep/Level 2/Rainbow/rainbow_moving_right.png");
     }
 
 
