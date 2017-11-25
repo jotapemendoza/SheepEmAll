@@ -156,11 +156,12 @@ public class AlienLevel extends ScreenTemplate {
         }
 
         if(estado ==  EstadoJuego.GANADO){
-            Gdx.input.setInputProcessor(winScene);
+            /*Gdx.input.setInputProcessor(winScene);
             winScene.draw();
             alienShip.hideShip();
             sheepAbd.hideSheep();
-            pref.putBoolean("wonAlien",true);
+            pref.putBoolean("wonAlien",true);*/
+            sheepEm.setScreen(new EndingScreen(sheepEm));
         }
 
         if(pref.getBoolean("musicOn")){
