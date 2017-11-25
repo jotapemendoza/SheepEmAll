@@ -122,6 +122,10 @@ public class LevelThree extends ScreenTemplate {
     private float sheepTimer;
     private boolean estaEnNave = false;
 
+    private Texture barn;
+    private Texture cr;
+    private Texture barn_shadow;
+
 
     public LevelThree(SheepEm sheepEm){
         this.sheepEm = sheepEm;
@@ -471,12 +475,16 @@ public class LevelThree extends ScreenTemplate {
 
     // Método que carga todas las texturas del sheepEm ---------------------------------------------
     private void loadTextures() {
-        background = new Texture("noche.png");
+        background = new Texture("gBg_anocher.png");
         pauseButton = new Texture("Buttons/unpressed/pauseButton.png");
         time = new Texture("time.png");
         life = new Texture("life.png");
         life_lost = new Texture("life_lost.png");
         alienShip = new Texture("alienShip.png");
+
+        barn = new Texture("night_barn.png");
+        cr = new Texture("cr_night.png");
+        barn_shadow = new Texture("shadow.png");
 
         //ovejas de colores
         oveArrBlue = new Texture("Sheep/Level 3/Blue/sheep_down_blue.png");
@@ -554,28 +562,47 @@ public class LevelThree extends ScreenTemplate {
         }
 
         batch.begin();
-        batch.draw(background, 0, 0);
 
-        // Dibujar el asset de vidas dependiendo al número de vidas --------------------------------
+        batch.draw(background,0,0);
 
-        if(lifes==3) {
-            batch.draw(life, 277, 1796);
-            batch.draw(life, 177, 1796);
-            batch.draw(life,77,1796);
+        batch.draw(barn_shadow,466,1709);
+
+        for (int i = 0; i < arrOvejas.size; i++) {
+            if (salida <= 10) {
+                arrOvejas.get(i).setVelocidad(velocidadOve);
+                arrOvejas.get(i).render(batch);
+            }
+            else{
+                velocidadOve += 0.5f;
+                salida = 0;
+            }
+
+        }
+
+        batch.draw(barn,0,1709);
+
+        batch.draw(cr,0,1617);
+
+        batch.draw(life_lost, 60,1774);
+
+        if(lifes>=3) {
+            batch.draw(life, 266, 1778);
+            batch.draw(life, 166, 1778);
+            batch.draw(life,66,1778);
         }
         if(lifes==2){
-            batch.draw(life, 177, 1796);
-            batch.draw(life,77,1796);
+            batch.draw(life, 166, 1778);
+            batch.draw(life,66,1778);
         }
         if(lifes==1){
-            batch.draw(life,77,1796);
+            batch.draw(life,66,1778);
         }
 
-        // -----------------------------------------------------------------------------------------
 
         if(lifes<=0){
             estado = EstadoJuego.PERDIDO;
         }
+
 
         if(contOvejas >= cantOve && lifes == 3){
             estado = EstadoJuego.GANADO;
@@ -587,36 +614,12 @@ public class LevelThree extends ScreenTemplate {
             estado = EstadoJuego.GANADO;
         }
 
-        batch.draw(life_lost, 277,1796);
-        batch.draw(life_lost, 177,1796);
-        batch.draw(life_lost, 77,1796);
 
-        batch.draw(time,680,1814);
-
-        // Se dibuja el tiempo restante que tiene el usuario ---------------------------------------
-
-        if(seconds>=10){
-            font.draw(batch,Integer.toString(minutes)+ ":"+ Integer.toString(seconds),755,1888);
-        }else{
-            font.draw(batch,Integer.toString(minutes)+ ":0"+ Integer.toString(seconds),755,1888);
+        if (tiempo >= 30.0){ // a los 30 seg sale la oveja arcoiris arriba
+            arrOvejas.get(0).setVelocidad(velocidadOve);
+            arrOvejas.get(0).render(batch);
         }
-        // -----------------------------------------------------------------------------------------
 
-        Gdx.app.log("tiempo", "T: " + tiempo);
-        Gdx.app.log("distancia", "X: " + moverX + ", Y: " + moverY);
-
-        // pintar ovejas
-       for (int i = 1; i < arrOvejas.size; i++) {
-
-           if (salida <= 10) {
-                arrOvejas.get(i).setVelocidad(velocidadOve);
-                arrOvejas.get(i).render(batch);
-           }else{
-                velocidadOve += 0.5f;
-                salida = 0;
-           }
-
-       }
 
         // Movimiento de la nave en la pantalla
         if (tiempo >= 2.0f){

@@ -140,6 +140,7 @@ public class LevelTwo extends ScreenTemplate {
         Gdx.input.setCatchBackKey(true);
         lifes = 3;
         sheep = Gdx.audio.newMusic(Gdx.files.internal("SFX/sheep_sound.mp3"));
+        sheepTimer = 1.5f;
     }
 
     private void crearEscenaJuego() {
@@ -453,13 +454,13 @@ public class LevelTwo extends ScreenTemplate {
 
     // Método que carga todas las texturas del sheepEm -----------------------------------------------
     private void cargarTexturas() {
-        background = new Texture("atardecer.png");
+        background = new Texture("gBg_atardecer.png");
         pauseButton = new Texture("Buttons/unpressed/pauseButton.png");
         time = new Texture("time.png");
         life = new Texture("life.png");
         life_lost = new Texture("life_lost.png");
-        barn = new Texture("day_barn.png");
-        cr = new Texture("cr.png");
+        barn = new Texture("latesunset_barn.png");
+        cr = new Texture("cr_sunset.png");
         barn_shadow = new Texture("shadow.png");
 
         //ovejas de colores
@@ -530,7 +531,7 @@ public class LevelTwo extends ScreenTemplate {
 
         if (sheepTimer<=0){
             cargarOvejas();
-            sheepTimer = 2;
+            sheepTimer = 1.25f;
         }
 
 
@@ -555,7 +556,7 @@ public class LevelTwo extends ScreenTemplate {
 
         batch.draw(barn,0,1709);
 
-        batch.draw(cr,0,1039);
+        batch.draw(cr,0,1617);
 
         batch.draw(life_lost, 60,1774);
 
@@ -645,7 +646,7 @@ public class LevelTwo extends ScreenTemplate {
 
         if(estado ==  EstadoJuego.GANADO){
             Gdx.input.setInputProcessor(escenaGanar);
-            pref.putBoolean("wonLevelOne",true);
+            pref.putBoolean("wonLevelTwo",true);
             escenaGanar.draw();
         }
 
@@ -853,7 +854,7 @@ public class LevelTwo extends ScreenTemplate {
             nextLevelButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.setScreen(new MenuScreen(sheepEm));
+                    sheepEm.setScreen(new LevelThree(sheepEm));
                 }
             });
             this.addActor(nextLevelButton);
@@ -868,7 +869,7 @@ public class LevelTwo extends ScreenTemplate {
             retryLevelButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.setScreen(new LevelOne(sheepEm));
+                    sheepEm.setScreen(new LevelTwo(sheepEm));
                 }
             });
             this.addActor(retryLevelButton);
@@ -884,7 +885,7 @@ public class LevelTwo extends ScreenTemplate {
             levelsButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.setScreen(new LevelOne(sheepEm));
+                    sheepEm.setScreen(new MapScreen(sheepEm));
                 }
             });
             this.addActor(levelsButton);
