@@ -2,6 +2,7 @@ package mx.itesm.sheep;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -18,6 +19,12 @@ public class EndingScreen extends ScreenTemplate {
 
     private Texture background;
 
+    private TextureRegion[] animationFrames;
+    private Animation animation;
+    float elapsedTime;
+    private Texture fadeIn;
+    private ImageButton button;
+
     public EndingScreen(SheepEm sheepEm){
         this.sheepEm = sheepEm;
     }
@@ -27,6 +34,19 @@ public class EndingScreen extends ScreenTemplate {
         loadTextures();
         createScene();
         Gdx.input.setInputProcessor(storyStage);
+
+        fadeIn = new Texture("fadeIn.png");
+
+
+        TextureRegion[][] tmpFrames = TextureRegion.split(fadeIn,1080,1920);
+        animationFrames = new TextureRegion[7];
+        int index = 0;
+
+        for (int i = 6; i >= 0 ; i--) {
+            animationFrames[index++] = tmpFrames[0][i];
+        }
+
+        animation = new Animation(1f/10f,animationFrames);
     }
 
     private void loadTextures() {
@@ -45,21 +65,31 @@ public class EndingScreen extends ScreenTemplate {
         TextureRegionDrawable trdHome = new TextureRegionDrawable(new TextureRegion(new Texture("Buttons/unpressed/homeButton.png")));
         TextureRegionDrawable trdPressedHome = new TextureRegionDrawable(new TextureRegion(new Texture("Buttons/pressed/pressedHomeButton.png")));
 
-        ImageButton button = new ImageButton(trdHome,trdPressedHome);
+        button = new ImageButton(trdHome,trdPressedHome);
         button.setPosition(WIDTH/2,HEIGHT/2);
-        button.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                sheepEm.setScreen(new MenuScreen(sheepEm));
-
-            }
-        });
         storyStage.addActor(button);
     }
 
     @Override
     public void render(float delta) {
         storyStage.draw();
+
+        batch.begin();
+
+        elapsedTime += Gdx.graphics.getDeltaTime();
+        TextureRegion sheeptr = (TextureRegion) animation.getKeyFrame(elapsedTime,false);
+        batch.draw(sheeptr,0,0);
+
+        batch.end();
+
+        if(elapsedTime>=2.5){
+            button.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    sheepEm.setScreen(new MenuScreen(sheepEm));
+                }
+            });
+        }
     }
 
     @Override

@@ -2,6 +2,7 @@ package mx.itesm.sheep;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -41,6 +42,14 @@ public class AlienLevel extends ScreenTemplate {
     private AlienShip alienShip;
     private Texture whitesheep;
 
+
+
+    private TextureRegion[] animationFrames;
+    private Animation animation;
+    float elapsedTime;
+    private Texture fadeIn;
+
+
     public AlienLevel(SheepEm sheepEm) {
 
         this.sheepEm = sheepEm;
@@ -57,6 +66,19 @@ public class AlienLevel extends ScreenTemplate {
         estado = EstadoJuego.JUGANDO;
         Gdx.input.setInputProcessor(escenaAlien);
         hpAlien = 50;
+
+        fadeIn = new Texture("fadeIn.png");
+
+
+        TextureRegion[][] tmpFrames = TextureRegion.split(fadeIn,1080,1920);
+        animationFrames = new TextureRegion[7];
+        int index = 0;
+
+        for (int i = 0; i < 7 ; i++) {
+            animationFrames[index++] = tmpFrames[0][i];
+        }
+
+        animation = new Animation(1f/15f,animationFrames);
     }
 
     private void crearEscenaNave() {
@@ -136,9 +158,17 @@ public class AlienLevel extends ScreenTemplate {
         }else{
             sheepAbd.setX(440);
             sheepAbd.render(batch);
-            alienShip.setPosicionX(200);
-            alienShip.setPosicionY(700);
-            alienShip.render(batch);
+        }
+        alienShip.setPosicionX(200);
+        alienShip.setPosicionY(700);
+        alienShip.render(batch);
+
+        if(estado == EstadoJuego.GANADO){
+            elapsedTime += Gdx.graphics.getDeltaTime();
+            TextureRegion sheeptr = (TextureRegion) animation.getKeyFrame(elapsedTime,false);
+            batch.draw(sheeptr,0,0);
+            sheepAbd.hideSheep();
+
         }
         batch.end();
 
@@ -155,12 +185,7 @@ public class AlienLevel extends ScreenTemplate {
             played = true;
         }
 
-        if(estado ==  EstadoJuego.GANADO){
-            /*Gdx.input.setInputProcessor(winScene);
-            winScene.draw();
-            alienShip.hideShip();
-            sheepAbd.hideSheep();
-            pref.putBoolean("wonAlien",true);*/
+        if(elapsedTime>=2.5){
             sheepEm.setScreen(new EndingScreen(sheepEm));
         }
 
@@ -181,7 +206,7 @@ public class AlienLevel extends ScreenTemplate {
     enum EstadoJuego {
         JUGANDO,
         PERDIDO,
-        GANADO
+        GANADO,
     }
 
     @Override
