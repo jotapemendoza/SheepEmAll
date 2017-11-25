@@ -566,7 +566,8 @@ public class LevelThree extends ScreenTemplate {
             }
         }
 
-        if(undrawTimer>=3){
+
+        if(undrawTimer>=1.5){
             apperAS = false;
         }
 

@@ -13,8 +13,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class AlienShip {
 
     // Mover direcciones
-    private float posicionX = 0;
-    private float posicionY = 0;
+    private float posicionX = -100;
+    private float posicionY = -100;
     private float direccionX = 1;
     private float direccionY = 1;
 
