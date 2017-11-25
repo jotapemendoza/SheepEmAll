@@ -97,6 +97,36 @@ public class LevelThree extends ScreenTemplate {
     // Texturas alien colores
     private Texture oveAlienArrWhite;
     private Texture oveAlienArrMovWhite;
+    private Texture oveAlienArrBlue;
+    private Texture oveAlienArrMovBlue;
+    private Texture oveAlienArrRed;
+    private Texture oveAlienArrMovRed;
+    private Texture oveAlienArrYellow;
+    private Texture oveAlienArrMovYellow;
+    private Texture oveAlienAbWhite;
+    private Texture oveAlienAbMovWhite;
+    private Texture oveAlienAbBlue;
+    private Texture oveAlienAbMovBlue;
+    private Texture oveAlienAbRed;
+    private Texture oveAlienAbMovRed;
+    private Texture oveAlienAbYellow;
+    private Texture oveAlienAbMovYellow;
+    private Texture oveAlienIzqWhite;
+    private Texture oveAlienIzqMovWhite;
+    private Texture oveAlienIzqBlue;
+    private Texture oveAlienIzqMovBlue;
+    private Texture oveAlienIzqRed;
+    private Texture oveAlienIzqMovRed;
+    private Texture oveAlienIzqYellow;
+    private Texture oveAlienIzqMovYellow;
+    private Texture oveAlienDerWhite;
+    private Texture oveAlienDerMovWhite;
+    private Texture oveAlienDerBlue;
+    private Texture oveAlienDerMovBlue;
+    private Texture oveAlienDerRed;
+    private Texture oveAlienDerMovRed;
+    private Texture oveAlienDerYellow;
+    private Texture oveAlienDerMovYellow;
 
     private Boolean played = false;
 
@@ -338,29 +368,101 @@ public class LevelThree extends ScreenTemplate {
             arrOvejas = new Array<Sheep>(cantOve);
 
             int randomAlien = (int) (Math.random() * 4) + 1;
+            int randomAlienColor = (int) (Math.random() * 4) + 1;
             Sheep Alien;
 
-            switch (randomAlien){
-                case 1:
-                    Alien = new Sheep(oveAlienArrWhite, oveAlienArrMovWhite,
-                        Sheep.Estado.ARRIBA, arrColores[0], arrTipos[1]);
-                    arrOvejas.add(Alien);
-                    break;
-                case 2:
-                    Alien = new Sheep(oveAlienArrWhite, oveAlienArrMovWhite,
-                            Sheep.Estado.ARRIBA, arrColores[0], arrTipos[1]);
-                    arrOvejas.add(Alien);
-                    break;
-                case 3:
-                    Alien = new Sheep(oveAlienArrWhite, oveAlienArrMovWhite,
-                            Sheep.Estado.ARRIBA, arrColores[0], arrTipos[1]);
-                    arrOvejas.add(Alien);
-                    break;
-                case 4:
-                    Alien = new Sheep(oveAlienArrWhite, oveAlienArrMovWhite,
-                            Sheep.Estado.ARRIBA, arrColores[0], arrTipos[1]);
-                    arrOvejas.add(Alien);
-                    break;
+            if (randomAlien == 1){
+                switch (randomAlienColor){
+                    case 1:
+                        Alien = new Sheep(oveAlienArrWhite, oveAlienArrMovWhite,
+                                Sheep.Estado.ARRIBA, arrColores[0], arrTipos[1]);
+                        arrOvejas.add(Alien);
+                        break;
+                    case 2:
+                        Alien = new Sheep(oveAlienArrBlue, oveAlienArrMovBlue,
+                                Sheep.Estado.ARRIBA, arrColores[1], arrTipos[1]);
+                        arrOvejas.add(Alien);
+                        break;
+                    case 3:
+                        Alien = new Sheep(oveAlienArrRed, oveAlienArrMovRed,
+                                Sheep.Estado.ARRIBA, arrColores[2], arrTipos[1]);
+                        arrOvejas.add(Alien);
+                        break;
+                    case 4:
+                        Alien = new Sheep(oveAlienArrYellow, oveAlienArrMovYellow,
+                                Sheep.Estado.ARRIBA, arrColores[3], arrTipos[1]);
+                        arrOvejas.add(Alien);
+                        break;
+                }
+            }else if (randomAlien == 2){
+                switch (randomAlienColor){
+                    case 1:
+                        Alien = new Sheep(oveAlienAbWhite, oveAlienAbMovWhite,
+                                Sheep.Estado.ABAJO, arrColores[0], arrTipos[1]);
+                        arrOvejas.add(Alien);
+                        break;
+                    case 2:
+                        Alien = new Sheep(oveAlienAbBlue, oveAlienAbMovBlue,
+                                Sheep.Estado.ABAJO, arrColores[1], arrTipos[1]);
+                        arrOvejas.add(Alien);
+                        break;
+                    case 3:
+                        Alien = new Sheep(oveAlienAbRed, oveAlienAbMovRed,
+                                Sheep.Estado.ABAJO, arrColores[2], arrTipos[1]);
+                        arrOvejas.add(Alien);
+                        break;
+                    case 4:
+                        Alien = new Sheep(oveAlienAbYellow, oveAlienAbMovYellow,
+                                Sheep.Estado.ABAJO, arrColores[3], arrTipos[1]);
+                        arrOvejas.add(Alien);
+                        break;
+                }
+            }else if (randomAlien == 3){
+                switch (randomAlienColor){
+                    case 1:
+                        Alien = new Sheep(oveAlienIzqWhite, oveAlienIzqMovWhite,
+                                Sheep.Estado.IZQUIERDA, arrColores[0], arrTipos[1]);
+                        arrOvejas.add(Alien);
+                        break;
+                    case 2:
+                        Alien = new Sheep(oveAlienIzqBlue, oveAlienIzqMovBlue,
+                                Sheep.Estado.IZQUIERDA, arrColores[1], arrTipos[1]);
+                        arrOvejas.add(Alien);
+                        break;
+                    case 3:
+                        Alien = new Sheep(oveAlienIzqRed, oveAlienIzqMovRed,
+                                Sheep.Estado.IZQUIERDA, arrColores[2], arrTipos[1]);
+                        arrOvejas.add(Alien);
+                        break;
+                    case 4:
+                        Alien = new Sheep(oveAlienIzqYellow, oveAlienIzqMovYellow,
+                                Sheep.Estado.IZQUIERDA, arrColores[3], arrTipos[1]);
+                        arrOvejas.add(Alien);
+                        break;
+                }
+            }else if (randomAlien == 4){
+                switch (randomAlienColor){
+                    case 1:
+                        Alien = new Sheep(oveAlienDerWhite, oveAlienDerMovWhite,
+                                Sheep.Estado.DERECHA, arrColores[0], arrTipos[1]);
+                        arrOvejas.add(Alien);
+                        break;
+                    case 2:
+                        Alien = new Sheep(oveAlienDerBlue, oveAlienDerMovBlue,
+                                Sheep.Estado.DERECHA, arrColores[1], arrTipos[1]);
+                        arrOvejas.add(Alien);
+                        break;
+                    case 3:
+                        Alien = new Sheep(oveAlienDerRed, oveAlienDerMovRed,
+                                Sheep.Estado.DERECHA, arrColores[2], arrTipos[1]);
+                        arrOvejas.add(Alien);
+                        break;
+                    case 4:
+                        Alien = new Sheep(oveAlienDerYellow, oveAlienDerMovYellow,
+                                Sheep.Estado.DERECHA, arrColores[3], arrTipos[1]);
+                        arrOvejas.add(Alien);
+                        break;
+                }
             }
 
             int randomRainbow = (int) (Math.random() * 4) + 1;
@@ -610,8 +712,41 @@ public class LevelThree extends ScreenTemplate {
         oveDerMovYellow = new Texture("Sheep/Level 3/Yellow/sheep_moving_right_yellow.png");
 
         //ovejas alien de colores
-        oveAlienArrWhite = new Texture("Sheep/Level 3/Alien/White/alien_sheep_down_white.png");
-        oveAlienArrMovWhite = new Texture("Sheep/Level 3/Alien/White/alien_sheep_moving_down_white.png");
+        oveAlienArrWhite = new Texture("Sheep/Level 3/Alien/White/sheep_down_white.png");
+        oveAlienArrMovWhite = new Texture("Sheep/Level 3/Alien/White/sheep_moving_down_white.png");
+        oveAlienArrBlue = new Texture("Sheep/Level 3/Alien/Blue/sheep_down_blue.png");
+        oveAlienArrMovBlue = new Texture("Sheep/Level 3/Alien/Blue/sheep_moving_down_blue.png");
+        oveAlienArrRed = new Texture("Sheep/Level 3/Alien/Red/sheep_down_red.png");
+        oveAlienArrMovRed = new Texture("Sheep/Level 3/Alien/Red/sheep_moving_down_red.png");
+        oveAlienArrYellow = new Texture("Sheep/Level 3/Alien/Yellow/sheep_down_yellow.png");
+        oveAlienArrMovYellow = new Texture("Sheep/Level 3/Alien/Yellow/sheep_moving_down_yellow.png");
+
+        oveAlienAbWhite = new Texture("Sheep/Level 3/Alien/White/sheep_up_white.png");
+        oveAlienAbMovWhite = new Texture("Sheep/Level 3/Alien/White/sheep_moving_up_white.png");
+        oveAlienAbBlue = new Texture("Sheep/Level 3/Alien/Blue/sheep_up_blue.png");
+        oveAlienAbMovBlue = new Texture("Sheep/Level 3/Alien/Blue/sheep_moving_up_blue.png");
+        oveAlienAbRed = new Texture("Sheep/Level 3/Alien/Red/sheep_up_red.png");
+        oveAlienAbMovRed = new Texture("Sheep/Level 3/Alien/Red/sheep_moving_up_red.png");
+        oveAlienAbYellow = new Texture("Sheep/Level 3/Alien/Yellow/sheep_up_yellow.png");
+        oveAlienAbMovYellow = new Texture("Sheep/Level 3/Alien/Yellow/sheep_moving_up_yellow.png");
+
+        oveAlienIzqWhite = new Texture("Sheep/Level 3/Alien/White/sheep_left_white.png");
+        oveAlienIzqMovWhite = new Texture("Sheep/Level 3/Alien/White/sheep_moving_left_white.png");
+        oveAlienIzqBlue = new Texture("Sheep/Level 3/Alien/Blue/sheep_left_blue.png");
+        oveAlienIzqMovBlue = new Texture("Sheep/Level 3/Alien/Blue/sheep_moving_left_blue.png");
+        oveAlienIzqRed = new Texture("Sheep/Level 3/Alien/Red/sheep_left_red.png");
+        oveAlienIzqMovRed = new Texture("Sheep/Level 3/Alien/Red/sheep_moving_left_red.png");
+        oveAlienIzqYellow = new Texture("Sheep/Level 3/Alien/Yellow/sheep_left_yellow.png");
+        oveAlienIzqMovYellow = new Texture("Sheep/Level 3/Alien/Yellow/sheep_moving_left_yellow.png");
+
+        oveAlienDerWhite = new Texture("Sheep/Level 3/Alien/White/sheep_right_white.png");
+        oveAlienDerMovWhite = new Texture("Sheep/Level 3/Alien/White/sheep_moving_right_white.png");
+        oveAlienDerBlue = new Texture("Sheep/Level 3/Alien/Blue/sheep_right_blue.png");
+        oveAlienDerMovBlue = new Texture("Sheep/Level 3/Alien/Blue/sheep_moving_right_blue.png");
+        oveAlienDerRed = new Texture("Sheep/Level 3/Alien/Red/sheep_right_red.png");
+        oveAlienDerMovRed = new Texture("Sheep/Level 3/Alien/Red/sheep_moving_right_red.png");
+        oveAlienDerYellow = new Texture("Sheep/Level 3/Alien/Yellow/sheep_right_yellow.png");
+        oveAlienDerMovYellow = new Texture("Sheep/Level 3/Alien/Yellow/sheep_moving_right_yellow.png");
 
         // oveja Rainbow
         oveArrRainbow = new Texture("Sheep/Level 2/Rainbow/rainbow_down.png");
