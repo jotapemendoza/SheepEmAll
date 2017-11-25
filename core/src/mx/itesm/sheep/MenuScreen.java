@@ -294,5 +294,6 @@ class MenuScreen extends ScreenTemplate
     // Liberar los recursos asignados
     @Override
     public void dispose() {
+        escenaMenu.dispose();
     }
 }

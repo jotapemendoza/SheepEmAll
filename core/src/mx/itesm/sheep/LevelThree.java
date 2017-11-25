@@ -833,7 +833,10 @@ public class LevelThree extends ScreenTemplate {
 
     @Override
     public void dispose() {
-
+        escenaJuego.dispose();
+        lostScene.dispose();
+        winScene.dispose();
+        pauseScene.dispose();
     }
 
     enum EstadoJuego {

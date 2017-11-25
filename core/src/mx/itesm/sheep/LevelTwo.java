@@ -714,6 +714,10 @@ public class LevelTwo extends ScreenTemplate {
 
     @Override
     public void dispose() {
+        escenaJuego.dispose();
+        escenaPerder.dispose();
+        escenaPausa.dispose();
+        escenaGanar.dispose();
     }
 
     enum EstadoJuego {
