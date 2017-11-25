@@ -140,7 +140,7 @@ public class LevelTwo extends ScreenTemplate {
         Gdx.input.setCatchBackKey(true);
         lifes = 3;
         sheep = Gdx.audio.newMusic(Gdx.files.internal("SFX/sheep_sound.mp3"));
-        sheepTimer = 1.5f;
+        sheepTimer = 2.5f;
     }
 
     private void crearEscenaJuego() {
@@ -537,7 +537,7 @@ public class LevelTwo extends ScreenTemplate {
 
         if (sheepTimer<=0){
             cargarOvejas();
-            sheepTimer = 1.25f;
+            sheepTimer = 1.55f;
         }
 
 

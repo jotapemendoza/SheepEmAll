@@ -506,23 +506,23 @@ public class LevelThree extends ScreenTemplate {
         oveAbYellow = new Texture("Sheep/Level 3/Yellow/sheep_up_yellow.png");
         oveAbMovYellow = new Texture("Sheep/Level 3/Yellow/sheep_moving_up_yellow.png");
 
-        oveIzqBlue = new Texture("Sheep/Level 1/Blue/sheep_left_blue.png");
-        oveIzqMovBlue = new Texture("Sheep/Level 1/Blue/sheep_moving_left_blue.png");
-        oveIzqRed = new Texture("Sheep/Level 1/Red/sheep_left_red.png");
-        oveIzqMovRed = new Texture("Sheep/Level 1/Red/sheep_moving_left_red.png");
-        oveIzqWhite = new Texture("Sheep/Level 1/White/sheep_left_white.png");
-        oveIzqMovWhite = new Texture("Sheep/Level 1/White/sheep_moving_left_white.png");
-        oveIzqYellow = new Texture("Sheep/Level 1/Yellow/sheep_left_yellow.png");
-        oveIzqMovYellow = new Texture("Sheep/Level 1/Yellow/sheep_moving_left_yellow.png");
+        oveIzqBlue = new Texture("Sheep/Level 3/Blue/sheep_left_blue.png");
+        oveIzqMovBlue = new Texture("Sheep/Level 3/Blue/sheep_moving_left_blue.png");
+        oveIzqRed = new Texture("Sheep/Level 3/Red/sheep_left_red.png");
+        oveIzqMovRed = new Texture("Sheep/Level 3/Red/sheep_moving_left_red.png");
+        oveIzqWhite = new Texture("Sheep/Level 3/White/sheep_left_white.png");
+        oveIzqMovWhite = new Texture("Sheep/Level 3/White/sheep_moving_left_white.png");
+        oveIzqYellow = new Texture("Sheep/Level 3/Yellow/sheep_left_yellow.png");
+        oveIzqMovYellow = new Texture("Sheep/Level 3/Yellow/sheep_moving_left_yellow.png");
 
-        oveDerBlue = new Texture("Sheep/Level 1/Blue/sheep_right_blue.png");
-        oveDerMovBlue = new Texture("Sheep/Level 1/Blue/sheep_moving_right_blue.png");
-        oveDerRed = new Texture("Sheep/Level 1/Red/sheep_right_red.png");
-        oveDerMovRed = new Texture("Sheep/Level 1/Red/sheep_moving_right_red.png");
-        oveDerWhite = new Texture("Sheep/Level 1/White/sheep_right_white.png");
-        oveDerMovWhite = new  Texture("Sheep/Level 1/White/sheep_moving_right_white.png");
-        oveDerYellow = new Texture("Sheep/Level 1/Yellow/sheep_right_yellow.png");
-        oveDerMovYellow = new Texture("Sheep/Level 1/Yellow/sheep_moving_right_yellow.png");
+        oveDerBlue = new Texture("Sheep/Level 3/Blue/sheep_right_blue.png");
+        oveDerMovBlue = new Texture("Sheep/Level 3/Blue/sheep_moving_right_blue.png");
+        oveDerRed = new Texture("Sheep/Level 3/Red/sheep_right_red.png");
+        oveDerMovRed = new Texture("Sheep/Level 3/Red/sheep_moving_right_red.png");
+        oveDerWhite = new Texture("Sheep/Level 3/White/sheep_right_white.png");
+        oveDerMovWhite = new  Texture("Sheep/Level 3/White/sheep_moving_right_white.png");
+        oveDerYellow = new Texture("Sheep/Level 3/Yellow/sheep_right_yellow.png");
+        oveDerMovYellow = new Texture("Sheep/Level 3/Yellow/sheep_moving_right_yellow.png");
 
         //ovejas alien de colores
         oveAlienArrWhite = new Texture("Sheep/Level 3/Alien/White/alien_sheep_down_white.png");
@@ -938,6 +938,8 @@ public class LevelThree extends ScreenTemplate {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     sheepEm.setScreen(new LevelThree(sheepEm));
+                    sheepEm.stopLevelThreeMusic();
+                    sheepEm.playLevelThreeMusic();
                 }
             });
             this.addActor(retryLevelButton);
