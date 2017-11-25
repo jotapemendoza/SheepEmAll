@@ -126,6 +126,10 @@ public class LevelThree extends ScreenTemplate {
     private Music sheep;
     private float sheepTimer;
     private boolean estaEnNave = false;
+    private boolean drawAS;
+
+    private float undrawTimer;
+    private boolean apperAS;
 
 
     public LevelThree(SheepEm sheepEm){
@@ -144,6 +148,9 @@ public class LevelThree extends ScreenTemplate {
         Gdx.input.setInputProcessor(escenaJuego);
         sheep = Gdx.audio.newMusic(Gdx.files.internal("SFX/sheep_sound.mp3"));
         lifes = 3;
+        sheepTimer=1.85f;
+        drawAS = false;
+        apperAS = true;
     }
 
     private void createGameScene() {
@@ -229,6 +236,7 @@ public class LevelThree extends ScreenTemplate {
                         aS.setEstado(AlienShip.Estado.DERROTA);
                         Gdx.app.log("oveja","en corral: " + contOvejas);
                         ovejaMoviendo = null;
+                        drawAS = true;
                     }
                     // verificar si esta en el corral
                     else{
@@ -547,14 +555,19 @@ public class LevelThree extends ScreenTemplate {
         }
 
 
-        int minutes = ((int)totalTime) / 60;
-        int seconds = ((int)totalTime) % 60;
 
 
         if (estado == EstadoJuego.JUGANDO) {
             salida += Gdx.graphics.getDeltaTime();
             tiempo += Gdx.graphics.getDeltaTime();
             sheepTimer -= Gdx.graphics.getDeltaTime();
+            if(drawAS){
+                undrawTimer+=Gdx.graphics.getDeltaTime();
+            }
+        }
+
+        if(undrawTimer>=3){
+            apperAS = false;
         }
 
         if (sheepTimer<=0){
@@ -622,41 +635,44 @@ public class LevelThree extends ScreenTemplate {
         }
 
 
-        // Movimiento de la nave en la pantalla
-        if (tiempo >= 2.0f){
-            if (aS.getEstado() != AlienShip.Estado.PAUSADO){
-                if (aS.getEstado() != AlienShip.Estado.DERROTA){
-                    moverX += 5f* aS.getDireccionX();
+        if (tiempo >= 2.0f) {
+            if (aS.getEstado() != AlienShip.Estado.PAUSADO) {
+                if (aS.getEstado() != AlienShip.Estado.DERROTA) {
+                    moverX += 5f * aS.getDireccionX();
                     moverY += 5f * aS.getDireccionY();
-                    aS.spaceShipMove(moverX,moverY);
+                    aS.spaceShipMove(moverX, moverY);
                     aS.setEstado(AlienShip.Estado.MOVIENDO);
-                    //Gdx.app.log("Prueba","MoverX =   " + moverX);
-                    if(aS.saliendoPor() == AlienShip.Estado.SALIENDOX){
+
+                    if (aS.saliendoPor() == AlienShip.Estado.SALIENDOX) {
                         aS.cambiarDireccionX();
                         //moverX = 1080;
-                    }
-                    else if (aS.saliendoPor() == AlienShip.Estado.SALIENDOY){
+                    } else if (aS.saliendoPor() == AlienShip.Estado.SALIENDOY) {
                         aS.cambiarDireccionY();
-                        Gdx.app.log("Condición Y","se cumplió *****************");
+                        Gdx.app.log("Condición Y", "se cumplió *****************");
                         //moverY = 1920;
                     }
-                }else {
-                    if (!arrOvejas.get(0).isEnLlamas()){
+                } else {
+                    if (!arrOvejas.get(0).isEnLlamas()) {
                         estaEnNave = true;
                     }
                 }
             }
 
         }
-        aS.render(batch);
 
-        // Sacar oveja alien
-        if (tiempo >= 2.0f){
-            arrOvejas.get(0).setVelocidad(velocidadOve);
-            arrOvejas.get(0).render(batch);
-        }else {
-            arrOvejas.get(0).render(batch);
+        if(apperAS){
+            aS.render(batch);
         }
+
+
+            // Sacar oveja alien
+            if (tiempo >= 2.0f) {
+                arrOvejas.get(0).setVelocidad(velocidadOve);
+                arrOvejas.get(0).render(batch);
+            } else {
+                arrOvejas.get(0).render(batch);
+            }
+
 
         batch.end();
 
