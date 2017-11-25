@@ -164,7 +164,7 @@ public class LevelTwo extends ScreenTemplate {
         TextureRegionDrawable trdPausepr = new TextureRegionDrawable(new TextureRegion(pressedPauseButton));
         TextureRegionDrawable trdPause = new TextureRegionDrawable(new TextureRegion(pauseButton));
         ImageButton imPause = new ImageButton(trdPause, trdPausepr);
-        imPause.setPosition(461, 1734);
+        imPause.setPosition(887, 1743);
         escenaJuego.addActor(imPause);
 
         imPause.addListener( new ClickListener() {

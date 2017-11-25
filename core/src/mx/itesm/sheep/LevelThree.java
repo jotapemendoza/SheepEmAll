@@ -169,7 +169,7 @@ public class LevelThree extends ScreenTemplate {
         TextureRegionDrawable trdPausepr = new TextureRegionDrawable(new TextureRegion(pressedPauseButton));
         TextureRegionDrawable trdPause = new TextureRegionDrawable(new TextureRegion(pauseButton));
         ImageButton imPause = new ImageButton(trdPause, trdPausepr);
-        imPause.setPosition(461, 1734);
+        imPause.setPosition(887, 1743);
         escenaJuego.addActor(imPause);
 
         imPause.addListener( new ClickListener() {
@@ -476,15 +476,15 @@ public class LevelThree extends ScreenTemplate {
 
     // Método que carga todas las texturas del sheepEm ---------------------------------------------
     private void loadTextures() {
-        background = new Texture("noche.png");
+        background = new Texture("gBg_anocher.png");
         pauseButton = new Texture("Buttons/unpressed/pauseButton.png");
         time = new Texture("time.png");
         life = new Texture("life.png");
         life_lost = new Texture("life_lost.png");
         alienShip = new Texture("alienShip.png");
 
-        barn = new Texture("latesunset_barn.png");
-        cr = new Texture("cr_sunset.png");
+        barn = new Texture("night_barn.png");
+        cr = new Texture("cr_night.png");
         barn_shadow = new Texture("shadow.png");
 
         //ovejas de colores
