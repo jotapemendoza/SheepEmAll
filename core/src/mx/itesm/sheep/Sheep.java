@@ -136,7 +136,7 @@ public class Sheep {
                   ancho = 156;
                   alto = 116;
                   frames = region.split(ancho,alto);
-                  animacion = new Animation(0.1f, frames[0][0], frames[0][1], frames[0][2]);
+                  animacion = new Animation(0.1f, frames[0][0], frames[0][1], frames[0][2],frames[0][3]);
                   animacion.setPlayMode(Animation.PlayMode.LOOP);
 
                   anchoM = 127;
@@ -166,7 +166,7 @@ public class Sheep {
                    ancho = 156;
                    alto = 116;
                    frames = region.split(ancho,alto);
-                   animacion = new Animation(0.1f, frames[0][0], frames[0][1], frames[0][2]);
+                   animacion = new Animation(0.1f, frames[0][0], frames[0][1], frames[0][2],frames[0][3]);
                    animacion.setPlayMode(Animation.PlayMode.LOOP);
 
                    anchoM = 127;
