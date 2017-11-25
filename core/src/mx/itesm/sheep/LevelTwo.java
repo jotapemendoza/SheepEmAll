@@ -427,6 +427,7 @@ public class LevelTwo extends ScreenTemplate {
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
                     lifes--;
+                    playLost();
                     break;
                 }
             }
@@ -435,6 +436,7 @@ public class LevelTwo extends ScreenTemplate {
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
                     lifes--;
+                    playLost();
                     break;
                 }
             }
@@ -443,6 +445,7 @@ public class LevelTwo extends ScreenTemplate {
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
                     lifes--;
+                    playLost();
                     break;
                 }
             }
@@ -451,11 +454,20 @@ public class LevelTwo extends ScreenTemplate {
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
                     lifes--;
+                    playLost();
                     break;
                 }
             }
         }
     }
+
+
+    private void playLost() {
+        if(pref.getBoolean("fxOn")){
+            sheepEm.lostSheep.play();
+        }
+    }
+
 
     // Método que carga todas las texturas del sheepEm -----------------------------------------------
     private void cargarTexturas() {

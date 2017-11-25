@@ -395,6 +395,7 @@ public class LevelOne extends ScreenTemplate {
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
                     lifes--;
+                    playLost();
                     break;
                 }
             }
@@ -403,6 +404,7 @@ public class LevelOne extends ScreenTemplate {
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
                     lifes--;
+                    playLost();
                     break;
                 }
             }
@@ -411,6 +413,7 @@ public class LevelOne extends ScreenTemplate {
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
                     lifes--;
+                    playLost();
                     break;
                 }
             }
@@ -419,9 +422,16 @@ public class LevelOne extends ScreenTemplate {
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
                     lifes--;
+                    playLost();
                     break;
                 }
             }
+        }
+    }
+
+    private void playLost() {
+        if(pref.getBoolean("fxOn")){
+            sheepEm.lostSheep.play();
         }
     }
 

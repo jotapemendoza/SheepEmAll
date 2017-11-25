@@ -451,6 +451,7 @@ public class LevelThree extends ScreenTemplate {
                 if (arrOvejas.get(i).gety() <= 0){
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
+                    playLost();
                     lifes--;
                     break;
                 }
@@ -459,6 +460,7 @@ public class LevelThree extends ScreenTemplate {
                 if (arrOvejas.get(i).gety() >= 1920){
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
+                    playLost();
                     lifes--;
                     break;
                 }
@@ -467,6 +469,7 @@ public class LevelThree extends ScreenTemplate {
                 if (arrOvejas.get(i).getx() >= 1080){
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
+                    playLost();
                     lifes--;
                     break;
                 }
@@ -475,10 +478,17 @@ public class LevelThree extends ScreenTemplate {
                 if (arrOvejas.get(i).getx() <= 0){
                     arrOvejas.removeIndex(i);
                     System.out.println("ovejas disponibles: " + arrOvejas.size);
+                    playLost();
                     lifes--;
                     break;
                 }
             }
+        }
+    }
+
+    private void playLost() {
+        if(pref.getBoolean("fxOn")){
+            sheepEm.lostSheep.play();
         }
     }
 
