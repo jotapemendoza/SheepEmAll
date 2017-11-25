@@ -78,7 +78,7 @@ public class Sheep {
                     anchoM = 114;
                     altoM = 127;
                     frames2 = region2.split(anchoM,altoM);
-                    animacionMov = new Animation(0.20f, frames2[0][0], frames2[0][1]);
+                    animacionMov = new Animation(0.20f, frames2[0][0], frames2[0][1], frames2[0][2], frames2[0][3]);
                     animacionMov.setPlayMode(Animation.PlayMode.LOOP);
 
                 }else {
@@ -100,17 +100,31 @@ public class Sheep {
                 y = 1921; //1900+ ((int) (Math.random()*4000));
                 break;
             case ABAJO:
-                ancho = 107;
-                alto = 139;
-                frames = region.split(ancho,alto);
-                animacion = new Animation(0.20f, frames[0][0], frames[0][1]);
-                animacion.setPlayMode(Animation.PlayMode.LOOP);
+               if (tipo.equals("RAINBOW")){
+                   ancho = 108;
+                   alto = 139;
+                   frames = region.split(ancho,alto);
+                   animacion = new Animation(0.20f, frames[0][0], frames[0][1], frames[0][2], frames[0][3]);
+                   animacion.setPlayMode(Animation.PlayMode.LOOP);
 
-                anchoM = 114;
-                altoM = 127;
-                frames2 = region2.split(anchoM,altoM);
-                animacionMov = new Animation(0.20f, frames2[0][0], frames2[0][1]);
-                animacionMov.setPlayMode(Animation.PlayMode.LOOP);
+                   anchoM = 114;
+                   altoM = 127;
+                   frames2 = region2.split(anchoM,altoM);
+                   animacionMov = new Animation(0.20f, frames2[0][0], frames2[0][1], frames2[0][2], frames2[0][3]);
+                   animacionMov.setPlayMode(Animation.PlayMode.LOOP);
+               }else {
+                   ancho = 107;
+                   alto = 139;
+                   frames = region.split(ancho,alto);
+                   animacion = new Animation(0.20f, frames[0][0], frames[0][1]);
+                   animacion.setPlayMode(Animation.PlayMode.LOOP);
+
+                   anchoM = 114;
+                   altoM = 127;
+                   frames2 = region2.split(anchoM,altoM);
+                   animacionMov = new Animation(0.20f, frames2[0][0], frames2[0][1]);
+                   animacionMov.setPlayMode(Animation.PlayMode.LOOP);
+               }
 
 
                 timer = 0;
@@ -118,34 +132,61 @@ public class Sheep {
                 y = -140;
                 break;
             case IZQUIERDA:
-                ancho = 156;
-                alto = 116;
-                frames = region.split(ancho,alto);
-                animacion = new Animation(0.1f, frames[0][0], frames[0][1], frames[0][2]);
-                animacion.setPlayMode(Animation.PlayMode.LOOP);
+              if (tipo.equals("RAINBOW")){
+                  ancho = 156;
+                  alto = 116;
+                  frames = region.split(ancho,alto);
+                  animacion = new Animation(0.1f, frames[0][0], frames[0][1], frames[0][2],frames[0][3]);
+                  animacion.setPlayMode(Animation.PlayMode.LOOP);
 
-                anchoM = 127;
-                altoM = 114;
-                frames2 = region2.split(anchoM,altoM);
-                animacionMov = new Animation(0.20f, frames2[0][0], frames2[1][0]);
-                animacionMov.setPlayMode(Animation.PlayMode.LOOP);
+                  anchoM = 127;
+                  altoM = 114;
+                  frames2 = region2.split(anchoM,altoM);
+                  animacionMov = new Animation(0.20f, frames2[0][0], frames2[1][0],frames2[2][0],frames2[3][0]);
+                  animacionMov.setPlayMode(Animation.PlayMode.LOOP);
+              }else {
+                  ancho = 156;
+                  alto = 116;
+                  frames = region.split(ancho,alto);
+                  animacion = new Animation(0.1f, frames[0][0], frames[0][1], frames[0][2],frames[0][3]);
+                  animacion.setPlayMode(Animation.PlayMode.LOOP);
 
-                timer = 0;
-                x = -this.ancho;//((int) (Math.random()*-4000));
-                y = 800 + ((int) (Math.random()*65)+1);
+                  anchoM = 127;
+                  altoM = 114;
+                  frames2 = region2.split(anchoM,altoM);
+                  animacionMov = new Animation(0.20f, frames2[0][0], frames2[1][0]);
+                  animacionMov.setPlayMode(Animation.PlayMode.LOOP);
+              }
+               timer = 0;
+               x = -this.ancho;//((int) (Math.random()*-4000));
+               y = 800 + ((int) (Math.random()*65)+1);
                 break;
             case DERECHA:
-                ancho = 156;
-                alto = 116;
-                frames = region.split(ancho,alto);
-                animacion = new Animation(0.1f, frames[0][0], frames[0][1], frames[0][2]);
-                animacion.setPlayMode(Animation.PlayMode.LOOP);
+               if (tipo.equals("RAINBOW")){
+                   ancho = 156;
+                   alto = 116;
+                   frames = region.split(ancho,alto);
+                   animacion = new Animation(0.1f, frames[0][0], frames[0][1], frames[0][2],frames[0][3]);
+                   animacion.setPlayMode(Animation.PlayMode.LOOP);
 
-                anchoM = 127;
-                altoM = 114;
-                frames2 = region2.split(anchoM,altoM);
-                animacionMov = new Animation(0.20f, frames2[0][0], frames2[1][0]);
-                animacionMov.setPlayMode(Animation.PlayMode.LOOP);
+                   anchoM = 127;
+                   altoM = 114;
+                   frames2 = region2.split(anchoM,altoM);
+                   animacionMov = new Animation(0.20f, frames2[0][0], frames2[1][0],frames2[2][0],frames2[3][0]);
+                   animacionMov.setPlayMode(Animation.PlayMode.LOOP);
+               }else {
+                   ancho = 156;
+                   alto = 116;
+                   frames = region.split(ancho,alto);
+                   animacion = new Animation(0.1f, frames[0][0], frames[0][1], frames[0][2],frames[0][3]);
+                   animacion.setPlayMode(Animation.PlayMode.LOOP);
+
+                   anchoM = 127;
+                   altoM = 114;
+                   frames2 = region2.split(anchoM,altoM);
+                   animacionMov = new Animation(0.20f, frames2[0][0], frames2[1][0]);
+                   animacionMov.setPlayMode(Animation.PlayMode.LOOP);
+               }
 
                 timer = 0;
                 x = 1081;//1080 + ((int) (Math.random()*4000));
