@@ -81,6 +81,8 @@ public class LevelThree extends ScreenTemplate {
     private Texture oveDerYellow;
     private Texture oveDerMovYellow;
 
+    private Texture oveArrRainbow;
+    private Texture oveArrMovRainbow;
 
     private Texture barn;
     private Texture cr;
@@ -241,7 +243,13 @@ public class LevelThree extends ScreenTemplate {
                     // verificar si esta en el corral
                     else{
                         if(cordenadasCorral(x,y,ovejaMoviendo.getColor())){
-                            if (ovejaMoviendo.getTipo().equals("ALIEN")){
+                            if (ovejaMoviendo.getColor().equals("RAINBOW")){
+                                ovejaMoviendo.setEstado(ovejaMoviendo.getEstadoOriginal());
+                                lifes++;
+                                contOvejas++;
+                                ovejaMoviendo = null;
+                            }
+                            else if (ovejaMoviendo.getTipo().equals("ALIEN")){
                                 //ovejaMoviendo.setEstado(Sheep.Estado.BOOM);
                                 lifes--;
                                 aS.setEstado(AlienShip.Estado.DERROTA);
@@ -282,10 +290,14 @@ public class LevelThree extends ScreenTemplate {
 
     // Validar corral correcto ---------------------------------------------------------------------
     public boolean cordenadasCorral(float xP, float yP, String color) {
-        if ((xP >= 0 && xP <= 405 && yP >= 110 && yP <= 720 && color.equals("RED")) ||
-                (xP >= 677 && xP <= 1080 && yP >= 110 && yP <= 720 && color.equals("BLUE")) ||
-                (xP >= 0 && xP <= 405 && yP >= 1105 && yP <= 1662 && color.equals("WHITE")) ||
-                (xP >= 677 && xP <= 1080 && yP >= 1105 && yP <= 1662 && color.equals("YELLOW"))){
+        if ((xP >= 0 && xP <= 405 && yP >= 110 && yP <= 720
+                && (color.equals("RED") || color.equals("RAINBOW"))) ||
+                (xP >= 677 && xP <= 1080 && yP >= 110 && yP <= 720
+                        && (color.equals("BLUE") || color.equals("RAINBOW"))) ||
+                (xP >= 0 && xP <= 405 && yP >= 1105 && yP <= 1662
+                        && (color.equals("WHITE") || color.equals("RAINBOW"))) ||
+                (xP >= 677 && xP <= 1080 && yP >= 1105 && yP <= 1662
+                        && (color.equals("YELLOW") || color.equals("RAINBOW")))){
             return true;
         }
         return false;
@@ -318,9 +330,58 @@ public class LevelThree extends ScreenTemplate {
         //Llenar arreglo Ovejas
         if (arrOvejas == null) {
             arrOvejas = new Array<Sheep>(cantOve);
-            Sheep OveAlArr = new Sheep(oveAlienArrWhite, oveAlienArrMovWhite,
-                    Sheep.Estado.ARRIBA, arrColores[0], arrTipos[1]);
-            arrOvejas.add(OveAlArr);
+
+            int randomAlien = (int) (Math.random() * 4) + 1;
+            Sheep Alien;
+
+            switch (randomAlien){
+                case 1:
+                    Alien = new Sheep(oveAlienArrWhite, oveAlienArrMovWhite,
+                        Sheep.Estado.ARRIBA, arrColores[0], arrTipos[1]);
+                    arrOvejas.add(Alien);
+                    break;
+                case 2:
+                    Alien = new Sheep(oveAlienArrWhite, oveAlienArrMovWhite,
+                            Sheep.Estado.ARRIBA, arrColores[0], arrTipos[1]);
+                    arrOvejas.add(Alien);
+                    break;
+                case 3:
+                    Alien = new Sheep(oveAlienArrWhite, oveAlienArrMovWhite,
+                            Sheep.Estado.ARRIBA, arrColores[0], arrTipos[1]);
+                    arrOvejas.add(Alien);
+                    break;
+                case 4:
+                    Alien = new Sheep(oveAlienArrWhite, oveAlienArrMovWhite,
+                            Sheep.Estado.ARRIBA, arrColores[0], arrTipos[1]);
+                    arrOvejas.add(Alien);
+                    break;
+            }
+
+            int randomRainbow = (int) (Math.random() * 4) + 1;
+            Sheep rainbow;
+
+            switch (randomRainbow){
+                case 1:
+                    rainbow = new Sheep(oveArrRainbow, oveArrMovWhite,
+                            Sheep.Estado.ARRIBA, arrColores[4], arrTipos[2]);
+                    arrOvejas.add(rainbow);
+                    break;
+                case 2:
+                    rainbow = new Sheep(oveArrRainbow, oveArrMovWhite,
+                            Sheep.Estado.ARRIBA, arrColores[4], arrTipos[2]);
+                    arrOvejas.add(rainbow);
+                    break;
+                case 3:
+                    rainbow = new Sheep(oveArrRainbow, oveArrMovWhite,
+                            Sheep.Estado.ARRIBA, arrColores[4], arrTipos[2]);
+                    arrOvejas.add(rainbow);
+                    break;
+                case 4:
+                    rainbow = new Sheep(oveArrRainbow, oveArrMovWhite,
+                            Sheep.Estado.ARRIBA, arrColores[4], arrTipos[2]);
+                    arrOvejas.add(rainbow);
+                    break;
+            }
 
         }
         // Llenar arreglo de ovejas por tiempo
@@ -328,7 +389,7 @@ public class LevelThree extends ScreenTemplate {
 
             Sheep ove;
 
-            for (int i = 1; i < 2; i++) {
+            for (int i = 2; i < 3; i++) {
                 int random = (int) (Math.random() * 4) + 1;
                 int randomColor = (int) (Math.random() * 4) + 1;
 
@@ -545,6 +606,10 @@ public class LevelThree extends ScreenTemplate {
         //ovejas alien de colores
         oveAlienArrWhite = new Texture("Sheep/Level 3/Alien/White/alien_sheep_down_white.png");
         oveAlienArrMovWhite = new Texture("Sheep/Level 3/Alien/White/alien_sheep_moving_down_white.png");
+
+        // oveja Rainbow
+        oveArrRainbow = new Texture("Sheep/Level 2/Rainbow/rainbow_up.png");
+        //oveArrMovRainbow = new Texture("");
     }
 
 
@@ -592,7 +657,7 @@ public class LevelThree extends ScreenTemplate {
 
         batch.draw(barn_shadow,466,1709);
 
-        for (int i = 0; i < arrOvejas.size; i++) {
+        for (int i = 2; i < arrOvejas.size; i++) {
             if (salida <= 10) {
                 arrOvejas.get(i).setVelocidad(velocidadOve);
                 arrOvejas.get(i).render(batch);
@@ -603,6 +668,12 @@ public class LevelThree extends ScreenTemplate {
             }
 
         }
+
+        if (tiempo >= 3.0){ // a los 3 seg sale la oveja arcoiris arriba
+            arrOvejas.get(1).setVelocidad(velocidadOve);
+            arrOvejas.get(1).render(batch);
+        }
+
 
         batch.draw(barn,0,1709);
 
@@ -640,12 +711,6 @@ public class LevelThree extends ScreenTemplate {
         }
 
 
-        if (tiempo >= 30.0){ // a los 30 seg sale la oveja arcoiris arriba
-            arrOvejas.get(0).setVelocidad(velocidadOve);
-            arrOvejas.get(0).render(batch);
-        }
-
-
         if (tiempo >= 2.0f) {
             if (aS.getEstado() != AlienShip.Estado.PAUSADO) {
                 if (aS.getEstado() != AlienShip.Estado.DERROTA) {
@@ -676,13 +741,13 @@ public class LevelThree extends ScreenTemplate {
         }
 
 
-            // Sacar oveja alien
-            if (tiempo >= 2.0f) {
-                arrOvejas.get(0).setVelocidad(velocidadOve);
-                arrOvejas.get(0).render(batch);
-            } else {
-                arrOvejas.get(0).render(batch);
-            }
+        // Sacar oveja alien
+        if (tiempo >= 2.0f) {
+            arrOvejas.get(0).setVelocidad(velocidadOve);
+            arrOvejas.get(0).render(batch);
+        } else {
+            arrOvejas.get(0).render(batch);
+        }
 
 
         batch.end();
