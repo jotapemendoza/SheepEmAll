@@ -189,8 +189,6 @@ public class MapScreen extends ScreenTemplate {
         escenaLevels.draw();
         moveClouds(delta);
 
-        pref.putBoolean("wonLevelOne", true);
-        pref.putBoolean("wonLevelTwo",true);
 
         /*------------------------BATCH---------------------*/
         batch.begin();
