@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -175,6 +176,12 @@ public class LevelThree extends ScreenTemplate {
     private float undrawTimer;
     private boolean apperAS;
 
+    private TextureRegion[] animationFrames;
+    private Animation animation;
+    float elapsedTime;
+    private Texture rainbow;
+
+
 
     public LevelThree(SheepEm sheepEm){
         this.sheepEm = sheepEm;
@@ -185,6 +192,21 @@ public class LevelThree extends ScreenTemplate {
         loadTextures();
         loadSheep();
         createGameScene();
+        extraLife();
+        gameStart();
+    }
+
+    private void extraLife() {
+        TextureRegion[][] tmpFrames = TextureRegion.split(rainbow,77,77);
+        animationFrames = new TextureRegion[4];
+        int index = 0;
+        for (int i = 0; i < 4 ; i++) {
+            animationFrames[index++] = tmpFrames[0][i];
+        }
+        animation = new Animation(1f/5f,animationFrames);
+    }
+
+    private void gameStart(){
         font = new BitmapFont(Gdx.files.internal("Intro.fnt"));
         lostScene = new lostScene(view,batch);
         winScene = new winScene(view,batch);
@@ -196,6 +218,7 @@ public class LevelThree extends ScreenTemplate {
         drawAS = false;
         apperAS = true;
     }
+
 
     private void createGameScene() {
 
@@ -712,6 +735,7 @@ public class LevelThree extends ScreenTemplate {
         barn = new Texture("night_barn.png");
         cr = new Texture("cr_night.png");
         barn_shadow = new Texture("shadow.png");
+        rainbow = new Texture("rainbow.png");
 
         //ovejas de colores
         oveArrBlue = new Texture("Sheep/Level 3/Blue/sheep_down_blue.png");
@@ -873,7 +897,16 @@ public class LevelThree extends ScreenTemplate {
 
         batch.draw(life_lost, 60,1774);
 
-        if(lifes>=3) {
+        if(lifes>=4){
+            elapsedTime+=Gdx.graphics.getDeltaTime();
+            TextureRegion rainbowTr = (TextureRegion) animation.getKeyFrame(elapsedTime,true);
+            batch.draw(life, 266, 1778);
+            batch.draw(life, 166, 1778);
+            batch.draw(life,66,1778);
+            batch.draw(rainbowTr,266,1778);
+        }
+
+        if(lifes==3) {
             batch.draw(life, 266, 1778);
             batch.draw(life, 166, 1778);
             batch.draw(life,66,1778);
