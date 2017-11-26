@@ -95,7 +95,7 @@ public class MapScreen extends ScreenTemplate {
         levelOneBtn.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                sheepEm.setScreen(new AlienLevel(sheepEm));
+                sheepEm.setScreen(new LevelOne(sheepEm));
                 sheepEm.pauseMenuMusic();
                 pref.flush();
 
