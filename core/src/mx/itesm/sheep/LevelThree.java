@@ -141,7 +141,7 @@ public class LevelThree extends ScreenTemplate {
     private Sheep ovejaMoviendo = null;
     private int ovejaMovX;
     private int ovejaMovY;
-    private final int cantOve = 21;
+    private final int cantOve = 30;
     private int contOvejas = 0;
     private Sheep OveAl;
     private String arrColores[] = {"WHITE","BLUE","RED","YELLOW","RAINBOW"};
@@ -289,6 +289,7 @@ public class LevelThree extends ScreenTemplate {
                                 ovejaMoviendo.setEstado(ovejaMoviendo.getEstadoOriginal());
                                 lifes++;
                                 contOvejas++;
+                                Gdx.app.log("oveja","en corral: " + contOvejas);
                                 ovejaMoviendo = null;
                             }
                             else if (ovejaMoviendo.getTipo().equals("ALIEN")){
@@ -499,7 +500,7 @@ public class LevelThree extends ScreenTemplate {
 
         }
         // Llenar arreglo de ovejas por tiempo
-        if (arrOvejas.size < cantOve) {
+        if (arrOvejas.size < cantOve-1) {
 
             Sheep ove;
 

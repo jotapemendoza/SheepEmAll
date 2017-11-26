@@ -231,10 +231,12 @@ public class LevelTwo extends ScreenTemplate {
                             ovejaMoviendo.setEstado(ovejaMoviendo.getEstadoOriginal());
                             lifes++;
                             contOvejas++;
+                            Gdx.app.log("oveja","en corral: " + contOvejas);
                             ovejaMoviendo = null;
                         }else {
                             ovejaMoviendo.setEstado(ovejaMoviendo.getEstadoOriginal());
                             contOvejas++;
+                            Gdx.app.log("oveja","en corral: " + contOvejas);
                             ovejaMoviendo = null;
                         }
                     }else{
@@ -242,6 +244,7 @@ public class LevelTwo extends ScreenTemplate {
                             ovejaMoviendo.setEstado(Sheep.Estado.BOOM);
                             lifes--;
                             contOvejas++;
+                            Gdx.app.log("corral", "Corral incorrecto");
                             ovejaMoviendo = null;
                         }else{
                             ovejaMoviendo.setSeMovio(false);
