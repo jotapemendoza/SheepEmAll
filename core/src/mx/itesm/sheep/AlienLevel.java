@@ -1,6 +1,7 @@
 package mx.itesm.sheep;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -48,10 +49,13 @@ public class AlienLevel extends ScreenTemplate {
     float elapsedTime;
     private Texture fadeIn;
 
+    private Music hit;
+
 
     public AlienLevel(SheepEm sheepEm) {
 
         this.sheepEm = sheepEm;
+
     }
 
     @Override
@@ -64,7 +68,7 @@ public class AlienLevel extends ScreenTemplate {
         estado = EstadoJuego.JUGANDO;
         Gdx.input.setInputProcessor(escenaAlien);
         hpAlien = 50;
-
+        hit = Gdx.audio.newMusic(Gdx.files.internal("SFX/hit.mp3"));
         fadeIn = new Texture("fadeIn.png");
 
 
@@ -114,7 +118,10 @@ public class AlienLevel extends ScreenTemplate {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                System.out.println(hpAlien);
+
+                if(pref.getBoolean("fxOn")){
+                    hit.play();
+                }
                 scale_factor += 0.02;
                 hpAlien--;
                 outterimg.setZIndex(10);
@@ -183,7 +190,7 @@ public class AlienLevel extends ScreenTemplate {
             played = true;
         }
 
-        if(elapsedTime>=2.5){
+        if(elapsedTime>=1.75){
             sheepEm.setScreen(new EndingScreen(sheepEm));
         }
 
