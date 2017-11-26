@@ -37,7 +37,7 @@ public class CreditsScreen extends ScreenTemplate {
 
         TextureRegionDrawable trdCredits = new TextureRegionDrawable(new TextureRegion(credits));
         imgCredits = new Image(trdCredits);
-        imgCredits.setPosition(0,-1920);
+        imgCredits.setPosition(0,-(1920*2));
         creditsScene.addActor(imgCredits);
     }
 
@@ -49,7 +49,7 @@ public class CreditsScreen extends ScreenTemplate {
         batch.setProjectionMatrix(camera.combined);
         timer+= Gdx.graphics.getDeltaTime();
 
-        if(timer>=0.02){
+        if(timer>=0.013){
             imgCredits.setY(imgCredits.getY()+2);
             timer = 0;
         }

@@ -4,11 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 
@@ -20,8 +18,11 @@ public class EndingScreen extends ScreenTemplate {
     private Texture background;
 
     private TextureRegion[] animationFrames;
-    private Animation animation;
-    float elapsedTime;
+    private TextureRegion[] animationFrames2;
+    private Animation fadeInAnimation;
+    private Animation fadeOutAnimation;
+    private float elapsedTime;
+    private float elapsedTime2;
     private Texture fadeIn;
     private ImageButton button;
 
@@ -39,14 +40,24 @@ public class EndingScreen extends ScreenTemplate {
 
 
         TextureRegion[][] tmpFrames = TextureRegion.split(fadeIn,1080,1920);
+
         animationFrames = new TextureRegion[7];
+        animationFrames2 = new TextureRegion[7];
+
         int index = 0;
 
         for (int i = 6; i >= 0 ; i--) {
             animationFrames[index++] = tmpFrames[0][i];
         }
 
-        animation = new Animation(1f/10f,animationFrames);
+        index = 0;
+        for (int i = 0; i < 7; i++) {
+            animationFrames2[index++] = tmpFrames[0][i];
+        }
+
+
+        fadeOutAnimation = new Animation(1f/15f,animationFrames2);
+        fadeInAnimation = new Animation(1f/15f,animationFrames);
     }
 
     private void loadTextures() {
@@ -56,24 +67,11 @@ public class EndingScreen extends ScreenTemplate {
     private void createScene() {
 
         storyStage = new Stage(view);
-
         TextureRegionDrawable trdBackground = new TextureRegionDrawable(new TextureRegion(background));
         Image imgBackground = new Image(trdBackground);
         imgBackground.setPosition(0,0);
         storyStage.addActor(imgBackground);
 
-        TextureRegionDrawable trdHome = new TextureRegionDrawable(new TextureRegion(new Texture("Buttons/unpressed/homeButton.png")));
-        TextureRegionDrawable trdPressedHome = new TextureRegionDrawable(new TextureRegion(new Texture("Buttons/pressed/pressedHomeButton.png")));
-
-        button = new ImageButton(trdHome,trdPressedHome);
-        button.setPosition(WIDTH/2,HEIGHT/2);
-        storyStage.addActor(button);
-        button.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                sheepEm.setScreen(new CreditsScreen(sheepEm));
-            }
-        });
     }
 
     @Override
@@ -83,10 +81,21 @@ public class EndingScreen extends ScreenTemplate {
         batch.begin();
 
         elapsedTime += Gdx.graphics.getDeltaTime();
-        TextureRegion sheeptr = (TextureRegion) animation.getKeyFrame(elapsedTime,false);
-        batch.draw(sheeptr,0,0);
+        TextureRegion fadeIn = (TextureRegion) fadeInAnimation.getKeyFrame(elapsedTime,false);
+        batch.draw(fadeIn,0,0);
+
+        if(elapsedTime>=6){
+            elapsedTime2 += Gdx.graphics.getDeltaTime();
+            TextureRegion fadeOut = (TextureRegion) fadeOutAnimation.getKeyFrame(elapsedTime2,false);
+            batch.draw(fadeOut,0,0);
+            System.out.println("Done");
+        }
 
         batch.end();
+
+        if(elapsedTime>=6.8){
+            sheepEm.setScreen(new CreditsScreen(sheepEm));
+        }
 
 
         if(pref.getBoolean("musicOn")){
