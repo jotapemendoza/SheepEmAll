@@ -585,8 +585,8 @@ public class LevelTwo extends ScreenTemplate {
 
         batch.draw(barn_shadow,466,1709);
 
-        for (int i = 0; i < arrOvejas.size; i++) {
-            if (salida <= 10) {
+        for (int i = 1; i < arrOvejas.size; i++) {
+            if (salida <= 8.0f) {
                 arrOvejas.get(i).setVelocidad(velocidadOve);
                 arrOvejas.get(i).render(batch);
             }
@@ -691,6 +691,7 @@ public class LevelTwo extends ScreenTemplate {
             Gdx.input.setInputProcessor(escenaGanar);
             pref.putBoolean("wonLevelTwo",true);
             escenaGanar.draw();
+            detenerOveja(true);
             if(pref.getBoolean("musicOn")){
                 sheepEm.win.play();
                 sheepEm.win.setLooping(true);
@@ -881,6 +882,7 @@ public class LevelTwo extends ScreenTemplate {
     private class EscenaGanar extends Stage{
         public EscenaGanar(Viewport vista, SpriteBatch batch){
             super(vista,batch);
+
 
             Texture opaque = new Texture("opaque.png");
             TextureRegionDrawable trdOpaq = new TextureRegionDrawable(new TextureRegion(opaque));

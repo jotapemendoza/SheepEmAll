@@ -850,7 +850,7 @@ public class LevelThree extends ScreenTemplate {
         batch.draw(barn_shadow,466,1709);
 
         for (int i = 2; i < arrOvejas.size; i++) {
-            if (salida <= 10) {
+            if (salida <= 5.0f) {
                 arrOvejas.get(i).setVelocidad(velocidadOve);
                 arrOvejas.get(i).render(batch);
             }
@@ -861,7 +861,7 @@ public class LevelThree extends ScreenTemplate {
 
         }
 
-        if (tiempo >= 3.0){ // a los 3 seg sale la oveja arcoiris arriba
+        if (tiempo >= 50.0){ // a los 50 seg sale la oveja arcoiris arriba
             arrOvejas.get(1).setVelocidad(velocidadOve);
             arrOvejas.get(1).render(batch);
         }
@@ -903,29 +903,31 @@ public class LevelThree extends ScreenTemplate {
 
 
 
-        if (tiempo >= 2.0f) {
-            if (aS.getEstado() != AlienShip.Estado.PAUSADO) {
-                if (aS.getEstado() != AlienShip.Estado.DERROTA) {
-                    moverX += 5f * aS.getDireccionX();
-                    moverY += 5f * aS.getDireccionY();
-                    aS.spaceShipMove(moverX, moverY);
-                    aS.setEstado(AlienShip.Estado.MOVIENDO);
+        if (tiempo >= 30.0f) {
+            if (!aS.getYaSalio()){
+                if (aS.getEstado() != AlienShip.Estado.PAUSADO) {
+                    if (aS.getEstado() != AlienShip.Estado.DERROTA) {
+                        moverX += 5f * aS.getDireccionX();
+                        moverY += 5f * aS.getDireccionY();
+                        aS.spaceShipMove(moverX, moverY);
+                        aS.setEstado(AlienShip.Estado.MOVIENDO);
 
-                    if (aS.saliendoPor() == AlienShip.Estado.SALIENDOX) {
-                        aS.cambiarDireccionX();
-                        //moverX = 1080;
-                    } else if (aS.saliendoPor() == AlienShip.Estado.SALIENDOY) {
-                        aS.cambiarDireccionY();
-                        Gdx.app.log("Condición Y", "se cumplió *****************");
-                        //moverY = 1920;
-                    }
-                } else {
-                    if (!arrOvejas.get(0).isEnLlamas()) {
-                        estaEnNave = true;
+                        if (aS.saliendoPor() == AlienShip.Estado.SALIENDOX) {
+                            aS.cambiarDireccionX();
+                            //moverX = 1080;
+                        } else if (aS.saliendoPor() == AlienShip.Estado.SALIENDOY) {
+                            aS.cambiarDireccionY();
+                            Gdx.app.log("Condición Y", "se cumplió *****************");
+                            //moverY = 1920;
+                        }
+                    } else {
+                        if (!arrOvejas.get(0).isEnLlamas()) {
+                            estaEnNave = true;
+                            aS.setYaSalio(true);
+                        }
                     }
                 }
             }
-
         }
 
         if(apperAS){
@@ -934,10 +936,8 @@ public class LevelThree extends ScreenTemplate {
 
 
         // Sacar oveja alien
-        if (tiempo >= 2.0) {
+        if (tiempo >= 30.0f) {
             arrOvejas.get(0).setVelocidad(velocidadOve);
-            arrOvejas.get(0).render(batch);
-        }else{
             arrOvejas.get(0).render(batch);
         }
 
@@ -987,6 +987,7 @@ public class LevelThree extends ScreenTemplate {
         if(estado ==  EstadoJuego.GANADO){
             Gdx.input.setInputProcessor(winScene);
             winScene.draw();
+            detenerOveja(true);
             pref.putBoolean("wonLevelTwo",true);
             if(pref.getBoolean("musicOn")){
                 sheepEm.win.play();

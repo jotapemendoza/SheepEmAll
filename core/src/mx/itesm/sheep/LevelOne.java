@@ -642,6 +642,7 @@ public class LevelOne extends ScreenTemplate {
             Gdx.input.setInputProcessor(escenaGanar);
             pref.putBoolean("wonLevelOne",true);
             escenaGanar.draw();
+            detenerOveja(true);
             if(pref.getBoolean("musicOn")){
                 sheepEm.win.play();
                 sheepEm.win.setLooping(true);

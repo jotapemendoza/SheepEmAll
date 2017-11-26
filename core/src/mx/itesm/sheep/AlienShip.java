@@ -28,6 +28,7 @@ public class AlienShip {
 
     // Estado
     private Estado estado;
+    private boolean yaSalio = false;
 
     public AlienShip(Texture textura, Estado estado){
         TextureRegion region = new TextureRegion(textura);
@@ -162,5 +163,13 @@ public class AlienShip {
 
     public void hideShip(){
         this.setEstado(Estado.INICIO);
+    }
+
+    public void setYaSalio(boolean yaSalio) {
+        this.yaSalio = yaSalio;
+    }
+
+    public boolean getYaSalio() {
+        return yaSalio;
     }
 }
