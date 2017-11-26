@@ -181,6 +181,8 @@ public class LevelThree extends ScreenTemplate {
     float elapsedTime;
     private Texture rainbow;
 
+    private float startTime;
+    private Texture tutorial;
 
 
     public LevelThree(SheepEm sheepEm){
@@ -211,7 +213,6 @@ public class LevelThree extends ScreenTemplate {
         lostScene = new lostScene(view,batch);
         winScene = new winScene(view,batch);
         estado = EstadoJuego.JUGANDO;
-        Gdx.input.setInputProcessor(escenaJuego);
         sheep = Gdx.audio.newMusic(Gdx.files.internal("SFX/sheep_sound.mp3"));
         lifes = 3;
         sheepTimer=1.85f;
@@ -827,6 +828,7 @@ public class LevelThree extends ScreenTemplate {
         oveEstaticWhite = new Texture("Sheep/Level 3/White/sheep_grazing.png");
         oveEstaticYellow = new Texture("Sheep/Level 3/Yellow/sheep_grazing.png");
         oveEstaticRainbow = new Texture("Sheep/Level 2/Rainbow/sheep_grazing.png");
+        tutorial = new Texture("level3Tutorial.png");
     }
 
 
@@ -834,22 +836,13 @@ public class LevelThree extends ScreenTemplate {
     @Override
     public void render(float delta) {
 
-        Gdx.input.setCatchBackKey(true);
-
-
-        clearScreen(0, 0, 0);
         batch.setProjectionMatrix(camera.combined);
-
-        float deltaTime = Gdx.graphics.getDeltaTime(); //You might prefer getRawDeltaTime()
-
-        if(estado == EstadoJuego.JUGANDO){
-            if(totalTime>=1) totalTime -= deltaTime;
-        }
+        startTime+=Gdx.graphics.getDeltaTime();
 
 
 
-
-        if (estado == EstadoJuego.JUGANDO) {
+        if (estado == EstadoJuego.JUGANDO && startTime>=4.5) {
+            Gdx.input.setInputProcessor(escenaJuego);
             salida += Gdx.graphics.getDeltaTime();
             tiempo += Gdx.graphics.getDeltaTime();
             sheepTimer -= Gdx.graphics.getDeltaTime();
@@ -857,7 +850,6 @@ public class LevelThree extends ScreenTemplate {
                 undrawTimer+=Gdx.graphics.getDeltaTime();
             }
         }
-
 
         if(undrawTimer >= 3.5){
             apperAS = false;
@@ -869,6 +861,7 @@ public class LevelThree extends ScreenTemplate {
         }
 
         batch.begin();
+
 
         batch.draw(background,0,0);
 
@@ -897,6 +890,8 @@ public class LevelThree extends ScreenTemplate {
 
         batch.draw(life_lost, 60,1774);
 
+
+
         if(lifes>=4){
             elapsedTime+=Gdx.graphics.getDeltaTime();
             TextureRegion rainbowTr = (TextureRegion) animation.getKeyFrame(elapsedTime,true);
@@ -919,6 +914,9 @@ public class LevelThree extends ScreenTemplate {
             batch.draw(life,66,1778);
         }
 
+        if(startTime<4.5){
+            batch.draw(tutorial,0,0);
+        }
 
         if(lifes<=0){
             estado = EstadoJuego.PERDIDO;
@@ -978,7 +976,10 @@ public class LevelThree extends ScreenTemplate {
 
         batch.end();
 
-        escenaJuego.draw();
+        if(startTime>=4.5){
+            escenaJuego.draw();
+        }
+
 
         if (estado == EstadoJuego.PAUSADO) {
             pauseScene.draw();
@@ -1031,7 +1032,7 @@ public class LevelThree extends ScreenTemplate {
         }
 
         if(pref.getBoolean("musicOn")){
-            if(estado == EstadoJuego.JUGANDO){
+            if(estado == EstadoJuego.JUGANDO && startTime>=4.5){
                 sheepEm.playLevelThreeMusic();
             }else{
                 sheepEm.pauseLevelThreeMusic();
