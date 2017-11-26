@@ -19,8 +19,8 @@ public class AlienShip {
     private float direccionY = 1;
 
     // Tamaño
-    private int alto = 424;
-    private int ancho = 691;
+    private int alto = 332;
+    private int ancho = 542;
 
     // Animación
     private Animation animacion;
@@ -35,7 +35,7 @@ public class AlienShip {
     public AlienShip(Texture textura, Estado estado){
         TextureRegion region = new TextureRegion(textura);
         TextureRegion[][]  frames = region.split(ancho,alto);
-        animacion = new Animation(0.20f, frames[0][0]);
+        animacion = new Animation(0.20f, frames[0][0],frames[0][1],frames[0][2]);
         animacion.setPlayMode(Animation.PlayMode.LOOP);
         timer = 0;
 

@@ -46,10 +46,14 @@ public class AlienLevel extends ScreenTemplate {
 
     private TextureRegion[] animationFrames;
     private Animation animation;
-    float elapsedTime;
+    private float elapsedTime;
     private Texture fadeIn;
 
+    private float startTime;
+
+
     private Music hit;
+    private Texture instructions;
 
 
     public AlienLevel(SheepEm sheepEm) {
@@ -140,11 +144,13 @@ public class AlienLevel extends ScreenTemplate {
         hp_outter = new Texture("outerhp.png");
         pauseButton = new Texture("Buttons/unpressed/pauseButton.png");
         whitesheep = new Texture("sheepAlienlvl.png");
+        instructions = new Texture("alienTutorial.png");
     }
 
     @Override
     public void render(float delta) {
 
+        startTime+=Gdx.graphics.getDeltaTime();
         Gdx.input.setCatchBackKey(true);
         clearScreen(0,0,0);
         batch.setProjectionMatrix(camera.combined);
@@ -158,15 +164,24 @@ public class AlienLevel extends ScreenTemplate {
 
 
         batch.begin();
-        if (hpAlien==0){
-            this.estado = EstadoJuego.GANADO;
-        }else{
-            sheepAbd.setX(440);
-            sheepAbd.render(batch);
+
+        if(startTime<3.5){
+            batch.draw(instructions,0,0);
         }
-        alienShip.setPosicionX(200);
-        alienShip.setPosicionY(700);
-        alienShip.render(batch);
+
+        if(startTime>3.5){
+            if (hpAlien==0){
+                this.estado = EstadoJuego.GANADO;
+            }else{
+                sheepAbd.setX(440);
+                sheepAbd.render(batch);
+            }
+            alienShip.setPosicionX(265);
+            alienShip.setPosicionY(745);
+            alienShip.render(batch);
+        }
+
+
 
         if(estado == EstadoJuego.GANADO){
             elapsedTime += Gdx.graphics.getDeltaTime();
@@ -195,7 +210,8 @@ public class AlienLevel extends ScreenTemplate {
         }
 
         if(pref.getBoolean("musicOn")){
-            if(estado == EstadoJuego.JUGANDO){
+
+            if(estado == EstadoJuego.JUGANDO && startTime>3.5){
                 sheepEm.alienLevel.play();
                 sheepEm.alienLevel.setLooping(true);
             }else{
