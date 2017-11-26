@@ -20,46 +20,38 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class AlienLevel extends ScreenTemplate {
 
-
     private final SheepEm sheepEm;
     private Stage escenaAlien;
-    private Texture nave;
-    private Texture background;
-    private Texture hp_outter;
-    private Texture hp_inner;
+
+    private Texture nave,
+            background,
+            hp_outter,
+            hp_inner,
+            whitesheep,
+            instructions,
+            fadeIn;
+
     private Boolean played = false;
 
     private lostScene lostScene;
 
-    private int hpAlien;
+    private float hpAlien,
+            sheepTimer,
+            elapsedTime,
+            startTime;
 
     private EstadoJuego estado;
-    private float scale_factor;
-    private Texture pauseButton;
-    //private float totalTime = 60;
-    private float sheepTimer = 60;
+
     private SheepAbducted sheepAbd;
     private AlienShip alienShip;
-    private Texture whitesheep;
-
-
 
     private TextureRegion[] animationFrames;
     private Animation animation;
-    private float elapsedTime;
-    private Texture fadeIn;
 
-    private float startTime;
-
-
-    private Music hit;
-    private Texture instructions;
-
+    private final float LIFE = 90;
 
     public AlienLevel(SheepEm sheepEm) {
-
         this.sheepEm = sheepEm;
-
     }
 
     @Override
@@ -70,11 +62,9 @@ public class AlienLevel extends ScreenTemplate {
         alienShip = new AlienShip(nave, AlienShip.Estado.BOSS);
         lostScene = new lostScene(view,batch);
         estado = EstadoJuego.JUGANDO;
-        Gdx.input.setInputProcessor(escenaAlien);
-        hpAlien = 50;
-        hit = Gdx.audio.newMusic(Gdx.files.internal("SFX/hit.mp3"));
+        hpAlien = LIFE;
         fadeIn = new Texture("fadeIn.png");
-
+        sheepTimer = 60;
 
         TextureRegion[][] tmpFrames = TextureRegion.split(fadeIn,1080,1920);
         animationFrames = new TextureRegion[7];
@@ -108,8 +98,6 @@ public class AlienLevel extends ScreenTemplate {
         outterimg.setPosition(213,1350);
         escenaAlien.addActor(outterimg);
 
-        //sheepAbd.setX(150);
-        //sheepAbd.setY(150);
 
         // Nave
         TextureRegionDrawable trdNave = new TextureRegionDrawable(new TextureRegion(nave));
@@ -122,15 +110,13 @@ public class AlienLevel extends ScreenTemplate {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-
                 if(pref.getBoolean("fxOn")){
-                    hit.play();
+                    sheepEm.hit.play();
                 }
-                scale_factor += 0.02;
                 hpAlien--;
                 outterimg.setZIndex(10);
                 sheepAbd.setY(sheepAbd.gety()-10);
-                innerimg.setScale(1-scale_factor,1);
+                innerimg.setScale(hpAlien/LIFE,1);
 
             }
         } );
@@ -142,7 +128,6 @@ public class AlienLevel extends ScreenTemplate {
         nave = new Texture("alienShip.png");
         hp_inner = new Texture("innerhp.png");
         hp_outter = new Texture("outerhp.png");
-        pauseButton = new Texture("Buttons/unpressed/pauseButton.png");
         whitesheep = new Texture("sheepAlienlvl.png");
         instructions = new Texture("alienTutorial.png");
     }
@@ -170,6 +155,7 @@ public class AlienLevel extends ScreenTemplate {
         }
 
         if(startTime>3.5){
+            Gdx.input.setInputProcessor(escenaAlien);
             if (hpAlien==0){
                 this.estado = EstadoJuego.GANADO;
             }else{
@@ -180,8 +166,6 @@ public class AlienLevel extends ScreenTemplate {
             alienShip.setPosicionY(745);
             alienShip.render(batch);
         }
-
-
 
         if(estado == EstadoJuego.GANADO){
             elapsedTime += Gdx.graphics.getDeltaTime();
@@ -246,13 +230,6 @@ public class AlienLevel extends ScreenTemplate {
 
     }
 
-    /************************
-     * ********************
-     * *************
-     * **********
-     * CAMBIAR SET SCREEN DEL SIGUIENTE NIVEL
-     */
-    // Winning scene **************************************
 
     // Losing scene -----------------------------------------------------------
     private class lostScene extends Stage{
