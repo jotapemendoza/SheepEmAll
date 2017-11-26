@@ -41,6 +41,9 @@ public class MapScreen extends ScreenTemplate {
     private ImageButton levelTwoBtn,
             levelThreeBtn;
     private Texture nightBackground;
+    private Texture arcade;
+    private Texture arcadeBtn;
+    private ImageButton arcadeButton;
 
 
     public MapScreen(SheepEm sheepEm){
@@ -57,10 +60,12 @@ public class MapScreen extends ScreenTemplate {
     private void cargarTexturas() {
         pressedBackButton = new Texture("Buttons/pressed/pressedBackButton.png");
         backButton = new Texture("Buttons/unpressed/backButton.png");
-        levelThree = new Texture("levelsScreen/level3.png");
-        levelOne = new Texture("levelsScreen/level1.png");
-        levelTwo = new Texture("levelsScreen/level2.png");
+        arcade = new Texture("levelsScreen/arcade.png");
+        levelThree = new Texture("levelsScreen/level3_arcade.png");
+        levelOne = new Texture("levelsScreen/level1_arcade.png");
+        levelTwo = new Texture("levelsScreen/level2_arcade.png");
         lvlBtn = new Texture("levelsScreen/btn.png");
+        arcadeBtn = new Texture("arcade_button.png");
         background = new Texture("dayBG.png");
         nightBackground = new Texture("nightBG.png");
         grass = new Texture("mapsBGtest.png");
@@ -126,6 +131,19 @@ public class MapScreen extends ScreenTemplate {
                 pref.flush();
             }
         });
+
+        TextureRegionDrawable arcadeTrd = new TextureRegionDrawable(new TextureRegion(arcadeBtn));
+        arcadeButton = new ImageButton(arcadeTrd);
+        arcadeButton.setPosition(160,805);
+        arcadeButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                sheepEm.setScreen(new LevelThree(sheepEm));
+                sheepEm.pauseMenuMusic();
+                pref.flush();
+            }
+        });
+
 
         drawClouds();
 
@@ -202,6 +220,10 @@ public class MapScreen extends ScreenTemplate {
         if(pref.getBoolean("wonLevelTwo")){
             batch.draw(levelThree,78,116);
             escenaLevels.addActor(levelThreeBtn);
+        }
+        if(pref.getBoolean("arcade")){
+            batch.draw(arcade,78,116);
+            escenaLevels.addActor(arcadeButton);
         }
 
         batch.end();
