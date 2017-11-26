@@ -26,9 +26,6 @@ public class AlienShip {
     private Animation animacion;
     private float timer;
 
-    // Esta o no dibujandose despues de la pausa
-    private boolean pintarNave;
-
     // Estado
     private Estado estado;
 
@@ -165,13 +162,5 @@ public class AlienShip {
 
     public void hideShip(){
         this.setEstado(Estado.INICIO);
-    }
-
-    public boolean isPintarNave() {
-        return pintarNave;
-    }
-
-    public void setPintarNave(boolean pintarNave) {
-        this.pintarNave = pintarNave;
     }
 }
