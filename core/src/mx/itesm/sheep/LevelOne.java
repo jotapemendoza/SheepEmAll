@@ -84,6 +84,11 @@ public class LevelOne extends ScreenTemplate {
     private Texture oveDerYellow;
     private Texture oveDerMovYellow;
 
+    private Texture oveEstaticBlue;
+    private Texture oveEstaticRed;
+    private Texture oveEstaticWhite;
+    private Texture oveEstaticYellow;
+
     private Boolean played = false;
 
     private Music sheep;
@@ -293,22 +298,22 @@ public class LevelOne extends ScreenTemplate {
                 if (random == 1){
                     switch (randomColor){
                         case 1:
-                            ove = new Sheep(oveArrWhite, oveArrMovWhite,
+                            ove = new Sheep(oveArrWhite, oveArrMovWhite, oveEstaticWhite,
                                     Sheep.Estado.ARRIBA, arrColores[0], arrTipos[0]);
                             arrOvejas.add(ove);
                             break;
                         case 2:
-                            ove = new Sheep(oveArrBlue, oveArrMovBlue,
+                            ove = new Sheep(oveArrBlue, oveArrMovBlue, oveEstaticBlue,
                                     Sheep.Estado.ARRIBA, arrColores[1], arrTipos[0]);
                             arrOvejas.add(ove);
                             break;
                         case 3:
-                            ove = new Sheep(oveArrRed, oveArrMovRed,
+                            ove = new Sheep(oveArrRed, oveArrMovRed, oveEstaticRed,
                                     Sheep.Estado.ARRIBA, arrColores[2], arrTipos[0]);
                             arrOvejas.add(ove);
                             break;
                         case 4:
-                            ove = new Sheep(oveArrYellow, oveArrMovYellow,
+                            ove = new Sheep(oveArrYellow, oveArrMovYellow, oveEstaticYellow,
                                     Sheep.Estado.ARRIBA, arrColores[3], arrTipos[0]);
                             arrOvejas.add(ove);
                             break;
@@ -316,22 +321,22 @@ public class LevelOne extends ScreenTemplate {
                 }else if (random == 2){
                     switch (randomColor){
                         case 1:
-                            ove = new Sheep(oveAbWhite, oveAbMovWhite,
+                            ove = new Sheep(oveAbWhite, oveAbMovWhite, oveEstaticWhite,
                                     Sheep.Estado.ABAJO, arrColores[0], arrTipos[0]);
                             arrOvejas.add(ove);
                             break;
                         case 2:
-                            ove = new Sheep(oveAbBlue, oveAbMovBlue,
+                            ove = new Sheep(oveAbBlue, oveAbMovBlue, oveEstaticBlue,
                                     Sheep.Estado.ABAJO, arrColores[1], arrTipos[0]);
                             arrOvejas.add(ove);
                             break;
                         case 3:
-                            ove = new Sheep(oveAbRed, oveAbMovRed,
+                            ove = new Sheep(oveAbRed, oveAbMovRed, oveEstaticRed,
                                     Sheep.Estado.ABAJO, arrColores[2], arrTipos[0]);
                             arrOvejas.add(ove);
                             break;
                         case 4:
-                            ove = new Sheep(oveAbYellow, oveAbMovYellow,
+                            ove = new Sheep(oveAbYellow, oveAbMovYellow, oveEstaticYellow,
                                     Sheep.Estado.ABAJO, arrColores[3], arrTipos[0]);
                             arrOvejas.add(ove);
                             break;
@@ -339,22 +344,22 @@ public class LevelOne extends ScreenTemplate {
                 }else if (random == 3){
                     switch (randomColor){
                         case 1:
-                            ove = new Sheep(oveIzqWhite, oveIzqMovWhite,
+                            ove = new Sheep(oveIzqWhite, oveIzqMovWhite, oveEstaticWhite,
                                     Sheep.Estado.IZQUIERDA, arrColores[0], arrTipos[0]);
                             arrOvejas.add(ove);
                             break;
                         case 2:
-                            ove = new Sheep(oveIzqBlue, oveIzqMovBlue,
+                            ove = new Sheep(oveIzqBlue, oveIzqMovBlue, oveEstaticBlue,
                                     Sheep.Estado.IZQUIERDA, arrColores[1], arrTipos[0]);
                             arrOvejas.add(ove);
                             break;
                         case 3:
-                            ove = new Sheep(oveIzqRed, oveIzqMovRed,
+                            ove = new Sheep(oveIzqRed, oveIzqMovRed, oveEstaticRed,
                                     Sheep.Estado.IZQUIERDA, arrColores[2], arrTipos[0]);
                             arrOvejas.add(ove);
                             break;
                         case 4:
-                            ove = new Sheep(oveIzqYellow, oveIzqMovYellow,
+                            ove = new Sheep(oveIzqYellow, oveIzqMovYellow, oveEstaticYellow,
                                     Sheep.Estado.IZQUIERDA, arrColores[3], arrTipos[0]);
                             arrOvejas.add(ove);
                             break;
@@ -362,22 +367,22 @@ public class LevelOne extends ScreenTemplate {
                 }else if (random == 4){
                     switch (randomColor){
                         case 1:
-                            ove = new Sheep(oveDerWhite, oveDerMovWhite,
+                            ove = new Sheep(oveDerWhite, oveDerMovWhite, oveEstaticWhite,
                                     Sheep.Estado.DERECHA, arrColores[0], arrTipos[0]);
                             arrOvejas.add(ove);
                             break;
                         case 2:
-                            ove = new Sheep(oveDerBlue, oveDerMovBlue,
+                            ove = new Sheep(oveDerBlue, oveDerMovBlue, oveEstaticBlue,
                                     Sheep.Estado.DERECHA, arrColores[1], arrTipos[0]);
                             arrOvejas.add(ove);
                             break;
                         case 3:
-                            ove = new Sheep(oveDerRed, oveDerMovRed,
+                            ove = new Sheep(oveDerRed, oveDerMovRed, oveEstaticRed,
                                     Sheep.Estado.DERECHA, arrColores[2], arrTipos[0]);
                             arrOvejas.add(ove);
                             break;
                         case 4:
-                            ove = new Sheep(oveDerYellow, oveDerMovYellow,
+                            ove = new Sheep(oveDerYellow, oveDerMovYellow, oveEstaticYellow,
                                     Sheep.Estado.DERECHA, arrColores[3], arrTipos[0]);
                             arrOvejas.add(ove);
                             break;
@@ -483,6 +488,12 @@ public class LevelOne extends ScreenTemplate {
         oveDerMovWhite = new  Texture("Sheep/Level 1/White/sheep_moving_right_white.png");
         oveDerYellow = new Texture("Sheep/Level 1/Yellow/sheep_right_yellow.png");
         oveDerMovYellow = new Texture("Sheep/Level 1/Yellow/sheep_moving_right_yellow.png");
+
+        // oveja estática
+        oveEstaticBlue = new Texture("Sheep/Level 1/Blue/sheep_grazing.png");
+        oveEstaticRed = new Texture("Sheep/Level 1/Red/sheep_grazing.png");
+        oveEstaticWhite = new Texture("Sheep/Level 1/White/sheep_grazing.png");
+        oveEstaticYellow = new Texture("Sheep/Level 1/Yellow/sheep_grazing.png");
     }
 
 

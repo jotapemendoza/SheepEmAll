@@ -35,6 +35,7 @@ public class Sheep {
     private Animation animacion;
     private float timer;
     private Animation animacionMov;
+    private Animation animacionEstatico;
     private Texture texturafuego;
     private Animation fuego;
 
@@ -45,7 +46,7 @@ public class Sheep {
     private boolean enLlamas = false;
 
 
-    public Sheep(Texture textura, Texture textura2, Estado estado, String color, String tipo) {
+    public Sheep(Texture textura, Texture textura2, Texture textura3, Estado estado, String color, String tipo) {
 
         this.color = color;
         this.tipo = tipo;
@@ -60,9 +61,15 @@ public class Sheep {
 
         texturafuego = new Texture("sheep_fire.png");
         TextureRegion region3 = new TextureRegion(texturafuego);
-        TextureRegion[][] frames3= region3.split(100,170);
+        TextureRegion[][] frames3 = region3.split(100,170);
         fuego = new Animation(0.20f, frames3[0][0], frames3[0][1]);
         fuego.setPlayMode(Animation.PlayMode.LOOP);
+
+        TextureRegion region4 = new TextureRegion(textura3);
+        TextureRegion[][] frames4 = region4.split(108,140);
+        animacionEstatico = new Animation(0.20f,frames4[0][0],frames4[0][1]);
+        animacionEstatico.setPlayMode(Animation.PlayMode.LOOP);
+
         timer = 0;
 
 
@@ -207,6 +214,7 @@ public class Sheep {
         TextureRegion region = (TextureRegion) animacion.getKeyFrame(timer);
         TextureRegion region2 = (TextureRegion) animacionMov.getKeyFrame(timer);
         TextureRegion region3 = (TextureRegion) fuego.getKeyFrame(timer);
+        TextureRegion region4 = (TextureRegion) animacionEstatico.getKeyFrame(timer);
         switch (estado){
             case ARRIBA:
                 if (!seMovio){
@@ -215,8 +223,7 @@ public class Sheep {
                         y = y - velocidad;
                     }
                 }else {
-                    timer = 0;
-                    batch.draw(region, x, y);
+                    batch.draw(region4, x, y);
                 }
                 break;
             case ABAJO:
@@ -226,8 +233,7 @@ public class Sheep {
                         y = y + velocidad;
                     }
                 }else {
-                    timer = 0;
-                    batch.draw(region, x, y);
+                    batch.draw(region4, x, y);
                 }
                 break;
             case IZQUIERDA:
@@ -237,8 +243,7 @@ public class Sheep {
                         x = x + velocidad;
                     }
                 }else {
-                    timer = 0;
-                    batch.draw(region, x, y);
+                    batch.draw(region4, x, y);
                 }
                 break;
             case DERECHA:
@@ -248,8 +253,7 @@ public class Sheep {
                         x = x - velocidad;
                     }
                 }else {
-                    timer = 0;
-                    batch.draw(region, x, y);
+                    batch.draw(region4, x, y);
                 }
                 break;
             case MOVIENDO:

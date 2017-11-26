@@ -72,6 +72,12 @@ public class LevelThree extends ScreenTemplate {
     private Texture oveIzqYellow;
     private Texture oveIzqMovYellow;
 
+    private Texture oveEstaticBlue;
+    private Texture oveEstaticRed;
+    private Texture oveEstaticWhite;
+    private Texture oveEstaticYellow;
+    private Texture oveEstaticRainbow;
+
     private Texture oveDerBlue;
     private Texture oveDerMovBlue;
     private Texture oveDerRed;
@@ -374,22 +380,22 @@ public class LevelThree extends ScreenTemplate {
             if (randomAlien == 1){
                 switch (randomAlienColor){
                     case 1:
-                        Alien = new Sheep(oveAlienArrWhite, oveAlienArrMovWhite,
+                        Alien = new Sheep(oveAlienArrWhite, oveAlienArrMovWhite, oveAlienArrWhite,
                                 Sheep.Estado.ARRIBA, arrColores[0], arrTipos[1]);
                         arrOvejas.add(Alien);
                         break;
                     case 2:
-                        Alien = new Sheep(oveAlienArrBlue, oveAlienArrMovBlue,
+                        Alien = new Sheep(oveAlienArrBlue, oveAlienArrMovBlue, oveAlienArrBlue,
                                 Sheep.Estado.ARRIBA, arrColores[1], arrTipos[1]);
                         arrOvejas.add(Alien);
                         break;
                     case 3:
-                        Alien = new Sheep(oveAlienArrRed, oveAlienArrMovRed,
+                        Alien = new Sheep(oveAlienArrRed, oveAlienArrMovRed, oveAlienArrRed,
                                 Sheep.Estado.ARRIBA, arrColores[2], arrTipos[1]);
                         arrOvejas.add(Alien);
                         break;
                     case 4:
-                        Alien = new Sheep(oveAlienArrYellow, oveAlienArrMovYellow,
+                        Alien = new Sheep(oveAlienArrYellow, oveAlienArrMovYellow, oveAlienArrYellow,
                                 Sheep.Estado.ARRIBA, arrColores[3], arrTipos[1]);
                         arrOvejas.add(Alien);
                         break;
@@ -397,22 +403,22 @@ public class LevelThree extends ScreenTemplate {
             }else if (randomAlien == 2){
                 switch (randomAlienColor){
                     case 1:
-                        Alien = new Sheep(oveAlienAbWhite, oveAlienAbMovWhite,
+                        Alien = new Sheep(oveAlienAbWhite, oveAlienAbMovWhite, oveAlienArrWhite,
                                 Sheep.Estado.ABAJO, arrColores[0], arrTipos[1]);
                         arrOvejas.add(Alien);
                         break;
                     case 2:
-                        Alien = new Sheep(oveAlienAbBlue, oveAlienAbMovBlue,
+                        Alien = new Sheep(oveAlienAbBlue, oveAlienAbMovBlue, oveAlienArrBlue,
                                 Sheep.Estado.ABAJO, arrColores[1], arrTipos[1]);
                         arrOvejas.add(Alien);
                         break;
                     case 3:
-                        Alien = new Sheep(oveAlienAbRed, oveAlienAbMovRed,
+                        Alien = new Sheep(oveAlienAbRed, oveAlienAbMovRed, oveAlienArrRed,
                                 Sheep.Estado.ABAJO, arrColores[2], arrTipos[1]);
                         arrOvejas.add(Alien);
                         break;
                     case 4:
-                        Alien = new Sheep(oveAlienAbYellow, oveAlienAbMovYellow,
+                        Alien = new Sheep(oveAlienAbYellow, oveAlienAbMovYellow, oveAlienArrYellow,
                                 Sheep.Estado.ABAJO, arrColores[3], arrTipos[1]);
                         arrOvejas.add(Alien);
                         break;
@@ -420,22 +426,22 @@ public class LevelThree extends ScreenTemplate {
             }else if (randomAlien == 3){
                 switch (randomAlienColor){
                     case 1:
-                        Alien = new Sheep(oveAlienIzqWhite, oveAlienIzqMovWhite,
+                        Alien = new Sheep(oveAlienIzqWhite, oveAlienIzqMovWhite, oveAlienArrWhite,
                                 Sheep.Estado.IZQUIERDA, arrColores[0], arrTipos[1]);
                         arrOvejas.add(Alien);
                         break;
                     case 2:
-                        Alien = new Sheep(oveAlienIzqBlue, oveAlienIzqMovBlue,
+                        Alien = new Sheep(oveAlienIzqBlue, oveAlienIzqMovBlue, oveAlienArrBlue,
                                 Sheep.Estado.IZQUIERDA, arrColores[1], arrTipos[1]);
                         arrOvejas.add(Alien);
                         break;
                     case 3:
-                        Alien = new Sheep(oveAlienIzqRed, oveAlienIzqMovRed,
+                        Alien = new Sheep(oveAlienIzqRed, oveAlienIzqMovRed, oveAlienArrRed,
                                 Sheep.Estado.IZQUIERDA, arrColores[2], arrTipos[1]);
                         arrOvejas.add(Alien);
                         break;
                     case 4:
-                        Alien = new Sheep(oveAlienIzqYellow, oveAlienIzqMovYellow,
+                        Alien = new Sheep(oveAlienIzqYellow, oveAlienIzqMovYellow, oveAlienArrYellow,
                                 Sheep.Estado.IZQUIERDA, arrColores[3], arrTipos[1]);
                         arrOvejas.add(Alien);
                         break;
@@ -443,22 +449,22 @@ public class LevelThree extends ScreenTemplate {
             }else if (randomAlien == 4){
                 switch (randomAlienColor){
                     case 1:
-                        Alien = new Sheep(oveAlienDerWhite, oveAlienDerMovWhite,
+                        Alien = new Sheep(oveAlienDerWhite, oveAlienDerMovWhite, oveAlienArrWhite,
                                 Sheep.Estado.DERECHA, arrColores[0], arrTipos[1]);
                         arrOvejas.add(Alien);
                         break;
                     case 2:
-                        Alien = new Sheep(oveAlienDerBlue, oveAlienDerMovBlue,
+                        Alien = new Sheep(oveAlienDerBlue, oveAlienDerMovBlue, oveAlienArrBlue,
                                 Sheep.Estado.DERECHA, arrColores[1], arrTipos[1]);
                         arrOvejas.add(Alien);
                         break;
                     case 3:
-                        Alien = new Sheep(oveAlienDerRed, oveAlienDerMovRed,
+                        Alien = new Sheep(oveAlienDerRed, oveAlienDerMovRed, oveAlienArrRed,
                                 Sheep.Estado.DERECHA, arrColores[2], arrTipos[1]);
                         arrOvejas.add(Alien);
                         break;
                     case 4:
-                        Alien = new Sheep(oveAlienDerYellow, oveAlienDerMovYellow,
+                        Alien = new Sheep(oveAlienDerYellow, oveAlienDerMovYellow, oveAlienArrYellow,
                                 Sheep.Estado.DERECHA, arrColores[3], arrTipos[1]);
                         arrOvejas.add(Alien);
                         break;
@@ -470,22 +476,22 @@ public class LevelThree extends ScreenTemplate {
 
             switch (randomRainbow){
                 case 1:
-                    rainbow = new Sheep(oveArrRainbow, oveArrMovRainbow,
+                    rainbow = new Sheep(oveArrRainbow, oveArrMovRainbow, oveEstaticRainbow,
                             Sheep.Estado.ARRIBA, arrColores[4], arrTipos[2]);
                     arrOvejas.add(rainbow);
                     break;
                 case 2:
-                    rainbow = new Sheep(oveAbRainbow, oveAbMovRainbow,
+                    rainbow = new Sheep(oveAbRainbow, oveAbMovRainbow, oveEstaticRainbow,
                             Sheep.Estado.ABAJO, arrColores[4], arrTipos[2]);
                     arrOvejas.add(rainbow);
                     break;
                 case 3:
-                    rainbow = new Sheep(oveIzqRainbow, oveIzqMovRainbow,
+                    rainbow = new Sheep(oveIzqRainbow, oveIzqMovRainbow, oveEstaticRainbow,
                             Sheep.Estado.IZQUIERDA, arrColores[4], arrTipos[2]);
                     arrOvejas.add(rainbow);
                     break;
                 case 4:
-                    rainbow = new Sheep(oveDerRainbow, oveDerMovRainbow,
+                    rainbow = new Sheep(oveDerRainbow, oveDerMovRainbow, oveEstaticRainbow,
                             Sheep.Estado.DERECHA, arrColores[4], arrTipos[2]);
                     arrOvejas.add(rainbow);
                     break;
@@ -501,94 +507,94 @@ public class LevelThree extends ScreenTemplate {
                 int random = (int) (Math.random() * 4) + 1;
                 int randomColor = (int) (Math.random() * 4) + 1;
 
-                if (random == 1) {
-                    switch (randomColor) {
+                if (random == 1){
+                    switch (randomColor){
                         case 1:
-                            ove = new Sheep(oveArrWhite, oveArrMovWhite,
+                            ove = new Sheep(oveArrWhite, oveArrMovWhite, oveEstaticWhite,
                                     Sheep.Estado.ARRIBA, arrColores[0], arrTipos[0]);
                             arrOvejas.add(ove);
                             break;
                         case 2:
-                            ove = new Sheep(oveArrBlue, oveArrMovBlue,
+                            ove = new Sheep(oveArrBlue, oveArrMovBlue, oveEstaticBlue,
                                     Sheep.Estado.ARRIBA, arrColores[1], arrTipos[0]);
                             arrOvejas.add(ove);
                             break;
                         case 3:
-                            ove = new Sheep(oveArrRed, oveArrMovRed,
+                            ove = new Sheep(oveArrRed, oveArrMovRed, oveEstaticRed,
                                     Sheep.Estado.ARRIBA, arrColores[2], arrTipos[0]);
                             arrOvejas.add(ove);
                             break;
                         case 4:
-                            ove = new Sheep(oveArrYellow, oveArrMovYellow,
+                            ove = new Sheep(oveArrYellow, oveArrMovYellow, oveEstaticYellow,
                                     Sheep.Estado.ARRIBA, arrColores[3], arrTipos[0]);
                             arrOvejas.add(ove);
                             break;
                     }
-                } else if (random == 2) {
-                    switch (randomColor) {
+                }else if (random == 2){
+                    switch (randomColor){
                         case 1:
-                            ove = new Sheep(oveAbWhite, oveAbMovWhite,
+                            ove = new Sheep(oveAbWhite, oveAbMovWhite, oveEstaticWhite,
                                     Sheep.Estado.ABAJO, arrColores[0], arrTipos[0]);
                             arrOvejas.add(ove);
                             break;
                         case 2:
-                            ove = new Sheep(oveAbBlue, oveAbMovBlue,
+                            ove = new Sheep(oveAbBlue, oveAbMovBlue, oveEstaticBlue,
                                     Sheep.Estado.ABAJO, arrColores[1], arrTipos[0]);
                             arrOvejas.add(ove);
                             break;
                         case 3:
-                            ove = new Sheep(oveAbRed, oveAbMovRed,
+                            ove = new Sheep(oveAbRed, oveAbMovRed, oveEstaticRed,
                                     Sheep.Estado.ABAJO, arrColores[2], arrTipos[0]);
                             arrOvejas.add(ove);
                             break;
                         case 4:
-                            ove = new Sheep(oveAbYellow, oveAbMovYellow,
+                            ove = new Sheep(oveAbYellow, oveAbMovYellow, oveEstaticYellow,
                                     Sheep.Estado.ABAJO, arrColores[3], arrTipos[0]);
                             arrOvejas.add(ove);
                             break;
                     }
-                } else if (random == 3) {
-                    switch (randomColor) {
+                }else if (random == 3){
+                    switch (randomColor){
                         case 1:
-                            ove = new Sheep(oveIzqWhite, oveIzqMovWhite,
+                            ove = new Sheep(oveIzqWhite, oveIzqMovWhite, oveEstaticWhite,
                                     Sheep.Estado.IZQUIERDA, arrColores[0], arrTipos[0]);
                             arrOvejas.add(ove);
                             break;
                         case 2:
-                            ove = new Sheep(oveIzqBlue, oveIzqMovBlue,
+                            ove = new Sheep(oveIzqBlue, oveIzqMovBlue, oveEstaticBlue,
                                     Sheep.Estado.IZQUIERDA, arrColores[1], arrTipos[0]);
                             arrOvejas.add(ove);
                             break;
                         case 3:
-                            ove = new Sheep(oveIzqRed, oveIzqMovRed,
+                            ove = new Sheep(oveIzqRed, oveIzqMovRed, oveEstaticRed,
                                     Sheep.Estado.IZQUIERDA, arrColores[2], arrTipos[0]);
                             arrOvejas.add(ove);
                             break;
                         case 4:
-                            ove = new Sheep(oveIzqYellow, oveIzqMovYellow,
+                            ove = new Sheep(oveIzqYellow, oveIzqMovYellow, oveEstaticYellow,
                                     Sheep.Estado.IZQUIERDA, arrColores[3], arrTipos[0]);
                             arrOvejas.add(ove);
                             break;
                     }
-                } else {
-                    switch (randomColor) {
+                }else if (random == 4){
+                    switch (randomColor){
                         case 1:
-                            ove = new Sheep(oveDerWhite, oveDerMovWhite,
+                            ove = new Sheep(oveDerWhite, oveDerMovWhite, oveEstaticWhite,
                                     Sheep.Estado.DERECHA, arrColores[0], arrTipos[0]);
                             arrOvejas.add(ove);
                             break;
                         case 2:
-                            ove = new Sheep(oveDerBlue, oveDerMovBlue,
+                            ove = new Sheep(oveDerBlue, oveDerMovBlue, oveEstaticBlue,
                                     Sheep.Estado.DERECHA, arrColores[1], arrTipos[0]);
                             arrOvejas.add(ove);
                             break;
                         case 3:
-                            ove = new Sheep(oveDerRed, oveDerMovRed,
+                            ove = new Sheep(oveDerRed, oveDerMovRed, oveEstaticRed,
                                     Sheep.Estado.DERECHA, arrColores[2], arrTipos[0]);
                             arrOvejas.add(ove);
                             break;
                         case 4:
-                            ove = new Sheep(oveDerYellow, oveDerMovYellow,
+                            ove = new Sheep(oveDerYellow, oveDerMovYellow, oveEstaticYellow,
                                     Sheep.Estado.DERECHA, arrColores[3], arrTipos[0]);
                             arrOvejas.add(ove);
                             break;
@@ -789,6 +795,13 @@ public class LevelThree extends ScreenTemplate {
         oveIzqMovRainbow = new Texture("Sheep/Level 2/Rainbow/rainbow_moving_left.png");
         oveDerRainbow = new Texture("Sheep/Level 2/Rainbow/rainbow_right.png");
         oveDerMovRainbow = new Texture("Sheep/Level 2/Rainbow/rainbow_moving_right.png");
+
+        // oveja estática
+        oveEstaticBlue = new Texture("Sheep/Level 3/Blue/sheep_grazing.png");
+        oveEstaticRed = new Texture("Sheep/Level 3/Red/sheep_grazing.png");
+        oveEstaticWhite = new Texture("Sheep/Level 3/White/sheep_grazing.png");
+        oveEstaticYellow = new Texture("Sheep/Level 3/Yellow/sheep_grazing.png");
+        oveEstaticRainbow = new Texture("Sheep/Level 2/Rainbow/sheep_grazing.png");
     }
 
 
@@ -878,7 +891,7 @@ public class LevelThree extends ScreenTemplate {
         }
 
 
-        if(contOvejas >= cantOve && lifes == 3){
+        if(contOvejas >= cantOve && lifes >= 3){
             estado = EstadoJuego.GANADO;
         }
         if(contOvejas >= (cantOve-1) && lifes == 2){

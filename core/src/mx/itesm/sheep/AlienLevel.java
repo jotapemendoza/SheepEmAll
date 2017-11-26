@@ -176,7 +176,7 @@ public class AlienLevel extends ScreenTemplate {
         }
         batch.end();
 
-        if(sheepAbd.gety()==700){
+        if(sheepAbd.gety()>=700){
             this.estado = EstadoJuego.PERDIDO;
         }
 
