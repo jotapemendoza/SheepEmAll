@@ -894,10 +894,10 @@ public class LevelThree extends ScreenTemplate {
         if(contOvejas >= cantOve && lifes >= 3){
             estado = EstadoJuego.GANADO;
         }
-        if(contOvejas >= (cantOve-1) && lifes == 2){
+        if(contOvejas >= (cantOve-1) && ((lifes == 2) || (lifes == 3))){
             estado = EstadoJuego.GANADO;
         }
-        if(contOvejas >= (cantOve-2) && lifes == 1){
+        if(contOvejas >= (cantOve-2) && ((lifes == 1) || (lifes == 2))){
             estado = EstadoJuego.GANADO;
         }
 
