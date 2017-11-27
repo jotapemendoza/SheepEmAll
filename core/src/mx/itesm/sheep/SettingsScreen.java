@@ -270,6 +270,8 @@ public class SettingsScreen extends ScreenTemplate {
                 public void clicked(InputEvent event, float x, float y) {
                     pref.putBoolean("wonLevelOne", false);
                     pref.putBoolean("wonLevelTwo",false);
+                    pref.putInteger("highscore", 0);
+                    pref.putBoolean("arcade",false);
                     pref.flush();
                     popup = false;
                     Gdx.input.setInputProcessor(escenaSettings);

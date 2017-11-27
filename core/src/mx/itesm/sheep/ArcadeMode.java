@@ -107,7 +107,7 @@ public class ArcadeMode extends ScreenTemplate {
     private float velocidadOve = 1.0f;
     private int lifes;
 
-    float totalTime = 20;
+    float totalTime = 120; // In seconds
 
     private EstadoJuego estado;
 
@@ -537,7 +537,7 @@ public class ArcadeMode extends ScreenTemplate {
 
         }
 
-        if(seconds<=0){
+        if(seconds<=0 && minutes<=0){
             estado = EstadoJuego.TERMINADO;
             System.out.println("time done");
         }
