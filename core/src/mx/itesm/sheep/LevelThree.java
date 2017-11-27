@@ -832,13 +832,11 @@ public class LevelThree extends ScreenTemplate {
     }
 
 
-
     @Override
     public void render(float delta) {
 
         batch.setProjectionMatrix(camera.combined);
         startTime+=Gdx.graphics.getDeltaTime();
-
 
 
         if (estado == EstadoJuego.JUGANDO && startTime>=4.5) {

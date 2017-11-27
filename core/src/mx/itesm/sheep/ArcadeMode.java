@@ -98,7 +98,7 @@ public class ArcadeMode extends ScreenTemplate {
     private Sheep ovejaMoviendo = null;
     private int ovejaMovX;
     private int ovejaMovY;
-    private final int cantOve = 35;
+    private final int cantOve = 100;
     private int contOvejas = 0;
     private String arrColores[] = {"WHITE","BLUE","RED","YELLOW"};
     private String arrTipos[] = {"NORMAL","ALIEN","RAINBOW"};
@@ -107,7 +107,7 @@ public class ArcadeMode extends ScreenTemplate {
     private float velocidadOve = 1.0f;
     private int lifes;
 
-    float totalTime = 60;
+    float totalTime = 120;
 
     private EstadoJuego estado;
 
@@ -124,6 +124,11 @@ public class ArcadeMode extends ScreenTemplate {
     private Texture cr;
     private Texture barn_shadow;
 
+    private BitmapFont numberFont;
+
+    private int sheepCounter;
+    private Texture arcadeTop;
+
 
     public ArcadeMode(SheepEm sheepEm){
         this.sheepEm = sheepEm;
@@ -135,11 +140,11 @@ public class ArcadeMode extends ScreenTemplate {
         cargarOvejas();
         crearEscenaJuego();
         font = new BitmapFont(Gdx.files.internal("Intro.fnt"));
+        numberFont = new BitmapFont(Gdx.files.internal("Fonts/numbersFont.fnt"));
         endScene = new endScene(view,batch);
         estado = EstadoJuego.JUGANDO;
         Gdx.input.setInputProcessor(escenaJuego);
         Gdx.input.setCatchBackKey(true);
-        lifes = 3;
         sheepTimer = 1.5f;
         sheep = Gdx.audio.newMusic(Gdx.files.internal("SFX/sheep_sound.mp3"));
     }
@@ -491,6 +496,8 @@ public class ArcadeMode extends ScreenTemplate {
         oveEstaticRed = new Texture("Sheep/Level 1/Red/sheep_grazing.png");
         oveEstaticWhite = new Texture("Sheep/Level 1/White/sheep_grazing.png");
         oveEstaticYellow = new Texture("Sheep/Level 1/Yellow/sheep_grazing.png");
+
+        arcadeTop =  new Texture("arcadeTop.png");
     }
 
 
@@ -502,11 +509,6 @@ public class ArcadeMode extends ScreenTemplate {
         clearScreen(0, 0, 0);
         batch.setProjectionMatrix(camera.combined);
 
-        float deltaTime = Gdx.graphics.getDeltaTime(); //You might prefer getRawDeltaTime()
-
-        if(estado == EstadoJuego.JUGANDO){
-            if(totalTime>=1) totalTime -= deltaTime;
-        }
 
         int minutes = ((int)totalTime) / 60;
         int seconds = ((int)totalTime) % 60;
@@ -515,12 +517,22 @@ public class ArcadeMode extends ScreenTemplate {
         if (estado == EstadoJuego.JUGANDO) {
             salida += Gdx.graphics.getDeltaTime();
             tiempo += Gdx.graphics.getDeltaTime();
+            if(totalTime>=1) totalTime -=Gdx.graphics.getDeltaTime();
             sheepTimer -= Gdx.graphics.getDeltaTime();
         }
 
         if (sheepTimer<=0){
             cargarOvejas();
-            sheepTimer = 1.5f;
+            if(tiempo>60){
+                sheepTimer = 0.8f;
+            }
+            if(tiempo<60){
+                sheepTimer = 1.5f;
+            }
+            if(tiempo>90){
+                sheepTimer = 0.3f;
+            }
+
         }
 
         /*------------------------BATCH BEGIN ---------------------*/
@@ -529,7 +541,7 @@ public class ArcadeMode extends ScreenTemplate {
 
         batch.draw(background,0,0);
 
-        batch.draw(barn_shadow,466,1709);
+        batch.draw(barn_shadow,467,1709);
 
 
         for (int i = 0; i < arrOvejas.size; i++) {
@@ -543,9 +555,21 @@ public class ArcadeMode extends ScreenTemplate {
 
         }
 
-        batch.draw(barn,0,1709);
+        batch.draw(barn,1,1709);
 
         batch.draw(cr,0,1617);
+
+        batch.draw(arcadeTop,40,1764);
+
+        /*------------------------------- SHEEP COUNTER ON SCREEN --------------------------------*/
+        font.draw(batch, Integer.toString(contOvejas), 200, 1848);
+
+        /*-------------------------------- COUNTBACK ON SCREEN -----------------------------------*/
+        if(seconds>=10){
+            font.draw(batch,Integer.toString(minutes)+ ":"+ Integer.toString(seconds),720,1848);
+        }else{
+            font.draw(batch,Integer.toString(minutes)+ ":0"+ Integer.toString(seconds),720,1848);
+        }
 
         batch.end();
         /*------------------------BATCH END ---------------------*/
@@ -588,17 +612,18 @@ public class ArcadeMode extends ScreenTemplate {
 
         }
 
+        if(tiempo>=90){
+            estado = EstadoJuego.TERMINADO;
+        }
 
         if(estado ==  EstadoJuego.TERMINADO){
             Gdx.input.setInputProcessor(endScene);
-            pref.putBoolean("wonLevelOne",true);
             endScene.draw();
             detenerOveja(true);
             if(pref.getBoolean("musicOn")){
                 sheepEm.win.play();
                 sheepEm.win.setLooping(true);
             }
-            pref.flush();
         }
 
         if(pref.getBoolean("musicOn")){
@@ -787,30 +812,13 @@ public class ArcadeMode extends ScreenTemplate {
             op.setPosition(0,0);
             this.addActor(op);
 
-            Texture winRectangle = new Texture("winRectangle.png");
+            Texture winRectangle = new Texture("arcadeScreen.png");
             TextureRegionDrawable winRectTrd = new TextureRegionDrawable(new TextureRegion(winRectangle));
             Image winRect = new Image(winRectTrd);
-            winRect.setPosition(40,292);
+            winRect.setPosition(40,346);
             this.addActor(winRect);
 
 
-            Texture nextLevel = new Texture("Buttons/unpressed/NextLevelButton.png");
-            Texture nextLevelPr = new Texture("Buttons/pressed/PressedNextLevelButton.png");
-            TextureRegionDrawable nextLevelTrd = new TextureRegionDrawable(new TextureRegion(nextLevel));
-            TextureRegionDrawable nextLevelPrTrd = new TextureRegionDrawable(new TextureRegion(nextLevelPr));
-
-            ImageButton nextLevelButton = new ImageButton(nextLevelTrd,nextLevelPrTrd);
-            nextLevelButton.setPosition(383,972);
-            nextLevelButton.addListener(new ClickListener(){
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.setScreen(new LevelTwo(sheepEm));
-                    if(pref.getBoolean("musicOn")){
-                        sheepEm.win.stop();
-                    }
-                }
-            });
-            this.addActor(nextLevelButton);
 
             Texture retryLevel = new Texture("Buttons/unpressed/restartButton.png");
             Texture retryLevelPr = new Texture("Buttons/pressed/pressedRestartButton.png");
@@ -818,7 +826,7 @@ public class ArcadeMode extends ScreenTemplate {
             TextureRegionDrawable retryLevelPrTrd = new TextureRegionDrawable(new TextureRegion(retryLevelPr));
 
             ImageButton retryLevelButton = new ImageButton(retryLevelTrd, retryLevelPrTrd);
-            retryLevelButton.setPosition(586,699);
+            retryLevelButton.setPosition(586,705);
             retryLevelButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -837,7 +845,7 @@ public class ArcadeMode extends ScreenTemplate {
             TextureRegionDrawable levelsMenuPrTrd = new TextureRegionDrawable(new TextureRegion(levelsMenuPr));
 
             ImageButton levelsButton = new ImageButton(levelsMenuTrd,levelsMenuPrTrd);
-            levelsButton.setPosition(285,699);
+            levelsButton.setPosition(285,705);
             levelsButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
