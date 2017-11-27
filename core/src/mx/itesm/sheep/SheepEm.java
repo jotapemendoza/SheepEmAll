@@ -22,7 +22,6 @@ public class SheepEm extends Game
 	public void create() {
 		setScreen(new SplashScreen(this));
 
-		// Splash ScreenTemplate
 		menuMusic = Gdx.audio.newMusic(Gdx.files.internal("music/menuMusic.mp3"));
 		levelOneMusic = Gdx.audio.newMusic(Gdx.files.internal("music/gameMusic.mp3"));
 		lost = Gdx.audio.newMusic(Gdx.files.internal("music/lost.mp3"));

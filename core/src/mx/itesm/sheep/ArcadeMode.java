@@ -117,7 +117,7 @@ public class ArcadeMode extends ScreenTemplate {
     private float velocidadOve = 1.0f;
     private int lifes;
 
-    private float totalTime = 120; // In seconds
+    private float totalTime = 121; // In seconds
 
     private EstadoJuego estado;
 
