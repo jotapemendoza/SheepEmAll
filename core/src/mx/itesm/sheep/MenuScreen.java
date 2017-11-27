@@ -1,10 +1,12 @@
 package mx.itesm.sheep;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -64,11 +66,22 @@ class MenuScreen extends ScreenTemplate
         crearEscenaMenu();
         Gdx.input.setInputProcessor(escenaMenu);
         easterEgg = 0;
+        Gdx.input.setCatchBackKey(true);
     }
 
     private void crearEscenaMenu() {
 
         escenaMenu = new Stage(view);
+
+        escenaMenu.addListener(new InputListener(){
+            @Override
+            public boolean keyDown(InputEvent event, int keycode) {
+                if (keycode== Input.Keys.BACK){
+                    Gdx.app.exit();
+                }
+                return true;
+            }
+        });
         bgandcloudGenerator();
         drawGraphics();
 

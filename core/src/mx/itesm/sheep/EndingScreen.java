@@ -25,6 +25,7 @@ public class EndingScreen extends ScreenTemplate {
     private float elapsedTime2;
     private Texture fadeIn;
     private ImageButton button;
+    private Texture black;
 
     public EndingScreen(SheepEm sheepEm){
         this.sheepEm = sheepEm;
@@ -62,6 +63,7 @@ public class EndingScreen extends ScreenTemplate {
 
     private void loadTextures() {
         background = new Texture("finalScreen.png");
+        black = new Texture("black.png");
     }
 
     private void createScene() {
@@ -76,24 +78,16 @@ public class EndingScreen extends ScreenTemplate {
 
     @Override
     public void render(float delta) {
-        storyStage.draw();
 
         batch.begin();
 
         elapsedTime += Gdx.graphics.getDeltaTime();
-        TextureRegion fadeIn = (TextureRegion) fadeInAnimation.getKeyFrame(elapsedTime,false);
-        batch.draw(fadeIn,0,0);
-
-        if(elapsedTime>=6){
-            elapsedTime2 += Gdx.graphics.getDeltaTime();
-            TextureRegion fadeOut = (TextureRegion) fadeOutAnimation.getKeyFrame(elapsedTime2,false);
-            batch.draw(fadeOut,0,0);
-            System.out.println("Done");
-        }
+        batch.draw(black,0,0);
 
         batch.end();
 
-        if(elapsedTime>=6.8){
+        storyStage.draw();
+        if(elapsedTime>=3.0){
             sheepEm.setScreen(new CreditsScreen(sheepEm));
         }
 

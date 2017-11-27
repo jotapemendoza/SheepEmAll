@@ -112,7 +112,7 @@ public class AlienLevel extends ScreenTemplate {
                 super.clicked(event, x, y);
                 hpAlien--;
                 outterimg.setZIndex(10);
-                sheepAbd.setY(sheepAbd.gety()-13);
+                sheepAbd.setY(sheepAbd.gety()-11);
                 innerimg.setScale(hpAlien/LIFE,1);
 
             }

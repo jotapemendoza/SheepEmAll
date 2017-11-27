@@ -18,6 +18,7 @@ public class CreditsScreen extends ScreenTemplate {
     private Stage creditsScene;
     private Image imgCredits;
     private float timer;
+    private Texture black;
 
     public CreditsScreen(SheepEm sheepEm){
         this.sheepEm = sheepEm;
@@ -30,6 +31,7 @@ public class CreditsScreen extends ScreenTemplate {
 
     private void loadTextures() {
         credits = new Texture("credits.png");
+        black = new Texture("black.png");
     }
 
     private void createScene() {
@@ -44,8 +46,14 @@ public class CreditsScreen extends ScreenTemplate {
     @Override
     public void render(float delta) {
 
-        creditsScene.draw();
 
+
+        batch.begin();
+
+        batch.draw(black,0,0);
+
+        batch.end();
+        creditsScene.draw();
         batch.setProjectionMatrix(camera.combined);
         timer+= Gdx.graphics.getDeltaTime();
 
