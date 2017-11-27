@@ -300,8 +300,6 @@ public class AlienLevel extends ScreenTemplate {
                 }
             });
             this.addActor(lvsButton);
-
-
         }
     }
 }
