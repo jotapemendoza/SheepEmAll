@@ -591,7 +591,7 @@ public class LevelTwo extends ScreenTemplate {
 
         startTime+=Gdx.graphics.getDeltaTime();
 
-        if (estado == EstadoJuego.JUGANDO && startTime>=4.5) {
+        if (estado == EstadoJuego.JUGANDO && startTime>=2.5) {
             Gdx.input.setInputProcessor(escenaJuego);
             salida += Gdx.graphics.getDeltaTime();
             tiempo += Gdx.graphics.getDeltaTime();
@@ -675,13 +675,13 @@ public class LevelTwo extends ScreenTemplate {
             arrOvejas.get(0).render(batch);
         }
 
-        if(startTime<4.5){
+        if(startTime<2.5){
             batch.draw(levelTwoTutorial,0,0);
         }
 
         batch.end();
 
-        if(startTime>4.5){
+        if(startTime>2.5){
             escenaJuego.draw();
         }
 
@@ -743,7 +743,7 @@ public class LevelTwo extends ScreenTemplate {
         }
 
         if(pref.getBoolean("musicOn")){
-            if(estado == EstadoJuego.JUGANDO && startTime>=4.5){
+            if(estado == EstadoJuego.JUGANDO && startTime>=2.5){
                 sheepEm.levelTwoMusic.play();
                 sheepEm.levelTwoMusic.setLooping(true);
             }else{

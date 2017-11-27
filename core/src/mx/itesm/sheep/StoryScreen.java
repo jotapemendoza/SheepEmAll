@@ -54,17 +54,19 @@ public class StoryScreen extends ScreenTemplate {
         TextureRegionDrawable trdBackground = new TextureRegionDrawable(new TextureRegion(background));
         Image imgBackground = new Image(trdBackground);
         imgBackground.setPosition(0,0);
+        imgBackground.addListener( new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                sheepEm.setScreen(new LevelOne(sheepEm));
+            }
+        } );
         storyStage.addActor(imgBackground);
     }
 
     @Override
     public void render(float delta) {
         storyStage.draw();
-
-        elapsedTime+= Gdx.graphics.getDeltaTime();
-        if(elapsedTime>=6.8){
-            sheepEm.setScreen(new LevelOne(sheepEm));
-        }
 
     }
 

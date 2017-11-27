@@ -182,7 +182,7 @@ public class LevelThree extends ScreenTemplate {
     private Texture rainbow;
 
     private float startTime;
-    private Texture LevelThreeTutorial;
+    private Texture tutorial;
 
 
     public LevelThree(SheepEm sheepEm){
@@ -828,7 +828,7 @@ public class LevelThree extends ScreenTemplate {
         oveEstaticWhite = new Texture("Sheep/Level 3/White/sheep_grazing.png");
         oveEstaticYellow = new Texture("Sheep/Level 3/Yellow/sheep_grazing.png");
         oveEstaticRainbow = new Texture("Sheep/Level 2/Rainbow/sheep_grazing.png");
-        LevelThreeTutorial = new Texture("level3Tutorial.png");
+        tutorial = new Texture("level3Tutorial.png");
     }
 
 
@@ -839,7 +839,7 @@ public class LevelThree extends ScreenTemplate {
         startTime+=Gdx.graphics.getDeltaTime();
 
 
-        if (estado == EstadoJuego.JUGANDO && startTime>=4.5) {
+        if (estado == EstadoJuego.JUGANDO && startTime>=2.5) {
             Gdx.input.setInputProcessor(escenaJuego);
             salida += Gdx.graphics.getDeltaTime();
             tiempo += Gdx.graphics.getDeltaTime();
@@ -912,8 +912,8 @@ public class LevelThree extends ScreenTemplate {
             batch.draw(life,66,1778);
         }
 
-        if(startTime<4.5){
-            batch.draw(LevelThreeTutorial,0,0);
+        if(startTime<2.5){
+            batch.draw(tutorial,0,0);
         }
 
         if(lifes<=0){
@@ -974,7 +974,7 @@ public class LevelThree extends ScreenTemplate {
 
         batch.end();
 
-        if(startTime>=4.5){
+        if(startTime>=2.5){
             escenaJuego.draw();
         }
 
@@ -1030,7 +1030,7 @@ public class LevelThree extends ScreenTemplate {
         }
 
         if(pref.getBoolean("musicOn")){
-            if(estado == EstadoJuego.JUGANDO && startTime>=4.5){
+            if(estado == EstadoJuego.JUGANDO && startTime>=2.5){
                 sheepEm.playLevelThreeMusic();
             }else{
                 sheepEm.pauseLevelThreeMusic();
@@ -1240,7 +1240,7 @@ public class LevelThree extends ScreenTemplate {
             TextureRegionDrawable nextLevelPrTrd = new TextureRegionDrawable(new TextureRegion(nextLevelPr));
 
             ImageButton nextLevelButton = new ImageButton(nextLevelTrd,nextLevelPrTrd);
-            nextLevelButton.setPosition(383,972);
+            nextLevelButton.setPosition(383,772);
             nextLevelButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -1251,45 +1251,6 @@ public class LevelThree extends ScreenTemplate {
                 }
             });
             this.addActor(nextLevelButton);
-
-            Texture retryLevel = new Texture("Buttons/unpressed/restartButton.png");
-            Texture retryLevelPr = new Texture("Buttons/pressed/pressedRestartButton.png");
-            TextureRegionDrawable retryLevelTrd = new TextureRegionDrawable(new TextureRegion(retryLevel));
-            TextureRegionDrawable retryLevelPrTrd = new TextureRegionDrawable(new TextureRegion(retryLevelPr));
-
-            ImageButton retryLevelButton = new ImageButton(retryLevelTrd, retryLevelPrTrd);
-            retryLevelButton.setPosition(586,699);
-            retryLevelButton.addListener(new ClickListener(){
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.setScreen(new LevelThree(sheepEm));
-                    sheepEm.stopLevelThreeMusic();
-                    sheepEm.playLevelThreeMusic();
-                    if(pref.getBoolean("musicOn")){
-                        sheepEm.win.stop();
-                    }
-                }
-            });
-            this.addActor(retryLevelButton);
-
-
-            Texture levelsMenu = new Texture("Buttons/unpressed/levelsButton.png");
-            Texture levelsMenuPr = new Texture("Buttons/pressed/PressedLevelsButton.png");
-            TextureRegionDrawable levelsMenuTrd = new TextureRegionDrawable(new TextureRegion(levelsMenu));
-            TextureRegionDrawable levelsMenuPrTrd = new TextureRegionDrawable(new TextureRegion(levelsMenuPr));
-
-            ImageButton levelsButton = new ImageButton(levelsMenuTrd,levelsMenuPrTrd);
-            levelsButton.setPosition(285,699);
-            levelsButton.addListener(new ClickListener(){
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.setScreen(new MapScreen(sheepEm));
-                    if(pref.getBoolean("musicOn")){
-                        sheepEm.win.stop();
-                    }
-                }
-            });
-            this.addActor(levelsButton);
 
 
         }

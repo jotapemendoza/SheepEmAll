@@ -37,28 +37,6 @@ public class AlienStory extends ScreenTemplate {
         createScene();
         Gdx.input.setInputProcessor(storyStage);
 
-        fadeIn = new Texture("fadeIn.png");
-
-
-        TextureRegion[][] tmpFrames = TextureRegion.split(fadeIn,1080,1920);
-
-        animationFrames = new TextureRegion[7];
-        animationFrames2 = new TextureRegion[7];
-
-        int index = 0;
-
-        for (int i = 6; i >= 0 ; i--) {
-            animationFrames[index++] = tmpFrames[0][i];
-        }
-
-        index = 0;
-        for (int i = 0; i < 7; i++) {
-            animationFrames2[index++] = tmpFrames[0][i];
-        }
-
-
-        fadeOutAnimation = new Animation(1f/15f,animationFrames2);
-        fadeInAnimation = new Animation(1f/15f,animationFrames);
     }
 
     private void loadTextures() {
@@ -78,21 +56,7 @@ public class AlienStory extends ScreenTemplate {
     @Override
     public void render(float delta) {
         storyStage.draw();
-
-        batch.begin();
-
         elapsedTime += Gdx.graphics.getDeltaTime();
-        TextureRegion fadeIn = (TextureRegion) fadeInAnimation.getKeyFrame(elapsedTime,false);
-        batch.draw(fadeIn,0,0);
-
-        if(elapsedTime>=6){
-            elapsedTime2 += Gdx.graphics.getDeltaTime();
-            TextureRegion fadeOut = (TextureRegion) fadeOutAnimation.getKeyFrame(elapsedTime2,false);
-            batch.draw(fadeOut,0,0);
-            System.out.println("Done");
-        }
-
-        batch.end();
 
         if(elapsedTime>=6.8){
             sheepEm.setScreen(new AlienLevel(sheepEm));
