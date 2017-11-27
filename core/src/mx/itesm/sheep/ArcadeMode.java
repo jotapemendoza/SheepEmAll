@@ -108,7 +108,7 @@ public class ArcadeMode extends ScreenTemplate {
     private Sheep ovejaMoviendo = null;
     private int ovejaMovX;
     private int ovejaMovY;
-    private final int cantOve = 300;
+    private final int cantOve = 1000;
     private int contOvejas = 0;
     private String arrColores[] = {"WHITE","BLUE","RED","YELLOW","RAINBOW"};
     private String arrTipos[] = {"NORMAL","ALIEN","RAINBOW"};
