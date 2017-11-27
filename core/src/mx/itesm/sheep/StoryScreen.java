@@ -35,7 +35,7 @@ public class StoryScreen extends ScreenTemplate{
     }
 
     private void loadGraphics() {
-        background = new Texture("story.png");
+        background = new Texture("story1.0.png");
         clear = new Texture("clear.png");
     }
 
