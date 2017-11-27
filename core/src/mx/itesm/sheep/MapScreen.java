@@ -205,10 +205,6 @@ public class MapScreen extends ScreenTemplate {
         moveClouds(delta);
 
 
-        /*----------------------- TESTING ---------------------*/
-
-
-        /*------------------------BATCH---------------------*/
         batch.begin();
 
         batch.draw(grass,0,0);
@@ -225,7 +221,7 @@ public class MapScreen extends ScreenTemplate {
             batch.draw(levelThree,78,116);
             escenaLevels.addActor(levelThreeBtn);
         }
-        if(!pref.getBoolean("arcade")){ // prueba
+        if(pref.getBoolean("arcade")){
             batch.draw(arcade,78,116);
             escenaLevels.addActor(arcadeButton);
         }
