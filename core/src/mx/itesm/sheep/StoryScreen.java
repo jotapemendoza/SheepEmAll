@@ -42,29 +42,6 @@ public class StoryScreen extends ScreenTemplate {
         loadTextures();
         createScene();
         Gdx.input.setInputProcessor(storyStage);
-
-        fadeIn = new Texture("fadeIn.png");
-
-
-        TextureRegion[][] tmpFrames = TextureRegion.split(fadeIn,1080,1920);
-
-        animationFrames = new TextureRegion[7];
-        animationFrames2 = new TextureRegion[7];
-
-        int index = 0;
-
-        for (int i = 6; i >= 0 ; i--) {
-            animationFrames[index++] = tmpFrames[0][i];
-        }
-
-        index = 0;
-        for (int i = 0; i < 7; i++) {
-            animationFrames2[index++] = tmpFrames[0][i];
-        }
-
-
-        fadeOutAnimation = new Animation(1f/15f,animationFrames2);
-        fadeInAnimation = new Animation(1f/15f,animationFrames);
     }
 
     private void loadTextures() {
@@ -78,23 +55,13 @@ public class StoryScreen extends ScreenTemplate {
         Image imgBackground = new Image(trdBackground);
         imgBackground.setPosition(0,0);
         storyStage.addActor(imgBackground);
-
     }
 
     @Override
     public void render(float delta) {
         storyStage.draw();
 
-        batch.begin();
-
-        elapsedTime += Gdx.graphics.getDeltaTime();
-        TextureRegion fadeIn = (TextureRegion) fadeInAnimation.getKeyFrame(elapsedTime,false);
-        batch.draw(fadeIn,0,0);
-
-
-
-        batch.end();
-
+        elapsedTime+= Gdx.graphics.getDeltaTime();
         if(elapsedTime>=6.8){
             sheepEm.setScreen(new LevelOne(sheepEm));
         }
