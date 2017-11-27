@@ -17,14 +17,8 @@ public class EndingScreen extends ScreenTemplate {
 
     private Texture background;
 
-    private TextureRegion[] animationFrames;
-    private TextureRegion[] animationFrames2;
-    private Animation fadeInAnimation;
-    private Animation fadeOutAnimation;
     private float elapsedTime;
-    private float elapsedTime2;
-    private Texture fadeIn;
-    private ImageButton button;
+
     private Texture black;
 
     public EndingScreen(SheepEm sheepEm){
@@ -37,28 +31,6 @@ public class EndingScreen extends ScreenTemplate {
         createScene();
         Gdx.input.setInputProcessor(storyStage);
 
-        fadeIn = new Texture("fadeIn.png");
-
-
-        TextureRegion[][] tmpFrames = TextureRegion.split(fadeIn,1080,1920);
-
-        animationFrames = new TextureRegion[7];
-        animationFrames2 = new TextureRegion[7];
-
-        int index = 0;
-
-        for (int i = 6; i >= 0 ; i--) {
-            animationFrames[index++] = tmpFrames[0][i];
-        }
-
-        index = 0;
-        for (int i = 0; i < 7; i++) {
-            animationFrames2[index++] = tmpFrames[0][i];
-        }
-
-
-        fadeOutAnimation = new Animation(1f/15f,animationFrames2);
-        fadeInAnimation = new Animation(1f/15f,animationFrames);
     }
 
     private void loadTextures() {
@@ -79,9 +51,10 @@ public class EndingScreen extends ScreenTemplate {
     @Override
     public void render(float delta) {
 
+        elapsedTime += Gdx.graphics.getDeltaTime();
+
         batch.begin();
 
-        elapsedTime += Gdx.graphics.getDeltaTime();
         batch.draw(black,0,0);
 
         batch.end();
