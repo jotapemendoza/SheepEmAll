@@ -579,10 +579,13 @@ public class ArcadeMode extends ScreenTemplate {
                 sheepTimer = 0.8f;
             }
             if(tiempo<60){
-                sheepTimer = 1.5f;
+                sheepTimer = 1.3f;
             }
             if(tiempo>90){
                 sheepTimer = 0.3f;
+            }
+            if(tiempo>110){
+                sheepTimer = 0.1f;
             }
 
         }
