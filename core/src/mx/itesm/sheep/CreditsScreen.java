@@ -62,7 +62,7 @@ public class CreditsScreen extends ScreenTemplate {
             timer = 0;
         }
 
-        if(imgCredits.getY()>=1050){
+        if(imgCredits.getY()>=1150){
             sheepEm.finalMusic.stop();
             sheepEm.setScreen(new MenuScreen(sheepEm));
         }
