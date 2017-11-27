@@ -117,7 +117,7 @@ public class ArcadeMode extends ScreenTemplate {
     private float velocidadOve = 1.0f;
     private int lifes;
 
-    private float totalTime = 121; // In seconds
+    private float totalTime = 10; // In seconds
 
     private EstadoJuego estado;
 
@@ -706,8 +706,8 @@ public class ArcadeMode extends ScreenTemplate {
                 noMusicBtn.remove();
 
             }
-            if(!pref.getBoolean("musicOn")){
-                musicBtn.setPosition(373,431);
+                if(!pref.getBoolean("musicOn")){
+                    musicBtn.setPosition(373,431);
                 escenaPausa.addActor(noMusicBtn);
                 musicBtn.remove();
             }
@@ -937,6 +937,7 @@ public class ArcadeMode extends ScreenTemplate {
                     if(pref.getBoolean("musicOn")){
                         sheepEm.win.stop();
                     }
+                    sheepEm.stopLevelOneMusic();
                 }
             });
             this.addActor(retryLevelButton);
@@ -956,6 +957,7 @@ public class ArcadeMode extends ScreenTemplate {
                     if(pref.getBoolean("musicOn")){
                         sheepEm.win.stop();
                     }
+                    sheepEm.stopLevelOneMusic();
                 }
             });
             this.addActor(levelsButton);

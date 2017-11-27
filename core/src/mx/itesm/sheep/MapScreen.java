@@ -87,7 +87,6 @@ public class MapScreen extends ScreenTemplate {
             }
         });
 
-        TextureRegionDrawable nightBg = new TextureRegionDrawable(new TextureRegion(nightBackground));
 
         TextureRegionDrawable trdBg = new TextureRegionDrawable(new TextureRegion(background));
         Image bg =  new Image(trdBg);
