@@ -91,12 +91,7 @@ public class StoryScreen extends ScreenTemplate {
         TextureRegion fadeIn = (TextureRegion) fadeInAnimation.getKeyFrame(elapsedTime,false);
         batch.draw(fadeIn,0,0);
 
-        if(elapsedTime>=6){
-            elapsedTime2 += Gdx.graphics.getDeltaTime();
-            TextureRegion fadeOut = (TextureRegion) fadeOutAnimation.getKeyFrame(elapsedTime2,false);
-            batch.draw(fadeOut,0,0);
-            System.out.println("Done");
-        }
+
 
         batch.end();
 
