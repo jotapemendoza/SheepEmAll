@@ -208,14 +208,6 @@ public class MapScreen extends ScreenTemplate {
         /*----------------------- TESTING ---------------------*/
 
 
-        pref.putBoolean("wonLevelOne", true);
-        pref.putBoolean("wonLevelTwo",true);
-        pref.putBoolean("arcade",true);
-
-
-
-
-
         /*------------------------BATCH---------------------*/
         batch.begin();
 
