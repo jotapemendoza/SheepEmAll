@@ -141,6 +141,8 @@ public class LevelTwo extends ScreenTemplate {
     private Animation animation;
     float elapsedTime;
     private Texture rainbow;
+    private float startTime;
+    private Texture tutorial;
 
 
     public LevelTwo(SheepEm sheepEm){
@@ -155,7 +157,6 @@ public class LevelTwo extends ScreenTemplate {
         font = new BitmapFont(Gdx.files.internal("Intro.fnt"));
         createScenes();
         estado = EstadoJuego.JUGANDO;
-        Gdx.input.setInputProcessor(escenaJuego);
         Gdx.input.setCatchBackKey(true);
         lifes = 3;
         sheep = Gdx.audio.newMusic(Gdx.files.internal("SFX/sheep_sound.mp3"));
@@ -574,6 +575,8 @@ public class LevelTwo extends ScreenTemplate {
         oveEstaticWhite = new Texture("Sheep/Level 2/White/sheep_grazing.png");
         oveEstaticYellow = new Texture("Sheep/Level 2/Yellow/sheep_grazing.png");
         oveEstaticRainbow = new Texture("Sheep/Level 2/Rainbow/sheep_grazing.png");
+
+        tutorial = new Texture("rainbowTutorial.png");
     }
 
 
@@ -585,14 +588,11 @@ public class LevelTwo extends ScreenTemplate {
         clearScreen(0, 0, 0);
         batch.setProjectionMatrix(camera.combined);
 
-        float deltaTime = Gdx.graphics.getDeltaTime(); //You might prefer getRawDeltaTime()
 
-        if(estado == EstadoJuego.JUGANDO){
-            if(totalTime>=1) totalTime -= deltaTime;
-        }
+        startTime+=Gdx.graphics.getDeltaTime();
 
-
-        if (estado == EstadoJuego.JUGANDO) {
+        if (estado == EstadoJuego.JUGANDO && startTime>=4.5) {
+            Gdx.input.setInputProcessor(escenaJuego);
             salida += Gdx.graphics.getDeltaTime();
             tiempo += Gdx.graphics.getDeltaTime();
             sheepTimer -= Gdx.graphics.getDeltaTime();
@@ -611,16 +611,16 @@ public class LevelTwo extends ScreenTemplate {
 
         batch.draw(barn_shadow,466,1709);
 
-        for (int i = 1; i < arrOvejas.size; i++) {
-            if (salida <= 8.0f) {
-                arrOvejas.get(i).setVelocidad(velocidadOve);
-                arrOvejas.get(i).render(batch);
+        if(startTime>4.5) {
+            for (int i = 1; i < arrOvejas.size; i++) {
+                if (salida <= 8.0f) {
+                    arrOvejas.get(i).setVelocidad(velocidadOve);
+                    arrOvejas.get(i).render(batch);
+                } else {
+                    velocidadOve += 0.5f;
+                    salida = 0;
+                }
             }
-            else{
-                velocidadOve += 0.5f;
-                salida = 0;
-            }
-
         }
 
         batch.draw(barn,0,1709);
@@ -675,9 +675,15 @@ public class LevelTwo extends ScreenTemplate {
             arrOvejas.get(0).render(batch);
         }
 
+        if(startTime<4.5){
+            batch.draw(tutorial,0,0);
+        }
+
         batch.end();
 
-        escenaJuego.draw();
+        if(startTime>4.5){
+            escenaJuego.draw();
+        }
 
 
         if (estado == EstadoJuego.PAUSADO) {
@@ -737,7 +743,7 @@ public class LevelTwo extends ScreenTemplate {
         }
 
         if(pref.getBoolean("musicOn")){
-            if(estado == EstadoJuego.JUGANDO){
+            if(estado == EstadoJuego.JUGANDO && startTime>=4.5){
                 sheepEm.levelTwoMusic.play();
                 sheepEm.levelTwoMusic.setLooping(true);
             }else{

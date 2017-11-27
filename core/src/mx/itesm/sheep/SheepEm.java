@@ -20,7 +20,7 @@ public class SheepEm extends Game
 
 	@Override
 	public void create() {
-		setScreen(new ArcadeMode(this));
+		setScreen(new LevelTwo(this));
 
 		// Splash ScreenTemplate
 		menuMusic = Gdx.audio.newMusic(Gdx.files.internal("music/menuMusic.mp3"));
