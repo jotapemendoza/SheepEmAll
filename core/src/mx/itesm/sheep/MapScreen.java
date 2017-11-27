@@ -225,7 +225,7 @@ public class MapScreen extends ScreenTemplate {
             batch.draw(levelThree,78,116);
             escenaLevels.addActor(levelThreeBtn);
         }
-        if(pref.getBoolean("arcade")){
+        if(!pref.getBoolean("arcade")){ // prueba
             batch.draw(arcade,78,116);
             escenaLevels.addActor(arcadeButton);
         }

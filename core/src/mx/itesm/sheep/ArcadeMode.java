@@ -84,10 +84,20 @@ public class ArcadeMode extends ScreenTemplate {
     private Texture oveDerYellow;
     private Texture oveDerMovYellow;
 
+    private Texture oveArrRainbow;
+    private Texture oveArrMovRainbow;
+    private Texture oveAbRainbow;
+    private Texture oveAbMovRainbow;
+    private Texture oveIzqRainbow;
+    private Texture oveIzqMovRainbow;
+    private Texture oveDerRainbow;
+    private Texture oveDerMovRainbow;
+
     private Texture oveEstaticBlue;
     private Texture oveEstaticRed;
     private Texture oveEstaticWhite;
     private Texture oveEstaticYellow;
+    private Texture oveEstaticRainbow;
 
     private Boolean played = false;
 
@@ -98,16 +108,16 @@ public class ArcadeMode extends ScreenTemplate {
     private Sheep ovejaMoviendo = null;
     private int ovejaMovX;
     private int ovejaMovY;
-    private final int cantOve = 100;
+    private final int cantOve = 200;
     private int contOvejas = 0;
-    private String arrColores[] = {"WHITE","BLUE","RED","YELLOW"};
+    private String arrColores[] = {"WHITE","BLUE","RED","YELLOW","RAINBOW"};
     private String arrTipos[] = {"NORMAL","ALIEN","RAINBOW"};
 
     private float salida;
     private float velocidadOve = 1.0f;
     private int lifes;
 
-    float totalTime = 120; // In seconds
+    private float totalTime = 120; // In seconds
 
     private EstadoJuego estado;
 
@@ -221,19 +231,28 @@ public class ArcadeMode extends ScreenTemplate {
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer) {
                 super.dragStop(event, x, y, pointer);
-                //sheep.stop();
-                isUp = false;
                 if(ovejaMoviendo != null){
                     // verificar si está en el corral
                     if(cordenadasCorral(x,y,ovejaMoviendo.getColor())){
-                        ovejaMoviendo.setEstado(ovejaMoviendo.getEstadoOriginal());
-                        contOvejas++;
-                        ovejaMoviendo = null;
+                        if (ovejaMoviendo.getColor().equals("RAINBOW")){
+                            ovejaMoviendo.setEstado(ovejaMoviendo.getEstadoOriginal());
+                            //lifes++;
+                            contOvejas++;
+                            totalTime += 10;
+                            Gdx.app.log("oveja","en corral: " + contOvejas);
+                            ovejaMoviendo = null;
+                        }else {
+                            ovejaMoviendo.setEstado(ovejaMoviendo.getEstadoOriginal());
+                            contOvejas++;
+                            Gdx.app.log("oveja","en corral: " + contOvejas);
+                            ovejaMoviendo = null;
+                        }
                     }else{
                         if(!cordenadasLineales(x,y)){
                             ovejaMoviendo.setEstado(Sheep.Estado.BOOM);
-                            lifes--;
-                            contOvejas++;
+                            //lifes--;
+                            contOvejas--;
+                            Gdx.app.log("corral", "Corral incorrecto");
                             ovejaMoviendo = null;
                         }else{
                             ovejaMoviendo.setSeMovio(false);
@@ -252,10 +271,14 @@ public class ArcadeMode extends ScreenTemplate {
 
     // Validar corral correcto ---------------------------------------------------------------------
     public boolean cordenadasCorral(float xP, float yP, String color) {
-        if ((xP >= 0 && xP <= 405 && yP >= 110 && yP <= 720 && color.equals("RED")) ||
-                (xP >= 677 && xP <= 1080 && yP >= 110 && yP <= 720 && color.equals("BLUE")) ||
-                (xP >= 0 && xP <= 405 && yP >= 1105 && yP <= 1662 && color.equals("WHITE")) ||
-                (xP >= 677 && xP <= 1080 && yP >= 1105 && yP <= 1662 && color.equals("YELLOW"))){
+        if ((xP >= 0 && xP <= 405 && yP >= 110 && yP <= 720
+                && (color.equals("RED") || color.equals("RAINBOW"))) ||
+                (xP >= 677 && xP <= 1080 && yP >= 110 && yP <= 720
+                        && (color.equals("BLUE") || color.equals("RAINBOW"))) ||
+                (xP >= 0 && xP <= 405 && yP >= 1105 && yP <= 1662
+                        && (color.equals("WHITE") || color.equals("RAINBOW"))) ||
+                (xP >= 677 && xP <= 1080 && yP >= 1105 && yP <= 1662
+                        && (color.equals("YELLOW") || color.equals("RAINBOW")))){
             return true;
         }
         return false;
@@ -288,13 +311,29 @@ public class ArcadeMode extends ScreenTemplate {
         // Crear arreglo Ovejas si no existe
         if (arrOvejas == null) {
             arrOvejas = new Array<Sheep>(cantOve);
+
+            Sheep rainbowArr = new Sheep(oveArrRainbow, oveArrMovRainbow, oveEstaticRainbow,
+                    Sheep.Estado.ARRIBA, arrColores[4], arrTipos[2]);
+            arrOvejas.add(rainbowArr);
+
+            Sheep rainbowAb = new Sheep(oveAbRainbow, oveAbMovRainbow, oveEstaticRainbow,
+                    Sheep.Estado.ABAJO, arrColores[4], arrTipos[2]);
+            arrOvejas.add(rainbowAb);
+
+            Sheep rainbowIzq = new Sheep(oveIzqRainbow, oveIzqMovRainbow, oveEstaticRainbow,
+                    Sheep.Estado.IZQUIERDA, arrColores[4], arrTipos[2]);
+            arrOvejas.add(rainbowIzq);
+
+            Sheep rainbowDer = new Sheep(oveDerRainbow, oveDerMovRainbow, oveEstaticRainbow,
+                    Sheep.Estado.DERECHA, arrColores[4], arrTipos[2]);
+            arrOvejas.add(rainbowDer);
         }
         // Llenar arreglo de ovejas por tiempo
         if (arrOvejas.size < cantOve){
 
             Sheep ove;
 
-            for (int i = 0; i < 1; i++){
+            for (int i = 4; i < 5; i++){
                 int random = (int) (Math.random()*4)+1;
                 int randomColor = (int) (Math.random()*4)+1;
 
@@ -492,11 +531,22 @@ public class ArcadeMode extends ScreenTemplate {
         oveDerYellow = new Texture("Sheep/Level 1/Yellow/sheep_right_yellow.png");
         oveDerMovYellow = new Texture("Sheep/Level 1/Yellow/sheep_moving_right_yellow.png");
 
+        // oveja Rainbow
+        oveArrRainbow = new Texture("Sheep/Level 2/Rainbow/rainbow_down.png");
+        oveArrMovRainbow = new Texture("Sheep/Level 2/Rainbow/rainbow_moving_down.png");
+        oveAbRainbow = new Texture("Sheep/Level 2/Rainbow/rainbow_up.png");
+        oveAbMovRainbow = new Texture("Sheep/Level 2/Rainbow/rainbow_moving_up.png");
+        oveIzqRainbow = new Texture("Sheep/Level 2/Rainbow/rainbow_left.png");
+        oveIzqMovRainbow = new Texture("Sheep/Level 2/Rainbow/rainbow_moving_left.png");
+        oveDerRainbow = new Texture("Sheep/Level 2/Rainbow/rainbow_right.png");
+        oveDerMovRainbow = new Texture("Sheep/Level 2/Rainbow/rainbow_moving_right.png");
+
         // oveja estática
         oveEstaticBlue = new Texture("Sheep/Level 1/Blue/sheep_grazing.png");
         oveEstaticRed = new Texture("Sheep/Level 1/Red/sheep_grazing.png");
         oveEstaticWhite = new Texture("Sheep/Level 1/White/sheep_grazing.png");
         oveEstaticYellow = new Texture("Sheep/Level 1/Yellow/sheep_grazing.png");
+        oveEstaticRainbow = new Texture("Sheep/Level 2/Rainbow/sheep_grazing.png");
 
         arcadeTop =  new Texture("arcadeTop.png");
         opaque = new Texture("opaque.png");
@@ -568,8 +618,28 @@ public class ArcadeMode extends ScreenTemplate {
 
             batch.draw(barn_shadow,467,1709);
 
+            if (tiempo >= 30.0){ // a los 30 seg sale la oveja arcoiris arriba
+                arrOvejas.get(0).setVelocidad(velocidadOve);
+                arrOvejas.get(0).render(batch);
+            }
 
-            for (int i = 0; i < arrOvejas.size; i++) {
+            if (tiempo >= 60.0){ // a los 60 seg sale la oveja arcoiris abajo
+                arrOvejas.get(1).setVelocidad(velocidadOve);
+                arrOvejas.get(1).render(batch);
+            }
+
+            if (tiempo >= 90.0){ // a los 90 seg sale la oveja arcoiris izquierda
+                arrOvejas.get(2).setVelocidad(velocidadOve);
+                arrOvejas.get(2).render(batch);
+            }
+
+            if (tiempo >= 110.0){ // a los 110 seg sale la oveja arcoiris derecha
+                arrOvejas.get(3).setVelocidad(velocidadOve);
+                arrOvejas.get(3).render(batch);
+            }
+
+
+            for (int i = 4; i < arrOvejas.size; i++) {
                 if (salida <= 10) {
                     arrOvejas.get(i).setVelocidad(velocidadOve);
                     arrOvejas.get(i).render(batch);
