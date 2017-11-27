@@ -1244,7 +1244,7 @@ public class LevelThree extends ScreenTemplate {
             nextLevelButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.setScreen(new AlienLevel(sheepEm));
+                    sheepEm.setScreen(new AlienStory(sheepEm));
                     if(pref.getBoolean("musicOn")){
                         sheepEm.win.stop();
                     }

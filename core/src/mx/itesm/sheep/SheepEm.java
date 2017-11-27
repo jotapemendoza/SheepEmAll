@@ -17,10 +17,11 @@ public class SheepEm extends Game
 	protected Music finalMusic;
 	protected Music alienLevel;
 	protected Music hit;
+	protected Music levelOne;
 
 	@Override
 	public void create() {
-		setScreen(new SplashScreen(this));
+		setScreen(new LevelOne(this));
 
 		menuMusic = Gdx.audio.newMusic(Gdx.files.internal("music/menuMusic.mp3"));
 		levelOneMusic = Gdx.audio.newMusic(Gdx.files.internal("music/gameMusic.mp3"));
@@ -32,6 +33,8 @@ public class SheepEm extends Game
 		finalMusic = Gdx.audio.newMusic(Gdx.files.internal("music/finalMusic.mp3"));
 		alienLevel = Gdx.audio.newMusic(Gdx.files.internal("music/levelAlien.mp3"));
 		hit = Gdx.audio.newMusic(Gdx.files.internal("SFX/hit.mp3"));
+		levelOne = Gdx.audio.newMusic(Gdx.files.internal("music/levelOne.mp3"));
+
 	}
 
 	public void startMenuMusic(){

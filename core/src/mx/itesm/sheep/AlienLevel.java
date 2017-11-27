@@ -110,9 +110,6 @@ public class AlienLevel extends ScreenTemplate {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                if(pref.getBoolean("fxOn")){
-                    sheepEm.hit.play();
-                }
                 hpAlien--;
                 outterimg.setZIndex(10);
                 sheepAbd.setY(sheepAbd.gety()-13);
