@@ -100,8 +100,16 @@ public class MapScreen extends ScreenTemplate {
         levelOneBtn.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                sheepEm.setScreen(new LevelOne(sheepEm));
-                sheepEm.pauseMenuMusic();
+                if (pref.getBoolean("playedLevel1")){
+                    sheepEm.setScreen(new LevelOne(sheepEm));
+                    sheepEm.pauseMenuMusic();
+                    pref.flush();
+                }else{
+                    sheepEm.setScreen(new StoryScreen(sheepEm));
+                    sheepEm.pauseMenuMusic();
+                    pref.flush();
+                }
+                pref.putBoolean("playedLevel1",true);
                 pref.flush();
 
             }

@@ -272,6 +272,7 @@ public class SettingsScreen extends ScreenTemplate {
                     pref.putBoolean("wonLevelTwo",false);
                     pref.putInteger("highscore", 0);
                     pref.putBoolean("arcade",false);
+                    pref.putBoolean("playedLevel1",false);
                     pref.flush();
                     popup = false;
                     Gdx.input.setInputProcessor(escenaSettings);

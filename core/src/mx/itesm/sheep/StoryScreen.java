@@ -2,6 +2,7 @@ package mx.itesm.sheep;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -16,13 +17,21 @@ import java.util.concurrent.TimeoutException;
  * Created by josepablo on 11/25/17.
  */
 
-public class StoryScreen extends ScreenTemplate{
+public class StoryScreen extends ScreenTemplate {
 
-    private SheepEm sheepEm;
+    private final SheepEm sheepEm;
+    private Stage storyStage;
+
     private Texture background;
-    private Stage storyScene;
-    private Texture clear;
-    private ImageButton imgBackground;
+
+    private TextureRegion[] animationFrames;
+    private TextureRegion[] animationFrames2;
+    private Animation fadeInAnimation;
+    private Animation fadeOutAnimation;
+    private float elapsedTime;
+    private float elapsedTime2;
+    private Texture fadeIn;
+    private ImageButton button;
 
     public StoryScreen(SheepEm sheepEm){
         this.sheepEm = sheepEm;
@@ -30,40 +39,73 @@ public class StoryScreen extends ScreenTemplate{
 
     @Override
     public void show() {
-        loadGraphics();
+        loadTextures();
         createScene();
+        Gdx.input.setInputProcessor(storyStage);
+
+        fadeIn = new Texture("fadeIn.png");
+
+
+        TextureRegion[][] tmpFrames = TextureRegion.split(fadeIn,1080,1920);
+
+        animationFrames = new TextureRegion[7];
+        animationFrames2 = new TextureRegion[7];
+
+        int index = 0;
+
+        for (int i = 6; i >= 0 ; i--) {
+            animationFrames[index++] = tmpFrames[0][i];
+        }
+
+        index = 0;
+        for (int i = 0; i < 7; i++) {
+            animationFrames2[index++] = tmpFrames[0][i];
+        }
+
+
+        fadeOutAnimation = new Animation(1f/15f,animationFrames2);
+        fadeInAnimation = new Animation(1f/15f,animationFrames);
     }
 
-    private void loadGraphics() {
+    private void loadTextures() {
         background = new Texture("story1.0.png");
-        clear = new Texture("clear.png");
     }
 
     private void createScene() {
-        storyScene = new Stage(view);
 
-        TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(background));
-        imgBackground = new ImageButton(trdBack);
+        storyStage = new Stage(view);
+        TextureRegionDrawable trdBackground = new TextureRegionDrawable(new TextureRegion(background));
+        Image imgBackground = new Image(trdBackground);
         imgBackground.setPosition(0,0);
-        storyScene.addActor(imgBackground);
-        imgBackground.addListener( new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                //camera.position.set(1200,1000,0);
-                Gdx.app.log("Camera Position","Changed");
-            }
-        } );
-
+        storyStage.addActor(imgBackground);
 
     }
-
-
 
     @Override
     public void render(float delta) {
-        batch.setProjectionMatrix(camera.combined);
-        storyScene.draw();
+        storyStage.draw();
+
+        batch.begin();
+
+        elapsedTime += Gdx.graphics.getDeltaTime();
+        TextureRegion fadeIn = (TextureRegion) fadeInAnimation.getKeyFrame(elapsedTime,false);
+        batch.draw(fadeIn,0,0);
+
+        if(elapsedTime>=6){
+            elapsedTime2 += Gdx.graphics.getDeltaTime();
+            TextureRegion fadeOut = (TextureRegion) fadeOutAnimation.getKeyFrame(elapsedTime2,false);
+            batch.draw(fadeOut,0,0);
+            System.out.println("Done");
+        }
+
+        batch.end();
+
+        if(elapsedTime>=6.8){
+            sheepEm.setScreen(new LevelOne(sheepEm));
+        }
+
     }
+
 
     @Override
     public void pause() {
