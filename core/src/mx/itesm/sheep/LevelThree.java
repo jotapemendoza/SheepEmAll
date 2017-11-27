@@ -182,7 +182,7 @@ public class LevelThree extends ScreenTemplate {
     private Texture rainbow;
 
     private float startTime;
-    private Texture tutorial;
+    private Texture LevelThreeTutorial;
 
 
     public LevelThree(SheepEm sheepEm){
@@ -828,7 +828,7 @@ public class LevelThree extends ScreenTemplate {
         oveEstaticWhite = new Texture("Sheep/Level 3/White/sheep_grazing.png");
         oveEstaticYellow = new Texture("Sheep/Level 3/Yellow/sheep_grazing.png");
         oveEstaticRainbow = new Texture("Sheep/Level 2/Rainbow/sheep_grazing.png");
-        tutorial = new Texture("level3Tutorial.png");
+        LevelThreeTutorial = new Texture("level3Tutorial.png");
     }
 
 
@@ -913,7 +913,7 @@ public class LevelThree extends ScreenTemplate {
         }
 
         if(startTime<4.5){
-            batch.draw(tutorial,0,0);
+            batch.draw(LevelThreeTutorial,0,0);
         }
 
         if(lifes<=0){
