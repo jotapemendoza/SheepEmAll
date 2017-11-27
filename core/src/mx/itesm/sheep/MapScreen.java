@@ -138,7 +138,7 @@ public class MapScreen extends ScreenTemplate {
         arcadeButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                sheepEm.setScreen(new LevelThree(sheepEm));
+                sheepEm.setScreen(new ArcadeMode(sheepEm));
                 sheepEm.pauseMenuMusic();
                 pref.flush();
             }
@@ -203,6 +203,18 @@ public class MapScreen extends ScreenTemplate {
 
         escenaLevels.draw();
         moveClouds(delta);
+
+
+        /*----------------------- TESTING ---------------------*/
+
+
+        pref.putBoolean("wonLevelOne", true);
+        pref.putBoolean("wonLevelTwo",true);
+        pref.putBoolean("arcade",true);
+
+
+
+
 
         /*------------------------BATCH---------------------*/
         batch.begin();
