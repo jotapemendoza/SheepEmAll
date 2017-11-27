@@ -107,7 +107,7 @@ public class ArcadeMode extends ScreenTemplate {
     private float velocidadOve = 1.0f;
     private int lifes;
 
-    float totalTime = 120;
+    float totalTime = 20;
 
     private EstadoJuego estado;
 
@@ -128,6 +128,7 @@ public class ArcadeMode extends ScreenTemplate {
 
     private int sheepCounter;
     private Texture arcadeTop;
+    private Texture opaque;
 
 
     public ArcadeMode(SheepEm sheepEm){
@@ -498,6 +499,7 @@ public class ArcadeMode extends ScreenTemplate {
         oveEstaticYellow = new Texture("Sheep/Level 1/Yellow/sheep_grazing.png");
 
         arcadeTop =  new Texture("arcadeTop.png");
+        opaque = new Texture("opaque.png");
     }
 
 
@@ -535,54 +537,96 @@ public class ArcadeMode extends ScreenTemplate {
 
         }
 
+        if(seconds<=0){
+            estado = EstadoJuego.TERMINADO;
+            System.out.println("time done");
+        }
+
+        if(estado ==  EstadoJuego.TERMINADO){
+            Gdx.input.setInputProcessor(endScene);
+            if(contOvejas>pref.getInteger("highscore")){
+                pref.putInteger("highscore",contOvejas);
+                pref.flush();
+            }
+
+            endScene.draw();
+            detenerOveja(true);
+            if(pref.getBoolean("musicOn")){
+                sheepEm.win.play();
+                sheepEm.win.setLooping(true);
+            }
+            /*------------------------HIGH SCORE SAVE ---------------------*/
+
+        }
+
         /*------------------------BATCH BEGIN ---------------------*/
 
         batch.begin();
 
-        batch.draw(background,0,0);
+        if(estado == EstadoJuego.JUGANDO || estado == EstadoJuego.PAUSADO){
+            batch.draw(background,0,0);
 
-        batch.draw(barn_shadow,467,1709);
+            batch.draw(barn_shadow,467,1709);
 
 
-        for (int i = 0; i < arrOvejas.size; i++) {
-            if (salida <= 10) {
-                arrOvejas.get(i).setVelocidad(velocidadOve);
-                arrOvejas.get(i).render(batch);
-            } else {
-                velocidadOve += 0.5f;
-                salida = 0;
+            for (int i = 0; i < arrOvejas.size; i++) {
+                if (salida <= 10) {
+                    arrOvejas.get(i).setVelocidad(velocidadOve);
+                    arrOvejas.get(i).render(batch);
+                } else {
+                    velocidadOve += 0.5f;
+                    salida = 0;
+                }
+
             }
 
-        }
+            batch.draw(barn,1,1709);
 
-        batch.draw(barn,1,1709);
+            batch.draw(cr,0,1617);
 
-        batch.draw(cr,0,1617);
-
-        batch.draw(arcadeTop,40,1764);
+            batch.draw(arcadeTop,40,1764);
 
         /*------------------------------- SHEEP COUNTER ON SCREEN --------------------------------*/
-        font.draw(batch, Integer.toString(contOvejas), 200, 1848);
+            font.draw(batch, Integer.toString(contOvejas), 200, 1848);
 
         /*-------------------------------- COUNTBACK ON SCREEN -----------------------------------*/
-        if(seconds>=10){
-            font.draw(batch,Integer.toString(minutes)+ ":"+ Integer.toString(seconds),720,1848);
-        }else{
-            font.draw(batch,Integer.toString(minutes)+ ":0"+ Integer.toString(seconds),720,1848);
+            if(seconds>=10){
+                font.draw(batch,Integer.toString(minutes)+ ":"+ Integer.toString(seconds),715,1848);
+            }else{
+                font.draw(batch,Integer.toString(minutes)+ ":0"+ Integer.toString(seconds),705,1848);
+            }
+        }
+
+        /*-------------------------------- FINAL SCORE ON SCREEN ---------------------------------*/
+        if(estado==EstadoJuego.TERMINADO){
+
+            int x;
+            if(contOvejas<10){
+                x = 470;
+            }else {
+                x = 420;
+            }
+            numberFont.draw(batch,Integer.toString(contOvejas),x,1169);
+
+        /*-------------------------------- HIGH SCORE ON SCREEN ---------------------------------*/
+
+            font.draw(batch,Integer.toString(pref.getInteger("highscore")),530,570);
         }
 
         batch.end();
         /*------------------------BATCH END ---------------------*/
 
 
-        escenaJuego.draw();
+        if(estado == EstadoJuego.JUGANDO || estado == EstadoJuego.PAUSADO){
+            escenaJuego.draw();
+        }
+
 
 
 
         if (estado == EstadoJuego.PAUSADO) {
             escenaPausa.draw();
 
-            /********************************/
             if(pref.getBoolean("musicOn")){
                 musicBtn.setPosition(373,431);
                 escenaPausa.addActor(musicBtn);
@@ -607,24 +651,10 @@ public class ArcadeMode extends ScreenTemplate {
                 fxBtn.remove();
             }
 
-
-            /********************************/
-
         }
 
-        if(tiempo>=90){
-            estado = EstadoJuego.TERMINADO;
-        }
 
-        if(estado ==  EstadoJuego.TERMINADO){
-            Gdx.input.setInputProcessor(endScene);
-            endScene.draw();
-            detenerOveja(true);
-            if(pref.getBoolean("musicOn")){
-                sheepEm.win.play();
-                sheepEm.win.setLooping(true);
-            }
-        }
+
 
         if(pref.getBoolean("musicOn")){
             if(estado == EstadoJuego.JUGANDO){
@@ -728,7 +758,7 @@ public class ArcadeMode extends ScreenTemplate {
                 public void clicked(InputEvent event, float x, float y) {
                     // Regresa al menú
                     sheepEm.stopLevelOneMusic();
-                    sheepEm.setScreen(new LevelOne(sheepEm));
+                    sheepEm.setScreen(new ArcadeMode(sheepEm));
                     sheepEm.playLevelOneMusic();
                 }
             });
@@ -830,7 +860,7 @@ public class ArcadeMode extends ScreenTemplate {
             retryLevelButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    sheepEm.setScreen(new LevelOne(sheepEm));
+                    sheepEm.setScreen(new ArcadeMode(sheepEm));
                     if(pref.getBoolean("musicOn")){
                         sheepEm.win.stop();
                     }

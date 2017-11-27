@@ -172,6 +172,8 @@ public class AlienLevel extends ScreenTemplate {
             TextureRegion sheeptr = (TextureRegion) animation.getKeyFrame(elapsedTime,false);
             batch.draw(sheeptr,0,0);
             sheepAbd.hideSheep();
+            pref.putBoolean("arcade",true);
+            pref.flush();
 
         }
         batch.end();
