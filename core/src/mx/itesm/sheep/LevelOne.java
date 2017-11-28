@@ -162,7 +162,6 @@ public class LevelOne extends ScreenTemplate {
 
 
 
-
         // Botón de pausa --------------------------------------------------------------------------
 
         Texture pressedPauseButton = new Texture("Buttons/pressed/pressedPauseButton.png");

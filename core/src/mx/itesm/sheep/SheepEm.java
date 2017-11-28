@@ -22,7 +22,7 @@ public class SheepEm extends Game
 	@Override
 	public void create() {
 
-		setScreen(new SplashScreen(this));
+		setScreen(new StoryScreen(this));
 
 		menuMusic = Gdx.audio.newMusic(Gdx.files.internal("music/menuMusic.mp3"));
 		levelOneMusic = Gdx.audio.newMusic(Gdx.files.internal("music/gameMusic.mp3"));

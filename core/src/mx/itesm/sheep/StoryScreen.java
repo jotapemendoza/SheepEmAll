@@ -24,6 +24,9 @@ public class StoryScreen extends ScreenTemplate {
 
     private Texture background;
 
+    private float time;
+
+
     public StoryScreen(SheepEm sheepEm){
         this.sheepEm = sheepEm;
     }
@@ -53,12 +56,12 @@ public class StoryScreen extends ScreenTemplate {
             }
         } );
         storyStage.addActor(imgBackground);
+
     }
 
     @Override
     public void render(float delta) {
         storyStage.draw();
-
     }
 
 
@@ -76,4 +79,5 @@ public class StoryScreen extends ScreenTemplate {
     public void dispose() {
 
     }
+
 }
