@@ -24,15 +24,6 @@ public class StoryScreen extends ScreenTemplate {
 
     private Texture background;
 
-    private TextureRegion[] animationFrames;
-    private TextureRegion[] animationFrames2;
-    private Animation fadeInAnimation;
-    private Animation fadeOutAnimation;
-    private float elapsedTime;
-    private float elapsedTime2;
-    private Texture fadeIn;
-    private ImageButton button;
-
     public StoryScreen(SheepEm sheepEm){
         this.sheepEm = sheepEm;
     }
