@@ -25,7 +25,7 @@ class SplashScreen extends ScreenTemplate
 
     @Override
     public void render(float delta) {
-        clearScreen(0, 0, 0);
+        clearScreen(1, 1, 1);
         // Dibuja
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
