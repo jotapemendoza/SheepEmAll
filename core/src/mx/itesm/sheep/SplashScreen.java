@@ -29,7 +29,7 @@ class SplashScreen extends ScreenTemplate
         // Dibuja
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        batch.draw(logo_itesm,0,100);
+        batch.draw(logo_itesm,0,10);
 
         batch.end();
         // Actualiza
