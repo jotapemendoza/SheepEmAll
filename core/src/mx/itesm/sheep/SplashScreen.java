@@ -38,11 +38,16 @@ class SplashScreen extends ScreenTemplate
             sheepEm.setScreen(new LoadingScreen(sheepEm));
         }
 
-        if(pref.getBoolean("played")){
+        if (pref.getBoolean("playedLevel1")){
+            pref.putBoolean("musicOn",pref.getBoolean("musicOn"));
+            pref.flush();
+        }else{
             pref.putBoolean("musicOn",true);
             pref.putBoolean("fxOn",true);
             pref.flush();
         }
+
+
     }
 
     @Override

@@ -294,6 +294,7 @@ class MenuScreen extends ScreenTemplate
             sheepEm.pauseMenuMusic();
         }
 
+
         pref.putBoolean("played",true);
         pref.flush();
 
