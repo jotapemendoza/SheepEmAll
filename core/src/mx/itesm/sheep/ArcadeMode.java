@@ -117,7 +117,7 @@ public class ArcadeMode extends ScreenTemplate {
     private float velocidadOve = 1.0f;
     private int lifes;
 
-    private float totalTime = 121; // In seconds
+    private float totalTime =120; // In seconds
 
     private EstadoJuego estado;
 
@@ -592,7 +592,6 @@ public class ArcadeMode extends ScreenTemplate {
 
         if(seconds<=0 && minutes<=0){
             estado = EstadoJuego.TERMINADO;
-            System.out.println("time done");
         }
 
         if(estado ==  EstadoJuego.TERMINADO){
@@ -660,30 +659,56 @@ public class ArcadeMode extends ScreenTemplate {
             batch.draw(arcadeTop,40,1764);
 
         /*------------------------------- SHEEP COUNTER ON SCREEN --------------------------------*/
+
             font.draw(batch, Integer.toString(contOvejas), 200, 1848);
 
         /*-------------------------------- COUNTBACK ON SCREEN -----------------------------------*/
-            if(seconds>=10){
-                font.draw(batch,Integer.toString(minutes)+ ":"+ Integer.toString(seconds),715,1848);
+
+            if(minutes>0 && minutes<2){
+                if(seconds<10){
+                    font.draw(batch,Integer.toString(minutes)+ ":0"+ Integer.toString(seconds),715,1848);
+                }
+                else{
+                    font.draw(batch,Integer.toString(minutes)+ ":"+ Integer.toString(seconds),715,1848);
+                }
+
             }else{
-                font.draw(batch,Integer.toString(minutes)+ ":0"+ Integer.toString(seconds),705,1848);
+                if(seconds<10){
+                    font.draw(batch,Integer.toString(minutes)+ ":0"+ Integer.toString(seconds),699,1848);
+                }
+                else{
+                    font.draw(batch,Integer.toString(minutes)+ ":"+ Integer.toString(seconds),710,1848);
+                }
+
             }
         }
 
         /*-------------------------------- FINAL SCORE ON SCREEN ---------------------------------*/
-        if(estado==EstadoJuego.TERMINADO){
+        if(estado==EstadoJuego.TERMINADO) {
 
-            int x;
-            if(contOvejas<10){
-                x = 470;
-            }else {
-                x = 420;
+            int x = 390;
+            if (contOvejas < 10) {
+                numberFont.draw(batch, "00" + Integer.toString(contOvejas), x, 1169);
             }
-            numberFont.draw(batch,Integer.toString(contOvejas),x,1169);
+            if (contOvejas > 9 && contOvejas < 100) {
+                numberFont.draw(batch, "0" + Integer.toString(contOvejas), x, 1169);
+            } else {
+                numberFont.draw(batch, Integer.toString(contOvejas), 380, 1169);
+            }
+
 
         /*-------------------------------- HIGH SCORE ON SCREEN ---------------------------------*/
 
-            font.draw(batch,Integer.toString(pref.getInteger("highscore")),530,570);
+            if (pref.getInteger("highscore") < 10) {
+                font.draw(batch, "00" + Integer.toString(pref.getInteger("highscore")), 470, 570);
+            }
+            if (pref.getInteger("highscore") > 9 && pref.getInteger("highscore") < 100) {
+                font.draw(batch, "0" + Integer.toString(pref.getInteger("highscore")), 470, 570);
+            }
+            if (pref.getInteger("highscore") > 99) {
+                font.draw(batch, Integer.toString(pref.getInteger("highscore")), 470, 570);
+            }
+
         }
 
         batch.end();
