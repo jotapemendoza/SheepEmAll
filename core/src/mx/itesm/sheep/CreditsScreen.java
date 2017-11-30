@@ -58,11 +58,11 @@ public class CreditsScreen extends ScreenTemplate {
         timer+= Gdx.graphics.getDeltaTime();
 
         if(timer>=0.013){
-            imgCredits.setY(imgCredits.getY()+2);
+            imgCredits.setY(imgCredits.getY()+3);
             timer = 0;
         }
 
-        if(imgCredits.getY()>=1150){
+        if(imgCredits.getY()>=1330){
             sheepEm.finalMusic.stop();
             sheepEm.setScreen(new MenuScreen(sheepEm));
         }

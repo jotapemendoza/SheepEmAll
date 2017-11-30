@@ -33,7 +33,6 @@ public class SheepEm extends Game
 		levelTwoMusic = Gdx.audio.newMusic(Gdx.files.internal("music/levetwo.mp3"));
 		finalMusic = Gdx.audio.newMusic(Gdx.files.internal("music/finalMusic.mp3"));
 		alienLevel = Gdx.audio.newMusic(Gdx.files.internal("music/levelAlien.mp3"));
-		hit = Gdx.audio.newMusic(Gdx.files.internal("SFX/hit.mp3"));
 		levelOne = Gdx.audio.newMusic(Gdx.files.internal("music/levelOne.mp3"));
 
 	}

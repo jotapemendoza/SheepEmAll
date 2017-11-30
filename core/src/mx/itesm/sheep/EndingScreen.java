@@ -60,7 +60,7 @@ public class EndingScreen extends ScreenTemplate {
         batch.end();
 
         storyStage.draw();
-        if(elapsedTime>=3.0){
+        if(elapsedTime>=4.0){
             sheepEm.setScreen(new CreditsScreen(sheepEm));
         }
 
